@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{{ url_for('static', filename='images/Escudo.png') }}" type="image/png">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/modificar.css') }}">
+    <script src="{{ url_for('static', filename='scripts/menu.js') }}" defer></script>
+    <title>Modificar Intercambio de Menús</title>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const form = document.querySelector("form");
+
+            // Mostrar datos iniciales en la consola
+            console.log("Datos iniciales del formulario:");
+            const inputs = form.querySelectorAll("input, textarea");
+            inputs.forEach(input => {
+                console.log(`${input.name}: ${input.value}`);
+            });
+
+            // Confirmación antes de enviar
+            form.addEventListener("submit", (event) => {
+                event.preventDefault();
+                const confirmacion = confirm("¿Estás seguro de que deseas enviar este formulario?");
+                if (confirmacion) {
+                    form.submit();
+                } else {
+                    console.log("El envío fue cancelado por el usuario.");
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="link-container">
+            {% if rol == 'administrador' %}
+                <a class="btn" href="{{ url_for('iniciasesion_bp.dashboard_administrador') }}">Volver al Principal</a>
+            {% elif rol == 'operador' %}
+                <a class="btn" href="{{ url_for('iniciasesion_bp.dashboard_operador') }}">Volver al Principal</a>
+            {% endif %}
+        </div>
+        <h1>Modificar Intercambio: {{ numero_intercambio }}</h1>
+        <p>Operador: {{ datos.nombre_operador }}</p>
+        <p>Modalidad: {{ datos.descripcion }}</p>
+
+        <form method="POST" enctype="multipart/form-data">
+            <label for="justificacion_texto">Justificación:</label>
+            <textarea id="justificacion_texto" name="justificacion_texto" rows="4">{{ datos.justificacion_texto }}</textarea>
+        
+            {% for fecha_data in datos_por_fecha %}
+                <h2>Fecha de Ejecución:
+                    <input type="date" name="fecha_ejecucion_{{ fecha_data.fecha_index }}" value="{{ fecha_data.fecha }}">
+                </h2>
+        
+                {% for grupo in fecha_data.grupos %}
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Componente</th>
+                                <th>
+                                    Menú Oficial: 
+                                    <input type="hidden" name="numero_menu_oficial_{{ fecha_data.fecha_index }}_{{ grupo.grupo_index }}" value="{{ grupo.numero_menu_oficial }}">
+                                    {{ grupo.numero_menu_oficial }}
+                                </th>                                
+                                <th>
+                                    Menú Intercambio
+                                    <textarea class="number" name="numero_menu_intercambio_{{ fecha_data.fecha_index }}_{{ grupo.grupo_index }}">
+                                        {{ grupo.numero_menu_intercambio }}
+                                    </textarea>
+                                </th>
+                                
+                                
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for i in range(grupo.componentes|length) %}
+                                <tr>
+                                    <td>
+                                        {{ grupo.componentes[i] }}
+                                        <input type="hidden" name="componente_{{ fecha_data.fecha_index }}_{{ grupo.grupo_index }}_{{ i }}" value="{{ grupo.componentes[i] }}">
+                                    </td>
+                                    <td>
+                                        {{ grupo.menu_oficial[i] if i < grupo.menu_oficial|length else '' }}
+                                        <input type="hidden" name="menu_oficial_{{ fecha_data.fecha_index }}_{{ grupo.grupo_index }}_{{ i }}" value="{{ grupo.menu_oficial[i] if i < grupo.menu_oficial|length else '' }}">
+                                    </td>
+                                    <td>
+                                        <textarea 
+                                            name="menu_intercambio_{{ fecha_data.fecha_index }}_{{ grupo.grupo_index }}_{{ i }}" 
+                                            rows="1">{{ grupo.menu_intercambio[i] if i < grupo.menu_intercambio|length else '' }}</textarea>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% endfor %}
+            {% endfor %}
+
+            <div class="form-group">
+                <label for="pdf_adjunto">Adjuntar Soportes (PDF):</label>
+                <input type="file" id="pdf_adjunto" name="pdf_adjunto[]" accept=".pdf" multiple >
+            </div>
+        
+            <button type="submit" class="btn-submit">Enviar Modificado</button>
+        </form>
+        
+        
+    </div>
+</body>
+</html>

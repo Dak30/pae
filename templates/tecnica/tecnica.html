@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Técnica - PAE</title>
+    <link rel="stylesheet" href="/static/styles/tecnica.css">
+    <link rel="icon" href="{{ url_for('static', filename='images/Escudo.png') }}" type="image/png">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="/static/scripts/cargar_sedes_tecnica.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Crear un objeto de fecha para la fecha actual en Colombia (UTC-5)
+            const fechaActual = new Date();
+            const offset = -5; // Horario de Colombia (UTC-5)
+            fechaActual.setHours(fechaActual.getHours() + offset - fechaActual.getTimezoneOffset() / 60);
+            
+            // Formatear la fecha en el formato yyyy-mm-dd
+            const fechaFormato = fechaActual.toISOString().split('T')[0];
+    
+            // Establecer la fecha mínima en el campo de entrada
+            document.getElementById('fecha_visita').setAttribute('min', fechaFormato);
+
+            // Cargar los datos guardados en localStorage si existen
+            if (localStorage.getItem('form_data')) {
+                const savedData = JSON.parse(localStorage.getItem('form_data'));
+                for (const key in savedData) {
+                    if (savedData.hasOwnProperty(key)) {
+                        document.querySelector(`[name="${key}"]`).value = savedData[key];
+                    }
+                }
+            }
+
+            // Agregar un evento de "change" para guardar los datos cada vez que el usuario cambie un campo
+            const formElements = document.querySelectorAll('form input, form select');
+            formElements.forEach(element => {
+                element.addEventListener('change', function() {
+                    let formData = JSON.parse(localStorage.getItem('form_data') || '{}');
+                    formData[element.name] = element.value;
+                    localStorage.setItem('form_data', JSON.stringify(formData));
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    
+    
+    <form action="/guardar_tecnica" method="POST" enctype="multipart/form-data">
+
+        <h1>VISITAS DE TÉCNICA</h1>
+        <!-- Botón para regresar a la página principal -->
+        <label>
+            Este formulario está diseñado para registrar los aspectos técnicos relacionados con la operación de los servicios de alimentación escolar, con base en las exigencias establecidas por las resoluciones técnico-sanitarias Resolución 2674 de 2013 y Resolución 00335 de 2021, que regulan las normas de higiene para la elaboración, distribución y consumo de alimentos en el ámbito escolar.
+            <br><br>
+            Diligencie cada campo con información precisa para asegurar que el servicio de alimentación cumple con los requisitos establecidos por las autoridades sanitarias.
+        </label>
+
+        <!-- Campos del formulario -->
+        <label for="fecha_visita">Fecha de Visita:</label>
+        <input type="date" id="fecha_visita" name="fecha_visita" required><br>
+
+        <label for="hora_visita">Hora:</label>
+        <input type="time" id="hora_visita" name="hora_visita" required><br>
+
+        <label for="operador">Operador:</label>
+        <select id="operador" name="operador" required>
+            <option value="">Seleccione una opción</option>
+            {% for operador in operadores %}
+                <option value="{{ operador.id_operador }}">{{ operador.nombre }}</option>
+            {% endfor %}
+        </select><br>
+        
+        <label for="institucion">Institución Educativa:</label>
+        <select id="institucion" name="institucion" required>
+            <option value="">Seleccione una opción</option>
+        </select><br>
+        
+
+        <label for="sede">Sede:</label>
+        <select id="sede" name="sede" required>
+            <option value="">Seleccione una opción</option>
+            {% for sede in sedes %}
+                <option value="{{ sede.id }}">{{ sede.nombre }}</option>
+            {% endfor %}
+        </select><br>
+
+        <label for="codigo_sede">Código de Sede:</label>
+        <input type="text" id="codigo_sede" name="codigo_sede" readonly><br>
+
+        <label for="direccion">Dirección:</label>
+        <input type="text" id="direccion" name="direccion" readonly><br>
+
+        <label for="zona">Zona:</label>
+        <input type="text" id="zona" name="zona" readonly><br>
+
+        <label for="focalizacion">Cupos Focalización:</label>
+        <input type="number" id="focalizacion" name="focalizacion" required><br>
+
+        <label for="tipo_racion_tecnica">Modalidad:</label>
+        <select id="tipo_racion_tecnica" name="tipo_racion_tecnica" required>
+            <option value="">Seleccione una opción</option>
+            {% for tipo_racion in tipo_racion_tecnicas %}
+                <option value="{{ tipo_racion }}">{{ tipo_racion }}</option>
+            {% endfor %}
+        </select><br>
+
+        <h4>Todos los servicios de alimentación escolar deberán cumplir las exigencias establecidas en la reglamentación técnico-sanitaria Resolución 2674 de 2013 y Resolución 00335 del 2021, que establece las normas de higiene para la elaboración, distribución y consumo de alimentos.</h4>
+
+        <!-- Contenedor para las preguntas -->
+        <div id="preguntas-container"></div>
+
+        <label for="observacion">Observación:</label>
+        <textarea id="observacion_general" name="observacion_general" rows="4" cols="50" placeholder="Escriba aquí sus observaciones..."></textarea><br>
+
+        <label for="archivo">Adjuntar el archivo(Opcional):</label>
+        <input type="file" name="archivo" id="archivo" accept=".pdf, .jpg, .jpeg, .png, .doc, .docx" multiple>
+        <br><br>
+
+        <!-- Botón para enviar el formulario -->
+        <button type="submit">Guardar</button>  
+    </form>
+
+    <script>
+        $(document).ready(function() {
+            // Inicializa select2 en los elementos seleccionados
+            $('#institucion, #sede, #tipo_racion_tecnica').select2();
+
+            // Manejar el cambio en el tipo de ración
+            $('#tipo_racion_tecnica').change(function() {
+                const tipoRacion = $(this).val();
+                if (tipoRacion) {
+                    $.ajax({
+                        url: '/obtener_preguntas',
+                        method: 'GET',
+                        data: { tipo_racion: tipoRacion },
+                        success: function(data) {
+                            const container = $('#preguntas-container');
+                            container.empty();
+
+                            // Recorre cada categoría y sus preguntas
+                            $.each(data, function(categoria, preguntas) {
+                                preguntas.sort((a, b) => parseInt(a.numero) - parseInt(b.numero));
+                                
+                                // Añade el título de la categoría
+                                container.append(`<h2>${categoria}</h2>`);
+                                
+                                preguntas.forEach(pregunta => {
+                                    const preguntaId = 'pregunta_' + pregunta.id_tecnica;
+                                    const observacionId = 'observacion_' + pregunta.id_tecnica;
+                                    
+                                    container.append(
+                                        `<div class="verificacion-group">
+                                            <label for="${preguntaId}">
+                                                ${pregunta.numero} - ${pregunta.preguntas}
+                                            </label>
+                                            <div class="verificacion-controls">
+                                                <select id="${preguntaId}" name="${preguntaId}">
+                                                    <option value="1">Cumple</option>
+                                                    <option value="0">No Cumple</option>
+                                                    <option value="2">No Aplica</option>
+                                                </select>
+                                                <input type="text" id="${observacionId}" name="${observacionId}" placeholder="Observaciones">
+                                            </div>
+                                        </div>`
+                                    );
+                                });
+                            });
+                        },
+                        error: function(xhr, status, error) {
+                            console.error("Error al obtener preguntas: ", error);
+                        }
+                    });
+                } else {
+                    $('#preguntas-container').empty();
+                }
+            });
+
+            
+
+            // Función para cargar datos de sede
+            $('#sede').change(function() {
+                const sedeId = $(this).val();
+                if (sedeId) {
+                    $.ajax({
+                        url: `/get_sede_details/${sedeId}`,
+                        method: 'GET',
+                        success: function(data) {
+                            $('#codigo_sede').val(data.codigo);
+                            $('#direccion').val(data.direccion);
+                            $('#zona').val(data.zona);
+                        },
+                        error: function(xhr, status, error) {
+                            console.error("Error al obtener detalles de sede: ", error);
+                        }
+                    });
+                } else {
+                    $('#codigo_sede').val('');
+                    $('#direccion').val('');
+                    $('#zona').val('');
+                }
+            });
+        });
+
+        function previewImage(event, previewId) {
+            const input = event.target;
+            const file = input.files[0];
+            const preview = document.getElementById(previewId);
+        
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    preview.style.display = "block";
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{{ url_for('static', filename='images/Escudo.png') }}" type="image/png">
+    <title>Lista de Usuarios</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/usuarios.css') }}"> <!-- Agrega tu hoja de estilos si tienes -->
+    <script>
+        function abrirVentana(idUsuario) {
+            const modal = document.getElementById('modal-actualizar');
+            const iframe = document.getElementById('iframe-actualizar');
+            iframe.src = `/actualizar_usuario/${idUsuario}`;
+            modal.style.display = 'block';
+        }
+
+        function cerrarVentana() {
+            const modal = document.getElementById('modal-actualizar');
+            modal.style.display = 'none';
+            const iframe = document.getElementById('iframe-actualizar');
+            iframe.src = '';
+        }
+
+        function confirmarEliminacion(event, idUsuario) {
+            event.preventDefault();
+            if (confirm("¿Estás seguro de que deseas eliminar este usuario? Esta acción no se puede deshacer.")) {
+                document.getElementById(`form-eliminar-${idUsuario}`).submit();
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Gestión de Acceso de Usuarios</h1>
+    <a href="{{ url_for('iniciasesion_bp.dashboard_administrador') }}">Volver al Principal</a>
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Correo</th>
+                <th>Rol</th>
+                <th>Estado de Acceso</th>
+                <th>Editar</th>
+                <th>Eliminar</th>
+                <th>Habilitar Acceso</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for usuario in usuarios %}
+            <tr>
+                <td>{{ usuario['nombre'] }}</td>
+                <td>{{ usuario['correo'] }}</td>
+                <td>{{ usuario['rol'] }}</td>
+                <td>
+                    {% if usuario['habilitar_acceso'] %}
+                    <span style="color: green; font-weight: bold;">Habilitado</span>
+                    {% else %}
+                    <span style="color: red; font-weight: bold;">Inhabilitado</span>
+                    {% endif %}
+                </td>
+                <td>
+                    <button onclick="abrirVentana('{{ usuario['id_usuario'] }}')">Editar</button>
+                </td>
+                <td>
+                    <form id="form-eliminar-{{ usuario['id_usuario'] }}" method="POST" action="{{ url_for('iniciasesion_bp.eliminar_usuario', usuario_id=usuario['id_usuario']) }}">
+                        <button type="button" onclick="confirmarEliminacion(event, '{{ usuario['id_usuario'] }}')" class="btn btn-danger">Eliminar</button>
+                    </form>
+                </td>
+                <td>
+                    <form method="POST" action="{{ url_for('iniciasesion_bp.cambiar_acceso') }}">
+                        <input type="hidden" name="usuario_id" value="{{ usuario['id_usuario'] }}">
+                        {% if usuario['habilitar_acceso'] %}
+                        <button type="submit" name="habilitar" value="false">Inhabilitar</button>
+                        {% else %}
+                        <button type="submit" name="habilitar" value="true">Habilitar</button>
+                        {% endif %}
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Modal para edición -->
+    <div id="modal-actualizar" style="display: none;">
+        <div class="modal-content">
+            <span class="close" onclick="cerrarVentana()">&times;</span>
+            <iframe id="iframe-actualizar" style="width: 100%; height: 500px;" frameborder="0"></iframe>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{{ url_for('static', filename='images/Escudo.png') }}" type="image/png">
+    <link rel="stylesheet" href="/static/styles/informe_general.css">
+    <title>Informe General</title>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Ciclo de Menú</h1>
+            <div class="btn-container">
+                {% if rol == 'administrador' %}
+                    <a class="btn" href="{{ url_for('iniciasesion_bp.dashboard_administrador') }}">Volver al Principal</a>
+                {% elif rol == 'supervisor' %}
+                    <a class="btn" href="{{ url_for('iniciasesion_bp.dashboard_supervisor') }}">Volver al Principal</a>
+                {% elif rol == 'nutricionista' %}
+                    <a class="btn" href="{{ url_for('iniciasesion_bp.dashboard_nutricionista') }}">Volver al Principal</a>
+                {% endif %}
+            </div>
+        </header>
+
+        <section class="info-section">
+            <p><strong>El ciclo de menú escolar es un conjunto de menús planificados para ser entregados a los estudiantes, garantizando que cada comida cumpla con los estándares nutricionales y las normativas de salud pública.</strong></p>
+            
+            <h3>Tipos de Menú</h3>
+            <ul>
+                <li><strong><a href="{{ url_for('menus_bp.update_menu', menu_type='jornadaunica') }}">Jornada Única</a>:</strong> Menú diseñado para estudiantes que asisten a jornada escolar completa, proporcionando los alimentos necesarios para cubrir todas sus necesidades nutricionales durante el día.</li>
+                <li><strong><a href="{{ url_for('menus_bp.update_menu', menu_type='preparadoensitioam') }}">Preparado en Sitio AM</a>:</strong> Menú preparado en el establecimiento escolar antes de que inicie la jornada, destinado principalmente al desayuno de los estudiantes.</li>
+                <li><strong><a href="{{ url_for('menus_bp.update_menu', menu_type='preparadoensitiopm') }}">Preparado en Sitio PM</a>:</strong> Menú preparado en el establecimiento escolar, destinado para la merienda o la comida de la tarde.</li>
+                <li><strong><a href="{{ url_for('menus_bp.update_menu', menu_type='industrializado') }}">Industrializado</a>:</strong> Menú compuesto por productos procesados o preelaborados, que cumplen con las normativas vigentes de higiene y nutrición, y que son fáciles de almacenar y distribuir.</li>
+            </ul>
+
+            <h3>Objetivo</h3>
+            <p>El objetivo principal es asegurar que todos los menús proporcionados sean adecuados en términos nutricionales, higiénicos y de calidad, cumpliendo con las normativas de la Resolución 2674 de 2013 y Resolución 00335 del 2021 sobre la higiene de los alimentos en las instituciones educativas.</p>
+
+            <h3>Importancia del Seguimiento</h3>
+            <p>Realizar un seguimiento continuo y la actualización periódica de estos menús es esencial para garantizar una alimentación adecuada para los estudiantes, mejorando su bienestar físico y mental, y cumpliendo con los requerimientos establecidos por las autoridades sanitarias y educativas.</p>
+        </section>
+    </div>
+</body>
+</html>

@@ -1,0 +1,161 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+
+main {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #ffffff;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+/* Form Styles */
+h1 {
+    text-align: center;
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+fieldset {
+    border: none;
+    margin-bottom: 20px;
+    padding: 0;
+}
+
+legend {
+    font-size: 18px;
+    font-weight: bold;
+    color: #007BFF;
+    margin-bottom: 10px;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+input[type="text"], input[type="number"], input[type="date"], select, input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+input[type="file"] {
+    padding: 5px;
+}
+
+input[type="text"]:focus, input[type="number"]:focus, input[type="date"]:focus, select:focus {
+    border-color: #007BFF;
+    outline: none;
+    box-shadow: 0 0 4px rgba(0, 123, 255, 0.3);
+}
+
+.verificacion-group {
+    margin-bottom: 20px;
+}
+
+.verificacion-controls {
+    display: flex;
+    flex-direction: column;
+}
+
+.verificacion-controls input, .verificacion-controls select {
+    margin-bottom: 10px;
+}
+
+/* Buttons */
+button {
+    padding: 10px 20px;
+    margin: 10px 0;
+    background-color: #007BFF;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Note Styles */
+h4 {
+    font-size: 14px;
+    font-weight: normal;
+    color: #777;
+    text-align: justify;
+    margin-top: 20px;
+}
+
+/* Back Button */
+.btn {
+    display: inline-block;
+    padding: 10px 15px;
+    background-color: #007BFF;
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+/* Contenedor general */
+.observacion-general-container {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+/* Etiqueta */
+.observacion-general-container label {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    display: block;
+    margin-bottom: 10px;
+}
+
+/* Textarea */
+.observacion-general-container textarea {
+    width: 100%; /* Asegura que ocupe todo el ancho del contenedor */
+    max-width: 95%; /* Evita que se desborde */
+    height: 120px; /* Altura estándar */
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc; /* Borde gris claro */
+    border-radius: 4spx; /* Esquinas redondeadas */
+    background-color: #f9f9f9; /* Fondo sutilmente gris */
+    resize: vertical; /* Permite redimensionar solo verticalmente */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Efecto de foco */
+.observacion-general-container textarea:focus {
+    border-color: #007bff; /* Cambia el color del borde al azul */
+    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.2); /* Sombra más pronunciada */
+    outline: none; /* Quita el borde predeterminado del navegador */
+}

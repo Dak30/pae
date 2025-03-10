@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{{ url_for('static', filename='images/Escudo.png') }}" type="image/png">
+    <title>Registro de Usuario</title>
+    <style>
+        /* Estilos generales */
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #34A853, #4285F4);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #333;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 40px 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        h2 {
+            font-size: 1.8em;
+            color: #4A4A4A;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        label {
+            display: block;
+            font-size: 0.9em;
+            margin: 15px 0 5px;
+            color: #4A4A4A;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            font-size: 1em;
+            box-sizing: border-box;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        input:focus, select:focus {
+            border-color: #4285F4;
+        }
+
+        button {
+            background-color: #34A853;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1em;
+            font-weight: 600;
+            transition: background-color 0.3s ease, transform 0.1s ease;
+        }
+
+        button:hover {
+            background-color: #2c8e45;
+            transform: translateY(-1px);
+        }
+
+        .menu-button {
+            display: block;
+            margin-top: 10px;
+            color: #4285F4;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+    <script>
+        // Mostrar u ocultar campo de operador según el rol seleccionado
+        function toggleOperadorField() {
+            const rol = document.getElementById('rol').value;
+            const operadorField = document.getElementById('operador-field');
+
+            if (rol === 'operador') {
+                operadorField.classList.remove('hidden');
+                document.getElementById('id_operador').required = true;
+            } else {
+                operadorField.classList.add('hidden');
+                document.getElementById('id_operador').required = false;
+            }
+        }
+    </script>
+</head>
+<body>
+    <form method="POST" action="{{ url_for('iniciasesion_bp.registro') }}">
+        <h2>Registro de Nuevo Usuario</h2>
+
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" placeholder="Nombre Completo" required>
+
+        <label for="correo">Correo Electrónico:</label>
+        <input type="email" id="correo" name="correo" placeholder="Correo Electrónico" required>
+
+        <label for="contrasena">Contraseña:</label>
+        <input type="password" id="contrasena" name="contrasena" placeholder="Contraseña" required 
+               pattern=".{8,}" title="La contraseña debe tener al menos 8 caracteres.">
+
+        <label for="rol">Rol:</label>
+        <select id="rol" name="rol" required onchange="toggleOperadorField()">
+            <option value="">Seleccione un Rol</option>
+            <option value="nutricionista">Nutricionista</option>
+            <option value="supervisor">Supervisor</option>
+            <option value="operador">Operador</option>
+        </select>
+
+        <div id="operador-field" class="hidden">
+            <label for="id_operador">Operador:</label>
+            <select id="id_operador" name="id_operador">
+                <option value="">Seleccione un Operador</option>
+                {% for operador in operadores %}
+                    <option value="{{ operador.id_operador }}">{{ operador.nombre }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <button type="submit">Registrar</button>
+        <a class="menu-button" href="{{ url_for('iniciasesion_bp.dashboard_administrador') }}">Volver</a>
+    </form>
+</body>
+</html>

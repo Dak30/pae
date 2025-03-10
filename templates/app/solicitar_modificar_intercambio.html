@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{{ url_for('static', filename='images/Escudo.png') }}" type="image/png">
+    <title>Solicitar Modificación de Intercambio</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/solicitar_intercambio.css') }}">
+</head>
+<body>
+    <h1>Solicitar Modificación de Intercambio</h1>
+    <div class="link-container">
+        {% if rol == 'administrador' %}
+            <a class="btn" href="{{ url_for('iniciasesion_bp.dashboard_administrador') }}">Volver al Principal</a>
+        {% elif rol == 'operador' %}
+            <a class="btn" href="{{ url_for('iniciasesion_bp.dashboard_operador') }}">Volver al Principal</a>
+        {% endif %}
+    </div>
+    <div class="container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Nombre del Operador</th>
+                    <th>Modalidad</th>
+                    <th>Número Intercambio</th>
+                    <th>Observación</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if intercambios %}
+                    {% for intercambio in intercambios %}
+                        <tr>
+                            <td>{{ intercambio[0] }}</td>
+                            <td>{{ intercambio[1] }}</td>
+                            <td>{{ intercambio[2] }}</td>
+                            <td>{{ intercambio[3] }}: {{ intercambio[4] }}</td>
+                            <td>
+                                <button class="boton-modificar-num-intercambio" 
+                                        onclick="window.location.href='/modificar_intercambio2/{{ intercambio[2] }}'">
+                                    Modificar
+                                </button>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="4" class="no-data">
+                            <div class="no-data-container">
+                                <p>No hay números intercambios disponibles </p>
+                                
+                            </div>
+                        </td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

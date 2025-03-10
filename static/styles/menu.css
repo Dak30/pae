@@ -1,0 +1,140 @@
+/* Estilos generales */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa; /* Color de fondo suave */
+    color: #333; /* Color de texto */
+    margin: 0;
+    padding: 20px;
+}
+
+/* Contenedor principal */
+.container {
+    max-width: 800px; /* Ancho máximo del contenedor */
+    margin: 0 auto; /* Centrar el contenedor */
+    padding: 20px;
+    background-color: #fff; /* Fondo blanco para el contenedor */
+    border-radius: 8px; /* Bordes redondeados */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+}
+
+/* Títulos */
+h1 {
+    text-align: center; /* Centrar el título principal */
+    color: #007bff; /* Color azul para el título */
+}
+
+/* Enlaces */
+a {
+    color: #007bff; /* Color azul para los enlaces */
+    text-decoration: none; /* Sin subrayado */
+}
+
+a:hover {
+    text-decoration: underline; /* Subrayado al pasar el mouse */
+}
+
+/* Estilos de formulario */
+form {
+    display: flex;
+    flex-direction: column; /* Disposición en columna */
+}
+
+/* Agrupaciones de campos */
+.form-group {
+    margin-bottom: 15px; /* Espaciado entre grupos de campos */
+}
+
+/* Etiquetas */
+label {
+    margin-bottom: 5px; /* Espaciado debajo de las etiquetas */
+    font-weight: bold; /* Etiquetas en negrita */
+}
+
+/* Campos de entrada */
+input[type="text"],
+input[type="date"],
+input[type="time"],
+select,
+textarea {
+    width: 100%; /* Ancho completo */
+    padding: 10px; /* Espaciado interno */
+    border: 1px solid #ccc; /* Borde gris claro */
+    border-radius: 4px; /* Bordes redondeados */
+    box-sizing: border-box; /* Incluye el padding en el tamaño total */
+    transition: border-color 0.3s; /* Transición suave para el borde */
+}
+
+input[type="text"]:focus,
+input[type="date"]:focus,
+input[type="time"]:focus,
+select:focus,
+textarea:focus {
+    border-color: #007bff; /* Color de borde azul al enfocar */
+    outline: none; /* Sin borde adicional */
+}
+
+/* Tablas */
+.menu-table,
+.levels-table {
+    width: 100%; /* Ancho completo */
+    border-collapse: collapse; /* Colapsar bordes */
+    margin-top: 15px; /* Espaciado superior */
+}
+
+.menu-table th,
+.levels-table th,
+.menu-table td,
+.levels-table td {
+    border: 1px solid #ccc; /* Borde gris claro */
+    padding: 10px; /* Espaciado interno */
+    text-align: center; /* Centrar texto */
+}
+
+.menu-table th,
+.levels-table th {
+    background-color: #6cb3ff; /* Fondo azul para encabezados */
+    color: #000000; /* Texto blanco en encabezados */
+}
+
+/* Botones */
+button {
+    padding: 10px 15px; /* Espaciado interno */
+    background-color: #007bff; /* Color de fondo azul */
+    color: #fff; /* Color de texto blanco */
+    border: none; /* Sin borde */
+    border-radius: 4px; /* Bordes redondeados */
+    cursor: pointer; /* Cambia el cursor al pasar el mouse */
+    transition: background-color 0.3s; /* Transición suave para el fondo */
+}
+
+button:hover {
+    background-color: #0056b3; /* Color más oscuro al pasar el mouse */
+}
+
+/* Estilos para la sección de observaciones */
+textarea {
+    height: 100px; /* Altura fija para el área de texto */
+}
+
+/* Sección de información adicional */
+.form-group label {
+    font-size: 0.9em; /* Tamaño de fuente más pequeño */
+    color: #666; /* Color gris */
+}
+.levels-table, .ingredients-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+.levels-table th, .levels-table td, .ingredients-table th, .ingredients-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+.levels-table th, .ingredients-table th {
+    background-color: #f2f2f2;
+}
+.levels-table input {
+    width: 100%;
+    box-sizing: border-box;
+}

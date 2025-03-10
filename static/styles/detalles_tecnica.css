@@ -1,0 +1,238 @@
+/* Ajustes generales */
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(to bottom, #f0f9ff, #cfe8ff);
+    margin: 0;
+    padding: 20px;
+    color: #333;
+}
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+/* Para permitir deslizamiento horizontal en pantallas pequeñas */
+.table-container-scroll {
+    overflow-x: auto; /* Esto habilita el deslizamiento horizontal */
+    -webkit-overflow-scrolling: touch; /* Mejora el desplazamiento en dispositivos táctiles */
+}
+
+/* Header */
+.header-container {
+    text-align: center;
+    padding: 20px;
+    background-color: #004085;
+    color: #fff;
+    border-radius: 10px;
+}
+
+.header-container h1, .header-container h2 {
+    margin: 5px;
+}
+
+/* Estilo de la tabla */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+}
+
+th, td {
+    text-align: center;
+    border: 1px solid #ddd;
+    padding: 10px;
+}
+
+th {
+    background-color: #004085;
+    color: #fff;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tbody tr:hover {
+    background-color: #f1f1f1;
+    transition: background-color 0.3s;
+}
+
+/* Media queries para pantallas pequeñas */
+@media screen and (max-width: 768px) {
+    body {
+        padding: 10px;
+        font-size: 14px; /* Reducir tamaño de fuente */
+    }
+
+    /* Ajustar tamaño de los encabezados */
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    /* Cambiar el layout a columna */
+    .container {
+        width: 100%;
+        padding: 10px;
+    }
+
+    /* Hacer la tabla más pequeña */
+    .styled-table {
+        font-size: 0.9rem;
+    }
+
+    /* Ajustar botones */
+    .btn-generate {
+        width: 100%;
+        padding: 12px;
+    }
+}
+
+/* Media query para pantallas de menos de 480px (teléfonos móviles pequeños) */
+@media screen and (max-width: 480px) {
+    body {
+        font-size: 12px; /* Ajustar aún más el tamaño de la fuente */
+    }
+
+    /* Ajustar márgenes y padding de elementos para pantallas pequeñas */
+    .container {
+        padding: 5px;
+    }
+
+    h1 {
+        font-size: 1.2rem;
+    }
+}
+
+/* Diseño de la cuadrícula */
+.info-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; /* Espacio entre columnas */
+    margin-top: 20px;
+}
+
+/* Estilo de las columnas */
+.info-grid > div {
+    flex: 1; /* Las columnas se adaptan al espacio disponible */
+    min-width: 200px; /* Asegura un tamaño mínimo en columnas pequeñas */
+}
+
+/* Estilo de las listas */
+.info-grid ul {
+    list-style: none; /* Elimina los puntos de las listas */
+    padding: 0;
+    margin: 0;
+}
+
+.info-grid li {
+    margin-bottom: 10px; /* Espacio entre ítems */
+}
+
+/* Etiquetas fuertes */
+.info-grid strong {
+    color: #004085; /* Color para el texto destacado */
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .info-grid {
+        flex-direction: column; /* Pasa a diseño en una sola columna en pantallas pequeñas */
+    }
+}
+
+/* Estilo para el formulario de firmas */
+.form-firmas {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+h2 {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* Estilo de la tabla de firmas */
+.tabla-firmas {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.tabla-firmas th, .tabla-firmas td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid #ddd;
+    font-size: 14px;
+}
+
+.tabla-firmas th {
+    background-color: #004085;
+    color: white;
+    font-weight: bold;
+}
+
+.tabla-firmas td input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: border-color 0.3s ease;
+}
+
+.tabla-firmas td input:focus {
+    border-color: #004085;
+    outline: none;
+}
+
+
+/* Estilos de responsividad para pantallas pequeñas */
+@media (max-width: 600px) {
+    .tabla-firmas td input {
+        font-size: 12px;
+    }
+
+    .btn-primary {
+        font-size: 14px;
+    }
+}
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: background 0.3s ease, transform 0.2s ease;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.btn:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+.btn:active {
+    transform: scale(0.98);
+}

@@ -1,0 +1,155 @@
+/* Estilos generales */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 20px;
+    color: #333;
+}
+
+/* Contenedor principal */
+form {
+    background: #fff;
+    max-width: 900px;
+    margin: auto;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Títulos */
+h1, h2 {
+    text-align: center;
+    color: #007BFF;
+}
+
+/* Etiquetas */
+label {
+    font-weight: bold;
+    display: block;
+    margin-top: 10px;
+}
+
+/* Inputs y selects */
+input[type="text"],
+input[type="date"],
+input[type="time"],
+input[type="number"],
+textarea,
+select {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+/* Tabla */
+.tabla-niveles {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+.tabla-niveles th,
+.tabla-niveles td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+}
+
+.tabla-niveles th {
+    background-color: #007BFF;
+    color: white;
+}
+
+/* Botón */
+button {
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    display: block;
+    width: 100%;
+    font-size: 16px;
+    border-radius: 5px;
+    margin-top: 15px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Estilos para mejorar la visualización de la tabla */
+/* Contenedor para hacer la tabla desplazable en pantallas pequeñas */
+.tabla-container {
+    width: 100%;
+    overflow-x: auto; /* Permite deslizar horizontalmente */
+}
+
+/* Estilos mejorados para la tabla */
+.tabla-detalles-ajustada {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+    max-width: 100%;
+}
+
+.tabla-detalles-ajustada textarea {
+    width: 100%;
+    max-width: 250px; /* Ajusta según sea necesario */
+    height: auto;
+    resize: vertical; /* Permite agrandar el campo si es necesario */
+    overflow-y: auto;
+    white-space: pre-wrap; /* Asegura que el texto largo haga salto de línea */
+}
+
+
+/* Encabezados */
+.tabla-detalles-ajustada th {
+    background-color: #007BFF;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    white-space: nowrap; /* Evita que los encabezados se partan */
+}
+
+/* Celdas */
+.tabla-detalles-ajustada th, 
+.tabla-detalles-ajustada td {
+    padding: 8px;
+    border: 1px solid #ddd;
+    text-align: left;
+    vertical-align: middle;
+}
+
+/* Hace que el texto largo se ajuste correctamente */
+.tabla-detalles-ajustada td input {
+    width: 100%;
+    min-width: 150px; /* Evita que los inputs sean demasiado pequeños */
+    font-size: 14px;
+    padding: 5px;
+    box-sizing: border-box;
+    overflow: hidden;
+    text-overflow: ellipsis; /* Muestra "..." si el texto es demasiado largo */
+}
+
+/* Alternar colores de filas */
+.tabla-detalles-ajustada tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.tabla-detalles-ajustada tbody tr:hover {
+    background-color: #eef2ff;
+}
+
+/* Permitir desplazamiento horizontal en pantallas pequeñas */
+@media screen and (max-width: 768px) {
+    .tabla-container {
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+}

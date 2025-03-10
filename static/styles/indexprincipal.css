@@ -1,0 +1,317 @@
+/* General */
+/* General */
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    align-items: center;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Encabezado */
+.header {
+    background: linear-gradient(90deg, #003366, #005bb5); /* Degradado azul institucional */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    color: white;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.logo {
+    height: 80px;
+    width: auto;
+}
+
+.text-overlay {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    line-height: 1.2;
+}
+
+.main-title {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin: 0;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+.sub-title {
+    font-size: 1.2rem;
+    margin: 0;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+/* Estilo del Botón de Usuario */
+.user-info {
+    position: relative;
+}
+
+.user-btn {
+    background-color: #e8e8e8;
+    color: #004080;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 50px; /* Bordes redondeados */
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.user-btn:hover {
+    background-color: #cbd1d8;
+    transform: scale(1.05);
+}
+
+/* Menú Desplegable */
+.user-dropdown {
+    position: absolute;
+    top: 60px;
+    right: 0;
+    background: white;
+    color: #333;
+    border: 1px solid #ddd;
+    padding: 15px;
+    display: none;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    width: 200px;
+    z-index: 10;
+}
+
+.user-info.active .user-dropdown {
+    display: block;
+}
+
+.user-dropdown p {
+    margin: 5px 0;
+}
+
+.user-dropdown a.logout {
+    display: block;
+    margin-top: 10px;
+    color: white;
+    background: #004080;
+    text-decoration: none;
+    text-align: center;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.user-dropdown a.logout:hover {
+    background: #0059b3;
+}
+
+/* Contenido Principal */
+.main-content {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    background-size: cover;
+}
+
+.main-content::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('/static/images//niños.jpg') no-repeat center center;
+    background-size: cover;
+    background-blend-mode: lighten;
+    z-index: -1;
+}
+
+.menu-section {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+    align-items: center;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+    max-width: 80%;
+}
+
+.menu-title {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #004080;
+}
+
+/* Botones de Menú */
+.menu-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* Cuatro columnas */
+    gap: 20px;
+    justify-items: center;
+    padding: 0 20px;
+}
+
+.menu-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 200px;
+    padding: 15px 20px;
+    font-size: 14px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 10px;
+    font-weight: bold;
+    color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Role-Specific Colors */
+.supervisor {
+    background-color: #007BFF; /* Blue */
+}
+
+.operador {
+    background-color: #28A745; /* Green */
+}
+
+.nutricionista {
+    background-color: #FFC107; /* Yellow */
+    color: #333; /* Dark text for better contrast */
+}
+
+.administrador {
+    background-color: #DC3545; /* Red */
+}
+
+.general {
+    background-color: #dc3535; /* Red */
+}
+
+/* Hover Effects */
+.menu-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Estilos Responsivos */
+@media (max-width: 768px) {
+    .menu-grid {
+        grid-template-columns: 1fr; /* Un solo botón por fila en dispositivos pequeños */
+    }
+
+    .menu-button {
+        font-size: 12px; /* Reducir el tamaño de la fuente */
+        padding: 12px 16px; /* Reducir el espaciado en botones */
+    }
+
+    .menu-title {
+        font-size: 1.6rem; /* Reducir tamaño del título */
+    }
+}
+
+
+/* Pie de página */
+
+
+.menu-title {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Espacio entre la imagen y el texto */
+    font-size: 1.8rem;
+    color: #004080; /* Color institucional */
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
+
+.title-image {
+    height: 50px; /* Tamaño de la imagen */
+    width: auto; /* Mantener proporción */
+}
+
+.footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #004080;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    color: #ffffff;
+    border-top: 1px solid #004080;
+}
+
+.footer a {
+    color: #ecf0f5;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.footer a:hover {
+    text-decoration: underline;
+}
+
+.footer p {
+    margin: 5px 0;
+}
+
+.footer-link {
+    color: #ffffff;
+}
+
+.footer-highlight {
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.social-media {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.social-icon img {
+    width: 30px;
+    height: 30px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.social-icon img:hover {
+    transform: scale(1.2);
+    opacity: 0.8;
+}
+
+@media (max-width: 768px) {
+    .menu-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .menu-button {
+        font-size: 14px;
+        padding: 12px;
+    }
+
+    .title-image {
+        max-width: 60px;
+    }
+}

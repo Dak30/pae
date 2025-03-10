@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{{ url_for('static', filename='images/Escudo.png') }}" type="image/png">
+    <title>Lista de Infraestructura</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/listainfraestructura.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header class="top-bar">
+            <h1>Lista de Infraestructura</h1>
+            <nav class="menu-grid">
+                <a href="{{ url_for('bodega.lista_bodega') }}" class="menu-button">Lista de Bodega</a>
+                <a href="{{ url_for('tecnica.lista_tecnica') }}" class="menu-button">Lista de Tecnica</a>
+                <a href="{{ url_for('verificacion_bp.lista_verificacion') }}" class="menu-button">Lista de Verificación</a>
+                <a href="{{ url_for('informe_general') }}" class="menu-button">Volver al Principal</a>
+            </nav>
+        </header>
+        <form action="{{ url_for('infraestructura.exportar_infraestructura') }}" method="GET">
+            <label>Fecha Inicio:</label>
+            <input type="date" name="fecha_inicio">
+            <label>Fecha Fin:</label>
+            <input type="date" name="fecha_fin">
+            <button type="submit">Exportar Excel</button>
+        </form>
+        <main>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Fecha</th>
+                        <th>Operador</th>
+                        <th>Tipo de Ración</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for infraestructura in infraestructuras %}
+                    <tr>
+                        <td>INF{{ infraestructura.id_infraestructura }}</td>
+                        <td>{{ infraestructura.fecha }}</td>
+                        <td>{{ infraestructura.nombre_operador }}</td>
+                        <td>{{ infraestructura.tipo_racion }}</td>
+                        <td>
+                            <a href="{{ url_for('infraestructura.detalle_infraestructura', id_infraestructura=infraestructura.id_infraestructura) }}" class="btn">Ver Detalles</a>
+                            <a href="{{ url_for('infraestructura.editar_infraestructura', id_infraestructura=infraestructura.id_infraestructura) }}" class="btn">Editar</a>
+                            <button class="btn btn-danger" onclick="eliminarInfraestructura({{ infraestructura.id_infraestructura }})">
+                                Eliminar
+                            </button>
+                            
+                            <script>
+                                function eliminarInfraestructura(id) {
+                                    if (confirm('¿Estás seguro de eliminar esta visita de infraestructura?')) {
+                                        fetch(`/eliminar_infraestructura/${id}`, {
+                                            method: 'DELETE',
+                                            headers: { 'Content-Type': 'application/json' }
+                                        })
+                                        .then(response => response.json())
+                                        .then(data => {
+                                            if (data.success) {
+                                                alert(data.message);
+                                                location.reload(); // Recargar la página después de eliminar
+                                            } else {
+                                                alert('Error: ' + data.message);
+                                            }
+                                        })
+                                        .catch(error => console.error('Error:', error));
+                                    }
+                                }
+                            </script>
+                            
+                        </td>                           
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </main>
+    </div>
+</body>
+</html>

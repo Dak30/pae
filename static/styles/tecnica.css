@@ -1,0 +1,243 @@
+/* Estilos generales del cuerpo */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 20px;
+}
+
+/* Estilo del título principal */
+h1 {
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Contenedor del formulario */
+form {
+    max-width: 800px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo para las etiquetas */
+label {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+    color: #555;
+}
+
+/* Estilo para los campos de entrada */
+input[type="text"], 
+input[type="date"], 
+input[type="number"], 
+select {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+/* Estilo para los campos de texto */
+input[type="text"]::placeholder {
+    color: #888;
+}
+
+/* Estilo para los botones de opción */
+select {
+    background-color: #fafafa;
+}
+
+/* Estilo para las observaciones */
+input[type="text"][placeholder] {
+    margin-top: 5px;
+    width: 100%;
+    height: 40px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 8px;
+}
+
+/* Estilo para los encabezados */
+h2, h3, h4 {
+    color: #333;
+    margin-top: 20px;
+}
+
+/* Estilo para el texto de las secciones */
+h4 {
+    font-size: 16px;
+    font-weight: normal;
+    color: #666;
+}
+
+/* Espaciado entre los elementos */
+br {
+    margin: 10px 0;
+}
+
+/* Estilo de la tabla */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo para el párrafo con texto fuerte */
+p {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+/* Estilo para el área de texto */
+textarea {
+    width: 100%; /* Asegura que el área de texto se ajuste al contenedor */
+    padding: 10px; /* Añade relleno interno */
+    border: 1px solid #ddd; /* Borde suave y gris claro */
+    border-radius: 4px; /* Bordes redondeados */
+    box-sizing: border-box; /* Incluye relleno y borde en el ancho total */
+    font-size: 14px; /* Tamaño de fuente más pequeño */
+    line-height: 1.5; /* Espaciado de línea para mayor legibilidad */
+    background-color: #fafafa; /* Color de fondo gris claro */
+    resize: vertical; /* Permite redimensionar verticalmente */
+}
+
+/* Estilo para el texto dentro del área de texto */
+textarea::placeholder {
+    color: #888; /* Color del texto de marcador de posición */
+}
+
+/* Estilo para las celdas de la tabla */
+th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Estilo para los encabezados de la tabla */
+th {
+    background-color: #4CAF50;
+    color: white;
+    font-weight: bold;
+}
+
+/* Estilo para las filas alternas de la tabla */
+tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+/* Estilo para los campos de entrada dentro de la tabla */
+input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+/* Estilo para las listas desplegables */
+select {
+    width: 100%; /* Asegura que el select se ajuste al contenedor */
+    padding: 10px; /* Añade relleno interno */
+    border: 1px solid #ddd; /* Borde suave y gris claro */
+    border-radius: 4px; /* Bordes redondeados */
+    background-color: #fafafa; /* Color de fondo gris claro */
+    font-size: 14px; /* Tamaño de fuente */
+    color: #333; /* Color del texto */
+    box-sizing: border-box; /* Incluye relleno y borde en el ancho total */
+    appearance: none; /* Elimina el estilo por defecto del navegador */
+    -webkit-appearance: none; /* Elimina el estilo por defecto en navegadores webkit */
+    -moz-appearance: none; /* Elimina el estilo por defecto en navegadores Mozilla */
+}
+
+/* Estilo para el contenedor del select */
+.select-wrapper {
+    position: relative; /* Para posicionar el ícono de flecha */
+    display: inline-block; /* Para que el ancho del select no sea demasiado grande */
+}
+
+/* Estilo para el ícono de la flecha en el select */
+.select-wrapper::after {
+    content: '▼'; /* Símbolo de la flecha hacia abajo */
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #333; /* Color de la flecha */
+    pointer-events: none; /* Evita que la flecha interfiera con la interacción del select */
+}
+
+/* Estilo general para el grupo de verificación */
+.verificacion-group {
+    margin-bottom: 20px;
+}
+
+/* Estilo para las etiquetas */
+.verificacion-group label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: #555;
+}
+
+/* Contenedor para los controles de verificación (select y input) */
+.verificacion-controls {
+    display: flex;
+    flex-wrap: wrap; /* Permite que los elementos se ajusten en varias líneas si es necesario */
+    align-items: center;
+    gap: 10px; /* Espacio entre el select y el input */
+}
+
+/* Estilo para el select */
+.verificacion-controls select {
+    flex: 1; /* Hace que el select ocupe el espacio disponible */
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #fafafa;
+    font-size: 14px;
+    color: #333;
+}
+
+/* Estilo para el input de observaciones */
+.verificacion-controls input[type="text"] {
+    flex: 2; /* Hace que el input de observaciones ocupe el doble del espacio del select */
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #fafafa;
+    font-size: 14px;
+    color: #333;
+}
+
+/* Estilo para el campo de fecha */
+.verificacion-controls input[type="date"] {
+    flex: 1; /* Ajusta el campo de fecha para que tenga espacio adecuado */
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #fafafa;
+    font-size: 14px;
+    color: #333;
+    margin-top: 5px; /* Añade margen superior para separar del contenido anterior */
+}
+/* Contenedor para habilitar el desplazamiento horizontal */
+.table-responsive {
+    overflow-x: auto; /* Activa el desplazamiento horizontal */
+    white-space: nowrap; /* Previene que el contenido se ajuste automáticamente */
+    margin-top: 15px; /* Añade espacio superior */
+}
+
+/* Ajustar el ancho de la tabla para que no ocupe más espacio del necesario */
+.table-responsive table {
+    min-width: 1200px; /* Define un ancho mínimo para la tabla */
+}

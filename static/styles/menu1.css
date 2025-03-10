@@ -1,0 +1,296 @@
+/* Contenedor principal */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    font-family: Arial, sans-serif;
+}
+
+/* Título principal */
+h1 {
+    text-align: center;
+    color: #333333;
+    font-size: 26px;
+    margin-bottom: 20px;
+    font-weight: bold;
+    border-bottom: 2px solid #4CAF50;
+    padding-bottom: 10px;
+}
+
+/* Botón de regreso al principal */
+.btn {
+    display: block; /* Cambiar a block para que el botón ocupe el ancho disponible */
+    width: fit-content; /* Ajustar el ancho al contenido */
+    padding: 10px 20px;
+    font-size: 14px;
+    color: #ffffff;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 4px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin: 0 auto 20px auto; /* Centrar el botón horizontalmente */
+}
+
+
+.btn:hover {
+    background-color: #45a049;
+}
+
+/* Formulario */
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: bold;
+    color: #555555;
+    margin-bottom: 5px;
+}
+
+/* Campos de entrada y selectores */
+.form-group input[type="date"],
+.form-group input[type="time"],
+.form-group input[type="text"],
+.form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #dddddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+    background-color: #f9f9f9;
+    transition: border-color 0.3s;
+}
+
+.form-group input[type="date"]:focus,
+.form-group input[type="time"]:focus,
+.form-group input[type="text"]:focus,
+.form-group select:focus {
+    border-color: #4CAF50;
+    outline: none;
+}
+
+/* Selectores con flecha */
+select {
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 12px;
+    padding-right: 30px;
+}
+
+/* Estilos para campos de texto y selectores con iconos y espacios */
+input[type="text"], select {
+    padding: 10px 10px;
+    font-size: 14px;
+    color: #333;
+}
+
+/* Área de checkboxes de sedes */
+.checkbox-group {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+/* Estilos para el botón de enviar */
+button[type="submit"] {
+    display: inline-block;
+    padding: 12px 24px;
+    font-size: 16px;
+    color: #ffffff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    width: 100%;
+    margin-top: 20px;
+}
+
+button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+/* Separación visual entre secciones */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.institucion-seccion {
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    background-color: #f3f4f6;
+}
+
+/* Estilos para etiquetas de subtítulos */
+h2 {
+    font-size: 18px;
+    color: #333333;
+    margin-top: 30px;
+    font-weight: bold;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 5px;
+}
+
+
+/* Estilos de la tabla con contenedor de desplazamiento horizontal */
+.table-wrapper {
+    overflow-x: auto;
+    margin-top: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.menu-table {
+    width: 1200px; /* Ancho fijo para permitir desplazamiento horizontal */
+    border-collapse: collapse;
+}
+
+.menu-table th, .menu-table td {
+    padding: 12px 10px;
+    border: 1px solid #ddd;
+    text-align: center;
+    font-size: 14px;
+    background-color: #ffffff;
+    min-width: 150px; /* Ancho mínimo para columnas */
+}
+
+/* Encabezados de tabla */
+.menu-table th {
+    background-color: #f3f4f6;
+    font-weight: bold;
+    color: #333333;
+    text-align: center;
+}
+
+/* Campos de entrada en las celdas */
+.menu-table td input[type="text"],
+.menu-table td input[type="number"],
+.menu-table td input[type="date"],
+.menu-table td textarea,
+.menu-table td select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+    box-sizing: border-box;
+}
+
+/* Ajuste para que los textos en las celdas se vean alineados */
+.menu-table td {
+    vertical-align: middle;
+}
+
+/* Estilos de la tabla de niveles escolares */
+.levels-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.levels-table th, .levels-table td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: center;
+    font-size: 14px;
+    background-color: #ffffff;
+    min-width: 100px; /* Ancho mínimo para cada columna */
+}
+
+.levels-table th {
+    background-color: #f3f4f6;
+    color: #333333;
+    font-weight: bold;
+}
+
+.levels-table td input[type="number"],
+.levels-table td input[type="text"] {
+    width: 80px;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    text-align: center;
+    background-color: #f9f9f9;
+}
+
+/* Espaciado en el título */
+h2 {
+    color: #333333;
+    font-size: 18px;
+    margin-top: 30px;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 5px;
+}
+
+
+/* Área de observación general */
+textarea#observacion_general {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    resize: vertical;
+    background-color: #f9f9f9;
+    min-height: 100px;
+}
+
+textarea#hallazgo {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    resize: vertical;
+    background-color: #f9f9f9;
+    min-height: 100px;
+}
+
+/* Botón de envío */
+button[type="submit"] {
+    display: inline-block;
+    padding: 12px 24px;
+    font-size: 16px;
+    color: #ffffff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 20px;
+    width: 100%;
+}
+
+button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+.form-group {
+    max-width: 800px; /* Define el ancho máximo para cada grupo del formulario */
+    margin: 0 auto 20px; /* Centra el grupo y da espacio inferior */
+}
+
+/* Estilo para el área de texto Observación General */
+textarea#observacion_general {
+    width: 100%; /* Ajusta el ancho al contenedor */
+    max-width: 100%; /* Asegura que no se desborde del contenedor */
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    resize: vertical;
+    background-color: #f9f9f9;
+    font-size: 14px;
+}

@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{{ url_for('static', filename='images/Escudo.png') }}" type="image/png">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/estado.css') }}">
+    <title>Aprobar, Negar o Modificar Menú</title>
+    <style>
+        /* Estilo general del modal */
+        #modify-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+        
+        /* Contenido del modal */
+        .modal-content {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+        
+        /* Estilo del título */
+        .modal-content h2 {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        
+        /* Botón de cerrar */
+        .close {
+            color: #aaa;
+            font-size: 1.5em;
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            cursor: pointer;
+        }
+        
+        .close:hover {
+            color: #333;
+        }
+        
+        /* Estilo para etiquetas */
+        .modal-content label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+        
+        /* Campos de entrada */
+        .modal-content input[type="text"],
+        .modal-content textarea {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        
+        /* Campo de texto largo */
+        .modal-content textarea {
+            height: 100px;
+            resize: vertical;
+        }
+        
+        /* Estilo para el botón de envío */
+        .modal-content button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s ease;
+        }
+        
+        .modal-content button:hover {
+            background-color: #45a049;
+        }
+        
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <h1>Solicitud de Intercambio Pendiente</h1>
+        {% if rol == 'administrador' %}
+            <a class="btn" href="{{ url_for('iniciasesion_bp.dashboard_administrador') }}">Volver al Principal</a>
+        {% elif rol == 'nutricionista' %}
+            <a class="btn" href="{{ url_for('iniciasesion_bp.dashboard_nutricionista') }}">Volver al Principal</a>
+        {% endif %}
+
+
+        <!-- Formulario de búsqueda por número de intercambio -->
+        <!-- Formulario de búsqueda -->
+        <div class="search-section">
+            <!-- Campo de búsqueda por número de intercambio -->
+            <input type="text" id="search-box" placeholder="Buscar por Número de Intercambio" onkeyup="filterTable()">
+            
+            <!-- Lista desplegable dinámica para filtrar por concepto -->
+            <select id="concept-filter" onchange="filterTable()">
+                <option value="">-- Seleccionar Estado --</option>
+                {% for concepto in conceptos %}
+                <option value="{{ concepto }}">{{ concepto }}</option>
+                {% endfor %}
+            </select>
+        
+            <!-- Filtro por fecha -->
+            <div class="form-group">
+                <label for="fecha_solicitud">Fecha de Solicitud:</label>
+                <input type="date" id="fecha_solicitud" onchange="filterTable()">
+            </div>
+            
+        </div>
+        
+        
+        
+        <!-- Tabla para mostrar los intercambios -->
+        <table id="intercambio-table" class="styled-table">
+            <thead>
+                <tr>
+                    <th>Número Intercambio</th>
+                    <th>Fecha de Solicitud</th>
+                    <th>Operador</th>
+                    <th>Tipo Ración</th>
+                    <th>Estado Actual</th>
+                    <th>Archivos PDF</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for intercambio in intercambios %}
+                <tr>
+                    <td>{{ intercambio.numero_intercambio }}</td>
+                    <td>{{ intercambio.fecha_solicitud }}</td>
+                    <td>{{ intercambio.nombre_operador }}</td>
+                    <td>{{ intercambio.descripcion_tipo_racion }}</td>
+                    
+                    <td>{{ intercambio.concepto }}</td>
+                    <td>
+                        {% if intercambio.archivos_pdf %}
+                        {% for archivo in intercambio.archivos_pdf.split(',') %}
+                        <a href="uploads/pdfs/{{intercambio.numero_intercambio}}/{{ archivo }}" target="_blank">{{ archivo }}</a><br>
+                        {% endfor %}
+                        {% else %}
+                        No hay archivos PDF
+                        {% endif %}
+                    </td>
+                    <td>
+                        <button class="btn-approve" onclick="window.location.href='/aprobar/{{ intercambio.numero_intercambio }}'">Aprobar</button>
+                        <button class="btn-deny" onclick="window.location.href='/negar/{{ intercambio.numero_intercambio }}'">Negar</button>
+                        <button class="btn-modify" onclick="openModifyModal('{{ intercambio.numero_intercambio }}')">Modificar</button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        
+    </div>
+
+    <!-- Modal para solicitar modificación -->
+    <div id="modify-modal" style="display:none;">
+        <div class="modal-content">
+            <span onclick="closeModifyModal()" class="close">&times;</span>
+            <h2>Solicitud de Modificación de Intercambio: <span id="intercambio-numero"></span></h2>
+            <form id="modify-form">
+                <label for="asunto">Asunto:</label>
+                <input type="text" id="asunto" name="asunto" required>
+                
+                <label for="mensaje">Mensaje:</label>
+                <textarea id="mensaje" name="mensaje" required></textarea>
+                
+                <button type="button" onclick="sendModificationRequest()">Enviar Solicitud</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        let currentExchangeNumber;
+
+        function openModifyModal(numero_intercambio) {
+            currentExchangeNumber = numero_intercambio;
+            document.getElementById("intercambio-numero").textContent = numero_intercambio;
+            document.getElementById("modify-modal").style.display = "flex";
+        }
+
+        function closeModifyModal() {
+            document.getElementById("modify-modal").style.display = "none";
+        }
+
+        function sendModificationRequest() {
+            const asunto = document.getElementById("asunto").value;
+            const mensaje = document.getElementById("mensaje").value;
+            
+            fetch(`/modificar-intercambio/${currentExchangeNumber}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ asunto, mensaje })
+            })
+            .then(response => {
+                if (!response.ok) throw new Error('Error al modificar el intercambio');
+                return response.json();
+            })
+            .then(data => {
+                alert("Intercambio modificado correctamente.");
+                closeModifyModal();
+                location.reload();
+            })
+            .catch(error => {
+                alert("Error: " + error.message);
+            }); 
+        }
+        
+        // Función de búsqueda
+        // Función para buscar por número de intercambio
+            function searchTable(column) {
+                var input, filter, table, tr, td, i, txtValue;
+                if (column === 'numero') {
+                    input = document.getElementById("search-box");
+                }
+                filter = input.value.toUpperCase();
+                table = document.getElementById("intercambio-table");
+                tr = table.getElementsByTagName("tr");
+
+                for (i = 1; i < tr.length; i++) {
+                    td = tr[i].getElementsByTagName("td")[0];
+                    if (td) {
+                        txtValue = td.textContent || td.innerText;
+                        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                            tr[i].style.display = "";
+                        } else {
+                            tr[i].style.display = "none";
+                        }
+                    }
+                }
+            }
+
+            // Función para filtrar por concepto
+            function filterByConcept() {
+                var select, filter, table, tr, td, i, txtValue;
+                select = document.getElementById("concept-filter");
+                filter = select.value.toUpperCase();
+                table = document.getElementById("intercambio-table");
+                tr = table.getElementsByTagName("tr");
+
+                for (i = 1; i < tr.length; i++) {
+                    td = tr[i].getElementsByTagName("td")[3]; // Columna de Estado Actual
+                    if (td) {
+                        txtValue = td.textContent || td.innerText;
+                        if (filter === "" || txtValue.toUpperCase() === filter) {
+                            tr[i].style.display = "";
+                        } else {
+                            tr[i].style.display = "none";
+                        }
+                    }
+                }
+
+                // Guardar la selección en el almacenamiento local
+                localStorage.setItem("conceptFilter", select.value);
+            }
+
+            // Mantener el filtro activo al recargar la página
+            window.onload = function() {
+                var savedFilter = localStorage.getItem("conceptFilter");
+                if (savedFilter) {
+                    document.getElementById("concept-filter").value = savedFilter;
+                    filterByConcept(); // Aplicar el filtro automáticamente
+                }
+            };
+
+            function filterTable() {
+                var searchBox = document.getElementById("search-box").value.toUpperCase();
+                var conceptFilter = document.getElementById("concept-filter").value.toUpperCase();
+                var fechaFilter = document.getElementById("fecha_solicitud").value; // yyyy-mm-dd
+            
+                var table = document.getElementById("intercambio-table");
+                var tr = table.getElementsByTagName("tr");
+            
+                for (var i = 1; i < tr.length; i++) {
+                    var numeroTd = tr[i].getElementsByTagName("td")[0];
+                    var estadoTd = tr[i].getElementsByTagName("td")[4];
+                    var fechaTd = tr[i].getElementsByTagName("td")[1]; // Fecha en dd-mm-yyyy
+            
+                    var fechaTexto = fechaTd ? fechaTd.textContent.trim() : "";
+                    var fechaConvertida = fechaTexto.split("-").reverse().join("-"); // Convertir a yyyy-mm-dd
+            
+                    var numeroMatch = numeroTd && numeroTd.textContent.toUpperCase().indexOf(searchBox) > -1;
+                    var estadoMatch = estadoTd && (conceptFilter === "" || estadoTd.textContent.toUpperCase() === conceptFilter);
+                    var fechaMatch = fechaFilter === "" || fechaConvertida === fechaFilter;
+            
+                    if (numeroMatch && estadoMatch && fechaMatch) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            
+                // Guardar filtros en localStorage
+                localStorage.setItem("searchBox", searchBox);
+                localStorage.setItem("conceptFilter", conceptFilter);
+                localStorage.setItem("fechaFilter", fechaFilter);
+            }
+            
+            window.onload = function () {
+                var savedSearch = localStorage.getItem("searchBox");
+                var savedConcept = localStorage.getItem("conceptFilter");
+                var savedFecha = localStorage.getItem("fechaFilter");
+            
+                if (savedSearch) document.getElementById("search-box").value = savedSearch;
+                if (savedConcept) document.getElementById("concept-filter").value = savedConcept;
+                if (savedFecha) document.getElementById("fecha_solicitud").value = savedFecha;
+            
+                filterTable();
+            };
+            
+            
+            
+
+        
+        
+    </script>
+</body>
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{{ url_for('static', filename='images/Escudo.png') }}" type="image/png">
+    <title>Historico de Menú</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            padding: 20px 0;
+        }
+
+        .container {
+            width: 90%;
+            margin: 20px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        table th, table td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+
+        table th {
+            background-color: #007BFF;
+            color: white;
+            text-transform: uppercase;
+        }
+
+        table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        table tr:hover {
+            background-color: #e9ecef;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 15px 0;
+            margin-top: 20px;
+            font-size: 12px;
+            background-color: #007BFF;
+            color: white;
+        }
+
+        .footer a {
+            color: #ffd700;
+            text-decoration: none;
+        }
+       
+
+
+        form {
+            display: flex; /* Establecemos el contenedor como flexbox */
+            justify-content: center; /* Centramos los elementos horizontalmente */
+            align-items: center; /* Centramos los elementos verticalmente (opcional) */
+            background-color: #e6f0ff;
+            padding: 20px;
+            border-radius: 5px;
+        }
+
+        label {
+            margin-right: 10px; /* Separación entre la etiqueta y el input */
+            color: #007bff;
+        }
+
+        input[type="date"] {
+            width: 150px;
+            padding: 5px;
+            border: 1px solid #007bff;
+            border-radius: 3px;
+        }
+
+        button[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Historico de Menú</h1>
+
+    <form action="/exportar_historico_excel" method="get" style="margin-top: 20px;">
+        <label for="start_date">Fecha de Inicio:</label>
+        <input type="date" id="start_date" name="start_date" required>
+    
+        <label for="end_date">Fecha de Fin:</label>
+        <input type="date" id="end_date" name="end_date" required>
+    
+        <button type="submit" style="background-color: #007bff; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">
+            Exportar a Excel
+        </button>
+    </form>
+    
+    
+    <div class="container">
+        {% if historial %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Modalidad</th>
+                    <th>Componente</th>
+                    <th>Número de Menú</th>
+                    <th>Preparación / Alimento anterior</th>
+                    <th>Preparación / Alimento s Nuevo</th>
+                    <th>Actualizado Por</th>
+                    <th>Fecha de Actualización</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for cambio in historial %}
+                <tr>
+                    <td>{{ cambio.modalidad }}</td>
+                    <td>{{ cambio.componente }}</td>
+                    <td>{{ cambio.numero_menu }}</td>
+                    <td>{{ cambio.valor_anterior }}</td>
+                    <td>{{ cambio.valor_nuevo }}</td>
+                    <td>{{ cambio.actualizado_por }}</td>
+                    <td>{{ cambio.fecha_actualizacion }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p style="text-align: center; color: #666;">No hay cambios registrados en el historial.</p>
+        {% endif %}
+    </div>
+
+</body>
+</html>

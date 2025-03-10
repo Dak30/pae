@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/menu1.css') }}">
+    <script src="{{ url_for('static', filename='scripts/cargar_verificacion.js') }}" defer></script>
+    <link rel="icon" href="{{ url_for('static', filename='images/Escudo.png') }}" type="image/png">
+    <title>PAE</title>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Manejar cambios en el tipo de ración de los menús existentes
+            document.getElementById('tipo_racion').addEventListener('change', cargarMenus);
+            
+            // Inicializar el primer menú de forma manual
+            inicializarMenus(document.getElementById('numero_menu_oficial'), document.getElementById('numero_menu_intercambio'));
+        
+            // Asignar listeners a los menús adicionales en caso de que se añadan más
+            
+        });
+        
+        // Inicializar los menús para el primer menú
+        function inicializarMenus(menuOficialSelect, menuIntercambioSelect) {
+            menuOficialSelect.addEventListener('change', cargarDetallesMenu);
+            menuIntercambioSelect.addEventListener('change', cargarDetallesMenu);
+        }
+        
+        function cargarMenus() {
+            let tipoRacion = document.getElementById('tipo_racion').value;
+        
+            if (tipoRacion) {
+                // Cargar menús oficiales
+                fetch(`/get_menus?tipo_racion=${tipoRacion}`)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Error en la respuesta del servidor');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        if (Array.isArray(data)) {
+                            let menuOficialSelect = document.getElementById('numero_menu_oficial');
+                            let menuIntercambioSelect = document.getElementById('numero_menu_intercambio');
+        
+                            // Limpiar las opciones existentes
+                            menuOficialSelect.innerHTML = '<option value="">Seleccione una opción</option>';
+                            menuIntercambioSelect.innerHTML = '<option value="">Seleccione una opción</option>';
+        
+                            // Rellenar las opciones para ambos menús
+                            data.forEach(menu => {
+                                let option = document.createElement('option');
+                                option.value = menu.numero_menu;
+                                option.textContent = menu.numero_menu;
+        
+                                menuOficialSelect.appendChild(option);
+                                menuIntercambioSelect.appendChild(option.cloneNode(true)); // Clonar opción para intercambios
+                            });
+                        } else {
+                            console.error('Los datos recibidos no son un array:', data);
+                        }
+                    })
+                    .catch(error => console.error('Error al cargar los menús:', error));
+            }
+        }
+        
+        
+        function cargarDetallesMenu() {
+            const tipoRacion = document.getElementById('tipo_racion').value;
+            const numeroMenuOficial = document.getElementById('numero_menu_oficial').value;
+            const numeroMenuIntercambio = document.getElementById('numero_menu_intercambio').value;
+            const headerRow = document.getElementById('menuDetailsHeader');
+            const tableBody = document.querySelector('#menuDetailsTable tbody');
+        
+            // Limpiar encabezados y cuerpo de la tabla
+            headerRow.innerHTML = '';
+            tableBody.innerHTML = '';
+        
+            if (tipoRacion) {
+                // Cambiar encabezados de la tabla según el tipo de ración
+                if (tipoRacion === "1") {
+                    headerRow.innerHTML = `
+                        <th>Componentes</th>
+                        <th>Cumplimiento</th>
+                        <th>Menú Oficial</th>
+                        <th>Menú Entregado</th>
+                        <th>Fecha de Vencimiento</th>
+                        <th>Lote</th>
+                        <th>Verificación Peso Nivel Escolar 1</th>
+                        <th>Verificación Peso Nivel Escolar 2</th>
+                        <th>Verificación Peso Nivel Escolar 3</th>
+                        <th>Verificación Peso Nivel Escolar 4</th>
+                        <th>Verificación Peso Nivel Escolar 5</th>
+                        
+                    `;
+                } else {
+                    headerRow.innerHTML = `
+                        <th>Componentes</th>
+                        <th>Cumplimiento</th>
+                        <th>Menú Oficial</th>
+                        <th>Menú Entregado</th>
+                        <th>Cumplimiento de las propiedades organolepticas</th>
+                        <th>Observación</th>
+                    `;
+                }
+        
+                // Realizar la solicitud para obtener los datos
+                fetch(`/get_menu_details_verificacion?tipo_racion=${tipoRacion}&numero_menu_oficial=${numeroMenuOficial}&numero_menu_intercambio=${numeroMenuIntercambio}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.error) {
+                            alert(data.error);
+                            return;
+                        }
+        
+                        // Generar filas de la tabla basadas en el tipo de ración y los datos obtenidos
+                        const rows = data.menu_oficial.map((menuItem, index) => {
+                            if (tipoRacion === "1") {
+                                return `
+                                    <tr>
+                                        <td>
+                                            <span>${menuItem.componentes || 'N/A'}</span>
+                                            <input type="hidden" name="componentes[]" value="${menuItem.componentes || 'N/A'}">
+                                        </td>
+                                        <td>
+                                            <select name="valor_cumplimiento[]">
+                                                <option value="1">Cumple</option>
+                                                <option value="0">No Cumple</option>
+                                                <option value="2">N/A</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <span>${menuItem.ingredientes || 'N/A'}</span>
+                                            <input type="hidden" name="menu_oficial[]" value="${menuItem.ingredientes || 'N/A'}">
+                                        </td>
+                                        <td>
+                                            <textarea name="menu_intercambio[]">${data.menu_intercambio[index] ? data.menu_intercambio[index].ingredientes : 'N/A'}</textarea>
+                                        </td>
+                                        <td><input type="date" name="fecha_vencimiento[]"></td>
+                                        <td><input type="text" name="lote[]" placeholder="Lote"></td>
+                                        <td><input type="number" name="peso_nivel_escolar_1[]" placeholder="Peso"></td>
+                                        <td><input type="number" name="peso_nivel_escolar_2[]" placeholder="Peso"></td>
+                                        <td><input type="number" name="peso_nivel_escolar_3[]" placeholder="Peso"></td>
+                                        <td><input type="number" name="peso_nivel_escolar_4[]" placeholder="Peso"></td>
+                                        <td><input type="number" name="peso_nivel_escolar_5[]" placeholder="Peso"></td>
+                                    </tr>
+                                `;
+                            } else {
+                                return `
+                                    <tr>
+                                        <td>
+                                            <span>${menuItem.componentes || 'N/A'}</span>
+                                            <input type="hidden" name="componentes[]" value="${menuItem.componentes || 'N/A'}">
+                                        </td>
+                                        <td>
+                                            <select name="valor_cumplimiento[]">
+                                                <option value="1">Cumple</option>
+                                                <option value="0">No Cumple</option>
+                                                <option value="2">N/A</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <span>${menuItem.ingredientes || 'N/A'}</span>
+                                            <input type="hidden" name="menu_oficial[]" value="${menuItem.ingredientes || 'N/A'}">
+                                        </td>
+                                        <td>
+                                            <textarea name="menu_intercambio[]">${data.menu_intercambio[index] ? data.menu_intercambio[index].ingredientes : 'N/A'}</textarea>
+                                        </td>
+                                        <td>
+                                            <select name="propiedades_organolepticas[]">
+                                                <option value="1">Cumple</option>
+                                                <option value="0">No Cumple</option>
+                                            </select>
+                                        </td>
+                                        <td><input type="text" name="observacion[]" placeholder="Escribe observación"></td>
+                                    </tr>
+                                `;
+                            }
+                        }).join('');
+        
+                        // Insertar filas en el cuerpo de la tabla
+                        tableBody.innerHTML = rows;
+                    })
+                    .catch(error => {
+                        console.error('Error al cargar los detalles del menú:', error);
+                        alert('Ocurrió un error al cargar los detalles del menú.');
+                    });
+            } else {
+                alert('Por favor, seleccione el tipo de ración.');
+            }
+        }
+        
+        
+        function calcularTotal() {
+            // Selecciona todas las tablas de "levels-table" para los menús adicionales
+            const levelsTables = document.querySelectorAll('.levels-table');
+        
+            // Variable para almacenar la suma total de todos los niveles
+            let sumaTotal = 0;
+        
+            levelsTables.forEach(table => {
+                // Obtener los valores de los inputs de niveles en cada tabla
+                const nivel1 = parseInt(table.querySelector('input[name="nivel_1"]').value) || 0;
+                const nivel2 = parseInt(table.querySelector('input[name="nivel_2"]').value) || 0;
+                const nivel3 = parseInt(table.querySelector('input[name="nivel_3"]').value) || 0;
+                const nivel4 = parseInt(table.querySelector('input[name="nivel_4"]').value) || 0;
+                const nivel5 = parseInt(table.querySelector('input[name="nivel_5"]').value) || 0;
+        
+                // Calcular el total de esta tabla
+                const total = nivel1 + nivel2 + nivel3 + nivel4 + nivel5;
+        
+                // Asignar el total al campo correspondiente en la tabla actual
+                table.querySelector('input[name="total"]').value = total;
+        
+                // Sumar el total al total general
+                sumaTotal += total;
+            });
+        
+            console.log("Suma total de todos los niveles:", sumaTotal); // Esto imprimirá el total de todas las secciones
+        
+            // Puedes usar `sumaTotal` para realizar cualquier otra operación si es necesario
+        }
+        
+    </script>
+    
+</head>
+<body>
+    <div class="container">
+        <h1>Verificacion de Menú</h1>
+        <form action="/verificacion_menu" method="POST" enctype="multipart/form-data">
+
+
+            <div class="form-group">
+                <p>
+                    Este formulario que se utiliza para registrar información clave relacionada con la visita de inspección 
+                    de alimentos en instituciones educativas. Esta información es esencial para evaluar la calidad y cumplimiento 
+                    de los estándares establecidos. Diligencie los campos a continuación:
+                    
+                </p>
+            </div>
+           
+            <div class="form-group">
+                <label for="fecha_visita">Fecha de Visita:</label>
+                <input type="date" id="fecha_visita" name="fecha_visita" 
+                value="{{ today_date }}" min="{{ today_date }}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="hora_visita">Hora:</label>
+                <input type="time" id="hora_visita" name="hora_visita" ><br>
+            </div>  
+
+            <div class="form-group">
+            <label for="zona">Zona:</label>
+                <input type="text" id="zona" name="zona"><br>
+            </div>  
+            <div class="form-group">
+            <label for="jornada">Jornada:</label>
+                <input type="text" id="jornada" name="jornada"><br>
+            </div>           
+            <div class="form-group">
+                <label for="id_operador">Operador:</label>
+                <select id="id_operador" name="id_operador" required>
+                    <option value="">Seleccione una opción</option>
+                    {% for operador in operadores %}
+                        <option value="{{ operador.id_operador }}">{{ operador.nombre }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="numero_contrato">Numero Contrato de Operador:</label>
+                <select id="numero_contrato" name="numero_contrato" required>
+                    <option value="">Seleccione una opción</option>
+                    {% for operador in operadores %}
+                        <option value="{{ operador.numero_contrato }}">{{ operador.numero_contrato }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            
+            <div id="instituciones-container">
+                <div class="institucion-seccion">
+                    <div class="form-group">
+                        <label for="institucion">Institución Educativa Principal:</label>
+                        <select class="institucion-select" name="instituciones[]" onchange="cargarSedes(this)" required>
+                            <option value="">Seleccione una institución</option>
+                        </select>
+                    </div>
+            
+                    <div class="form-group">
+                        <label for="sedes">Sedes:</label>
+                        <div class="radio-group">
+                            <p class="text-muted">Seleccione una institución para ver las sedes disponibles.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            
+
+            <div class="form-group">
+                <label for="tipo_racion">Tipo de Ración:</label>
+                <select id="tipo_racion" name="tipo_racion_id" onchange="cargarDetallesMenu()">
+                    <option value="">Seleccione una opción</option>
+                    {% for tipo in tiporacion %}
+                        <option value="{{ tipo.id_tipo_racion }}">{{ tipo.descripcion }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            
+            <!-- Selección de Número de Menú Oficial -->
+            <div class="form-group">
+                <label for="numero_menu_oficial">Número de Menú Oficial:</label>
+                <select id="numero_menu_oficial" name="numero_menu_oficial" required onchange="cargarDetallesMenu()">
+                    <option value="">Seleccione una opción</option>
+                </select>
+            </div>
+            
+            <!-- Selección de Número de Menú Intercambio -->
+            <div class="form-group">
+                <label for="numero_menu_intercambio">Número de Menú Intercambio:</label>
+                <select id="numero_menu_intercambio" name="numero_menu_intercambio" onchange="cargarDetallesMenu()">
+                    <option value="">Seleccione una opción</option>
+                </select>
+            </div>
+            
+            <!-- Tabla de Detalles del Menú -->
+            <div class="table-wrapper">
+                <table id="menuDetailsTable" class="menu-table">
+                    <thead>
+                        <tr id="menuDetailsHeader">
+                            <!-- Encabezados dinámicos se cargarán aquí mediante JavaScript -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Los detalles del menú se cargarán aquí mediante JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+            
+            
+
+            <h2>Focalizacion de Niveles Escolares</h2>
+            <table class="levels-table">
+                <thead>
+                    <tr>
+                        <th>Nivel 1</th>
+                        <th>Nivel 2</th>
+                        <th>Nivel 3</th>
+                        <th>Nivel 4</th>
+                        <th>Nivel 5</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><input type="number" name="nivel_1" oninput="calcularTotal()" required></td>
+                        <td><input type="number" name="nivel_2" oninput="calcularTotal()" required></td>
+                        <td><input type="number" name="nivel_3" oninput="calcularTotal()" required></td>
+                        <td><input type="number" name="nivel_4" oninput="calcularTotal()" required></td>
+                        <td><input type="number" name="nivel_5" oninput="calcularTotal()" required></td>
+                        <td><input type="text" name="total" readonly></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="form-group">
+                <label for="observacion_general">Observación General</label>
+                <textarea id="observacion_general" name="observacion_general" rows="10" width="20" placeholder="Observación General"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="hallazgo">Novedades Encontradas en la Visita:</label>
+                <textarea id="hallazgo" name="hallazgo" rows="10" width="20" placeholder="Hallazgo"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="archivos">Adjuntar Fotos de la Evidencia:</label>
+                <input type="file" id="archivos" name="archivos[]" accept=".pdf, .jpg, .jpeg, .png" multiple>
+            </div>
+            
+
+            <div class="form-group">
+                <label>
+                    El valor de cumplimiento se utiliza para evaluar la conformidad de los alimentos y puede tomar tres valores: 
+                    "1" (cumple), que indica que el alimento satisface los estándares establecidos; 
+                    "0" (no cumple), que señala que el alimento no cumple con dichos estándares; y 
+                    "No aplica", para los casos donde la evaluación de ciertos criterios no sea relevante para el alimento inspeccionado.
+                    <br><br>
+                    Preparados y Almuerzos: El cumplimiento debe evaluarse según las propiedades organolépticas (olor, color y textura) en las diferentes preparaciones del ciclo de menú. Si cumplen con los estándares, se marcará como "1" (favorable); de lo contrario, se marcará como "0" (desfavorable). En caso de marcar "0", el supervisor debe especificar en la casilla de *Novedades encontradas en la visita* las inconformidades observadas en el alimento. 
+                    <br><br>
+                    Industrializados: Si se detecta un incumplimiento en la fecha de vencimiento, peso y lote de producto, este deberá registrarse en la misma casilla de *Novedades encontradas en la visita*, describiendo el problema encontrado.
+                </label>
+            </div>
+            
+
+            <button type="submit">Guardar</button>
+        </form>
+    </div>
+</body>
+</html>

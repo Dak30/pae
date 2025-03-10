@@ -1,0 +1,122 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    font-size: 12px;
+    
+}
+
+.container {
+    width: 80%;
+    max-width: 1200px; /* Limita el ancho máximo */
+    margin: 30px auto; /* Espacio en los lados */
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+header {
+    text-align: center;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+h1 {
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+.search-section {
+    margin-bottom: 30px;
+}
+
+h2 {
+    margin-bottom: 10px;
+    color: #555;
+    
+}
+
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+/* Aplica un ancho máximo a todos los campos de selección e input, excepto el de fecha */
+select {
+    width: 100%;
+    max-width: 600px; /* Limitar el ancho máximo de los campos */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Estilos específicos para el campo de fecha */
+.input-fecha {
+    width: 100%; /* Ocupa todo el ancho disponible */
+    max-width: 200px; /* Limita el ancho máximo del campo de fecha */
+    padding: 10px; /* Espaciado interno */
+    border: 1px solid #ccc; /* Borde */
+    border-radius: 5px; /* Bordes redondeados */
+}
+
+
+
+
+.styled-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    
+}
+
+.styled-table thead {
+    background-color: #007BFF;
+    color: white;
+    
+}
+
+.styled-table th, .styled-table td {
+    padding: 12px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+.styled-table tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        width: 90%;
+    }
+
+    .btn {
+        padding: 8px 16px;
+    }
+
+    .styled-table th, .styled-table td {
+        font-size: 14px;
+    }
+}

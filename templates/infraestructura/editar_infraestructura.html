@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/editar_infraestructura.css') }}">
+    <title>Editar Infraestructura</title>
+
+</head>
+<body>
+
+    
+
+    <form action="/actualizar_infraestructura" method="POST">
+        <h2>Editar Infraestructura</h2>
+        <input type="hidden" name="id_infraestructura" value="{{ infraestructura.id_infraestructura }}">
+
+        <label for="fecha">Fecha:</label>
+        <input type="date" id="fecha" name="fecha" value="{{ infraestructura.fecha }}" required readonly>
+
+        <label for="municipio">Municipio:</label>
+        <input type="text" id="municipio" name="municipio" value="{{ infraestructura.municipio }}" required>
+
+        <label for="corregimiento">Corregimiento:</label>
+        <input type="text" id="corregimiento" name="corregimiento" value="{{ infraestructura.corregimiento }}">
+
+        <label for="vereda">Vereda:</label>
+        <input type="text" id="vereda" name="vereda" value="{{ infraestructura.vereda }}">
+
+        <label for="operador">Operador:</label>
+        <select id="operador" name="operador" required>
+            {% for operador in operadores %}
+                <option value="{{ operador.id_operador }}" {% if operador.id_operador == infraestructura.operador %}selected{% endif %}>
+                    {{ operador.nombre }}
+                </option>
+            {% endfor %}
+        </select>
+
+        <label for="institucion">Institución:</label>
+        <select id="institucion" name="institucion" required>
+            <option value="">Seleccione una institución</option>
+            {% for institucion in instituciones %}
+                <option value="{{ institucion.id_institucion }}" {% if institucion.id_institucion == infraestructura.institucion %}selected{% endif %}>
+                    {{ institucion.sede_educativa }}
+                </option>
+            {% endfor %}
+        </select>
+
+        <label for="sede">Sede:</label>
+        <select id="sede" name="sede" required>
+            <option value="">Seleccione una sede</option>
+            {% for sede in sedes %}
+                <option value="{{ sede.id_sede }}" {% if sede.id_sede == infraestructura.sede %}selected{% endif %}>
+                    {{ sede.nombre_sede }}
+                </option>
+            {% endfor %}
+        </select>
+
+        <label for="codigo_sede">Código Sede:</label>
+        <input type="text" id="codigo_sede" name="codigo_sede" value="{{ infraestructura.codigo_sede }}" required readonly>
+
+        <label for="direccion">Dirección:</label>
+        <input type="text" id="direccion" name="direccion" value="{{ infraestructura.direccion }}" required readonly>
+
+        <label for="barrio">Barrio:</label>
+        <input type="text" id="barrio" name="barrio" value="{{ infraestructura.barrio }}" required>
+
+        <label for="comuna">Comuna:</label>
+        <input type="text" id="comuna" name="comuna" value="{{ infraestructura.comuna }}" readonly>
+
+        <label for="zona">Zona:</label>
+        <input type="text" id="zona" name="zona" value="{{ infraestructura.zona }}" required readonly>
+
+        <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            let institucionSelect = document.getElementById("institucion");
+            let sedeSelect = document.getElementById("sede");
+
+            // Cargar sedes cuando se seleccione una institución
+            institucionSelect.addEventListener("change", function() {
+                let institucionId = this.value;
+                sedeSelect.innerHTML = '<option value="">Seleccione una sede</option>';
+                
+                if (institucionId) {
+                    fetch(`/get_sede/${institucionId}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            data.sedes.forEach(sede => {
+                                let option = document.createElement("option");
+                                option.value = sede.id;
+                                option.textContent = sede.nombre;
+                                sedeSelect.appendChild(option);
+                            });
+                        })
+                        .catch(error => console.error("Error cargando sedes:", error));
+                }
+            });
+
+            // Cargar detalles de la sede cuando se seleccione una
+            sedeSelect.addEventListener("change", function() {
+                let sedeId = this.value;
+
+                if (sedeId) {
+                    fetch(`/get_sede_details/${sedeId}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            document.getElementById("codigo_sede").value = data.codigo || "";
+                            document.getElementById("direccion").value = data.direccion || "";
+                            document.getElementById("barrio").value = data.barrio || "";
+                            document.getElementById("comuna").value = data.comuna || "";
+                            document.getElementById("zona").value = data.zona || "";
+                        })
+                        .catch(error => console.error("Error cargando detalles de la sede:", error));
+                } else {
+                    document.getElementById("codigo_sede").value = "";
+                    document.getElementById("direccion").value = "";
+                    document.getElementById("barrio").value = "";
+                    document.getElementById("comuna").value = "";
+                    document.getElementById("zona").value = "";
+                }
+            });
+        });
+        </script>
+
+
+        <label>Tipo de Ración:</label><br>
+        {% for opcion in tipo_racion %}
+            <input type="checkbox" name="tipo_racion_checkbox" value="{{ opcion }}" 
+                {% if opcion in infraestructura.tipo_racion.split(',') %} checked {% endif %}> {{ opcion }}<br>
+        {% endfor %}
+
+        <input type="hidden" id="tipo_racion" name="tipo_racion" value="{{ infraestructura.tipo_racion }}" required>
+
+
+        <label for="focalizacion">Focalización:</label>
+        <input type="text" id="focalizacion" name="focalizacion" value="{{ infraestructura.focalizacion }}">
+
+
+
+    <h2>Editar Respuestas de Infraestructura</h2>
+
+
+    <table>
+        <thead>
+            <tr>
+                <th>Cumplimiento</th>
+                <th>Descripción</th>
+                <th>Observaciones</th>
+                <th>Foto</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for respuesta in respuestas_infraestructura %}
+            <tr>
+                <td>
+                    <label>{{ respuesta.numero }} - {{ respuesta.descripcion }}</label>
+                </td>
+                <td>
+                    <select id="respuesta_{{ respuesta.id_respuesta }}" name="respuesta_{{ respuesta.id_respuesta }}" required>
+                        <option value="1" {% if respuesta.respuesta == 1 %}selected{% endif %}>Cumple</option>
+                        <option value="0" {% if respuesta.respuesta == 0 %}selected{% endif %}>No cumple</option>
+                        <option value="2" {% if respuesta.respuesta == 2 %}selected{% endif %}>No aplica</option>
+                    </select>
+                </td>
+                
+                <td>
+                    <textarea id="observacion_{{ respuesta.id_respuesta }}" name="observacion_{{ respuesta.id_respuesta }}" rows="2">{{ respuesta.observacion }}</textarea>
+                </td>
+
+                <td>
+                    {% if respuesta.foto %}
+                        <img src="{{ url_for('static', filename='uploads/infraestructura/' + respuesta.foto) }}" 
+                             alt="Foto de {{ respuesta.id_respuesta }}" width="50">
+                    {% else %}
+                        <span style="color: red;">No disponible</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h2>Editar Dotación de Menaje</h2>
+
+    <table>
+        <thead>
+            <tr>
+                
+                <th>Numero</th>
+                <th>Item</th>
+                <th>Cantidad</th>
+                <th>Estado</th>
+                <th>Propiedad</th>
+                <th>Foto</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for menaje in dotacion_menaje %}
+            <tr>
+                <td style = "display: none;">{{ menaje.id }}</td>
+                <td >{{ menaje.numero }}</td>
+                <td id="item_{{ menaje.id }}">
+                    {{ menaje.item }}
+                    <input type="hidden" name="item_{{ menaje.id }}" value="{{ menaje.item }}">
+                </td>
+                
+                <td>
+                    <textarea name="cantidad_{{ menaje.id }}">{{ menaje.cantidad }}</textarea>
+                </td>
+                
+                <td>
+                    <label><input type="checkbox" name="estado_{{ menaje.id }}[]" value="Bueno" {% if 'Bueno' in menaje.estado %}checked{% endif %}> Bueno</label>
+                    <label><input type="checkbox" name="estado_{{ menaje.id }}[]" value="Regular" {% if 'Regular' in menaje.estado %}checked{% endif %}> Regular</label>
+                    <label><input type="checkbox" name="estado_{{ menaje.id }}[]" value="Malo" {% if 'Malo' in menaje.estado %}checked{% endif %}> Malo</label>
+                </td>
+                
+                <td>
+                    <label><input type="checkbox" name="propiedad_{{ menaje.id }}[]" value="IEO" {% if 'IEO' in menaje.propiedad %}checked{% endif %}> IEO</label>
+                    <label><input type="checkbox" name="propiedad_{{ menaje.id }}[]" value="Operador" {% if 'Operador' in menaje.propiedad %}checked{% endif %}> Operador</label>
+                </td>
+                
+                <td>
+                    {% if menaje.foto_menaje %}
+                        <img src="{{ url_for('static', filename='uploads/infraestructura/' + menaje.foto_menaje) }}" 
+                             alt="Foto de {{ menaje.item }}" width="50">
+                    {% else %}
+                        <span style="color: red;">No disponible</span>
+                    {% endif %}
+                </td>
+                
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+        <label for="observacion_general">Observación General:</label>
+        <textarea id="observacion_general" name="observacion_general" rows="3">{{ infraestructura.observacion_general }}</textarea>
+
+        <button type="submit">Actualizar</button>
+    </form>
+
+
+
+</body>
+</html>

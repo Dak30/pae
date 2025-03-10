@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{{ url_for('static', filename='images/Escudo.png') }}" type="image/png">
+    <title>Detalle de Visita Técnica</title>
+    <link rel="stylesheet" href="/static/styles/detalles_tecnica.css">
+    
+</head>
+<body>
+    <div class="container">
+        <h1>Detalle de Visita Técnica</h1>
+
+        <a class="btn" href="{{ url_for('tecnica.lista_tecnica') }}">Volver al Principal</a>
+    
+
+        <!-- Información General de la Visita -->
+        <h2>Información General</h2>
+        <div class="info-grid">
+            <div>
+                <ul>
+                    <li><strong>ID:</strong> T{{ visita.id_visita_tecnica }}</li>
+                    <li><strong>Fecha de Visita:</strong> {{ visita.fecha_visita }}</li>
+                    <li><strong>Hora de Visita:</strong> {{ visita.hora_visita }}</li>
+                    <li><strong>Operador:</strong> {{ visita.operador }}</li>
+                </ul>
+            </div>
+            <div>
+                <ul>
+                    <li><strong>Institución:</strong> {{ visita.institucion }}</li>
+                    <li><strong>Sede:</strong> {{ visita.sede }}</li>
+                    <li><strong>Focalización:</strong> {{ visita.focalizacion }}</li>
+                    <li><strong>Tipo de Ración:</strong> {{ visita.tipo_racion_tecnica }}</li>
+                </ul>
+            </div>
+            <div>
+                <ul>
+                    <li><strong>Código de Sede:</strong> {{ visita.codigo_sede }}</li>
+                    <li><strong>Dirección:</strong> {{ visita.direccion }}</li>
+                    <li><strong>Zona:</strong> {{ visita.zona }}</li>
+                </ul>
+            </div>
+        </div>
+
+
+        <!-- Preguntas y Respuestas -->
+        <h2>Preguntas y Respuestas</h2>
+        <table class="styled-table">
+            <thead>
+                <tr>
+                    <th>Categoría</th>
+                    <th>Número</th>
+                    <th>Pregunta</th>
+                    <th>Respuesta</th>
+                    <th>Observaciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for pregunta in preguntas_respuestas %}
+                <tr>
+                    <td>{{ pregunta.categoria }}</td>
+                    <td>{{ pregunta.numero }}</td>
+                    <td>{{ pregunta.preguntas }}</td>
+                    <td>{{ '1' if pregunta.respuesta == '1' else '0' if pregunta.respuesta == '0' else 'N/A' if pregunta.respuesta == '2' }}</td>
+                    <td>{{ pregunta.observaciones }}</td>                    
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <p> Observaciones: {{ visita.observacion_general }}</p>
+
+    
+        {% if visita.id_visita_tecnica and toma_peso %}
+            <h1>Toma de Peso y Temperatura Ración Preparada en Sitio</h1>
+            <p><strong>Desperdicio:</strong> {{ toma_peso.desperdicio }}</p>
+            <p><strong>Menú del Día:</strong> {{ toma_peso.menu_del_dia }}</p>
+            <table class="styled-table">
+                <thead>
+                    <tr>
+                        <th>Nivel</th>
+                        <th>Nivel 1</th>
+                        <th>Nivel 2</th>
+                        <th>Nivel 3</th>
+                        <th>Nivel 4</th>
+                        <th>Nivel 5</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Preparado en Sitio</strong></td>
+                        <td><strong>{{ toma_peso.nivel1 }}</strong></td>
+                        <td><strong>{{ toma_peso.nivel2 }}</strong></td>
+                        <td><strong>{{ toma_peso.nivel3 }}</strong></td>
+                        <td><strong>{{ toma_peso.nivel4 }}</strong></td>
+                        <td><strong>{{ toma_peso.nivel5 }}</strong></td>
+                        <td><strong>{{ toma_peso.total }}</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+        {% elif not visita.id_visita_tecnica %}
+            <p>No se encontraron datos para esta visita técnica.</p>
+        {% endif %}
+
+
+
+        {% if visita.id_visita_tecnica and componente_alimentario %}
+        <h2>Cumplimiento de Gramajes Preparados AM/PM</h2>
+        <h2>Tabla 1: Componente Alimentario (AM/PM)</h2>
+        <table class="styled-table">
+            <thead>
+                <tr>
+                    <th>Muestra</th>
+                    <th>Componente</th>
+                    <th>Nivel 1</th>
+                    <th>Nivel 2</th>
+                    <th>Nivel 3</th>
+                    <th>Nivel 4</th>
+                    <th>Nivel 5</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for componente in componente_alimentario %}
+                    <tr>
+                        <td>{{ componente.muestra }}</td>
+                        <td>{{ componente.componente }}</td>
+                        <td>{{ componente.nivel_1 }}</td>
+                        <td>{{ componente.nivel_2 }}</td>
+                        <td>{{ componente.nivel_3 }}</td>
+                        <td>{{ componente.nivel_4 }}</td>
+                        <td>{{ componente.nivel_5 }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% elif not visita.id_visita_tecnica %}
+        <p>No se encontraron datos para esta visita técnica.</p>
+        {% endif %}
+
+
+        {% if visita.id_visita_tecnica and componente_alimentario_promedio %}
+        <h1>Tabla 2: Componente Alimentario (AM/PM)</h1>
+        <h2>Promedio Ponderado</h2>
+        <div class="table-container-scroll">
+            <table>
+                <thead>
+                    <tr>
+                        <th rowspan="2">Grupos</th>
+                        <th colspan="4">Peso Minuta Patrón (g)</th>
+                        <th colspan="4">Peso Promedio Obtenido (g)</th>
+                        <th colspan="4">Concepto (C/NC)</th>
+                    </tr>
+                    <tr>
+                        <th>Bebida</th>
+                        <th>Proteico</th>
+                        <th>Cereal</th>
+                        <th>Fruta</th>
+                        <th>Bebida</th>
+                        <th>Proteico</th>
+                        <th>Cereal</th>
+                        <th>Fruta</th>
+                        <th>Bebida</th>
+                        <th>Proteico</th>
+                        <th>Cereal</th>
+                        <th>Fruta</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for componente in componente_alimentario_promedio %}
+                    <tr>
+                        <td>{{ componente.nivel_escolar }}</td>
+                        <td>{{ componente.peso_patron_bebida }}</td>
+                        <td>{{ componente.peso_patron_proteico }}</td>
+                        <td>{{ componente.peso_patron_cereal }}</td>
+                        <td>{{ componente.peso_patron_fruta }}</td>
+                        <td>{{ componente.peso_obtenido_bebida }}</td>
+                        <td>{{ componente.peso_obtenido_proteico }}</td>
+                        <td>{{ componente.peso_obtenido_cereal }}</td>
+                        <td>{{ componente.peso_obtenido_fruta }}</td>
+                        <td>{{ componente.concepto_bebida }}</td>
+                        <td>{{ componente.concepto_proteico }}</td>
+                        <td>{{ componente.concepto_cereal }}</td>
+                        <td>{{ componente.concepto_fruta }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <p>C: Cumple, N/C: No Cumple, N/A: No Aplica</p>
+        {% elif not visita.id_visita_tecnica %}
+        <p>No se encontraron datos para esta visita técnica.</p>
+        {% endif %}
+
+
+
+
+        {% if visita.id_visita_tecnica and temperaturas %}
+        <h2>Temperaturas</h2>
+        <table class="styled-table">
+            <thead>
+                <tr>
+                    <th>Componente</th>
+                    <th>Temperatura</th>
+                    <th>Concepto</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for temp in temperaturas %}
+                    <tr>
+                        <td>{{ temp.componente }}</td>
+                        <td>{{ temp.temperatura }}°C</td>
+                        <td>{{ temp.concepto }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <p>C: Cumple, N/C: No Cumple, N/A: No Aplica</p>
+        <p>Desperdicio: Se refiere a la Preparación que por sus caracateristicas organolepticas presentan bajo consumo y alto desperdicio</p>
+        {% elif not visita.id_visita_tecnica %}
+        <p>No se encontraron datos para esta visita técnica.</p>
+        {% endif %}
+
+
+        {% if visita.id_visita_tecnica and toma_peso %}
+            <p><strong>Observación: </strong> {{ toma_peso.observacion }}</p>
+        {% elif not visita.id_visita_tecnica %}
+            <p>No se encontraron datos para esta visita técnica.</p>
+        {% endif %}
+
+        <div style="max-width: 100%; overflow-x: auto;">
+            <h3>Archivos Adjuntos</h3>
+            {% if archivos %}
+                <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 10px;">
+                    {% for archivo in archivos %}
+                        {% if 'nombre_archivo' in archivo %}
+                            <li style="display: inline-block; text-align: center; max-width: 150px;">
+                                {% set archivo_url = url_for('static', filename='uploads/tecnica/' ~ archivo['nombre_archivo']) %}
+                                {% set nombre_archivo = archivo['nombre_archivo'] | lower %}
+        
+                                {% if nombre_archivo.endswith(('png', 'jpg', 'jpeg')) %}
+                                    <a href="{{ archivo_url }}" target="_blank">
+                                        <img src="{{ archivo_url }}" alt="Imagen adjunta" width="150" style="display: block; margin: auto;">
+                                    </a>
+                                {% elif nombre_archivo.endswith('pdf') %}
+                                    <p>
+                                        <a href="{{ archivo_url }}" target="_blank" style="text-decoration: none; color: #007bff;">📄 Ver PDF</a>
+                                    </p>
+                                {% else %}
+                                    <p>
+                                        <a href="{{ archivo_url }}" target="_blank" style="text-decoration: none; color: #007bff;">📁 Descargar {{ archivo['nombre_archivo'] }}</a>
+                                    </p>
+                                {% endif %}
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No hay archivos disponibles.</p>
+            {% endif %}
+        </div>
+        
+        
+        <form action="{{ url_for('tecnica.detalle_tecnica', id_visita_tecnica=visita.id_visita_tecnica) }}" method="POST">
+            <table class="tabla-firmas">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>No. Cédula</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <input type="text" name="nombre_representante" 
+                                   placeholder="Escribe el nombre representante de IEO" 
+                                   value="{{ firmas.nombre_representante if firmas else '' }}" 
+                                   required maxlength="100">
+                        </td>
+                        <td>
+                            <input type="text" name="cedula_representante" 
+                                   placeholder="Escribe la cédula aquí" 
+                                   value="{{ firmas.cedula_representante if firmas else '' }}" 
+                                   required pattern="\d{7,10}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="text" name="nombre_profesional" 
+                                   placeholder="Escribe el nombre del profesional que realiza la visita" 
+                                   value="{{ firmas.nombre_profesional if firmas else '' }}" 
+                                   required maxlength="100">
+                        </td>
+                        <td>
+                            <input type="text" name="cedula_profesional" 
+                                   placeholder="Escribe la cédula aquí" 
+                                   value="{{ firmas.cedula_profesional if firmas else '' }}" 
+                                   required pattern="\d{7,10}">
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <button type="submit" name="accion" value="guardar" class="btn btn-success">Guardar Firmas</button>
+            <button type="submit" name="accion" value="guardar_pdf" class="btn btn-primary">Guardar y Generar PDF</button>
+        </form>
+        
+
+    </div>
+
+    
+    
+     <!-- Tabla de Firmas -->
+
+</body>
+</html>

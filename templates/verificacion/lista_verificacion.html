@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{{ url_for('static', filename='images/Escudo.png') }}" type="image/png">
+    <title>Lista de Verificación</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/lista_verificacion.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header class="top-bar">
+            <h1>Lista de Verificación</h1>
+            <nav class="menu-grid">
+                {% if rol and rol in ['administrador', 'supervisor'] %}
+                    <a href="{{ url_for('bodega.lista_bodega') }}" class="menu-button">Lista de Bodega</a>
+                    <a href="{{ url_for('infraestructura.lista_infraestructura') }}" class="menu-button">Lista de Infraestructura</a>
+                    <a href="{{ url_for('tecnica.lista_tecnica') }}" class="menu-button">Lista de Técnica</a>
+                {% endif %}
+                {% if rol and rol in ['administrador', 'supervisor', 'nutricionista'] %}
+                    <a href="{{ url_for('informe_general') }}" class="menu-button">Volver al Principal</a>
+                {% endif %}
+
+            </nav>
+        </header>
+
+        <main>
+            <!-- Formulario de filtrado -->
+        <form method="GET" action="{{ url_for('verificacion_bp.exportar_excel') }}">
+            <input type="hidden" name="id_verificacion" value="{{ request.args.get('id_verificacion', '') }}">
+            <input type="hidden" name="institucion_id" value="{{ request.args.get('institucion_id', '') }}">
+
+            <label for="fecha_inicio">Desde:</label>
+            <input type="date" id="fecha_inicio" name="fecha_inicio" value="{{ request.args.get('fecha_inicio', '') }}" required>
+
+            <label for="fecha_fin">Hasta:</label>
+            <input type="date" id="fecha_fin" name="fecha_fin" value="{{ request.args.get('fecha_fin', '') }}" required>
+
+            <button type="submit" class="btn btn-export">📥 Exportar a Excel</button>
+        </form>
+
+            
+
+            <table class="styled-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Fecha de Visita</th>
+                        <th>Hora de Visita</th>
+                        <th>Operador</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in verificacion_items %}
+                    <tr>
+                        <td>V{{ item.id }}</td>
+                        <td>{{ item.fecha_visita }}</td>
+                        <td>{{ item.hora_visita }}</td>
+                        <td>{{ item.nombre }}</td>
+                        <td>
+                            <a href="{{ url_for('verificacion_bp.detalles_verificacion', id=item.id) }}" class="btn">Ver Detalles</a>
+                            <a href="{{ url_for('verificacion_bp.editar_verificacion', id=item.id) }}" class="btn">Editar</a>
+                            <button class="btn btn-danger" onclick="eliminarVerificacion({{ item.id }})">
+                                Eliminar
+                            </button>
+                            
+                            <script>
+                                function eliminarVerificacion(id) {
+                                    if (confirm('¿Estás seguro de eliminar esta verificación?')) {
+                                        fetch(`/eliminar_verificacion/${id}`, {
+                                            method: 'DELETE',
+                                            headers: { 'Content-Type': 'application/json' }
+                                        })
+                                        .then(response => response.json())
+                                        .then(data => {
+                                            if (data.success) {
+                                                alert(data.message);
+                                                location.reload(); // Recargar la página después de eliminar
+                                            } else {
+                                                alert('Error: ' + data.message);
+                                            }
+                                        })
+                                        .catch(error => console.error('Error:', error));
+                                    }
+                                }
+                            </script>
+                            
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </main>
+    </div>
+</body>
+</html>

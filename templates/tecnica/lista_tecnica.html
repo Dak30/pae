@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{{ url_for('static', filename='images/Escudo.png') }}" type="image/png">
+    <title>Lista de Visitas Técnicas</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/lista_tecnica.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header class="top-bar">
+            <h1>Lista de Visita Técnica</h1>
+            <nav class="menu-grid">
+                <a href="{{ url_for('bodega.lista_bodega') }}" class="menu-button">Lista de Bodega</a>
+                <a href="{{ url_for('infraestructura.lista_infraestructura') }}" class="menu-button">Lista de Infraestructura</a>
+                <a href="{{ url_for('verificacion_bp.lista_verificacion') }}" class="menu-button">Lista de Verificación</a>
+                <a href="{{ url_for('informe_general') }}" class="menu-button">Volver al Principal</a>
+            </nav>
+        </header>
+        <main>
+
+            <form id="exportForm">
+                <label for="fecha_inicio">Fecha Inicio:</label>
+                <input type="date" id="fecha_inicio" name="fecha_inicio" required>
+        
+                <label for="fecha_fin">Fecha Fin:</label>
+                <input type="date" id="fecha_fin" name="fecha_fin" required>
+        
+                <button type="submit">Exportar a Excel</button>
+            </form>
+        
+            <script>
+                document.getElementById("exportForm").addEventListener("submit", function(event) {
+                    event.preventDefault();
+        
+                    let fechaInicio = document.getElementById("fecha_inicio").value;
+                    let fechaFin = document.getElementById("fecha_fin").value;
+        
+                    if (!fechaInicio || !fechaFin) {
+                        alert("Por favor selecciona ambas fechas.");
+                        return;
+                    }
+        
+                    let url = `/exportar_excel?fecha_inicio=${fechaInicio}&fecha_fin=${fechaFin}`;
+                    window.location.href = url;
+                });
+            </script>
+            
+            <table class="styled-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Fecha de Visita</th>
+                        <th>Hora</th>
+                        <th>Operador</th>
+                        <th>Tipo de Ración</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for visita in visitas %}
+                    <tr>
+                        <td>T{{ visita.id_visita_tecnica }}</td>
+                        <td>{{ visita.fecha_visita }}</td>
+                        <td>{{ visita.hora_visita }}</td>
+                        <td>{{ visita.operador }}</td>
+                        <td>{{ visita.tipo_racion_tecnica }}</td>
+                        <td>
+                            <a href="{{ url_for('tecnica.detalle_tecnica', id_visita_tecnica=visita.id_visita_tecnica) }}" class="btn">Ver Detalles</a>
+                            <a href="{{ url_for('tecnica.editar_visita', id_visita_tecnica=visita.id_visita_tecnica) }}" class="btn">Editar</a>
+                            <button class="btn btn-danger" onclick="eliminarTecnica({{ visita.id_visita_tecnica }})">
+                                Eliminar
+                            </button>
+                            
+                            <script>
+                                function eliminarTecnica(id) {
+                                    if (confirm('¿Estás seguro de eliminar esta visita técnica?')) {
+                                        fetch(`/eliminar_tecnica/${id}`, {
+                                            method: 'DELETE',
+                                            headers: { 'Content-Type': 'application/json' }
+                                        })
+                                        .then(response => response.json())
+                                        .then(data => {
+                                            if (data.success) {
+                                                alert(data.message);
+                                                location.reload(); // Recargar la página después de eliminar
+                                            } else {
+                                                alert('Error: ' + data.message);
+                                            }
+                                        })
+                                        .catch(error => console.error('Error:', error));
+                                    }
+                                }
+                            </script>
+                            
+                        </td>
+                        
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </main>
+    </div>
+</body>
+</html>

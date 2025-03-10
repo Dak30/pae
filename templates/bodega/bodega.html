@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Inspección de Bodega</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/bodega.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='images/Escudo.png') }}" type="image/png">
+    <script>
+        function updateInfoMessage() {
+            const tipoVisita = document.getElementById("tipo_visita").value.trim();
+            const infoMessage = document.getElementById("numero_visita_info");
+            const inputNumeroVisita = document.getElementById("numero_visita_input");
+        
+            if (!tipoVisita) {
+                infoMessage.innerText = "Seleccione un tipo de visita.";
+                inputNumeroVisita.value = "";  // Limpiar si no hay selección
+                return;
+            }
+        
+            // Enviar solo el tipo de visita, sin operador
+            fetch("/get_numero_visita", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ tipo_visita: tipoVisita })  // Se elimina el operador
+            })
+            .then(response => response.json().then(data => {
+                if (!response.ok) throw new Error(data.error || "Error en el servidor.");
+                return data;
+            }))
+            .then(data => {
+                if (data.numero_visita !== undefined) {  
+                    infoMessage.innerText = `El número de visita será: ${data.numero_visita}`;
+                    inputNumeroVisita.value = data.numero_visita;
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                infoMessage.innerText = error.message;
+                inputNumeroVisita.value = ""; 
+            });
+        }
+        
+        
+
+    </script>
+</head>
+<body>
+    <main>
+        
+        <form action="/bodega" method="post" class="form-container" id="bodegaForm" enctype="multipart/form-data">
+            <h1>VISITA DE BODEGA</h1>
+            
+            <fieldset>
+                <legend>Información General</legend>
+                <label>
+                    Este formulario está diseñado para registrar la información clave relacionada con la 
+                    <strong>Visita de Bodega</strong>, cuyo objetivo es evaluar las condiciones de almacenamiento, 
+                    manejo y conservación de los alimentos en las bodegas del Programa de Alimentación Escolar (PAE). 
+                    Diligencie cada campo para documentar aspectos relevantes de la visita.
+                </label>
+                <label for="operador">Operador:</label>
+                <select id="operador" name="operador" required>
+                    <option value="">Seleccione un Operador</option>
+                    {% for operador in operators %}
+                    <option value="{{ operador.id_operador }}">{{ operador.nombre }}</option>
+                    {% endfor %}
+                </select>
+                <label for="tipo_visita">Tipo de Visita:</label>
+                <select id="tipo_visita" name="tipo_visita" required onchange="updateInfoMessage()">
+                    <option value="">Seleccione un Tipo</option>
+                    <option value="Visita Inicio">Visita de Inicio</option>
+                    <option value="Visita Seguimiento">Visita de Seguimiento</option>
+                    <option value="Visita Cierre">Visita de Cierre</option>
+                </select>
+                <p id="numero_visita_info" style="color: #555; font-size: 14px; margin-top: 10px;" aria-live="polite">
+                    Seleccione un tipo de visita para determinar el número de visita.
+                </p>
+                
+                <!-- Campo oculto para el número de visita -->
+                <input type="hidden" id="numero_visita_input" name="numero_visita_info">
+                
+                <label for="fecha_visita">Fecha de Visita:</label>
+                <input type="date" id="fecha_visita" name="fecha_visita" required>
+            </fieldset>
+            
+            <fieldset id="requisitos_fields">
+                <legend>REQUISITOS</legend>
+                {% for categoria, preguntas in preguntas.items() %}
+                <h2>{{ categoria }}</h2>
+                {% for pregunta in preguntas %}
+                <div class="verificacion-group">
+                    <label for="pregunta_{{ pregunta.id }}">{{ pregunta.numero }} - {{ pregunta.descripcion }}</label>
+                    <div class="verificacion-controls">
+                        <select id="pregunta_{{ pregunta.id }}" name="pregunta_{{ pregunta.id }}">
+                            <option value="1">Cumple</option>
+                            <option value="0">No Cumple</option>
+                            <option value="2">No Aplica</option>
+                        </select>
+                        <input type="text" id="observacion_{{ pregunta.id }}" name="observacion_{{ pregunta.id }}" placeholder="Observaciones">
+                    </div>
+                    <!-- Subida de imágenes -->
+                    <div class="file-upload">
+                        <label for="foto_{{ pregunta.id }}">Subir Fotos:</label>
+                        <input type="file" id="foto_{{ pregunta.id }}" name="foto_{{ pregunta.id }}" accept=".png, .jpeg, .jpg, .pdf" multiple>
+                    </div>
+                </div>
+                {% endfor %}
+                {% endfor %}
+                <h4>NOTA: Documento utilizado como soporte de verificación del plan de alistamiento antes, durante y al cierre del contrato.</h4>
+            </fieldset>
+            
+            <div class="observacion-general-container">
+                <label for="observacion_general">Observaciones Generales:</label>
+                <textarea id="observacion_general" name="observacion_general" rows="4" placeholder="Escriba aquí sus observaciones generales..."></textarea>
+            </div>
+            <button type="submit" name="action" value="guardar" >Guardar</button>
+        </form>
+    </main>
+</body>
+</html>

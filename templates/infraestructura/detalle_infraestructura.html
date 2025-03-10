@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{{ url_for('static', filename='images/Escudo.png') }}" type="image/png">
+    <title>Diagnóstico y Caracterización</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/detalle_infraestructura.css') }}">
+</head>
+<body>
+    <div class="container">
+        <!-- Encabezado -->
+        <div class="header-container">
+    
+            <!-- Center Section -->
+            <div class="center-section">
+                <h1>DIAGNÓSTICO Y CARACTERIZACIÓN DE INFRAESTRUCTURA Y DOTACIÓN DE UNIDADES DE SERVICIO - PAE</h1>
+            </div>
+    
+        </div>
+        <a class="btn" href="{{ url_for('infraestructura.lista_infraestructura') }}">Volver al Principal</a>
+        <!-- Información General -->
+        <div>
+            <h3 class="section-title">Información General</h3>
+            <table class="form-table">
+                <tr>
+                    <td><strong>Consecutivo:</strong> INF{{ infraestructura.id_infraestructura }} </td>
+                    <td><strong>Fecha:</strong> {{ infraestructura.fecha }}</td>
+                    <td><strong>Municipio:</strong> {{ infraestructura.municipio }}</td>
+                    
+                </tr>
+                <tr>
+                    <td><strong>Corregimiento:</strong> {{ infraestructura.corregimiento }}</td>
+                    <td><strong>Vereda:</strong> {{ infraestructura.vereda }}</td>
+                    <td><strong>Operador:</strong> {{ infraestructura.nombre_operador }}</td>
+                    
+                </tr>
+                <tr>
+                    <td><strong>Institución:</strong> {{ infraestructura.institucion_nombre }}</td>
+                    <td><strong>Sede:</strong> {{ infraestructura.sede_nombre }}</td>
+                    <td><strong>Código Sede:</strong> {{ infraestructura.codigo_sede }}</td>
+                    
+                </tr>
+                <tr>
+                    <td><strong>Dirección:</strong> {{ infraestructura.direccion }}</td>
+                    <td><strong>Barrio:</strong> {{ infraestructura.barrio }}</td>
+                    <td><strong>Comuna:</strong> {{ infraestructura.comuna }}</td>
+                    
+                </tr>
+                <tr>
+                    <td><strong>Zona:</strong> {{ infraestructura.zona }}</td>
+                    <td><strong>Modalidad:</strong> {{ infraestructura.tipo_racion }}</td>
+                    <td><strong>Focalización:</strong> {{ infraestructura.focalizacion }}</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- Aspectos a Evaluar -->
+        <div>
+            <h3 class="section-title">Aspectos a Evaluar</h3>
+            <p>Todos los servicios de alimentación escolar deberán cumplir las exigencias establecidas en la reglamentacion técnico-sanitaria Resolución 2674 de 2013 y Resolución 00335 del 2021, que establece las normas de higiene para la elaboración, distribución y consumo de alimentos. Diligenciar con letra legible.</p>
+            <p>'RESULTADO DE VERIFICACIÓN:  SE DEBE CALIFICAR EN UNA ESCALA DE 0 A 1 SIENDO; 0: NO CUMPLE, 1: CUMPLE, N/A: NO APLICA.</p> 
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>ITEM</th>
+                        <th>ASPECTO A EVALUAR</th>
+                        <th>RESULTADO</th>
+                        <th>OBSERVACIÓN</th>
+                        <th>FOTO</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for respuesta in respuestas %}
+                    <tr>
+                        <td>{{ respuesta.numero }}</td>
+                        <td>{{ respuesta.descripcion }}</td>
+                        <td>{{ respuesta.respuesta }}</td>
+                        <td>{{ respuesta.observacion if respuesta.observacion else "Sin Observación" }}</td>
+
+                        <td>
+                            {% if respuesta.foto %}
+                                {% for foto in respuesta.foto.split(',') %}
+                                    <img src="{{ url_for('static', filename='uploads/infraestructura/' ~ foto) }}" alt="Foto" width="100">
+                                {% endfor %}
+                            {% else %}
+                                No hay foto
+                            {% endif %}
+                        </td>                     
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Dotación de Menaje -->
+        <div>
+            <h3 class="section-title">Dotación de Menaje, Utensilios y Equipos</h3>
+            <table class="data-table" style="border-collapse: collapse; width: 100%; text-align: center; font-size: 14px;">
+                <thead>
+                    <tr style="background-color: #2980b9; color: white;">
+                        <th rowspan="2" style="border: 1px solid black; padding: 8px;">Item</th>
+                        <th rowspan="2" style="border: 1px solid black; padding: 8px;">Cantidad</th>
+                        <th colspan="3" style="border: 1px solid black; padding: 8px;">Estado</th>
+                        <th colspan="2" style="border: 1px solid black; padding: 8px;">Propiedad</th>
+                        <th rowspan="2" style="border: 1px solid black; padding: 8px;">Foto</th>
+                    </tr>
+                    <tr style="background-color: #2980b9; color: white;">
+                        <th style="border: 1px solid black; padding: 8px;">Bueno</th>
+                        <th style="border: 1px solid black; padding: 8px;">Regular</th>
+                        <th style="border: 1px solid black; padding: 8px;">Malo</th>
+                        <th style="border: 1px solid black; padding: 8px;">IEO</th>
+                        <th style="border: 1px solid black; padding: 8px;">Operador</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if dotacion_menaje %}
+                        {% for item in dotacion_menaje %}
+                        <tr>
+                            <td style="border: 1px solid black; padding: 6px;">{{ item.numero }} - {{ item.item }}</td>
+                            <td style="border: 1px solid black; padding: 6px;">{{ item.cantidad }}</td>
+                            <!-- Estado -->
+                            <td style="border: 1px solid black; padding: 6px;">{% if 'Bueno' in item.estado.split(',') %}✔{% else %}&nbsp;{% endif %}</td>
+                            <td style="border: 1px solid black; padding: 6px;">{% if 'Regular' in item.estado.split(',') %}✔{% else %}&nbsp;{% endif %}</td>
+                            <td style="border: 1px solid black; padding: 6px;">{% if 'Malo' in item.estado.split(',') %}✔{% else %}&nbsp;{% endif %}</td>
+                            <!-- Propiedad -->
+                            <td style="border: 1px solid black; padding: 6px;">{% if 'IEO' in item.propiedad.split(',') %}✔{% else %}&nbsp;{% endif %}</td>
+                            <td style="border: 1px solid black; padding: 6px;">{% if 'Operador' in item.propiedad.split(',') %}✔{% else %}&nbsp;{% endif %}</td>
+
+                            <td style="border: 1px solid black; padding: 6px;">
+                                {% if item.foto_menaje %}
+                                    {% for foto in item.foto_menaje.split(',') %}
+                                        <img src="{{ url_for('static', filename='uploads/dotacion_menaje/' ~ foto) }}" alt="Foto" width="100">
+                                    {% endfor %}
+                                {% else %}
+                                    No hay foto
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td colspan="7" style="border: 1px solid black; padding: 10px; text-align: center; color: red;">
+                                No hay datos disponibles para dotación de menaje.
+                            </td>
+                        </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+
+
+
+        <h10>Observación: {{ infraestructura.observacion_general }}</h3>
+
+        <!-- Firmas -->
+
+        <!-- Firmas -->
+        <form method="POST" action="{{ url_for('infraestructura.detalle_infraestructura', id_infraestructura=infraestructura['id_infraestructura']) }}" target="_blank">
+            <div>
+                <table class="tabla-firmas">
+                    <thead>
+                        <tr>
+                            <th>Nombre IEO</th>
+                            <th>Nombre Profesional</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if firmas %}
+                            <tr>
+                                <td>
+                                    <input class="input-placeholder" type="text" name="nombre_representante_ieo" value="{{ firmas[0].nombre_representante_ieo }}" placeholder="Nombre representante de IEO" required>
+                                </td>
+                                <td>
+                                    <input class="input-placeholder" type="text" name="nombre_profesional" value="{{ firmas[0].nombre_profesional }}" placeholder="Nombre del profesional" required>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td>
+                                    <input class="input-placeholder" type="text" name="nombre_representante_ieo" placeholder="Nombre representante de IEO" required>
+                                </td>
+                                <td>
+                                    <input class="input-placeholder" type="text" name="nombre_profesional" placeholder="Nombre del profesional" required>
+                                </td>
+                            </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+            <button type="submit" name="accion" value="guardar">Guardar </button>
+            <button type="submit" name="accion" value="pdf">Generar PDF</button>
+        </form>
+    </div>
+</body>
+</html>

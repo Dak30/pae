@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{{ url_for('static', filename='images/Escudo.png') }}" type="image/png">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/intercambio.css') }}">
+    <script src="{{ url_for('static', filename='scripts/menu.js') }}" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
+
+    <title>Intercambio de Menús</title>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('tipo_racion').addEventListener('change', actualizarNumeroIntercambio);
+            document.getElementById('id_operador').addEventListener('change', actualizarNumeroIntercambio);
+            document.getElementById('addSectionBtn').addEventListener('click', addNewSection);
+        });
+        
+        
+        function actualizarNumeroIntercambio() {
+            var tipoRacion = document.getElementById('tipo_racion').value;
+            var idOperador = document.getElementById('id_operador').value;
+        
+            console.log(`Tipo de Ración: ${tipoRacion}, ID de Operador: ${idOperador}`);
+        
+            if (!tipoRacion || !idOperador) {
+                console.error('Tipo de ración o ID de operador no proporcionados.');
+                return;
+            }
+        
+            fetch(`/get_numero_intercambio?tipo_racion=${tipoRacion}&id_operador=${idOperador}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Error al obtener el número de intercambio');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    document.getElementById('numero_intercambio').value = data.numero_intercambio || '';
+                })
+                .catch(error => {
+                    console.error('Error al obtener el número de intercambio:', error);
+                    alert('No se pudo obtener el número de intercambio. Por favor, intenta nuevamente.');
+                });
+        }
+        
+        function addNewSection() {
+            const container = document.getElementById('newSectionsContainer');
+            const tipoRacionSelect = document.getElementById('tipo_racion');
+            const tipoRacionSeleccionado = tipoRacionSelect.value;
+        
+            if (!tipoRacionSeleccionado) {
+                alert("Por favor, seleccione un Tipo de Ración antes de añadir otro menú.");
+                return;
+            }
+        
+            // Obtener el texto de la opción seleccionada
+            const tipoRacionTexto = tipoRacionSelect.options[tipoRacionSelect.selectedIndex].text;
+        
+            const newSection = document.createElement('div');
+            newSection.classList.add('new-section');
+            newSection.innerHTML = `
+                <div class="form-group">
+                    <label for="tipo_racion_nueva">Tipo de Ración:</label>
+                    <select name="tipo_racion[]" class="tipo_racion_nueva" required onchange="cargarMenus(this)">
+                        <option value="${tipoRacionSeleccionado}" selected>${tipoRacionTexto}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="numero_menu_oficial_nueva">Número de Menú Oficial:</label>
+                    <select name="numero_menu_oficial[]" class="numero_menu_oficial_nueva" required onchange="cargarDetallesMenu(this)">
+                        <option value="">Seleccione una opción</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="numero_menu_intercambio_nueva">Número de Menú Intercambio:</label>
+                    <select name="numero_menu_intercambio[]" class="numero_menu_intercambio_nueva" required onchange="cargarDetallesMenu(this)">
+                        <option value="">Seleccione una opción</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="fecha_ejecucion_nueva">Fecha de Ejecución:</label>
+                    <input type="date" name="fecha_ejecucion[]" class="fecha_ejecucion_nueva" required min="{{ today_date }}">
+                </div>
+                <h2>Detalles del Menú</h2>
+                <table class="menu-table nueva">
+                    <thead>
+                        <tr>
+                            <th>Componentes</th>
+                            <th>Menú Oficial</th>
+                            <th>Menú Intercambio</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Los detalles del menú se cargarán aquí mediante JavaScript -->
+                    </tbody>
+                </table>
+                <div class="form-group">
+                    <button type="button" onclick="removeSection(this)">Eliminar Sección</button>
+                </div>
+            `;
+        
+            container.appendChild(newSection);
+        
+            // Llamar a cargarMenus() manualmente para que llene los menús oficiales e intercambios
+            const nuevoTipoRacion = newSection.querySelector('.tipo_racion_nueva');
+            cargarMenus(nuevoTipoRacion);
+        }
+        
+        
+        
+        // Función para eliminar una sección
+        function removeSection(button) {
+            const section = button.closest('.new-section');
+            section.remove();
+        }
+        
+        function cargarMenus(selectElement = null) {
+            const tipoRacion = selectElement 
+                ? selectElement.value 
+                : document.getElementById('tipo_racion').value;
+        
+            const menuOficialSelect = selectElement 
+                ? selectElement.closest('.new-section').querySelector('.numero_menu_oficial_nueva') 
+                : document.getElementById('numero_menu_oficial[]');
+            const menuIntercambioSelect = selectElement 
+                ? selectElement.closest('.new-section').querySelector('.numero_menu_intercambio_nueva') 
+                : document.getElementById('numero_menu_intercambio[]');
+        
+            if (tipoRacion) {
+                fetch(`/get_menus?tipo_racion=${tipoRacion}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        // Reiniciar las opciones del select
+                        menuOficialSelect.innerHTML = '<option value="">Seleccione una opción</option>';
+                        menuIntercambioSelect.innerHTML = '<option value="">Seleccione una opción</option>';
+        
+                        // Llenar los select con las opciones obtenidas
+                        data.forEach(menu => {
+                            const option = document.createElement('option');
+                            option.value = menu.numero_menu;
+                            option.textContent = menu.numero_menu;
+                            menuOficialSelect.appendChild(option);
+                            
+                            // Clonar la opción para el menú de intercambio
+                            const intercambioOption = option.cloneNode(true);
+                            menuIntercambioSelect.appendChild(intercambioOption);
+                        });
+                    })
+                    .catch(error => console.error('Error fetching menus:', error));
+            }
+        }
+        
+        function cargarDetallesMenu(selectElement = null) {
+            const tipoRacion = selectElement 
+                ? selectElement.closest('.new-section').querySelector('.tipo_racion_nueva').value 
+                : document.getElementById('tipo_racion').value;
+            
+            const numeroMenuOficial = selectElement 
+                ? selectElement.closest('.new-section').querySelector('.numero_menu_oficial_nueva').value 
+                : document.getElementById('numero_menu_oficial[]').value;
+            
+            const numeroMenuIntercambio = selectElement 
+                ? selectElement.closest('.new-section').querySelector('.numero_menu_intercambio_nueva').value 
+                : document.getElementById('numero_menu_intercambio[]').value;
+        
+            const justificacion = document.getElementById('justificacion_select').value;
+        
+            // Validación de campos
+            if (!tipoRacion || !numeroMenuOficial || !justificacion) {
+                alert('Por favor, selecciona un tipo de ración, un menú oficial y una justificación.');
+                return;
+            }
+        
+            const url = `/get_menu_details?tipo_racion=${tipoRacion}&numero_menu_oficial=${numeroMenuOficial}&numero_menu_intercambio=${numeroMenuIntercambio || ''}&justificacion=${justificacion}`;
+        
+            fetch(url)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Error en la respuesta del servidor');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Respuesta del servidor:', JSON.stringify(data)); // Para depuración
+        
+                    const detailsTableBody = selectElement 
+                        ? selectElement.closest('.new-section').querySelector('.menu-table tbody')
+                        : document.querySelector('#menuDetailsTable tbody');
+        
+                    detailsTableBody.innerHTML = '';
+        
+                    // Crear un mapa de componentes para comparar más fácilmente
+                    const mapaComponentesOficial = new Map();
+                    const mapaComponentesIntercambio = new Map();
+        
+                    // Llenar el mapa de componentes oficiales
+                    if (data.menu_oficial) {
+                        data.menu_oficial.forEach(item => {
+                            mapaComponentesOficial.set(item.componentes, item.ingredientes);
+                        });
+                    }
+        
+                    // Llenar el mapa de componentes de intercambio
+                    if (data.menu_intercambio) {
+                        data.menu_intercambio.forEach(item => {
+                            mapaComponentesIntercambio.set(item.componentes, item.ingredientes);
+                        });
+                    }
+        
+                    // Combinar los componentes de ambos menús (oficial e intercambio)
+                    const todosLosComponentes = new Set([
+                        ...mapaComponentesOficial.keys(),
+                        ...mapaComponentesIntercambio.keys()
+                    ]);
+        
+                    // Generar las filas de la tabla
+                    todosLosComponentes.forEach(componente => {
+                        const ingredienteOficial = mapaComponentesOficial.get(componente) || 'N/A';
+                        const ingredienteIntercambio = mapaComponentesIntercambio.get(componente) || 'N/A';
+        
+                        // Crear una fila para cada componente
+                        const row = detailsTableBody.insertRow();
+        
+                        console.log(`Componente: ${componente}, Ingrediente Oficial: ${ingredienteOficial}, Ingrediente Intercambio: ${ingredienteIntercambio}`); // Para depuración
+        
+                        row.innerHTML = `
+                            <td><input type="hidden" name="componentes[]" value="${componente}">${componente}</td>
+                            <td><input type="hidden" name="ingredientes[]" value="${ingredienteOficial}">${ingredienteOficial}</td>
+                            <td>
+                                <textarea name="ingredientes_intercambio[]" rows="4" style="text-transform: uppercase;">${ingredienteIntercambio}</textarea>
+                            </td>
+                        `;
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching menu details:', error);
+                    alert('Ocurrió un error al cargar los detalles del menú. Por favor, inténtelo de nuevo más tarde.');
+                });
+        }
+                                     
+        function validarListas() {
+            const componentes = document.getElementsByName('componentes[]');
+            const ingredientes = document.getElementsByName('ingredientes[]');
+            const ingredientesIntercambio = document.getElementsByName('ingredientes_intercambio[]');
+        
+            if (componentes.length !== ingredientes.length || ingredientes.length !== ingredientesIntercambio.length) {
+                alert('Hay un desajuste entre los componentes, los ingredientes oficiales y los ingredientes de intercambio.');
+                return false;
+            }
+            return true;
+        }
+        
+        
+        // Usar la función antes de enviar el formulario
+        document.addEventListener("DOMContentLoaded", function() {
+            document.getElementById('updateForm').onsubmit = function(event) {
+                if (!validarListas()) {
+                    event.preventDefault(); // Evita el envío del formulario si las listas no coinciden
+                } else {
+                    saveChanges(); // Llama a saveChanges solo si la validación pasa
+                }
+            };
+        });
+
+
+
+        let firmaCounter = 1; // Contador para agregar nuevas firmas
+
+function visualizarFoto(input, id) {
+    const file = input.files[0];
+    const preview = document.getElementById('firma_foto_preview_' + id);
+
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            preview.src = e.target.result; // Establecer la fuente de la imagen en el <img>
+            preview.style.display = 'block'; // Mostrar la vista previa
+        }
+        reader.readAsDataURL(file);
+    } else {
+        preview.src = ""; // Limpiar la vista previa si no hay archivo
+        preview.style.display = 'none'; // Ocultar la vista previa
+    }
+}
+
+function agregarFirma() {
+    // Verificar si ya existen 2 firmas
+    if (firmaCounter >= 2) {
+        alert("Solo se pueden añadir hasta 2 firmas.");
+        return;
+    }
+
+    firmaCounter++; // Incrementar el contador para cada firma nueva
+
+    // Crear un nuevo grupo de firma
+    const newFirmaGroup = document.createElement('div');
+    newFirmaGroup.className = 'firma-group';
+    newFirmaGroup.id = 'firma-group-' + firmaCounter;
+
+    newFirmaGroup.innerHTML = `
+        <div id="firma_foto_${firmaCounter}">
+            <label for="firma_foto_input_${firmaCounter}">Subir Foto de Firma:</label>
+            <input type="file" id="firma_foto_input_${firmaCounter}" name="firma_foto[]" accept="image/*" onchange="visualizarFoto(this, ${firmaCounter})">
+            <img id="firma_foto_preview_${firmaCounter}" style="display: none; max-width: 200px; max-height: 100px; margin-top: 10px;" alt="Vista previa de la firma">
+        </div>
+
+        <label for="nombre_operador_${firmaCounter}">Nombre del Coordinador Operativo:</label>
+        <input type="text" id="nombre_operador_${firmaCounter}" name="nombre_operadores[]" required>
+
+        <label for="trajeta_profesional_${firmaCounter}">ID o Tarjeta Profesional:</label>
+        <input type="text" id="trajeta_profesional_${firmaCounter}" name="trajeta_profesional[]" required>
+
+        <label for="cargo_${firmaCounter}">Cargo:</label>
+        <input type="text" id="cargo_${firmaCounter}" name="cargo[]" required>
+    `;
+
+    // Añadir el nuevo grupo al contenedor principal
+    document.getElementById('firmas-container').appendChild(newFirmaGroup);
+}
+
+
+    
+        function saveChanges() {
+            console.log("Guardando cambios...");
+        
+            var form = document.getElementById('updateForm'); // Asegúrate de que tu formulario tenga este ID
+            var formData = new FormData(form);
+        
+            // Verificar que todos los campos obligatorios tengan un valor
+            const requiredFields = form.querySelectorAll('[required]');
+            let allFieldsFilled = true;
+        
+            requiredFields.forEach(field => {
+                if (!field.value.trim()) {
+                    allFieldsFilled = false;
+                    field.classList.add('error'); // Agrega una clase para resaltar el campo vacío
+                } else {
+                    field.classList.remove('error'); // Remueve la clase si el campo ya tiene valor
+                }
+            });
+        
+            if (!allFieldsFilled) {
+                alert('Por favor, complete todos los campos obligatorios.');
+                return;
+            }
+        
+            for (var pair of formData.entries()) {
+                console.log(pair[0] + ', ' + pair[1]);
+            }
+        
+            // Agregar las instituciones seleccionadas
+            const institucionIds = [];
+            const selects = document.querySelectorAll('.institucion-select');
+        
+            selects.forEach(select => {
+                if (select.value) {
+                    institucionIds.push(select.value);
+                }
+            });
+        
+            // Verificar que al menos una institución esté seleccionada
+            if (institucionIds.length === 0) {
+                alert('Por favor, seleccione al menos una institución.');
+                return;
+            }
+        
+            // Añadir las instituciones al FormData
+            institucionIds.forEach(id => {
+                formData.append('instituciones', id);
+            });
+        
+            fetch('/save_intercambio', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('');
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.error) {
+                    alert('Error: ' + data.error);
+                } else {
+                    // Obtén el valor del número de intercambio
+                    var numeroIntercambio = document.getElementById('numero_intercambio').value;
+        
+                    // Verifica si el número de intercambio está vacío
+                    if (!numeroIntercambio) {
+                        numeroIntercambio = 'No disponible';  // o cualquier valor que quieras mostrar si no está asignado
+                    }
+        
+                    // Muestra un mensaje de éxito con el número de intercambio
+                    alert('Intercambio guardado con éxito. Número de intercambio: ' + numeroIntercambio);
+        
+                    // Redirigir según el rol
+                    if (data.rol === 'operador') {
+                        window.location.href = '/indexprincipal/operador';
+                    } else if (data.rol === 'administrador') {
+                        window.location.href = '/indexprincipal/administrador';
+                    } else if (data.rol === 'nutricionista') {
+                        window.location.href = '/indexprincipal/nutricionista';
+                    } else {
+                        alert('Rol no reconocido. Redirigiendo a inicio de sesión.');
+                        window.location.href = '/login';
+                    }
+                }
+            })            
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Diligenciar todos los campos obligatorios');
+            });
+        }
+        
+    
+        </script>
+        <style>
+            .firma-group {
+                margin-bottom: 15px;
+                padding: 15px;
+                border: 1px solid #ccc;
+                border-radius: 8px;
+                background-color: #f9f9f9;
+            }
+        </style>
+        <style>
+            /* Contenedor principal */
+            .firmas-container {
+                margin: 20px 0;
+            }
+
+            /* Estilo del grupo de firma */
+            .firma-group {
+                margin-bottom: 15px;
+                padding: 15px;
+                border: 1px solid #ccc;
+                border-radius: 8px;
+                background-color: #f9f9f9;
+            }
+
+            .firma-group label {
+                display: block;
+                font-weight: bold;
+                margin-bottom: 5px;
+            }
+
+            .firma-group input[type="text"],
+            .firma-group input[type="file"] {
+                width: 100%;
+                padding: 8px;
+                margin-bottom: 10px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                box-sizing: border-box;
+            }
+
+            /* Estilo del canvas para la firma manual */
+            .signature-wrapper {
+                width: 100%;
+                max-width: 400px;
+                margin: 0 auto;
+                position: relative;
+            }
+
+            .signature-wrapper canvas {
+                width: 100%; /* Se adapta al ancho del contenedor */
+                height: auto; /* Mantiene la proporción */
+                border: 1px solid #000;
+                border-radius: 4px;
+                display: block;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            }
+
+            /* Botones de acción */
+            .firma-group button {
+                padding: 10px 15px;
+                margin-right: 10px;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                font-size: 14px;
+                transition: background-color 0.3s;
+            }
+
+            .firma-group button:hover {
+                opacity: 0.9;
+            }
+
+            .firma-group button[type="button"]:first-of-type {
+                background-color: #007bff;
+                color: white;
+            }
+
+            .firma-group button[type="button"]:nth-of-type(2) {
+                background-color: #28a745;
+                color: white;
+            }
+
+            /* Vista previa de la foto */
+            #firma_foto_preview_1 {
+                max-width: 100%;
+                max-height: 150px;
+                margin-top: 10px;
+                border-radius: 4px;
+                border: 1px solid #ccc;
+            }
+
+            /* Estilo responsivo */
+            @media (max-width: 480px) {
+                .signature-wrapper {
+                    max-width: 300px; /* Reducir el tamaño en pantallas pequeñas */
+                }
+
+                .firma-group button {
+                    width: 100%; /* Botones ocupan el ancho completo */
+                    margin-bottom: 10px; /* Espacio entre botones */
+                }
+            }
+
+        </style>
+       
+</head>
+<body>
+    <div class="container">
+        <h1>Solicitud de Intercambio</h1>
+            <form id="updateForm" method="POST" action="/save_intercambio" enctype="multipart/form-data">
+
+                
+                <div class="form-group" >
+                    <label >Este formulario te permite solicitar modificaciones en el menú entregado, proponiendo cambios en comparación con el menú oficial. Proporciona la información necesaria para que podamos evaluar tu solicitud y gestionar los ajustes correspondientes.</P>
+                </div>
+        
+                
+                <div class="form-group">
+                    <label for="correo">Correo Destinatario:</label>
+                    <input 
+                        type="text" 
+                        id="correo" 
+                        name="correo" 
+                        required 
+                        pattern="^([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,},\s*)*[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+                        value="componente.nutricional@cali.edu.co"
+                    >
+                </div>
+
+
+                <div class="form-group" style="display: none;">
+                    <label for="fecha_solicitud">Fecha de Solicitud:</label>
+                    <input type="date" id="fecha_solicitud" name="fecha_solicitud" 
+                        value="{{ today_date }}" min="{{ today_date }}" max="{{ today_date }}" required readonly>
+                </div>
+                
+                        
+                <div class="form-group">
+                    <label for="id_operador">Operador:</label>
+                    <select id="id_operador" name="id_operador" required onchange="actualizarNumeroIntercambio(); cargarInstituciones(this.value);">
+                        <option value="">Seleccione una opción</option>
+                        {% for operador in operadores %}
+                            <option value="{{ operador.id_operador }}" {% if operador.id_operador == id_operador_seleccionado %}selected{% endif %}>
+                                {{ operador.nombre }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="form-group" style="display: none;">
+                    <label for="numero_intercambio">Número de Intercambio(Automatico):</label>
+                    <input type="text" id="numero_intercambio" name="numero_intercambio" placeholder="Escriba el número de intercambio" required readonly>
+                </div>
+                
+                
+                
+                <div class="form-group">
+                    <label for="justificacion_select">Justificación:</label>
+                    <select id="justificacion_select" name="justificacion" required>
+                        <option value="">Seleccione una opción</option>
+                        <option value="Cancelacion Clases">Cancelación de Clases</option>
+                        <option value="Cambio Modalidad">Cambio de Modalidad</option>
+                        <option value="Escasez">Escasez</option>
+                        <option value="Otros">Otros</option>
+                    </select>
+                </div>
+                
+                <!-- Campo adicional para justificar "Otros" -->
+                <div class="form-group" id="otros_justificacion_container" style="display: none;">
+                    <label for="otros_justificacion">Si escogió otros, especifique cuál:</label>
+                    <input type="text" id="otros_justificacion" name="otros_justificacion" placeholder="Escriba la justificación" />
+                </div>
+                
+                <script>
+                    // Manejar el cambio en el select de justificación
+                    document.getElementById('justificacion_select').addEventListener('change', function () {
+                        const seleccion = this.value;
+                        const otrosContainer = document.getElementById('otros_justificacion_container');
+                
+                        // Mostrar el campo adicional si la opción es "Otros"
+                        if (seleccion === "Otros") {
+                            otrosContainer.style.display = "block";
+                        } else {
+                            otrosContainer.style.display = "none";
+                            // Limpiar el campo adicional si se oculta
+                            document.getElementById('otros_justificacion').value = "";
+                        }
+                    });
+                
+                    // Validar el formulario antes de enviarlo
+                    const formulario = document.querySelector('form'); // Asumiendo que esto está dentro de un <form>
+                    formulario.addEventListener('submit', function (e) {
+                        const justificacion = document.getElementById('justificacion_select').value;
+                        const otrosTexto = document.getElementById('otros_justificacion').value.trim();
+                
+                        // Validar que si se selecciona "Otros", el texto adicional no esté vacío
+                        if (justificacion === "Otros" && !otrosTexto) {
+                            e.preventDefault();
+                            alert("Por favor, especifique la justificación para 'Otros'.");
+                        }
+                    });
+                </script>
+                
+                <div class="form-group">
+                    <label for="justificacion_texto">Detalles de Justificación:</label>
+                    <textarea id="justificacion_texto" name="justificacion_texto" rows="4" placeholder="Escriba la justificación" required></textarea>
+                </div>
+                
+
+                <div id="instituciones-container">
+                    <div class="institucion-seccion">
+                        <div class="form-group">
+                            <label for="institucion">Institución Educativa Principal:</label>
+                            <select class="institucion-select" onchange="cargarSedes(this)" required>
+                                <option value="">Seleccione una opción</option>
+                                {% for institucion in instituciones %}
+                                    <option value="{{ institucion.id_institucion }}">{{ institucion.sede_educativa }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="sedes">Sedes:</label>
+                            <div class="checkbox-group">
+                                <!-- Las sedes se cargarán aquí mediante JavaScript -->
+                            </div>
+                        </div>
+                        <!-- Botón para eliminar esta sección -->
+                        <button type="button" onclick="eliminarInstitucion(this)">Eliminar</button>
+                    </div>
+                </div>
+                <!-- Botón para añadir nueva sección -->
+                <button type="button" onclick="añadirInstitucion()">Añadir Institución y Sede</button>
+                            
+
+                <div class="form-group">
+                    <label for="tipo_racion">Tipo de Ración:</label>
+                    <select id="tipo_racion" name="tipo_racion" onchange="cargarMenus(); actualizarNumeroIntercambio();" required>
+                        <option value="">Seleccione una opción</option>
+                        {% for tipo in tiporacion %}
+                            <option value="{{ tipo.id_tipo_racion }}">{{ tipo.descripcion }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <!-- Selección de Número de Menú Oficial -->
+                <div class="form-group">
+                    <label for="numero_menu_oficial">Número de Menú Oficial:</label>
+                    <select id="numero_menu_oficial[]" name="numero_menu_oficial[]" required onchange="cargarDetallesMenu()" required>
+                        <option value="">Seleccione una opción</option>
+                    </select>
+                </div>
+
+                <!-- Selección de Número de Menú Intercambio -->
+                <div class="form-group">
+                    <label for="numero_menu_intercambio">Número de Menú Intercambio:</label>
+                    <select id="numero_menu_intercambio[]" name="numero_menu_intercambio[]" onchange="cargarDetallesMenu()" required>
+                        <option value="">Seleccione una opción</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="fecha_ejecucion">Fecha de Ejecución:</label>
+                    <input type="date" id="fecha_ejecucion[]" name="fecha_ejecucion[]" required min="{{ today_date }}" required>
+                </div>
+
+                <!-- Tabla de Detalles del Menú -->
+                <h2>Detalles del Menú</h2>
+                    <table id="menuDetailsTable" class="menu-table">
+                        <thead>
+                            <tr>
+                                <th>Componentes</th>
+                                <th>Menú Oficial</th>
+                                <th>Menú Intercambio</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Los detalles del menú se cargarán aquí mediante JavaScript -->
+                        </tbody>
+                    </table>
+
+                    <!-- Contenedor donde se agregarán las nuevas secciones -->
+                    <div id="newSectionsContainer"></div>
+
+                    <div class="form-group">
+                        <button type="button" id="addSectionBtn" >Añadir otro Menu</button>
+                    </div>
+
+                    <div class="form-group">
+                        <label >Firmas</label>
+                    </div>
+
+
+                    <div id="firmas-container">
+                        <div class="firma-group" id="firma-group-1">
+                            <div id="firma_foto_1">
+                                <label for="firma_foto_input_1">Subir Foto de Firma:</label>
+                                <input type="file" id="firma_foto_input_1" name="firma_foto[]" accept="image/*" onchange="visualizarFoto(this, 1)" required>
+                                <img id="firma_foto_preview_1" style="display: none; max-width: 200px; max-height: 100px; margin-top: 10px;" alt="Vista previa de la firma">
+                            </div>
+                            
+                            <label for="nombre_operador_1">Nombre del Nutricionista Responsable Delegado:</label>
+                            <input type="text" id="nombre_operador_1" name="nombre_operadores[]" required>
+                    
+                            <label for="trajeta_profesional_1">ID o Tarjeta Profesional:</label>
+                            <input type="text" id="trajeta_profesional_1" name="trajeta_profesional[]" required pattern="\d*" title="Por favor, ingrese solo números">
+                    
+                            <label for="cargo_1">Cargo:</label>
+                            <input type="text" id="cargo_1" name="cargo[]" required>
+                        </div>
+                    </div>
+                    
+                    <button type="button" onclick="agregarFirma()" class="add-firma-btn">Añadir otra firma del Coordinador del Operador</button>
+                                       
+                    <div class="form-group">
+                        <label for="pdf_adjunto">Adjuntar Soportes (PDF):</label>
+                        <input type="file" id="pdf_adjunto" name="pdf_adjunto[]" accept=".pdf" multiple>
+                    </div>
+                    
+                                        
+                    <!-- Botón de Guardar -->
+                    <div class="form-group">
+                        <button type="button" onclick="saveChanges()">Enviar</button>
+                    </div> 
+            </form>
+        </div>       
+    </body>
+</html>

@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/toma_peso.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='images/Escudo.png') }}" type="image/png">
+    <title>Toma de Peso y Temperatura</title>
+
+</head>
+<body>
+    <h1>Toma de Peso y Temperatura Preparada en Sitio</h1>
+    <form method="POST">
+
+        <label>
+            Este formulario tiene como objetivo registrar la información relacionada con la toma de peso y temperatura de los alimentos preparados en el sitio, asegurando que se cumplan los estándares de calidad y seguridad alimentaria durante la preparación y distribución de los alimentos en las instituciones educativas.
+            <br><br>
+            La toma de peso y temperatura es un paso crucial para garantizar que los alimentos se sirvan a las temperaturas adecuadas, y que las cantidades estén en conformidad con los requisitos establecidos para una alimentación escolar balanceada y segura.
+        </label>
+
+        <label for="visita_id">Selecciona una Visita:</label>
+        <select name="visita_id" id="visita_id" required>
+            {% for visita in visitas %}
+                <option value="{{ visita['id_visita_tecnica'] }}">
+                    T{{ visita['id_visita_tecnica'] }} - {{ visita['tipo_racion_tecnica'] }} - {{ visita['nombre_sede'] }}
+                </option>
+            {% endfor %}
+        </select>
+
+        <label>¿Se observa desperdicio?</label><br>
+        <input type="radio" id="desperdicio_si" name="desperdicio" value="Si">
+        <label for="desperdicio_si">Sí</label>
+        <input type="radio" id="desperdicio_no" name="desperdicio" value="No">
+        <label for="desperdicio_no">No</label><br>
+
+        <label for="menu_del_dia">Menú del Día:</label><br>
+        <input type="text" id="menu_del_dia" name="menu_del_dia" placeholder="Escribe el menú del día"><br>
+
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Nivel</th>
+                    <th>Nivel 1</th>
+                    <th>Nivel 2</th>
+                    <th>Nivel 3</th>
+                    <th>Nivel 4</th>
+                    <th>Nivel 5</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Valor</strong></td>
+                    <td><input type="number" id="nivel1" name="nivel1" value=""></td>
+                    <td><input type="number" id="nivel2" name="nivel2" value=""></td>
+                    <td><input type="number" id="nivel3" name="nivel3" value=""></td>
+                    <td><input type="number" id="nivel4" name="nivel4" value=""></td>
+                    <td><input type="number" id="nivel5" name="nivel5" value=""></td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <!-- Mostrar Total -->
+        <div>
+            <label><strong>Total: </strong></label>
+            <input type="number" id="total" name="total" readonly>
+        </div>
+        
+             
+        
+    
+        <h1>Cumplimiento de Gramajes Preparados (AM/PM)</h1>
+        <h1>Tabla 1: Componente Alimentario (AM/PM)</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th rowspan="2">Muestra</th>
+                    <th rowspan="2">Componente</th>
+                    <th colspan="5">Peso (g)</th>
+                </tr>
+                <tr>
+                    <th>Nivel Escolar 1</th>
+                    <th>Nivel Escolar 2</th>
+                    <th>Nivel Escolar 3</th>
+                    <th>Nivel Escolar 4</th>
+                    <th>Nivel Escolar 5</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for muestra in muestras %}
+                {% for componente in componentes %}
+                <tr>
+                    {% if loop.first %}
+                    <td rowspan="{{ componentes|length }}">Muestra {{ muestra }}</td>
+                    {% endif %}
+                    <td>{{ componente }}</td>
+                    <td><input type="number" name="peso_nivel1_{{ muestra }}_{{ componente }}" ></td>
+                    <td><input type="number" name="peso_nivel2_{{ muestra }}_{{ componente }}" ></td>
+                    <td><input type="number" name="peso_nivel3_{{ muestra }}_{{ componente }}" ></td>
+                    <td><input type="number" name="peso_nivel4_{{ muestra }}_{{ componente }}" ></td>
+                    <td><input type="number" name="peso_nivel5_{{ muestra }}_{{ componente }}" ></td>
+                </tr>
+                {% endfor %}
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <h1>Tabla 2: Componente Alimentario (AM/PM)</h1>
+        <h2>Promedio Ponderado</h2>
+        <div class="table-container-scroll">
+            <table class="table-scroll">
+                <thead>
+                    <tr>
+                        <th rowspan="2">Grupos</th>
+                        <th colspan="4">Peso Minuta Patrón (g)</th>
+                        <th colspan="4">Peso Promedio Obtenido (g)</th>
+                        <th colspan="4">Concepto (C/NC)</th>
+                    </tr>
+                    <tr>
+                        <th>Bebida</th>
+                        <th>Proteico</th>
+                        <th>Cereal</th>
+                        <th>Fruta</th>
+                        <th>Bebida</th>
+                        <th>Proteico</th>
+                        <th>Cereal</th>
+                        <th>Fruta</th>
+                        <th>Bebida</th>
+                        <th>Proteico</th>
+                        <th>Cereal</th>
+                        <th>Fruta</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for nivel in ["Nivel Escolar 1", "Nivel Escolar 2", "Nivel Escolar 3", "Nivel Escolar 4", "Nivel Escolar 5"] %}
+                    <tr>
+                        <td>{{ nivel }}</td>
+                        <td><input type="number" name="peso_patron_bebida_{{ nivel }}"></td>
+                        <td><input type="number" name="peso_patron_proteico_{{ nivel }}"></td>
+                        <td><input type="number" name="peso_patron_cereal_{{ nivel }}"></td>
+                        <td><input type="number" name="peso_patron_fruta_{{ nivel }}"></td>
+                        <td><input type="number" name="peso_obtenido_bebida_{{ nivel }}"></td>
+                        <td><input type="number" name="peso_obtenido_proteico_{{ nivel }}"></td>
+                        <td><input type="number" name="peso_obtenido_cereal_{{ nivel }}"></td>
+                        <td><input type="number" name="peso_obtenido_fruta_{{ nivel }}"></td>
+                        <td>
+                            <select name="concepto_bebida_{{ nivel }}">
+                                <option value="Cumple">Cumple</option>
+                                <option value="No Cumple">No Cumple</option>
+                                <option value="No Aplica">No Aplica</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select name="concepto_proteico_{{ nivel }}">
+                                <option value="Cumple">Cumple</option>
+                                <option value="No Cumple">No Cumple</option>
+                                <option value="No Aplica">No Aplica</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select name="concepto_cereal_{{ nivel }}">
+                                <option value="Cumple">Cumple</option>
+                                <option value="No Cumple">No Cumple</option>
+                                <option value="No Aplica">No Aplica</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select name="concepto_fruta_{{ nivel }}">
+                                <option value="Cumple">Cumple</option>
+                                <option value="No Cumple">No Cumple</option>
+                                <option value="No Aplica">No Aplica</option>
+                            </select>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
+
+        <!-- Tabla de temperaturas -->
+        <h2>Temperaturas</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Componente</th>
+                    <th>Temperatura de Distribución Caliente - (Min 65° C) Frio(Max 5° C)</th>
+                    <th>Concepto (C/NC)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Bebida</td>
+                    <td>
+                        <input type="text" name="temp_bebida" placeholder="Ej. 65°C">
+                    </td>
+                    <td>
+                        <select name="concepto_temp_bebida">
+                            <option value="Cumple">Cumple</option>
+                            <option value="No Cumple">No Cumple</option>
+                            <option value="No Aplica">No Aplica</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Proteico</td>
+                    <td>
+                        <input type="text" name="temp_proteico" placeholder="Ej. 65°C">
+                    </td>
+                    <td>
+                        <select name="concepto_temp_proteico">
+                            <option value="Cumple">Cumple</option>
+                            <option value="No Cumple">No Cumple</option>
+                            <option value="No Aplica">No Aplica</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Cereal</td>
+                    <td>
+                        <input type="text" name="temp_cereal" placeholder="Ej. 5°C">
+                    </td>
+                    <td>
+                        <select name="concepto_temp_cereal">
+                            <option value="Cumple">Cumple</option>
+                            <option value="No Cumple">No Cumple</option>
+                            <option value="No Aplica">No Aplica</option>
+                        </select>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <label for="observacion">Observación General:</label>
+        <textarea id="observacion" name="observacion" rows="4" cols="50" placeholder="Escribe aquí tus observaciones..."></textarea>
+
+        <p>C: Cumple, N/C: No Cumple, N/A: No Aplica</p>
+        <p>Desperdicio: Se refiere a la Preparación que por sus caracateristicas organolepticas presentan bajo consumo y alto desperdicio</p>
+
+        <script>
+            function calcularTotal() {
+                // Obtener los valores de cada nivel
+                let nivel1 = parseInt(document.getElementById("nivel1").value) || 0;
+                let nivel2 = parseInt(document.getElementById("nivel2").value) || 0;
+                let nivel3 = parseInt(document.getElementById("nivel3").value) || 0;
+                let nivel4 = parseInt(document.getElementById("nivel4").value) || 0;
+                let nivel5 = parseInt(document.getElementById("nivel5").value) || 0;
+        
+                // Calcular el total
+                let total = nivel1 + nivel2 + nivel3 + nivel4 + nivel5;
+        
+                // Asignar el total al campo correspondiente
+                document.getElementById("total").value = total;
+            }
+        
+            // Llamar a la función cada vez que cambien los valores
+            document.getElementById("nivel1").addEventListener("input", calcularTotal);
+            document.getElementById("nivel2").addEventListener("input", calcularTotal);
+            document.getElementById("nivel3").addEventListener("input", calcularTotal);
+            document.getElementById("nivel4").addEventListener("input", calcularTotal);
+            document.getElementById("nivel5").addEventListener("input", calcularTotal);
+        </script>
+
+        <button type="submit">Guardar</button>
+    </form>
+</body>
+</html>

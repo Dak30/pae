@@ -1,0 +1,139 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 20px;
+    background-color: #f3f4f6; /* Fondo neutro */
+    color: #333;
+    line-height: 1.6;
+    text-align: center;
+}
+
+h1 {
+    text-align: center;
+    color: #003366; /* Azul institucional */
+    font-size: 1.8em;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.btn {
+    display: inline-block;
+    margin: 15px auto; /* Centrar horizontalmente */
+    padding: 8px 15px;
+    background-color: #0066cc; /* Azul oscuro */
+    color: white;
+    text-decoration: none;
+    border-radius: 20px; /* Botón redondeado */
+    font-size: 0.9em;
+    font-weight: bold;
+    text-align: center;
+    box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #004080; /* Azul más oscuro */
+    box-shadow: 0px 5px 7px rgba(0, 0, 0, 0.3);
+    transform: translateY(-2px);
+}
+
+
+table {
+    width: 80%; /* Ancho reducido */
+    margin: 20px auto; /* Centrar tabla */
+    border-collapse: collapse;
+    background-color: #fff; /* Fondo blanco */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 10px; /* Bordes redondeados */
+    overflow: hidden;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    text-align: center;
+    padding: 5px; /* Espaciado reducido */
+    font-size: 0.95em;
+}
+
+th {
+    background-color: #003366; /* Azul institucional */
+    color: white;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9; /* Alternar fondo */
+}
+
+tr:hover {
+    background-color: #f1f1f1; /* Efecto hover */
+}
+
+textarea {
+    width: 90%; /* Tamaño más compacto */
+    height: 40px; /* Altura más pequeña */
+    padding: 5px;
+    font-size: 0.8em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    resize: none;
+    box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.week-title {
+    text-align: left;
+    font-weight: bold;
+    font-size: 0.8em;
+    color: #003366; /* Azul institucional */
+    background-color: #e6f2ff; /* Azul claro */
+    padding: 10px;
+    border-top: 3px solid #003366;
+    border-left: 10px solid #003366; /* Detalle en el borde */
+    border-radius: 5px;
+}
+
+button {
+    display: block;
+    margin: 20px auto;
+    padding: 8px 20px;
+    background-color: #0066cc; /* Azul oscuro */
+    color: white;
+    border: none;
+    border-radius: 20px; /* Más compacto */
+    font-size: 0.9em;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    background-color: #004080;
+    box-shadow: 0px 5px 7px rgba(0, 0, 0, 0.3);
+    transform: translateY(-2px);
+}
+.btn-back {
+    display: inline-block;
+    margin: 15px auto; /* Centrado horizontal */
+    padding: 10px 20px; /* Espaciado interno */
+    background-color: #0066cc; /* Naranja destacado */
+    color: white;
+    text-decoration: none;
+    border-radius: 5px; /* Bordes ligeramente redondeados */
+    font-size: 0.95em;
+    font-weight: bold;
+    text-align: center;
+    box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2); /* Sombra para profundidad */
+    transition: all 0.3s ease;
+    text-transform: uppercase; /* Texto en mayúsculas */
+}
+
+.btn-back:hover {
+    background-color: #00ccc9; /* Naranja más oscuro */
+    box-shadow: 0px 5px 7px rgba(0, 0, 0, 0.3); /* Mayor profundidad en hover */
+    transform: translateY(-2px); /* Levanta el botón */
+}

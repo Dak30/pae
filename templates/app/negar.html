@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{{ url_for('static', filename='images/Escudo.png') }}" type="image/png">
+    <title>Negar Intercambio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/aprobar.css') }}">
+</head>
+<body>
+    <form action="{{ url_for('negar', numero_intercambio=numero_intercambio) }}" method="POST" enctype="multipart/form-data">
+    <div class="container">
+        <h1>Negar Intercambio: {{ datos['Numero Intercambio'] }}</h1>
+
+        <!-- Asunto -->
+        <section>
+            <h2>Asunto</h2>
+            <textarea name="asunto" rows="1" style="width: 100%;" placeholder="Asunto del correo" required> {{ datos['Numero Intercambio'] }} </textarea>
+        </section>
+
+        <!-- Mensaje -->
+        <section>
+            <h2>Mensaje</h2>
+            <textarea name="mensaje" rows="10" style="width: 100%;" placeholder="Escriba su mensaje aquí" required></textarea>
+        </section>
+
+        <!-- Datos Generales -->
+        <section>
+            <h2>Datos Generales</h2>
+            <ul class="list-unstyled">
+                <li><strong>Nombre Operador:</strong> {{ datos['Nombre Operador'] }}</li>
+                <li><strong>Modalidad:</strong> {{ datos['Modalidad'] }}</li>
+                <li><strong>Número Intercambio:</strong> {{ datos['Numero Intercambio'] }}</li>
+            </ul>
+        </section>
+        
+
+        <!-- Justificación -->
+        <section>
+            <h2>Justificación de Aprobación</h2>
+            <textarea name="justificacion" rows="10" style="width: 100%;" readonly>{{ datos['Justificación'] }} </textarea>
+        </section>
+
+        <!-- Datos por Fecha y Menú -->
+        <section>
+            <h2>Datos por Fecha de Ejecución</h2>
+            {% for fecha, grupos in datos_por_fecha.items() %}
+                <h3>{{ fecha }}</h3>
+                {% for grupo in grupos %}
+                    <div class="menu-section">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Componente</th>
+                                    <th>Menú Oficial: {{ grupo.numero_menu_oficial }}</th>
+                                    <th>Menú Intercambio: {{ grupo.numero_menu_intercambio }}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for i in range(grupo.componentes|length) %}
+                                    <tr>
+                                        <td>{{ grupo.componentes[i] }}</td>
+                                        <td>{{ grupo.menu_oficial[i] }}</td>
+                                        <td>{{ grupo.menu_intercambio[i] }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        </section>
+
+        <!-- Firmas -->
+        <section>
+            <h2>Firmas</h2>
+            <div id="firmas-container">
+                <div class="firma">
+                    <input type="file" name="firma_imagen[]" accept="image/*" required>
+                    <input type="text" name="firma_nombre[]" placeholder="Nombre Nutricionista" required>
+                    <input type="text" name="firma_cargo[]" placeholder="Cargo" required>
+                    <button type="button" class="btn btn-danger btn-sm remove-firma">Eliminar</button>
+                </div>
+            </div>
+            <button id="add-firma" type="button" class="btn btn-primary mt-3">Añadir Firma</button>
+        </section>
+
+        <button type="submit" class="btn btn-success mt-4">Enviar</button>
+    </div>
+</form>
+
+<script>
+    // Script para añadir nuevas firmas dinámicamente
+    document.getElementById('add-firma').addEventListener('click', function() {
+        const newFirma = document.createElement('div');
+        newFirma.className = 'firma mt-2';
+        newFirma.innerHTML = `
+            <input type="file" name="firma_imagen[]" accept="image/*" required>
+            <input type="text" name="firma_nombre[]" placeholder="Nombre Nutricionista" required>
+            <input type="text" name="firma_cargo[]" placeholder="Cargo" required>
+            <button type="button" class="btn btn-danger btn-sm remove-firma">Eliminar</button>
+        `;
+        document.getElementById('firmas-container').appendChild(newFirma);
+    });
+
+    // Script para eliminar una firma
+    document.getElementById('firmas-container').addEventListener('click', function(event) {
+        if (event.target.classList.contains('remove-firma')) {
+            const firmaDiv = event.target.parentElement;
+            firmaDiv.remove();
+        }
+    });
+</script>
+</body>
+</html>

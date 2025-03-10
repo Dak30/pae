@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{{ url_for('static', filename='images/Escudo.png') }}" type="image/png">
+    <title>Lista de Bodega</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/listabodega.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header class="top-bar">
+            <h1>Lista de Visitas a la Bodega</h1>
+            <nav class="menu-grid">
+                {% if rol in ['administrador', 'supervisor'] %}
+                <a href="{{ url_for('tecnica.lista_tecnica') }}" class="menu-button">Lista de Tecnica</a>
+                <a href="{{ url_for('infraestructura.lista_infraestructura') }}" class="menu-button">Lista de Infraestructura</a>
+                {% endif %}
+                {% if rol in ['administrador', 'supervisor', 'nutricionista'] %}
+                <a href="{{ url_for('verificacion_bp.lista_verificacion') }}" class="menu-button">Lista de Verificación</a>
+                {% endif %}
+                {% if rol in ['administrador', 'supervisor'] %}
+                <a href="{{ url_for('informe_general') }}" class="menu-button">Volver al Principal</a>
+                {% endif %}
+            </nav>
+        </header>
+        <main class="container">
+        <form id="exportForm" action="{{ url_for('bodega.exportar_bodega') }}" method="GET">
+            <label for="fecha_inicio">Fecha Inicio:</label>
+            <input type="date" id="fecha_inicio" name="fecha_inicio" required>
+
+            <label for="fecha_fin">Fecha Fin:</label>
+            <input type="date" id="fecha_fin" name="fecha_fin" required>
+
+            <button type="submit" class="btn">Exportar Datos</button>
+        </form>
+
+        {% if error %}
+            <p class="error-message">{{ error }}</p>
+        {% endif %}
+    </main>
+
+        <main>
+            <table class="styled-table">
+                <thead>
+                    <tr>
+                        <th>ID Visita</th>
+                        <th>Operador</th>
+                        <th>Tipo de Visita</th>
+                        <th>Fecha de Visita</th>
+                        <th>Número de Visita</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for visita in datos_bodega %}
+                    <tr>
+                        <td>B{{ visita.id_visita }}</td>
+                        <td>{{ visita.operador }}</td>
+                        <td>{{ visita.tipo_visita }}</td>
+                        <td>{{ visita.fecha_visita }}</td>
+                        <td>{{ visita.numero_visita }}</td>
+                        <td>
+                            <a href="{{ url_for('bodega.detalles_bodega', id_visita=visita.id_visita) }}" class="btn">Ver Detalles</a>
+                            <a href="{{ url_for('bodega.editar_bodega', id_visita=visita.id_visita) }}" class="btn">Editar</a>
+                            <button class="btn btn-danger" onclick="eliminarVisita({{ visita.id_visita }})">Eliminar</button>
+
+                            <script>
+                            function eliminarVisita(id) {
+                                if (confirm('¿Estás seguro de eliminar esta visita?')) {
+                                    fetch(`/eliminar_bodega/${id}`, { method: 'DELETE' })
+                                    .then(response => response.json())
+                                    .then(data => {
+                                        alert(data.message || data.error);
+                                        location.reload();
+                                    })
+                                    .catch(error => console.error('Error:', error));
+                                }
+                            }
+                            </script>
+                            
+                        </td>
+                        
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </main>
+    </div>
+</body>
+</html>

@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{{ url_for('static', filename='images/Escudo.png') }}" type="image/png">
+    <title>Base Consolidado</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/base_consolidado.css') }}">
+    <script>
+        function confirmDownload(url) {
+            if (confirm("¿Desea descargar este archivo?")) {
+                window.location.href = url;
+            }
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Consolidado de Intercambios</h1>
+        {% if rol == 'administrador' %}
+            <a class="btn" href="{{ url_for('iniciasesion_bp.dashboard_administrador') }}">Volver al Principal</a>
+        {% elif rol == 'nutricionista' %}
+            <a class="btn" href="{{ url_for('iniciasesion_bp.dashboard_nutricionista') }}">Volver al Principal</a>
+        {% elif rol == 'supervisor' %}
+            <a class="btn" href="{{ url_for('iniciasesion_bp.dashboard_supervisor') }}">Volver al Principal</a>
+        {% endif %}
+
+    </header>
+    <section class="filters-container">
+        <h2>Buscar</h2>
+        <form method="GET" action="/base_consolidado" class="filters-form">
+            <div class="form-group">
+                <label for="id_sede">Seleccionar Sede:</label>
+                <select name="id_sede" id="id_sede">
+                    <option value="">Todas</option>
+                    {% for sede in sedes %}
+                    <option value="{{ sede[0] }}">{{ sede[1] }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="tipo_racion">Seleccionar Modalidad:</label>
+                <select name="tipo_racion" id="tipo_racion">
+                    <option value="">Todos</option>
+                    {% for tipo in tipos_racion %}
+                    <option value="{{ tipo[0] }}">{{ tipo[1] }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="numero_intercambio">Número de Intercambio:</label>
+                <input type="text" name="numero_intercambio" id="numero_intercambio" placeholder="Escribe número de intercambio">
+            </div>
+            <div class="form-group">
+                <label for="fecha_ejecucion">Fecha de Ejecución:</label>
+                <input type="date" name="fecha_ejecucion" id="fecha_ejecucion">
+            </div>
+            <div class="form-group">
+                <label for="filtrar_operador">Seleccionar Operador:</label>
+                <select name="filtrar_operador" id="filtrar_operador">
+                    <option value="">Todos</option>
+                    {% for operador in operadores %}
+                    <option value="{{ operador[0] }}">{{ operador[1] }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Filtrar" class="btn-filter">
+            </div>
+        </form>
+    </section>
+    
+    <form id="exportar-form">
+        <label for="fecha_inicio">Fecha Inicio:</label>
+        <input type="date" id="fecha_inicio" name="fecha_inicio" required>
+
+        <label for="fecha_fin">Fecha Fin:</label>
+        <input type="date" id="fecha_fin" name="fecha_fin" required>
+
+        <button type="submit">Descargar Excel + ZIP</button>
+    </form>
+
+    <script>
+        document.getElementById("exportar-form").addEventListener("submit", function(event) {
+            event.preventDefault();  // Evita recargar la página
+            
+            let fechaInicio = document.getElementById("fecha_inicio").value;
+            let fechaFin = document.getElementById("fecha_fin").value;
+
+            if (!fechaInicio || !fechaFin) {
+                alert("Por favor, selecciona ambas fechas.");
+                return;
+            }
+
+            // Descargar Excel
+            let excelURL = `{{ url_for('exportar_intercambios') }}?fecha_inicio=${fechaInicio}&fecha_fin=${fechaFin}`;
+            window.open(excelURL, '_blank');
+
+            // Descargar ZIP
+            let zipURL = "{{ url_for('descargar_zip') }}";
+            setTimeout(() => {
+                window.open(zipURL, '_blank');
+            }, 2000);  // Retraso para evitar bloqueos del navegador
+        });
+    </script>
+
+    
+
+    <main>
+        <section>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nombre del Operador</th>
+                            <th>Fecha de Solicitud</th>
+                            <th>Fecha de Ejecución</th>
+                            <th>Modalidad</th>
+                            <th>Número de Aval</th>
+                            <th>Componente</th>
+                            <th>Número de Menú Oficial</th>
+                            <th>Menú Oficial</th>
+                            <th>Número de Menú Entregado</th>
+                            <th>Menú Entregado</th>
+                            <th>Sedes</th>
+                            <th>Tipo de Justificación</th>
+                            <th>Concepto</th>
+                            <th>Archivos Soportes</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if intercambios %}
+                            {% for intercambio in intercambios %}
+                            <tr class="
+                                {% if intercambio.datos[14] == 'Aprobado' %}
+                                    aprobar
+                                {% elif intercambio.datos[14] == 'Negado' %}
+                                    negar
+                                {% elif intercambio.datos[14] == 'Modificado' %}
+                                    modificar
+                                {% endif %}
+                            ">
+                                <td>{{ intercambio.datos[1] }}</td>
+                                <td>{{ intercambio.datos[2] }}</td>
+                                <td>{{ intercambio.datos[3] }}</td>
+                                <td>{{ intercambio.datos[4] }}</td>
+                                <td>{{ intercambio.datos[5] }}</td>
+                                <td>{{ intercambio.datos[6] }}</td>
+                                <td>{{ intercambio.datos[7] }}</td>
+                                <td>{{ intercambio.datos[8] }}</td>
+                                <td>{{ intercambio.datos[9] }}</td>
+                                <td>{{ intercambio.datos[10] }}</td>
+                                <td>{{ intercambio.datos[11] }}</td>
+                                <td>{{ intercambio.datos[13] }}</td>
+                                <td>{{ intercambio.datos[14] }}</td>
+                                <td>
+                                    <div class="file-list-container">
+                                        {% if intercambio.archivos_pdf %}
+                                            <ul class="file-list">
+                                                {% for archivo in intercambio.archivos_pdf %}
+                                                <li>
+                                                    <a href="{{ url_for('upload_file', filename='pdfs/' ~ intercambio.datos[5] ~ '/' ~ archivo) }}">
+                                                        📎 {{ archivo }}
+                                                    </a>
+                                                </li>
+                                                {% endfor %}
+                                            </ul>
+                                        {% endif %}
+                                        {% if intercambio.archivos_soporte %}
+                                            <ul class="file-list">
+                                                {% for archivo in intercambio.archivos_soporte %}
+                                                <li>
+                                                    <a href="{{ url_for('upload_file', filename='soporte/' ~ intercambio.datos[5] ~ '/' ~ archivo) }}">
+                                                        📝 {{ archivo }}
+                                                    </a>
+                                                </li>
+                                                {% endfor %}
+                                            </ul>
+                                        {% endif %}
+                                        {% if intercambio.archivos_aprobar %}
+                                            <ul class="file-list">
+                                                {% for archivo in intercambio.archivos_aprobar %}
+                                                <li>
+                                                    <a href="{{ url_for('upload_file', filename='estado/' ~ intercambio.datos[5] ~ '/' ~ archivo) }}">
+                                                        ✅ {{ archivo }}
+                                                    </a>
+                                                </li>
+                                                {% endfor %}
+                                            </ul>
+                                        {% endif %}
+                                    </div>
+                                </td>
+                                <td class="action-cell">
+                                    <button class="btn-delete" onclick="eliminarIntercambio('{{ intercambio.datos[5] }}')">
+                                        🗑 <span>Eliminar</span>
+                                    </button>
+                                </td>
+                                
+                                <script>
+                                    function eliminarIntercambio(numeroIntercambio) {
+                                        if (confirm('¿Estás seguro de eliminar este intercambio?')) {
+                                            fetch(`/eliminar_intercambio/${numeroIntercambio}`, {
+                                                method: 'DELETE',
+                                                headers: { 'Content-Type': 'application/json' }
+                                            })
+                                            .then(response => response.json())
+                                            .then(data => {
+                                                if (data.success) {
+                                                    alert(data.message);
+                                                    location.reload(); // Recargar la página después de eliminar
+                                                } else {
+                                                    alert('Error: ' + data.message);
+                                                }
+                                            })
+                                            .catch(error => console.error('Error:', error));
+                                        }
+                                    }
+                                </script>
+                                                                                         
+                            </tr>
+                            {% endfor %}
+                        {% else %}
+                            <tr>
+                                <td colspan="14">No se encontraron resultados</td>
+                            </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Secretaria de Educación Distrital Santiago de Cali</p>
+    </footer>
+</body>
+</html>

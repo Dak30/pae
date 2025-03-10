@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/actualizar.css') }}"> 
+    <link rel="icon" href="{{ url_for('static', filename='images/Escudo.png') }}" type="image/png">
+    <title>Actualizar Usuario</title>
+</head>
+<body>
+    <div class="form-container">
+        <h1>Actualizar Usuario</h1>
+        <form id="form-actualizar" method="POST">
+            <!-- Nombre -->
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" value="{{ usuario['nombre'] }}" required>
+
+            <!-- Correo -->
+            <label for="correo">Correo:</label>
+            <input type="email" id="correo" name="correo" value="{{ usuario['correo'] }}" required>
+
+            <!-- Rol -->
+            <label for="rol">Rol:</label>
+            <select id="rol" name="rol" onchange="toggleOperadorField()" required>
+                <option value="administrador" {% if usuario.rol == 'administrador' %}selected{% endif %}>Administrador</option>
+                <option value="operador" {% if usuario.rol == 'operador' %}selected{% endif %}>Operador</option>
+                <option value="supervisor" {% if usuario.rol == 'supervisor' %}selected{% endif %}>Supervisor</option>
+                <option value="nutricionista" {% if usuario.rol == 'nutricionista' %}selected{% endif %}>Nutricionista</option>
+            </select>
+
+            <!-- Nueva Contraseña -->
+            <label for="nueva_contrasena">Nueva Contraseña (opcional):</label>
+            <input type="password" id="nueva_contrasena" name="nueva_contrasena">
+
+            <!-- Operador -->
+            <div id="operador-field">
+                <label for="id_operador">Operador:</label>
+                <select id="id_operador" name="id_operador">
+                    <option value="">Seleccione un operador</option>
+                    {% for operador in operadores %}
+                        <option value="{{ operador.id_operador }}" {% if operador.id_operador == usuario.id_operador %}selected{% endif %}>
+                            {{ operador.nombre }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <!-- Botón -->
+            <button type="submit">Actualizar</button>
+        </form>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // Función para mostrar/ocultar el campo "Operador" según el rol seleccionado
+        function toggleOperadorField() {
+            const rol = document.getElementById('rol').value;
+            const operadorField = document.getElementById('operador-field');
+            const operadorSelect = document.getElementById('id_operador');
+
+            if (rol === 'operador') {
+                operadorField.style.display = 'block';
+                operadorSelect.required = true;
+            } else {
+                operadorField.style.display = 'none';
+                operadorSelect.required = false;
+                operadorSelect.value = ''; // Limpia el campo si no es operador
+            }
+        }
+
+        // Ejecutar al cargar la página para el rol preseleccionado
+        document.addEventListener('DOMContentLoaded', toggleOperadorField);
+
+        // Envío del formulario mediante fetch API
+        document.getElementById('form-actualizar').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const formData = new FormData(this);
+            fetch(window.location.href, {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert(data.success);
+                    window.parent.postMessage('closeModal', '*'); // Cerrar el modal si es necesario
+                } else {
+                    alert(data.error || 'Error desconocido.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Ocurrió un error al actualizar el usuario.');
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{{ url_for('static', filename='images/Escudo.png') }}" type="image/png">
+    <title>Informe de Intercambios</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/informe.css') }}">
+    <script>
+        function confirmDownload() {
+            return confirm("¿Desea descargar el informe filtrado?");
+        }
+        
+    </script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Informe Consolidado de Intercambios</h1>
+            {% if rol == 'administrador' %}
+                <a class="btn" href="{{ url_for('iniciasesion_bp.dashboard_administrador') }}">Volver al Principal</a>
+            {% elif rol == 'supervisor' %}
+                <a class="btn" href="{{ url_for('iniciasesion_bp.dashboard_supervisor') }}">Volver al Principal</a>
+            {% elif rol == 'nutricionista' %}
+                <a class="btn" href="{{ url_for('iniciasesion_bp.dashboard_nutricionista') }}">Volver al Principal</a>    
+            {% endif %}
+        </header>
+
+        <p>El Informe de Intercambios es una herramienta clave para el seguimiento y análisis de lo
+            s menús entregados en diferentes instituciones educativas. A través de este informe, 
+            se pueden consultar todos los detalles relacionados con los intercambios de menús, desde 
+            la fecha de ejecución hasta los conceptos específicos de cada intercambio.</p>
+
+        <div class="search-section">
+            <h2>Buscar</h2>
+            <form method="get" action="{{ url_for('informe') }}" onsubmit="return validateForm();">
+                <div class="form-group">
+                    <label for="sedes">Institución Educativa:</label>
+                    <select name="id_sede" id="sedes">
+                        <option value="">Seleccione una opción</option>
+                        {% for sede in sedes %}
+                        <option value="{{ sede[0] }}" {% if sede[0] == id_sede %}selected{% endif %}>{{ sede[1] }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="fecha_ejecucion">Fecha de Ejecución:</label>
+                    <input type="date" name="fecha_ejecucion" id="fecha_ejecucion" class="input-fecha" value="{{ fecha_ejecucion }}">
+                </div>
+                
+                <button type="submit" class="btn">Buscar</button>
+                <button type="submit" formaction="{{ url_for('download_informe') }}" onclick="return confirmDownload();" class="btn">Descargar Informe</button>
+            </form>
+        </div>
+
+        <table id="informe-table" class="styled-table">
+            <thead>
+                <tr>
+                    <th>Fecha de Ejecución</th>
+                    <th>Número</th>
+                    <th>N° Aval</th>
+                    <th>Operador</th>
+                    <th>Nombre de Sede</th>
+                    <th>Modalidad</th>
+                    <th>Menú a Entregar</th>
+                    <th>Detalles del Menú</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for intercambio in intercambios %}
+                <tr>
+                    <td>{{ intercambio[0] }}</td> <!-- Fecha de Ejecución -->
+                    <td>{{ intercambio[2] }}</td> <!-- Número de Intercambio -->
+                    <td>{{ intercambio[8] }}</td> <!-- Concepto -->
+                    <td>{{ intercambio[1] }}</td> <!-- Operador -->
+                    <td>{{ intercambio[3] }}</td> <!-- Nombre de la Sede -->
+                    <td>{{ intercambio[4] }}</td> <!-- Tipo de Ración -->
+                    <td>{{ intercambio[6] }}</td> <!-- Menú a Entregar -->
+                    <td>{{ intercambio[7] }}</td> <!-- Detalles del Menú -->
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

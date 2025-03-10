@@ -1,0 +1,141 @@
+/* Estilo general */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+/* Contenedor del formulario */
+form {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 800px;
+}
+
+/* Títulos */
+h2 {
+    color: #333;
+    text-align: center;
+    border-bottom: 2px solid #007BFF;
+    padding-bottom: 5px;
+}
+
+/* Etiquetas */
+label {
+    font-weight: bold;
+    display: block;
+    margin-top: 10px;
+}
+
+/* Inputs, selects y textareas */
+input, select, textarea {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Tablas */
+/* Ajustar el tamaño del textarea dentro de la tabla */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+}
+
+th {
+    background-color: #007BFF;
+    color: white;
+}
+
+/* Ajustes específicos para textarea */
+td textarea {
+    width: 100%;
+    max-width: 200px; /* Ajustar para que no se salga de la celda */
+    height: 50px;
+    resize: vertical; /* Solo permitir ajustar en altura */
+    overflow: auto;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 5px;
+    font-size: 14px;
+}
+
+
+
+/* Estilos para los select de respuestas */
+select {
+    padding: 8px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+/* Colores según selección */
+select option[value="1"] {
+    background-color: #28a745;
+    color: white;
+} /* Cumple */
+
+select option[value="0"] {
+    background-color: #dc3545;
+    color: white;
+} /* No cumple */
+
+select option[value="2"] {
+    background-color: #ffc107;
+    color: black;
+} /* No aplica */
+
+/* Ajustar tamaño del textarea */
+textarea {
+    width: 100%;
+    max-width: 300px; /* Ajustar según el diseño de la tabla */
+    height: 60px; /* Altura fija o ajustable */
+    resize: vertical; /* Solo permitir ajustar en altura */
+    overflow: auto;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+/* Botón de enviar */
+button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+button:hover {
+    background-color: #218838;
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+    form {
+        width: 95%;
+    }
+
+    th, td {
+        padding: 8px;
+    }
+}

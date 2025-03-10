@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{{ url_for('static', filename='images/Escudo.png') }}" type="image/png">
+    <title>PAE</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/indexprincipal.css') }}">
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const userBtn = document.querySelector('.user-btn');
+            const userInfo = document.querySelector('.user-info');
+    
+            userBtn.addEventListener('click', function () {
+                userInfo.classList.toggle('active'); // Alterna la clase 'active'
+            });
+    
+            // Cierra el menú desplegable si se hace clic fuera de él
+            document.addEventListener('click', function (event) {
+                if (!userInfo.contains(event.target)) {
+                    userInfo.classList.remove('active');
+                }
+            });
+        });
+    </script>
+    
+</head>
+<body>
+    <div class="container">
+        <!-- Barra Superior -->
+        <header class="header">
+            <div class="logo-container">
+                <img src="/static/images/Escudo.png" alt="Logo Alcaldía de Cali" class="logo">
+                <div class="text-overlay">
+                    <p class="main-title">ALCALDÍA DE</p>
+                    <p class="sub-title">SANTIAGO DE CALI</p>
+                </div>
+            </div>
+            <div class="user-info">
+                <button class="user-btn">👤 {{ usuario }}</button>
+                <div class="user-dropdown">
+                    <p><strong>Usuario:</strong> {{ usuario }}</p>
+                    <p><strong>Correo:</strong> {{ correo }}</p>
+                    <a class="logout" href="{{ url_for('iniciasesion_bp.logout') }}">Cerrar Sesión</a>
+                </div>
+            </div>
+        </header>
+        
+        
+        <!-- Contenedor principal -->
+        <main class="main-content">
+            <section class="menu-section">
+                <h2 class="menu-title">
+                    <img src="{{ url_for('static', filename='images/cali.png') }}" alt="Fondo Alimentos para Aprender" class="title-image">
+                    Visitas de Seguimiento y Control al Programa de Alimentación Escolar - PAE
+                </h2>
+                <div class="menu-grid">
+                    {% if rol in ['supervisor', 'administrador'] %}
+                        <a href="/infraestructura" class="menu-button supervisor">Diagnostico y Caracterización de Diseño Sanitario de las Instalaciones de las Unidades de Servicio - PAE</a>
+                        <a href="/bodega" class="menu-button supervisor">Visitas Bodega</a>
+                        <a href="/tecnica" class="menu-button supervisor">Visitas Técnica</a>
+                        <a href="{{ url_for('tecnica.toma_peso') }}" class="menu-button supervisor">Toma de Peso y Temperatura Ración Preparado en Sitio</a>
+                    {% endif %}
+                    {% if rol in ['operador', 'administrador'] %}
+                        <a href="{{ url_for('base_operador') }}" class="menu-button operador">Consolidado de Intercambios</a>
+                    {% endif %}
+                    {% if rol in ['nutricionista', 'administrador', 'operador'] %}
+                        <a href="{{ url_for('visitas.intercambio_operador') }}" class="menu-button operador">Solicitud Intercambio</a>
+                        <a href="{{ url_for('solicitar_modificar_intercambio', numero_intercambio='some_value') }}" class="menu-button operador">Modificar Intercambio</a>
+                    {% endif %}
+                    {% if rol in ['nutricionista', 'administrador'] %}
+                        <a href="{{ url_for('visitas.estado') }}" class="menu-button nutricionista">Solicitud de Intercambio Pendiente</a>
+                        <a href="{{ url_for('base_consolidado') }}" class="menu-button nutricionista">Base Consolidado de Intercambios</a>
+                        <a href="{{ url_for('menus_bp.historial_cambios') }}" class="menu-button nutricionista">Historico de Menú</a>
+                        <a href="{{ url_for('menus_bp.index_update') }}" class="menu-button nutricionista">Ciclo de Menú</a>
+                    {% endif %}
+                    {% if rol in ['nutricionista', 'administrador', 'supervisor'] %}
+                        <a href="{{ url_for('verificacion_bp.verificacion_menu') }}" class="menu-button supervisor">Verificación de Menú</a>
+                        <a href="{{ url_for('informe_general') }}" class="menu-button supervisor">Informe General</a>
+                        <a href="{{ url_for('informe') }}" class="menu-button general">Informe Consolidado de Intercambios</a>
+                        
+                    {% endif %}
+                    {% if rol in ['nutricionista', 'operador', 'administrador', 'supervisor'] %}
+                        <a href="{{ url_for('iniciasesion_bp.actualizar_usuario_rol') }}" class="menu-button general">Actualizar Usuario</a>
+                    {% endif %}
+                    {% if rol == 'administrador' %}
+                        <a href="{{ url_for('iniciasesion_bp.registro') }}" class="menu-button administrador">Registro</a>
+                        <a href="{{ url_for('iniciasesion_bp.lista_usuarios') }}" class="menu-button administrador">Lista Usuarios</a>
+                        <a href="{{ url_for('actualizar_bp.gestionar_datos') }}" class="menu-button administrador">Operador</a>
+                        <a href="{{ url_for('instituciones_bp.gestionar_instituciones') }}" class="menu-button administrador">Instituciones</a>
+                        <a href="{{ url_for('sedes_bp.gestionar_sedes') }}" class="menu-button administrador">Sedes</a>
+                        
+
+                    {% endif %}
+                </div>
+            </section>
+        </main>
+        
+        
+        <footer class="footer">
+            <a href="https://sig.cali.gov.co/app.php/staff/document/viewPublic/index/1195" target="_blank">Políticas de seguridad de la información y protección de datos personales</a>
+            <p>Todos los Derechos Reservados © 2024</p>
+            <p>
+                <span class="footer-link">www.cali.gov.co</span><span class="footer-highlight">/educacion</span>
+            </p>
+            <div class="social-media">
+                <a href="https://www.facebook.com/EducacionCali" target="_blank" class="social-icon">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook" title="Facebook - Educación Cali">
+                </a>
+                <a href="https://www.instagram.com/educacioncali" target="_blank" class="social-icon">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram" title="Instagram - Educación Cali">
+                </a>
+            </div>
+        </footer>
+        
+    </div>
+</body>
+</html>

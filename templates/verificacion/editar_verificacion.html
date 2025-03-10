@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Verificación</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/editar_verificacion.css') }}">
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let institucionSelect = document.getElementById("id_institucion");
+            let sedeSelect = document.getElementById("id_sede");
+            let sedeSeleccionada = sedeSelect.value;  // Guardamos la sede seleccionada
+        
+            function cargarSedes(idInstitucion, sedeSeleccionada) {
+                fetch(`/sedes/${idInstitucion}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        sedeSelect.innerHTML = '<option value="">Seleccione una sede</option>';
+                        data.forEach(sede => {
+                            let option = document.createElement("option");
+                            option.value = sede.id_sede;
+                            option.textContent = sede.nombre_sede;
+                            sedeSelect.appendChild(option);
+                        });
+        
+                        // Mantener la sede seleccionada si existe
+                        if (sedeSeleccionada) {
+                            sedeSelect.value = sedeSeleccionada;
+                        }
+                    })
+                    .catch(error => console.error("Error cargando sedes:", error));
+            }
+        
+            institucionSelect.addEventListener("change", function () {
+                let idInstitucion = institucionSelect.value;
+                if (idInstitucion) {
+                    cargarSedes(idInstitucion, null);  // Se resetea la sede cuando cambia la institución
+                } else {
+                    sedeSelect.innerHTML = '<option value="">Seleccione una sede</option>';
+                }
+            });
+        
+            // Cargar las sedes si ya hay una institución seleccionada
+            let idInstitucionSeleccionada = institucionSelect.value;
+            if (idInstitucionSeleccionada) {
+                cargarSedes(idInstitucionSeleccionada, sedeSeleccionada);
+            }
+        });
+        </script>
+        
+        
+</head>
+<body>
+    <h1>Editar Verificación</h1>
+
+    <form method="POST">
+        <label>ID:</label>
+        <input type="text" value="V{{ verificacion.id }}" readonly>
+
+        <label>Fecha de Visita:</label>
+        <input type="date" name="fecha_visita" value="{{ verificacion.fecha_visita }}" required>
+
+        <label>Hora de Visita:</label>
+        <input type="time" name="hora_visita" value="{{ verificacion.hora_visita }}" required>
+
+        <label>Zona:</label>
+        <input type="text" name="zona" value="{{ verificacion.zona }}" required>
+
+        <label style="display: none;">Contrato:</label>
+        <input type="text" name="contrato" value="{{ verificacion.contrato }}" readonly style="display: none;">
+
+
+
+        <label>Jornada:</label>
+        <input type="text" name="jornada" value="{{ verificacion.jornada }}" required>
+
+
+        <!-- Selección de Operador -->
+        <label>Operador:</label>
+        <select name="id_operador" id="id_operador" required>
+            {% for operador in operadores %}
+                <option value="{{ operador.id_operador }}" {% if operador.id_operador == verificacion.id_operador %}selected{% endif %}>
+                    {{ operador.nombre }}
+                </option>
+            {% endfor %}
+        </select>
+
+        <!-- Selección de Institución -->
+        <label>Institución:</label>
+        <select name="id_institucion" id="id_institucion" required>
+            {% for institucion in instituciones %}
+                <option value="{{ institucion.id_institucion }}" {% if institucion.id_institucion == verificacion.institucion_id %}selected{% endif %}>
+                    {{ institucion.sede_educativa }}
+                </option>
+            {% endfor %}
+        </select>
+
+        <!-- Selección de Sede (se llena dinámicamente con AJAX) -->
+        <label>Sede:</label>
+        <select name="id_sede" id="id_sede" required>
+            {% for sede in sedes %}
+                <option value="{{ sede.id_sede }}" {% if sede.id_sede == verificacion.sede_id %}selected{% endif %}>
+                    {{ sede.nombre_sede }}
+                </option>
+            {% endfor %}
+        </select>
+
+
+        <label>Tipo de Ración:</label>
+        <select name="descripcion_tipo_racion" required>
+            {% for tipo in tiporaciones %}
+                <option value="{{ tipo.id_tipo_racion }}" {% if tipo.id_tipo_racion == verificacion.tipo_racion_id %}selected{% endif %}>
+                    {{ tipo.descripcion }}
+                </option>
+            {% endfor %}
+        </select>
+
+        <label>Menú Oficial:</label>
+        <input type="text" name="numero_menu_oficial" value="{{ verificacion.numero_menu_oficial }}" required>
+
+        <label>Menú Entregado:</label>
+        <input type="text" name="numero_menu_intercambio" value="{{ verificacion.numero_menu_intercambio }}" required>
+
+        <label>Observación General:</label>
+        <textarea name="observacion_general">{{ verificacion.observacion_general }}</textarea>
+
+        <label>Hallazgo:</label>
+        <textarea name="hallazgo">{{ verificacion.hallazgo }}</textarea>
+
+        <h2>Focalización por Niveles Escolares</h2>
+        <table class="tabla-niveles">
+            <thead>
+                <tr>
+                    <th>Nivel 1</th>
+                    <th>Nivel 2</th>
+                    <th>Nivel 3</th>
+                    <th>Nivel 4</th>
+                    <th>Nivel 5</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><input type="number" name="nivel_1" value="{{ verificacion.nivel_1 }}" required></td>
+                    <td><input type="number" name="nivel_2" value="{{ verificacion.nivel_2 }}" required></td>
+                    <td><input type="number" name="nivel_3" value="{{ verificacion.nivel_3 }}" required></td>
+                    <td><input type="number" name="nivel_4" value="{{ verificacion.nivel_4 }}" required></td>
+                    <td><input type="number" name="nivel_5" value="{{ verificacion.nivel_5 }}" required></td>
+                    <td><input type="number" name="total" value="{{ verificacion.total }}" readonly></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>Detalles de la Verificación</h2>
+        <div class="tabla-container">
+            <table class="tabla-detalles-ajustada">
+            <thead>
+                <tr>
+                    
+                    <th>Componentes</th>
+                    <th>Valor Cumplimiento</th>
+                    <th>Menú Oficial</th>
+                    <th>Menú Intercambio</th>
+                    {% if verificacion.tipo_racion_id == 1 %}
+                        <th>Fecha de Vencimiento</th>
+                        <th>Lote</th>
+                        <th>Peso Nivel 1</th>
+                        <th>Peso Nivel 2</th>
+                        <th>Peso Nivel 3</th>
+                        <th>Peso Nivel 4</th>
+                        <th>Peso Nivel 5</th>
+                    {% else %}
+                        <th>Propiedades Organolépticas</th>
+                        <th>Observación</th>
+                    {% endif %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for detalle in detalles %}
+                <tr>
+                    <td style="display: none;"><input type="text" name="id_{{ loop.index }}" value="{{ detalle.id }}" required readonly></td>
+                    <td><input type="text" name="componentes_{{ loop.index }}" value="{{ detalle.componentes }}" required readonly></td>
+                    <td><input type="text" name="valor_cumplimiento_{{ loop.index }}" value="{{ detalle.valor_cumplimiento }}" required></td>
+                    <td><input type="text" name="menu_oficial_{{ loop.index }}" value="{{ detalle.menu_oficial }}" required></td>
+                    <td><input type="text" name="menu_intercambio_{{ loop.index }}" value="{{ detalle.menu_intercambio }}" required></td>
+                    {% if verificacion.tipo_racion_id == 1 %}
+                        <td><input type="date" name="fecha_vencimiento_{{ loop.index }}" value="{{ detalle.fecha_vencimiento }}" required></td>
+                        <td><input type="text" name="lote_{{ loop.index }}" value="{{ detalle.lote }}" required></td>
+                        <td><input type="number" name="peso_nivel_1_{{ loop.index }}" value="{{ detalle.peso_nivel_escolar_1 }}" required></td>
+                        <td><input type="number" name="peso_nivel_2_{{ loop.index }}" value="{{ detalle.peso_nivel_escolar_2 }}" required></td>
+                        <td><input type="number" name="peso_nivel_3_{{ loop.index }}" value="{{ detalle.peso_nivel_escolar_3 }}" required></td>
+                        <td><input type="number" name="peso_nivel_4_{{ loop.index }}" value="{{ detalle.peso_nivel_escolar_4 }}" required></td>
+                        <td><input type="number" name="peso_nivel_5_{{ loop.index }}" value="{{ detalle.peso_nivel_escolar_5 }}" required></td>
+                    {% else %}
+                        <td><input type="text" name="propiedades_organolepticas_{{ loop.index }}" value="{{ detalle.propiedades_organolepticas }}"></td>
+                        <td>
+                            <input type="text" name="observacion_{{ loop.index }}" 
+                                   value="{{ detalle.observacion if detalle.observacion is not none else 'Sin Observación' }}">
+                        </td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+
+    <div style="display: flex; gap: 20px;">
+        <div style="flex: 1;">
+            <label>Nombre Representante:</label>
+            <input type="text" name="nombre_representante" value="{{ firmas.nombre_representante }}">
+    
+            <label>Cargo Representante:</label>
+            <input type="text" name="cargo_representante" value="{{ firmas.cargo_representante }}">
+    
+            <label>Nombre Funcionario:</label>
+            <input type="text" name="nombre_funcionario" value="{{ firmas.nombre_funcionario }}">
+        </div>
+    
+        <div style="flex: 1;">
+            <label>Nombre Operador:</label>
+            <input type="text" name="nombre_operador_firma" value="{{ firmas.nombre_operador }}">
+    
+            <label>Cargo Operador:</label>
+            <input type="text" name="cargo_operador" value="{{ firmas.cargo_operador }}">
+    
+            <label>Cédula Operador:</label>
+            <input type="text" name="cedula_operador" value="{{ firmas.cedula_operador }}">
+        </div>
+    </div>
+    
+    <div style="margin-top: 20px;">
+        <button type="submit" class="btn btn-success">Guardar Cambios</button>
+        <a href="{{ url_for('verificacion_bp.lista_verificacion') }}" class="btn btn-secondary">Cancelar</a>
+    </div>
+    
+    </form>
+</body>
+</html>

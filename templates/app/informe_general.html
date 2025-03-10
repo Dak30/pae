@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{{ url_for('static', filename='images/Escudo.png') }}" type="image/png">
+    <link rel="stylesheet" href="/static/styles/informe_general.css">
+    <title>Informe General</title>
+</head>
+<body>
+    <div class="container">
+        <div class="title-container">
+            <h1>Informe General</h1>
+            {% if rol == 'administrador' %}
+                <a class="btn" href="{{ url_for('iniciasesion_bp.dashboard_administrador') }}">Volver al Menú Principal</a>
+            {% elif rol == 'supervisor' %}
+                <a class="btn" href="{{ url_for('iniciasesion_bp.dashboard_supervisor') }}">Volver al Menú Principal</a>
+            {% elif rol == 'nutricionista' %}
+                <a class="btn" href="{{ url_for('iniciasesion_bp.dashboard_nutricionista') }}">Volver al Menú Principal</a>
+            {% endif %}
+        </div>
+
+        <div class="conceptos-container">
+            <!-- Concepto: Técnico -->
+
+            {% if rol in ['administrador', 'supervisor'] %}
+            <div class="concept-card">
+                <img 
+                    src="{{ url_for('static', filename='images/techn.png') }}" 
+                    alt="Técnico" 
+                    class="concept-icon" 
+                    onclick="return checkFormData('{{ url_for('tecnica.lista_tecnica') }}')"
+                >
+                <h3>Técnico</h3>
+                <p>Revisión de equipos y herramientas necesarias.</p>
+                <button class="btn-details" onclick="toggleDetails('tecnico')">Detalles</button>
+                <div id="tecnico" class="concept-details">
+                    <p>Verifique el funcionamiento de los equipos y herramientas en el establecimiento educativo.</p>
+                    <p>¿No tienes esta información? Puedes solicitarla en el apartado de solicitudes. Para llenar la información, haz clic en el siguiente enlace:</p>
+                    <a href="/tecnica" class="menu-button supervisor">Visitas Técnica,</a>
+                    <a href="{{ url_for('tecnica.toma_peso') }}" class="menu-button supervisor">Toma de Peso y Temperatura Ración Preparada en Sitio</a>
+                </div>
+            </div>
+            {% endif %}
+            <!-- Concepto: Menú -->
+            {% if rol in ['nutricionista', 'administrador', 'supervisor'] %}
+            <div class="concept-card">
+                <img 
+                    src="{{ url_for('static', filename='images/menu.png') }}" 
+                    alt="Menú" 
+                    class="concept-icon" 
+                    onclick="return checkFormData('{{ url_for('verificacion_bp.lista_verificacion') }}')"
+                >
+                <h3>Verificación de Menú</h3>
+                <p>Verificación de los menús ofrecidos.</p>
+                <button class="btn-details" onclick="toggleDetails('menu')">Detalles</button>
+                <div id="menu" class="concept-details">
+                    <p>Revisa si el menú cumple con las normativas nutricionales y de calidad.</p>
+                    <p>¿No tienes esta información? Puedes solicitarla en el apartado de solicitudes. Para llenar la información, haz clic en el siguiente enlace:</p>
+                    <a href="{{ url_for('verificacion_bp.verificacion_menu') }}" class="menu-button supervisor">Verificación de Menú</a>
+                </div>
+            </div>
+            {% endif %}
+            <!-- Concepto: Bodega -->
+            {% if rol in ['administrador', 'supervisor'] %}
+            <div class="concept-card">
+                <img 
+                    src="{{ url_for('static', filename='images/bodega.png') }}" 
+                    alt="Bodega" 
+                    class="concept-icon" 
+                    onclick="return checkFormData('{{ url_for('bodega.lista_bodega') }}')"
+                >
+                <h3>Bodega</h3>
+                <p>Revisión de inventarios y almacenamiento de materiales.</p>
+                <button class="btn-details" onclick="toggleDetails('bodega')">Detalles</button>
+                <div id="bodega" class="concept-details">
+                    <p>Verifique el estado del inventario y la correcta organización de la bodega del establecimiento educativo.</p>
+                    <p>¿No tienes esta información? Puedes solicitarla en el apartado de solicitudes. Para llenar la información, haz clic en el siguiente enlace:</p>
+                    <a href="{{ url_for('bodega.bodega') }}" class="menu-button supervisor">Visitas Bodega</a>
+                </div>
+            </div>
+            {% endif %}
+            <!-- Concepto: Infraestructura -->
+            {% if rol in ['administrador', 'supervisor'] %}
+            <div class="concept-card">
+                <img 
+                    src="{{ url_for('static', filename='images/infrastructure.png') }}" 
+                    alt="Infraestructura" 
+                    class="concept-icon" 
+                    onclick="return checkFormData('{{ url_for('infraestructura.lista_infraestructura') }}')"
+                >
+                <h3>Infraestructura</h3>
+                <p>Evaluación del estado físico del establecimiento educativo.</p>
+                <button class="btn-details" onclick="toggleDetails('infraestructura')">Detalles</button>
+                <div id="infraestructura" class="concept-details">
+                    <p>Verifique la calidad de las instalaciones, incluyendo aulas, baños, electricidad, y otras áreas del colegio.</p>
+                    <p>¿No tienes esta información? Puedes solicitarla en el apartado de solicitudes. Para llenar la información, haz clic en el siguiente enlace:</p>
+                    <a href="/infraestructura" class="menu-button supervisor">Diagnóstico y Caracterización de Diseño Sanitario de las Instalaciones de las Unidades de Servicio - PAE</a>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <script>
+        // Función para mostrar/ocultar los detalles
+        function toggleDetails(concept) {
+            const details = document.getElementById(concept);
+            details.style.display = details.style.display === 'block' ? 'none' : 'block';
+        }
+
+        /**
+         * Verifica si los datos del formulario están completos antes de redirigir.
+         * @param {string} url - La URL del formulario correspondiente.
+         * @returns {boolean} - Retorna false si faltan datos, true si está todo completo.
+         */
+        function checkFormData(url) {
+            const dataComplete = true; // Cambia esta lógica según tu implementación real.
+
+            if (!dataComplete) {
+                alert("Por favor, complete los datos antes de continuar.");
+                return false;
+            }
+
+            window.location.href = url;
+            return true;
+        }
+    </script>
+</body>
+</html>

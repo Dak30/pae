@@ -1,0 +1,276 @@
+/* General body styling */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    font-size: 12px; /* Tamaño estándar */
+    background-color: #f4f4f4; /* Fondo general gris claro */
+}
+
+/* Header styling */
+header {
+    background-color: #007BFF; /* Fondo azul principal */
+    padding: 15px 20px;
+    text-align: center;
+    color: white;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+}
+
+header h1 {
+    margin: 0;
+    font-size: 1.8em; /* Tamaño del título */
+}
+
+header .btn {
+    text-decoration: none;
+    background-color: #0056b3; /* Azul más oscuro */
+    color: white;
+    padding: 8px 16px; /* Botón más cómodo */
+    border-radius: 5px;
+    font-size: 0.9em; /* Tamaño del texto del botón */
+    margin-top: 10px;
+    display: inline-block;
+}
+
+header .btn:hover {
+    background-color: #004099;
+}
+
+/* Filters section */
+.filters-container {
+    background-color: white;
+    padding: 20px;
+    margin: 20px auto;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    max-width: 1200px; /* Ancho máximo */
+    width: 95%; /* Ocupar 95% del ancho disponible */
+}
+
+.filters-container h2 {
+    font-size: 1.5em;
+    margin-bottom: 15px;
+    color: #333;
+    text-align: center;
+}
+
+.filters-form {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* Cinco columnas iguales */
+    gap: 20px; /* Espaciado entre columnas y filas */
+    align-items: center; /* Alinea verticalmente */
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    margin-bottom: 8px;
+    font-size: 0.9em;
+    color: #555;
+    font-weight: bold;
+}
+
+.form-group input,
+.form-group select {
+    padding: 8px 10px;
+    font-size: 0.85em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+    transition: border 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    border: 1px solid #007BFF;
+    box-shadow: 0px 0px 5px rgba(0, 123, 255, 0.5); /* Efecto al enfocar */
+}
+
+.btn-filter {
+    background-color: #28a745;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1em;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    flex: 0 0 auto; /* Botón no se expande */
+    max-width: 300px; /* Limitar el ancho del botón */
+    margin: 0 auto; /* Centrar el botón horizontalmente */
+}
+
+
+
+.btn-filter:hover {
+    background-color: #218838;
+}
+
+
+
+/* Contenedor principal para desplazamiento horizontal */
+.table-container {
+    overflow-x: auto; /* Permitir desplazamiento horizontal */
+    width: 100%;
+    margin: 10px 0; /* Reducir márgenes superior e inferior */
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+}
+
+/* Tabla completa */
+table {
+    border-collapse: collapse;
+    width: 100%; /* Ocupar todo el ancho disponible */
+    font-size: 0.9em; /* Tamaño más grande para mejorar la legibilidad */
+    text-align: center;
+}
+
+table th, table td {
+    padding: 10px; /* Espaciado interno mejorado */
+    border: 1px solid #ddd; /* Bordes ligeros */
+    vertical-align: middle; /* Centrado vertical */
+    word-wrap: break-word; /* Permitir que el texto se ajuste automáticamente */
+    overflow-wrap: break-word; /* Ajustar palabras largas */
+}
+
+table th {
+    background-color: #007BFF; /* Fondo azul para encabezados */
+    color: white;
+    text-align: center;
+    font-weight: bold;
+}
+
+table td {
+    background-color: #fff;
+    color: #333;
+    text-align: center; /* Alineación centrada */
+    font-size: 0.9em; /* Ajustar tamaño para mejor legibilidad */
+}
+
+/* Estilo de filas alternadas */
+table tbody tr:nth-child(odd) {
+    background-color: #f9f9f9; /* Fila alternada */
+}
+
+table tbody tr:hover {
+    background-color: #e2e6ea; /* Efecto hover */
+}
+
+/* Ajustes responsivos */
+@media (max-width: 768px) {
+    table {
+        font-size: 0.8em; /* Reducir tamaño en pantallas pequeñas */
+    }
+    table th, table td {
+        padding: 8px;
+    }
+}
+
+
+/* File list styling */
+.file-list-container {
+    margin: 0;
+    padding: 10px;
+    background-color: #f8f9fa;
+    border-radius: 5px;
+    font-size: 1.2em; /* Tamaño más pequeño */
+}
+
+.file-section {
+    margin-bottom: 10px;
+}
+
+.file-section-title {
+    font-weight: bold;
+    font-size: 0.9em;
+    margin-bottom: 5px;
+    color: #007BFF;
+}
+
+.file-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.file-item {
+    margin-bottom: 5px;
+}
+
+.file-link {
+    text-decoration: none;
+    color: #007BFF;
+    word-wrap: break-word;
+    font-size: 0.85em;
+}
+
+.file-link:hover {
+    text-decoration: underline;
+    color: #0056b3;
+}
+
+/* Footer styling */
+footer {
+    background-color: #007BFF;
+    text-align: center;
+    padding: 15px;
+    font-size: 0.8em;
+    color: white;
+    border-top: 1px solid #0056b3;
+}
+
+.notification-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    max-width: 300px;
+}
+
+.notification {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.notification.success {
+    background-color: #d4edda;
+    color: #155724;
+    border-color: #c3e6cb;
+}
+
+.notification.warning {
+    background-color: #fff3cd;
+    color: #856404;
+    border-color: #ffeeba;
+}
+
+/* Fila para "Aprobar" */
+.aprobar td {
+    background-color: #d4edda; /* Verde claro */
+    color: #155724; /* Texto verde oscuro */
+}
+
+/* Fila para "Negar" */
+.negar td {
+    background-color: #f8d7da; /* Rojo claro */
+    color: #721c24; /* Texto rojo oscuro */
+}
+
+/* Fila para "Modificar" */
+.modificar td {
+    background-color: #fff3cd; /* Amarillo claro */
+    color: #856404; /* Texto amarillo oscuro */
+}

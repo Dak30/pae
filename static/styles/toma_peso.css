@@ -1,0 +1,155 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 10px;
+    background-color: #f9f9f9;
+}
+
+h1, h2 {
+    text-align: center;
+    font-size: 1.4em;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+form {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.table-container-scroll {
+    overflow-x: auto; /* Habilita el desplazamiento horizontal */
+    -webkit-overflow-scrolling: touch; /* Mejora la experiencia en dispositivos móviles */
+    margin-bottom: 20px;
+    border: 1px solid #ddd; /* Agrega un borde opcional */
+    padding: 10px; /* Espaciado interno opcional */
+}
+
+.table-scroll {
+    width: max-content; /* Permite que la tabla se ajuste al contenido */
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+    font-size: 0.9em;
+}
+
+th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+input[type="number"], input[type="text"], select {
+    width: calc(100% - 12px); /* Ajuste para evitar que los inputs sean demasiado grandes */
+    padding: 8px;
+    font-size: 0.9em;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box; /* Asegura que el padding no afecte al tamaño total */
+    margin-bottom: 15px;
+    transition: border-color 0.3s ease; /* Agregado para un efecto suave al interactuar */
+}
+
+input[type="number"]:focus, input[type="text"]:focus, select:focus {
+    border-color: #4CAF50; /* Cambia el borde al hacer foco */
+    outline: none; /* Quita el borde azul predeterminado en algunos navegadores */
+}
+
+button {
+    margin: 20px auto;
+    display: block;
+    padding: 12px 25px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+textarea {
+    width: 98%;
+    padding: 12px;
+    font-size: 1em;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    resize: vertical; /* Permite cambiar el tamaño solo verticalmente */
+    background-color: #f9f9f9;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+textarea:focus {
+    border-color: #4CAF50;
+    background-color: #fff;
+    box-shadow: 0 0 8px rgba(76, 175, 80, 0.4);
+}
+
+textarea::placeholder {
+    color: #888;
+    font-style: italic;
+}
+
+/* Estilo responsivo para pantallas pequeñas */
+@media screen and (max-width: 768px) {
+    h1, h2 {
+        font-size: 1.2em;
+    }
+    th, td {
+        font-size: 0.85em;
+    }
+    table {
+        font-size: 0.85em;
+    }
+    input[type="number"], input[type="text"], select {
+        font-size: 0.85em;
+        padding: 7px;
+    }
+    button {
+        font-size: 0.9em;
+        padding: 10px 20px;
+    }
+}
+
+/* Estilo para pantallas más pequeñas */
+@media screen and (max-width: 480px) {
+    h1, h2 {
+        font-size: 1em;
+    }
+    th, td {
+        font-size: 0.75em;
+        padding: 8px;
+    }
+    table {
+        font-size: 0.75em;
+    }
+    input[type="number"], input[type="text"], select {
+        font-size: 0.75em;
+        padding: 6px;
+    }
+    button {
+        font-size: 0.8em;
+        padding: 8px 16px;
+    }
+}

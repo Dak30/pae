@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/insysedes.css') }}">
+    <title>Gestionar Instituciones</title>
+</head>
+<body>
+    
+    <div class="title-container">
+        <h2>Gestionar Instituciones</h2>
+        {% if rol == 'administrador' %}
+            <a class="btn" href="{{ url_for('iniciasesion_bp.dashboard_administrador') }}">Volver al Menú Principal</a>
+        {% endif %}
+    </div>
+    
+    <!-- Formulario para agregar o actualizar una institución -->
+    <form method="POST">
+        <label for="id_institucion">ID Institución:</label>
+        <input type="text" name="id_institucion" id="id_institucion" required> <!-- El ID es solo lectura al editar -->
+        
+        <label>Sede Educativa:</label>
+        <input type="text" name="sede_educativa" id="sede_educativa" required>
+        
+        <label>Dirección:</label>
+        <input type="text" name="direccion" id="direccion" required>
+        
+        <label>ID Operador:</label>
+        <input type="number" name="id_operador" id="id_operador" required>
+        
+        <!-- Botón para agregar o actualizar dependiendo de la acción -->
+        <button type="submit" name="action" value="add">Agregar</button>
+        <button type="submit" name="action" value="update" id="submit_button" style="display:none;">Actualizar</button> <!-- Se oculta hasta que se edite una institución -->
+    </form>
+
+    <!-- Tabla de instituciones -->
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Sede Educativa</th>
+                <th>Dirección</th>
+                <th>Lote</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for institucion in instituciones %}
+            <tr>
+                <td>{{ institucion[0] }}</td>
+                <td>{{ institucion[1] }}</td>
+                <td>{{ institucion[2] }}</td>
+                <td>{{ institucion[3] }}</td>
+                <td>
+                    <!-- Botón de editar para cargar la información en el formulario -->
+                    <button type="button" onclick="editar({{ institucion[0] }}, '{{ institucion[1]|escape }}', '{{ institucion[2]|escape }}', {{ institucion[3] }})">Editar</button>
+                    <!-- Formulario para eliminar la institución con confirmación -->
+                    <form method="POST" style="display:inline;" onsubmit="return confirmDelete();">
+                        <input type="hidden" name="id_institucion" value="{{ institucion[0] }}">
+                        <button type="submit" name="action" value="delete">Eliminar</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Script para manejar la edición -->
+    <script>
+        function editar(id, sede, direccion, operador) {
+            // Asignamos los valores de la institución seleccionada a los campos del formulario
+            document.getElementById("id_institucion").value = id;  // El ID de la institución se coloca en el campo correspondiente
+            document.getElementById("sede_educativa").value = sede;  // Sede educativa
+            document.getElementById("direccion").value = direccion;  // Dirección
+            document.getElementById("id_operador").value = operador;  // ID operador
+            
+            // Mostrar el botón de actualización y ocultar el de agregar
+            document.getElementById("submit_button").style.display = "inline-block";  // Muestra el botón de actualizar
+            document.querySelector("button[name='action'][value='add']").style.display = "none";  // Oculta el botón de agregar
+            
+        }
+
+        // Función de confirmación para eliminar
+        function confirmDelete() {
+            return confirm("¿Estás seguro de que deseas eliminar esta institución?");
+        }
+    </script>
+
+</body>
+</html>

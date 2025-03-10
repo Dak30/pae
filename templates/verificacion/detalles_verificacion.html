@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{{ url_for('static', filename='images/Escudo.png') }}" type="image/png">
+    <title>PAE - Detalles Verificación</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/detalles_verificacion.css') }}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <div class="container" id="content">
+        
+        <h1>Detalles de Verificación Menú</h1>
+
+            <a class="btn" href="{{ url_for('verificacion_bp.lista_verificacion') }}">Volver al Principal</a>
+
+
+        <!-- Información básica -->
+        <div class="info-seccion">
+            <div class="info-columna">
+                <p><strong>Numero de Acta de Verificación - Contrato:</strong> V{{ verificacion[0] }}</p>
+                <p><strong>Fecha de Visita:</strong> {{ verificacion[1] }}</p>
+                <p><strong>Hora de Visita:</strong> {{ verificacion[2] }}</p>
+            </div>
+            <div class="info-columna">
+                <p><strong>Zona:</strong> {{ verificacion[3] }}</p>
+                <p><strong>Jornada:</strong> {{ verificacion[4] }}</p>
+                <p><strong>Operador:</strong> {{ verificacion[6] }}</p>
+            </div>
+            <div class="info-columna">
+                <p><strong>Modalidad:</strong> {{ verificacion[8] }}</p>
+                <p><strong>Institución:</strong> {{ verificacion[7] }}</p>
+                <p><strong>Sede:</strong> {{ verificacion[12] }}</p>
+            </div>
+        </div>
+
+        <!-- Focalización por Niveles Escolares -->
+        <h2>Focalización por Niveles Escolares</h2>
+        <table class="tabla-niveles">
+            <thead>
+                <tr>
+                    <th>Nivel 1</th>
+                    <th>Nivel 2</th>
+                    <th>Nivel 3</th>
+                    <th>Nivel 4</th>
+                    <th>Nivel 5</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ niveles.nivel_1 }}</td>
+                    <td>{{ niveles.nivel_2 }}</td>
+                    <td>{{ niveles.nivel_3 }}</td>
+                    <td>{{ niveles.nivel_4 }}</td>
+                    <td>{{ niveles.nivel_5 }}</td>
+                    <td>{{ niveles.total }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Detalles de la Verificación -->
+        <h2>Detalles de la Verificación</h2>
+        <table class="tabla-detalles">
+            <thead>
+                <tr>
+                    <th>Componentes</th>
+                    <th>Valor Cumplimiento</th>
+                    <th>Menú Oficial: {{ verificacion[9] }}</th>
+                    <th>Menú Entregado: {{ verificacion[10] }}</th>
+                    {% if es_racion_industrializado %}
+                        <th>Fecha de Vencimiento</th>
+                        <th>Lote</th>
+                        <th>Peso Nivel 1</th>
+                        <th>Peso Nivel 2</th>
+                        <th>Peso Nivel 3</th>
+                        <th>Peso Nivel 4</th>
+                        <th>Peso Nivel 5</th>
+                    {% else %}
+                        <th>Propiedades Organolépticas</th>
+                        <th>Observación</th>
+                    {% endif %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for detalle in detalles %}
+                <tr>
+                    <td>{{ detalle[0] }}</td>
+                    <td>
+                        {% if detalle[1] == 1 %}
+                            1
+                        {% elif detalle[1] == 0 %}
+                            0
+                        {% elif detalle[1] == 2 %}
+                            N/A
+                        {% else %}
+                            -
+                        {% endif %}
+                    </td>
+                    <td>{{ detalle[2] }}</td>
+                    <td>{{ detalle[3] }}</td>
+                    {% if es_racion_industrializado %}
+                        <td>{{ detalle[6] }}</td>
+                        <td>{{ detalle[7] }}</td>
+                        <td>{{ detalle[8] }}</td>
+                        <td>{{ detalle[9] }}</td>
+                        <td>{{ detalle[10] }}</td>
+                        <td>{{ detalle[11] }}</td>
+                        <td>{{ detalle[12] }}</td>
+                    {% else %}
+                        <td>
+                            {% if detalle[4] == 1 %}
+                                Cumple
+                            {% elif detalle[4] == 0 %}
+                                No cumple
+                            {% elif detalle[4] == 2 %}
+                                N/A
+                            {% else %}
+                                -
+                            {% endif %}
+                        </td>
+                        <td>{{ detalle[5] }}</td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    
+        <!-- Puntaje de cumplimiento -->
+        <div class="puntaje-cumplimiento">
+            <p><strong>Puntaje de Cumplimiento:</strong> {{ puntaje_cumplimiento }}% - {{ clasificacion_cumplimiento }}</p>
+        </div>
+
+        <!-- Observación general -->
+        <div class="observacion-general">
+            <p><strong>Observación General</strong> {{ verificacion[11] }}</p>
+        </div>
+
+        <div class="observacion-general">
+            <p><strong>Novedades Encontradas en la Visita:</strong> {{ verificacion[19] }}</p>
+        </div>
+
+        <!-- Firmas -->
+        <form id="formFirma" method="POST" action="{{ url_for('verificacion_bp.detalles_verificacion', id=verificacion[0]) }}" target="_blank">
+            <div class="firmas">
+                <div class="firma-columna">
+                    <label for="nombre_representante">Nombre del Representante de la Institución:</label>
+                    <input type="text" name="nombre_representante" id="nombre_representante" 
+                           value="{{ firmas[0] if firmas else '' }}" placeholder="Escribe el nombre aquí" required>
+        
+                    <label for="cargo_representante">Cargo:</label>
+                    <input type="text" name="cargo_representante" id="cargo_representante" 
+                           value="{{ firmas[1] if firmas else '' }}" placeholder="Escribe el cargo aquí" required>
+                </div>
+        
+                <div class="firma-columna">
+                    <label for="nombre_funcionario">Nombre del Funcionario que realiza la visita:</label>
+                    <input type="text" name="nombre_funcionario" id="nombre_funcionario" 
+                           value="{{ firmas[2] if firmas else '' }}" placeholder="Escribe el nombre aquí" required>
+        
+                    <label for="nombre_operador">Nombre de la Persona que recibe la visita (Operador):</label>
+                    <input type="text" name="nombre_operador" id="nombre_operador" 
+                           value="{{ firmas[3] if firmas else '' }}" placeholder="Escribe el nombre aquí" required>
+        
+                    <label for="cargo_operador">Cargo:</label>
+                    <input type="text" name="cargo_operador" id="cargo_operador" 
+                           value="{{ firmas[4] if firmas else '' }}" placeholder="Escribe el cargo aquí" required>
+        
+                    <label for="cedula_operador">Cédula:</label>
+                    <input type="text" name="cedula_operador" id="cedula_operador" 
+                           value="{{ firmas[5] if firmas else '' }}" placeholder="Escribe la cédula aquí" required>
+                </div>
+            </div>
+        
+            <!-- Botón para Guardar -->
+            <button type="submit" class="btn btn-success" onclick="setAction('guardar')">Guardar Firma</button>
+        
+            <!-- Botón para Generar PDF -->
+            <button type="submit" class="btn btn-primary" onclick="setAction('pdf')">Generar PDF</button>
+        
+            <!-- Campo oculto para enviar la acción seleccionada -->
+            <input type="hidden" name="accion" id="accion" value="guardar">
+        </form>
+        
+        <script>
+        function setAction(value) {
+            document.getElementById("accion").value = value;
+        }
+        </script>
+        
+        <div>
+            <p>ANEXO</a></p>
+            {% if archivos_verificacion %}
+                {% for archivo in archivos_verificacion %}
+                    {% set archivo_url = url_for('static', filename='uploads/verificacion/' ~ archivo) %}
+                    
+                    {% if archivo.lower().endswith(('png', 'jpg', 'jpeg')) %}
+                        <a href="{{ archivo_url }}" target="_blank">
+                            <img src="{{ archivo_url }}" alt="Imagen de verificación" width="150">
+                        </a>
+                    {% elif archivo.lower().endswith('pdf') %}
+                        <p>
+                            <a href="{{ archivo_url }}" target="_blank">📄 Ver PDF</a>
+                        </p>
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+                <p>No hay archivos disponibles.</p>
+            {% endif %}
+        </div>
+        
+    </div>
+
+</body>
+</html>

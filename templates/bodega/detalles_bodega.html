@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{{ url_for('static', filename='images/Escudo.png') }}" type="image/png">
+    <title>Detalle de Visita a la Bodega</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/detallesbodega.css') }}">
+</head>
+<body>
+    <div class="container">
+        <!-- Encabezado -->
+        <div class="header-container">
+            <h1>Visita a la Bodega</h1>
+        </div>
+
+        <a class="btn" href="{{ url_for('bodega.lista_bodega') }}">Volver al Principal</a>
+
+        <!-- Información General -->
+        <section>
+            <h2 class="section-title">Información General</h2>
+            <ul>
+                <li><strong>ID Visita:</strong> B{{ visita.id_visita }}</li>
+                <li><strong>Operador:</strong> {{ visita.operador }}</li>
+                <li><strong>Tipo de Visita:</strong> {{ visita.tipo_visita }}</li>
+                <li><strong>Fecha de Visita:</strong> {{ visita.fecha_visita }}</li>
+                <li><strong>Número de Visita:</strong> {{ visita.numero_visita }}</li>
+            </ul>
+        </section>
+
+        <!-- Preguntas y Respuestas -->
+        <section>
+            <h2 class="section-title">Preguntas y Respuestas</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Número</th>
+                        <th>Pregunta</th>
+                        <th>Respuesta</th>
+                        <th>Observación</th>
+                        <th>Fotos</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for pregunta in preguntas_respuestas %}
+                    <tr>
+                        <td>{{ pregunta.numero }}</td>
+                        <td>{{ pregunta.descripcion }}</td>
+                        <td>
+                            {% if pregunta.respuesta == "1" %}
+                                Cumple
+                            {% elif pregunta.respuesta == "0" %}
+                                No Cumple
+                            {% elif pregunta.respuesta == "2" %}
+                                No Aplica
+                            {% else %}
+                                -
+                            {% endif %}
+                        </td>
+                        
+                        <td>{{ pregunta.observacion }}</td>
+                        <td>
+                            {% if pregunta.nombre_archivo %}
+                                {% if pregunta.nombre_archivo.endswith('.pdf') %}
+                                    <a href="{{ url_for('static', filename='uploads/bodega/' + pregunta.nombre_archivo) }}" target="_blank">
+                                        📄 Ver PDF
+                                    </a>
+                                {% else %}
+                                    <a href="{{ url_for('static', filename='uploads/bodega/' + pregunta.nombre_archivo) }}" target="_blank">
+                                        <img src="{{ url_for('static', filename='uploads/bodega/' + pregunta.nombre_archivo) }}" alt="Imagen" width="100">
+                                    </a>
+                                {% endif %}
+                            {% else %}
+                                No hay archivo
+                            {% endif %}
+                        </td>                       
+                     
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+
+        <p>Observación: {{ visita.observacion_general }} </p>
+
+        <!-- Firmas -->
+        <section>
+            
+            <form action="{{ url_for('bodega.detalles_bodega', id_visita=visita.id_visita) }}" method="POST" target="_blank">
+                <div class="form-grid">
+                    <div>
+                        <label for="nombre_recibe">Nombre de la persona quien recibe la visita:</label>
+                        <input type="text" id="nombre_recibe" name="nombre_recibe" placeholder="Nombre" value="{{ firma.nombre_recibe if firma else '' }}" required>
+        
+                        <label for="cargo_recibe">Cargo:</label>
+                        <input type="text" id="cargo_recibe" name="cargo_recibe" placeholder="Cargo" value="{{ firma.cargo_recibe if firma else '' }}" required>
+                    </div>
+                    <div>
+                        <label for="nombre_realiza">Nombre de la persona quien realiza la visita:</label>
+                        <input type="text" id="nombre_realiza" name="nombre_realiza" placeholder="Nombre" value="{{ firma.nombre_realiza if firma else '' }}" required>
+        
+                        <label for="cargo_realiza">Cargo:</label>
+                        <input type="text" id="cargo_realiza" name="cargo_realiza" placeholder="Cargo" value="{{ firma.cargo_realiza if firma else '' }}" required>
+                    </div>
+                </div>
+        
+                <!-- Botón para guardar -->
+                <button type="submit" name="action" value="guardar" class="btn-save">Guardar</button>
+        
+                <!-- Botón para generar PDF -->
+                <button type="submit" name="action" value="pdf" class="btn-generate">Generar PDF</button>
+            </form>
+        </section>
+        
+        
+
+        
+        
+    </div>
+</body>
+</html>

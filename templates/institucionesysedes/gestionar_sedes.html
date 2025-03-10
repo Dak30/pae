@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/insysedes.css') }}">
+    <title>Gestionar Sedes</title>
+</head>
+<body>
+    
+    <div class="title-container">
+        <h2>Gestionar Sedes</h2>
+        {% if rol == 'administrador' %}
+            <a class="btn" href="{{ url_for('iniciasesion_bp.dashboard_administrador') }}">Volver al Menú Principal</a>
+        {% endif %}
+    </div>
+
+    <form method="POST">
+        <label>ID Sede:</label>
+        <input type="text" name="id_sede" id="id_sede">
+        <label>Nombre Sede:</label>
+        <input type="text" name="nombre_sede" id="nombre_sede" required>
+        <label>ID Institución:</label>
+        <input type="number" name="id_institucion" id="id_institucion" required>
+        <label>Dirección:</label>
+        <input type="text" name="direccion" id="direccion" required>
+        <label>Código:</label>
+        <input type="text" name="codigo" id="codigo" required>
+        <label>Comuna:</label>
+        <input type="number" name="comuna" id="comuna" required>
+        <label>Zona:</label>
+        <input type="text" name="zona" id="zona" required>
+
+        <button type="submit" name="action" value="add">Agregar</button>
+        <button type="submit" name="action" value="update">Actualizar</button>
+    </form>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre Sede</th>
+                <th>ID Institución</th>
+                <th>Dirección</th>
+                <th>Código</th>
+                <th>Comuna</th>
+                <th>Zona</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for sede in sedes %}
+            <tr>
+                <td>{{ sede[0] }}</td>
+                <td>{{ sede[1] }}</td>
+                <td>{{ sede[2] }}</td>
+                <td>{{ sede[3] }}</td>
+                <td>{{ sede[4] }}</td>
+                <td>{{ sede[5] }}</td>
+                <td>{{ sede[6] }}</td>
+                <td>
+                    <!-- Botón Editar con su clase propia -->
+                    <button class="btn-editar" onclick="editar('{{ sede[0] }}', '{{ sede[1] }}', '{{ sede[2] }}', '{{ sede[3] }}', '{{ sede[4] }}', '{{ sede[5] }}', '{{ sede[6] }}')">Editar</button>
+                    
+                    <!-- Formulario con botón Eliminar -->
+                    <form method="POST" style="display:inline;" onsubmit="return confirmDelete();">
+                        <input type="hidden" name="id_sede" value="{{ sede[0] }}">
+                        <button class="btn-eliminar" type="submit" name="action" value="delete">Eliminar</button>
+                    </form>
+                </td>
+                
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <script>
+        function editar(id, nombre, institucion, direccion, codigo, comuna, zona) {
+            document.getElementById("id_sede").value = id;
+            document.getElementById("nombre_sede").value = nombre;
+            document.getElementById("id_institucion").value = institucion;
+            document.getElementById("direccion").value = direccion;
+            document.getElementById("codigo").value = codigo;
+            document.getElementById("comuna").value = comuna;
+            document.getElementById("zona").value = zona;
+        }
+        function confirmDelete() {
+            return confirm("¿Estás seguro de que deseas eliminar esta sede?");
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{{ url_for('static', filename='images/Escudo.png') }}" type="image/png">
+    <title>Informe de Operador</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/base_operador.css') }}">
+
+    <script>
+        function confirmDownload(url) {
+            if (confirm("¿Desea descargar este archivo?")) {
+                window.location.href = url;
+            }
+        }
+        
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Consolidado de Intercambios</h1>
+        {% if rol == 'administrador' %}
+            <a class="btn" href="{{ url_for('iniciasesion_bp.dashboard_administrador') }}">Volver al Principal</a>
+            {% elif rol == 'operador' %}
+                <a class="btn" href="{{ url_for('iniciasesion_bp.dashboard_operador') }}">Volver al Principal</a>
+            {% endif %}
+
+    </header>
+    <section class="filters-container">
+        <h2>Buscar</h2>
+        <form method="GET" action="/base_operador" class="filters-form">
+
+            <!-- Añadir contenedor para notificaciones -->
+            <div id="notification-container" class="notification-container"></div>
+
+            <div class="form-group">
+                <label for="id_sede">Seleccionar Sede:</label>
+                <select name="id_sede" id="id_sede">
+                    <option value="">Todas</option>
+                    {% for sede in sedes %}
+                    <option value="{{ sede[0] }}">{{ sede[1] }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="tipo_racion">Seleccionar Tipo de Ración:</label>
+                <select name="tipo_racion" id="tipo_racion">
+                    <option value="">Todos</option>
+                    {% for tipo in tipos_racion %}
+                    <option value="{{ tipo[0] }}">{{ tipo[1] }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="numero_intercambio">Número de Intercambio:</label>
+                <input type="text" name="numero_intercambio" id="numero_intercambio" placeholder="Escribe número de intercambio">
+            </div>
+            <div class="form-group">
+                <label for="fecha_ejecucion">Fecha de Ejecución:</label>
+                <input type="date" name="fecha_ejecucion" id="fecha_ejecucion">
+            </div>
+            <div class="form-group">
+                <label for="concepto">Seleccionar Estado:</label>
+                <select name="concepto" id="concepto">
+                    <option value="">Todos</option>
+                    {% for concepto in conceptos %}
+                    <option value="{{ concepto[0] }}">{{ concepto[0] }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Filtrar" class="btn-filter">
+            </div>
+        </form>
+    </section>
+    
+    
+
+    <main>
+        <section>
+            <div class="table-container">
+                <div class="table-scrollable">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nombre del Operador</th>
+                                <th>Fecha de Solicitud</th>
+                                <th>Modalidad</th>
+                                <th>Número de Aval</th>
+                                <th>Tipo de Justificación</th>
+                                <th>Concepto</th>
+                                <th>Observaciones</th>
+                                <th>Archivos Soportes</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if intercambios %}
+                                {% for intercambio in intercambios %}
+                                <tr class="
+                                    {% if intercambio.datos[11] == 'Aprobado' %}
+                                        aprobar
+                                    {% elif intercambio.datos[11] == 'Negado' %}
+                                        negar
+                                    {% elif intercambio.datos[11] == 'Modificado' %}
+                                        modificar
+                                    {% endif %}
+                                ">
+                                    <td>{{ intercambio.nombre_operador }}</td>
+                                    <td>{{ intercambio.datos[0] }}</td>
+                                    <td>{{ intercambio.datos[2] }}</td>
+                                    <td>{{ intercambio.datos[3] }}</td>
+                                    <td>{{ intercambio.datos[11] }}</td>
+                                    <td>{{ intercambio.datos[12] }}</td>
+                                    <td>{{ intercambio.datos[13] if intercambio.datos[13] is not none else 'Sin Observaciones' }}</td>
+                                    <td>
+                                        <div class="file-list-container">
+                                            {% if intercambio.archivos_pdf %}
+                                                <div class="file-section">
+                                                    
+                                                    <ul class="file-list">
+                                                        {% for archivo in intercambio.archivos_pdf %}
+                                                            <li class="file-item">
+                                                                <a href="{{ url_for('upload_file', filename='pdfs/' ~ intercambio.datos[3] ~ '/' ~ archivo) }}" target="_blank" class="file-link pdf-link">
+                                                                    📎 {{ archivo }}
+                                                                </a>
+                                                            </li>
+                                                        {% endfor %}
+                                                    </ul>
+                                                </div>
+                                            {% endif %}
+                                            {% if intercambio.archivos_soporte %}
+                                                <div class="file-section">
+                                                    <ul class="file-list">
+                                                        {% for archivo in intercambio.archivos_soporte %}
+                                                            <li class="file-item">
+                                                                <a href="{{ url_for('upload_file', filename='soporte/' ~ intercambio.datos[3] ~ '/' ~ archivo) }}" target="_blank" class="file-link soporte-link">
+                                                                    📝 {{ archivo }}
+                                                                </a>
+                                                            </li>
+                                                        {% endfor %}
+                                                    </ul>
+                                                </div>
+                                            {% endif %}
+                                            {% if intercambio.archivos_aprobar %}
+                                                <div class="file-section">
+                                                    <ul class="file-list">
+                                                        {% for archivo in intercambio.archivos_aprobar %}
+                                                            <li class="file-item">
+                                                                <a href="{{ url_for('upload_file', filename='estado/' ~ intercambio.datos[3] ~ '/' ~ archivo) }}" target="_blank" class="file-link aprobar-link">
+                                                                    ✅ {{ archivo }}
+                                                                </a>
+                                                            </li>
+                                                        {% endfor %}
+                                                    </ul>
+                                                </div>
+                                            {% endif %}
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            {% else %}
+                                <tr>
+                                    <td colspan="13">No se encontraron resultados</td>
+                                </tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </main>    
+
+    <footer>
+        <p>&copy; 2024 Secretaria de Educación Distrital Santiago de Cali</p>
+    </footer>
+</body>
+</html>

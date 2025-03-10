@@ -1,0 +1,181 @@
+/* Contenedor principal */
+.container {
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    padding: 30px;
+    max-width: 800px;
+    margin: auto;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Encabezado */
+h1 {
+    font-size: 28px;
+    color: #007bff;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Secciones */
+section {
+    margin-bottom: 30px;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+section h2 {
+    color: #343a40;
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 5px;
+    margin-bottom: 15px;
+    font-size: 22px;
+}
+
+section h3 {
+    font-size: 18px;
+    color: #6c757d;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+section h4 {
+    font-size: 16px;
+    color: #495057;
+    font-weight: bold;
+}
+
+/* Lista de datos generales */
+.list-unstyled li {
+    font-size: 16px;
+    color: #495057;
+    padding: 5px 0;
+}
+
+/* Tabla */
+/* Tabla */
+table.table-bordered {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #f8f9fa;
+    table-layout: fixed; /* Asegura que todas las columnas tengan el mismo ancho */
+}
+
+table thead th {
+    background-color: #007bff;
+    color: #050404;
+    text-align: center;
+    padding: 10px;
+    font-size: 14px;
+}
+
+table tbody td {
+    padding: 10px;
+    text-align: center;
+    font-size: 14px;
+    color: #495057;
+    vertical-align: middle; /* Centra el contenido verticalmente */
+    height: 50px; /* Altura mínima para todas las filas */
+    overflow: hidden; /* Oculta el desbordamiento de contenido */
+    text-overflow: ellipsis; /* Muestra "..." para contenido largo */
+    white-space: nowrap; /* Previene que el texto se divida en varias líneas */
+}
+
+table tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+
+/* Justificación */
+textarea {
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid #ced4da;
+    padding: 10px;
+    font-size: 14px;
+    resize: vertical;
+    min-height: 150px;
+    background-color: #ffffff;
+}
+
+/* Botones */
+.btn {
+    font-size: 14px;
+    padding: 8px 20px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.btn-success {
+    background-color: #28a745;
+    border: none;
+}
+
+.btn-success:hover {
+    background-color: #218838;
+}
+
+/* Firmas */
+#firmas-container {
+    padding: 15px;
+    background-color: #f8f9fa;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+}
+
+.firma {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.firma input[type="file"],
+.firma input[type="text"] {
+    font-size: 14px;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ced4da;
+}
+
+/* Margins */
+.mt-2 {
+    margin-top: 10px;
+}
+
+.mt-3 {
+    margin-top: 15px;
+}
+
+.mt-4 {
+    margin-top: 20px;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .container {
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+
+    section h2 {
+        font-size: 20px;
+    }
+
+    section h3, section h4 {
+        font-size: 16px;
+    }
+}

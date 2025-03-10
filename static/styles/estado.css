@@ -1,0 +1,147 @@
+/* Estilo general del cuerpo */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+    color: #333;
+}
+
+/* Contenedor principal */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Encabezado */
+h1 {
+    text-align: center;
+    font-size: 24px;
+    color: #007bff;
+    margin-bottom: 20px;
+}
+
+/* Enlaces */
+a {
+    display: block;
+    text-align: center;
+    margin-bottom: 20px;
+    text-decoration: none;
+    color: #007bff;
+    font-size: 14px;
+    transition: color 0.3s;
+}
+
+a:hover {
+    color: #0056b3;
+}
+
+/* Estilo de la sección de búsqueda */
+.search-section {
+    display: flex;
+    flex-wrap: wrap; /* Permite que los elementos se ajusten en móviles */
+    justify-content: center;
+    gap: 10px; /* Espacio entre elementos */
+    margin-bottom: 20px;
+}
+
+#search-box, #concept-filter, #fecha_solicitud {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+    max-width: 300px;
+    font-size: 14px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+/* Foco en los campos */
+#search-box:focus, #concept-filter:focus, #fecha_solicitud:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    outline: none;
+}
+
+/* Select y fecha más estilizados */
+#concept-filter, #fecha_solicitud {
+    background-color: #fff;
+    color: #333;
+    appearance: none; /* Elimina el estilo nativo del navegador */
+    cursor: pointer;
+}
+
+/* Adaptaciones para pantallas pequeñas */
+@media (max-width: 480px) {
+    #search-box, #concept-filter, #fecha_solicitud {
+        max-width: 100%; /* Ocupan todo el ancho disponible */
+    }
+}
+
+
+/* Tabla estilizada */
+.styled-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.styled-table th, .styled-table td {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #ddd;
+    font-size: 14px;
+}
+
+.styled-table th {
+    background-color: #007bff;
+    color: white;
+}
+
+.styled-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.styled-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Botones */
+.btn-approve, .btn-deny, .btn-modify {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s;
+    margin: 0 5px;
+}
+
+.btn-approve {
+    background-color: #28a745; /* Verde */
+}
+
+.btn-approve:hover {
+    background-color: #218838;
+}
+
+.btn-deny {
+    background-color: #dc3545; /* Rojo */
+}
+
+.btn-deny:hover {
+    background-color: #c82333;
+}
+
+.btn-modify {
+    background-color: #f7ff07; /* Amarillo */
+    color: #333;
+}
+
+.btn-modify:hover {
+    background-color: #f7ff07;
+}

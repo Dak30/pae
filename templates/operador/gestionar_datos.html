@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestionar Operadores</title>
+    <link rel="icon" href="{{ url_for('static', filename='images/Escudo.png') }}" type="image/png">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        p {
+            text-align: center;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+            color: #555;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        button {
+            padding: 8px 12px;
+            color: white;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        form {
+            margin-top: 15px;
+        }
+        label {
+            font-weight: bold;
+        }
+        select, input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Gestionar Operadores</h1>
+
+        {% if message %}
+        <p id="message" style="color: {% if success %}green{% else %}red{% endif %};">
+            {{ message }}
+        </p>
+        <script>
+            // Ocultar el mensaje después de 2 segundos
+            setTimeout(() => {
+                const messageElement = document.getElementById('message');
+                if (messageElement) {
+                    messageElement.style.display = 'none';
+                }
+            }, 2000); // 2000 ms = 2 segundos
+        </script>
+    {% endif %}
+    
+
+       <a class="btn" href="{{ url_for('iniciasesion_bp.dashboard_administrador') }}">Volver al Principal</a>
+
+        <style>
+            .btn {
+                display: inline-block;
+                background-color: #007BFF; /* Azul primario */
+                color: #fff; /* Texto blanco */
+                font-size: 16px;
+                font-weight: bold;
+                text-decoration: none;
+                padding: 10px 20px;
+                border-radius: 25px; /* Bordes redondeados */
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+                transition: all 0.3s ease; /* Transición suave */
+            }
+
+            .btn:hover {
+                background-color: #0056b3; /* Azul más oscuro */
+                box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2); /* Sombra más intensa */
+                transform: translateY(-3px); /* Eleva el botón ligeramente */
+            }
+
+            .btn:active {
+                background-color: #004085; /* Azul aún más oscuro */
+                box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2); /* Reduce la sombra */
+                transform: translateY(0); /* Restaura la posición */
+            }
+        </style>
+
+
+        <!-- Formulario para Agregar/Actualizar/Eliminar Operadores -->
+        <h2>Operaciones</h2>
+        <form method="POST" action="{{ url_for('actualizar_bp.gestionar_datos') }}">
+            <label for="action">Selecciona una operación:</label>
+            <select name="action" id="action" required>
+                <option value="add">Agregar Nuevo Operador</option>
+                <option value="update">Actualizar Operador</option>
+                <option value="delete">Eliminar Operador</option>
+            </select>
+
+            <div id="id_field" style="display:none;">
+                <label for="id_entity">ID del Operador:</label>
+                <select name="id_entity" id="id_entity">
+                    <option value="">Seleccione un operador</option>
+                    {% for db, lista in operadores.items() %}
+                        {% for operador in lista %}
+                            <option value="{{ operador.id_operador }}">{{ operador.nombre }}</option>
+                        {% endfor %}
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div id="name_field">
+                <label for="nombre">Nombre del Operador:</label>
+                <input type="text" id="nombre" name="nombre" placeholder="Ingrese el nombre" required>
+            </div>
+
+            <div id="name_field">
+                <label for="numero_contrato">Numero Contrato:</label>
+                <input type="numero_contrato" id="numero_contrato" name="numero_contrato" placeholder="Ingrese el numero contrato" required>
+            </div>
+
+            <button type="submit">Ejecutar</button>
+        </form>
+
+        <!-- Lista de Operadores -->
+        <h3>Lista de Operadores</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Lote</th>
+                    <th>Nombre</th>
+                    <th>Numero Contrato</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for db, lista in operadores.items() %}
+                    {% for operador in lista %}
+                        <tr>
+                            <td>{{ operador.id_operador }}</td>
+                            <td>{{ operador.nombre }}</td>
+                            <td>{{ operador.numero_contrato }}</td>
+                            <td>
+                                <!-- Botón de Editar -->
+                                <form method="POST" action="{{ url_for('actualizar_bp.gestionar_datos') }}" style="display:inline;">
+                                    <input type="hidden" name="action" value="update">
+                                    <input type="hidden" name="id_entity" value="{{ operador.id_operador }}">
+                                    <button type="submit">Editar</button>
+                                </form>
+                                <!-- Botón de Eliminar -->
+                                <form method="POST" action="{{ url_for('actualizar_bp.gestionar_datos') }}" style="display:inline;">
+                                    <input type="hidden" name="action" value="delete">
+                                    <input type="hidden" name="id_entity" value="{{ operador.id_operador }}">
+                                    <button type="submit">Eliminar</button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        // Cambiar visibilidad de campos según la acción seleccionada
+        document.getElementById("action").addEventListener("change", function () {
+            const action = this.value;
+            document.getElementById("id_field").style.display = (action === "add") ? "none" : "block";
+            document.getElementById("name_field").style.display = (action === "delete") ? "none" : "block";
+        });
+    </script>
+</body>
+</html>
