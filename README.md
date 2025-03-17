@@ -20,7 +20,7 @@ Antes de comenzar, asegúrate de tener instalados los siguientes programas:
 Si tienes Git instalado, puedes clonar el repositorio:
 ```bash
   git clone https://github.com/Dak30/pae.git
-  cd pae-app
+  cd pae
 ```
 Si no tienes Git, descarga el código en formato ZIP y extráelo en una carpeta.
 
