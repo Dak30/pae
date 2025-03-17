@@ -16,30 +16,9 @@ bcrypt = Bcrypt(app)
 iniciasesion_bp = Blueprint('iniciasesion_bp', __name__, template_folder='templates/usuarios')
 
 
-# Función para conectarse a la base de datos
-def get_db_connection():
-    try:
-        conn = mysql.connector.connect(
-            host="127.0.0.1",
-            user="Pae",
-            password="Pae_educacion",
-            database="visitas"
-        )
-
-        if conn.is_connected():
-            print("✅ Conexión exitosa a MySQL")
-            return conn
-        else:
-            print("❌ No se pudo conectar a la base de datos")
-            return None
-
-    except mysql.connector.Error as err:
-        print(f"⚠️ Error de conexión a MySQL: {err}")
-        return None
-
 # Obtener operadores de la base de datos
 def fetch_operador():
-    conn = get_db_connection()
+    conn = get_db_connection('visitas')
     if conn is None:
         return []
 
@@ -155,7 +134,7 @@ def registro():
         contrasena_hash = bcrypt.generate_password_hash(contrasena).decode('utf-8')
 
         # Conexión a la base de datos
-        conn = get_db_connection()
+        conn = get_db_connection('visitas')
         if conn is None:
             flash('Error al conectar con la base de datos.', 'error')
             return render_template('registro.html')
@@ -181,51 +160,80 @@ def registro():
     operadores = fetch_operador()
     return render_template('registro.html', operadores=operadores)
 
+
+
+
 @iniciasesion_bp.route('/login', methods=['GET', 'POST'])
 def login():  
     try:
         if request.method == 'POST':
             correo = request.form['correo']
             contrasena = request.form['contrasena']
+            usuario_ad = correo.split('@')[0]  # Extraer usuario antes del @
 
-            # Conexión a la base de datos
-            conn = get_db_connection()
-            if conn is None:
-                return jsonify({'error': 'Error al conectar con la base de datos.'}), 500
-
+            # 🔹 Conectar a MySQL
+            conn = get_db_connection('visitas')
             cursor = conn.cursor(dictionary=True)
             cursor.execute("SELECT * FROM usuarios WHERE correo = %s", (correo,))
             usuario = cursor.fetchone()
+
+            if not usuario:
+                cursor.close()
+                conn.close()
+                return jsonify({'success': False, 'message': 'Usuario no encontrado.'}), 401
+
+            intentos_fallidos = usuario.get('intentos_fallidos', 0)
+
+            # 🚨 Si el usuario está bloqueado por intentos fallidos
+            if intentos_fallidos >= 3:
+                cursor.close()
+                conn.close()
+                return jsonify({'success': False, 'message': 'Cuenta bloqueada por intentos fallidos. Contacte al administrador.'}), 403
+
+            # ❌ Verificar si el usuario está inhabilitado
+            if not usuario.get('habilitar_acceso', False):
+                cursor.close()
+                conn.close()
+                return jsonify({'success': False, 'message': 'Su cuenta está inhabilitada. Contacte al administrador.'}), 403
+
+            # 🔑 Verificar contraseña
+            password_hash = usuario.get('contrasena', '')  
+            if not bcrypt.check_password_hash(password_hash, contrasena):
+                intentos_fallidos += 1
+                cursor.execute("UPDATE usuarios SET intentos_fallidos = %s WHERE correo = %s", (intentos_fallidos, correo))
+                conn.commit()
+
+                if intentos_fallidos >= 3:
+                    message = 'Cuenta bloqueada por intentos fallidos. Contacte al administrador.'
+                else:
+                    message = f'Contraseña incorrecta. Intento {intentos_fallidos}/3.'
+
+                cursor.close()
+                conn.close()
+                return jsonify({'success': False, 'message': message}), 401
+
+            # ✅ Si la autenticación es exitosa, resetear intentos y actualizar `fecha_ingreso`
+            cursor.execute("UPDATE usuarios SET fecha_ingreso = NOW(), intentos_fallidos = 0 WHERE correo = %s", (correo,))
+            conn.commit()
+
+            session.update({
+                'usuario_id': usuario['id_usuario'],
+                'nombre': usuario['nombre'],
+                'correo': usuario['correo'],
+                'rol': usuario['rol'],
+                'id_operador': usuario['id_operador']
+            })
+
             cursor.close()
             conn.close()
 
-            if usuario:
-                # Verificar si el usuario está habilitado
-                if not usuario.get('habilitar_acceso', False):
-                    return jsonify({'error': 'Su cuenta está inhabilitada. Contacte al administrador.'}), 403
-
-                # Verificar la contraseña
-                if bcrypt.check_password_hash(usuario['contrasena'], contrasena):
-                    session.update({
-                        'usuario_id': usuario['id_usuario'],
-                        'nombre': usuario['nombre'],
-                        'correo': usuario['correo'],
-                        'rol': usuario['rol'],
-                        'id_operador': usuario['id_operador']
-                    })
-                    return jsonify({'success': 'Inicio de sesión exitoso.', 'redirect': url_for(f"iniciasesion_bp.dashboard_{usuario['rol']}")})
-
-                return jsonify({'error': 'Correo o contraseña incorrectos.'}), 401
-
-            return jsonify({'error': 'Usuario no encontrado.'}), 404
+            return jsonify({'success': True, 'message': 'Inicio de sesión exitoso.', 'redirect': url_for(f"iniciasesion_bp.dashboard_{usuario['rol']}")})
 
         return render_template('iniciarsesion.html')
 
     except Exception as e:
-        # Registrar el error para depuración
         app.logger.error(f"Error en la función login: {e}")
-        return jsonify({'error': 'Ocurrió un error inesperado. Por favor, intente nuevamente.'}), 500
-
+        return jsonify({'success': False, 'message': 'Ocurrió un error inesperado. Intente nuevamente.'}), 500
 
 
 @iniciasesion_bp.route('/cambiar_acceso', methods=['POST'])
@@ -235,10 +243,15 @@ def cambiar_acceso():
     usuario_id = request.form['usuario_id']
     habilitar = request.form['habilitar'] == 'true'
 
-    conn = get_db_connection()
+    conn = get_db_connection('visitas')
     cursor = conn.cursor()
     try:
-        cursor.execute("UPDATE usuarios SET habilitar_acceso = %s WHERE id_usuario = %s", (habilitar, usuario_id))
+        # 🔹 Si se habilita el acceso, también resetear intentos fallidos a 0
+        if habilitar:
+            cursor.execute("UPDATE usuarios SET habilitar_acceso = %s, intentos_fallidos = 0 WHERE id_usuario = %s", (habilitar, usuario_id))
+        else:
+            cursor.execute("UPDATE usuarios SET habilitar_acceso = %s WHERE id_usuario = %s", (habilitar, usuario_id))
+
         conn.commit()
         flash(f"Acceso {'habilitado' if habilitar else 'inhabilitado'} correctamente para el usuario.", 'success')
     except Error as e:
@@ -250,13 +263,14 @@ def cambiar_acceso():
 
     return redirect(url_for('iniciasesion_bp.lista_usuarios'))
 
+
 @iniciasesion_bp.route('/lista_usuarios', methods=['GET'])
 @login_required
 @administrador_required
 def lista_usuarios():
-    conn = get_db_connection()
+    conn = get_db_connection('visitas')
     cursor = conn.cursor(dictionary=True)  # Usamos dictionary=True para obtener un diccionario
-    cursor.execute("SELECT id_usuario, nombre, correo, rol, habilitar_acceso FROM usuarios ORDER BY nombre ASC")
+    cursor.execute("SELECT id_usuario, nombre, correo, rol, habilitar_acceso, intentos_fallidos FROM usuarios ORDER BY nombre ASC")
     usuarios = cursor.fetchall()
     cursor.close()
     conn.close()
@@ -267,7 +281,7 @@ def lista_usuarios():
 @login_required
 @administrador_required
 def actualizar_usuario(usuario_id):
-    conn = get_db_connection()
+    conn = get_db_connection('visitas')
     cursor = conn.cursor(dictionary=True)
 
     # Obtener información del usuario
@@ -327,7 +341,7 @@ def actualizar_usuario_rol():
 
     try:
         # Conexión a la base de datos
-        conn = get_db_connection()
+        conn = get_db_connection('visitas')
         if conn is None:
             flash('Error al conectar con la base de datos.', 'error')
             return redirect(url_for(f"iniciasesion_bp.dashboard_{session['rol']}"))
@@ -386,7 +400,7 @@ from flask import flash, redirect, url_for, render_template
 @login_required
 @administrador_required
 def eliminar_usuario(usuario_id):
-    conn = get_db_connection()
+    conn = get_db_connection('visitas')
     cursor = conn.cursor()
 
     try:

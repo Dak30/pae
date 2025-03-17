@@ -39,6 +39,7 @@
                 <th>Correo</th>
                 <th>Rol</th>
                 <th>Estado de Acceso</th>
+                <th>Intentos</th>
                 <th>Editar</th>
                 <th>Eliminar</th>
                 <th>Habilitar Acceso</th>
@@ -57,6 +58,7 @@
                     <span style="color: red; font-weight: bold;">Inhabilitado</span>
                     {% endif %}
                 </td>
+                <td>{{ usuario['intentos_fallidos']}} intentos</td>
                 <td>
                     <button onclick="abrirVentana('{{ usuario['id_usuario'] }}')">Editar</button>
                 </td>

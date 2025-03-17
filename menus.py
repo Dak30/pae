@@ -6,21 +6,9 @@ from database import get_db_connection
 from collections import defaultdict
 from datetime import datetime
 
+
 menus_bp = Blueprint('menus_bp', __name__, template_folder='templates/menus')
 
-def get_db_connection():
-    try:
-        conn = mysql.connector.connect(
-            host="127.0.0.1",
-            user="Pae",
-            password="Pae_educacion",
-            database="visitas"
-        )
-        if conn.is_connected():
-            return conn
-    except Error as e:
-        print(f"Error al conectar con la base de datos: {e}")
-        return None
 
 menu_type_titles = {
     "jornadaunica": "Jornada Única",
@@ -46,7 +34,7 @@ def update_menu(menu_type):
         return redirect('/')
 
     # Conexión a la base de datos
-    conn = get_db_connection()
+    conn = get_db_connection("visitas", driver="mysql.connector")
     if not conn:
         flash("No se pudo conectar a la base de datos")
         return redirect('/')
@@ -156,7 +144,7 @@ def historial_cambios():
         return redirect('/')
 
     # Conexión a la base de datos
-    conn = get_db_connection()
+    conn = get_db_connection("visitas", driver="mysql.connector")
     if not conn:
         flash("No se pudo conectar a la base de datos", "error")
         return redirect('/')
@@ -222,7 +210,7 @@ def exportar_historico_excel():
         return redirect('/historial_cambios')
 
     # Conexión a la base de datos
-    conn = get_db_connection()
+    conn = get_db_connection("visitas", driver="mysql.connector")
     cursor = conn.cursor()
 
     # Consulta para obtener los datos filtrados

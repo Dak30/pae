@@ -111,7 +111,7 @@
                                     <td>{{ intercambio.datos[3] }}</td>
                                     <td>{{ intercambio.datos[11] }}</td>
                                     <td>{{ intercambio.datos[12] }}</td>
-                                    <td>{{ intercambio.datos[13] if intercambio.datos[13] is not none else 'Sin Observaciones' }}</td>
+                                    <td>{{intercambio.datos[17]}}: {{ intercambio.datos[13] if intercambio.datos[13] is not none else 'Sin Observaciones' }}</td>
                                     <td>
                                         <div class="file-list-container">
                                             {% if intercambio.archivos_pdf %}
@@ -120,7 +120,7 @@
                                                     <ul class="file-list">
                                                         {% for archivo in intercambio.archivos_pdf %}
                                                             <li class="file-item">
-                                                                <a href="{{ url_for('upload_file', filename='pdfs/' ~ intercambio.datos[3] ~ '/' ~ archivo) }}" target="_blank" class="file-link pdf-link">
+                                                                <a href="{{ url_for('static', filename='uploads/solicitud_intercambio/pdfs/' ~ intercambio.datos[3] ~ '/' ~ archivo) }}" target="_blank" class="file-link pdf-link">
                                                                     📎 {{ archivo }}
                                                                 </a>
                                                             </li>
@@ -133,7 +133,7 @@
                                                     <ul class="file-list">
                                                         {% for archivo in intercambio.archivos_soporte %}
                                                             <li class="file-item">
-                                                                <a href="{{ url_for('upload_file', filename='soporte/' ~ intercambio.datos[3] ~ '/' ~ archivo) }}" target="_blank" class="file-link soporte-link">
+                                                                <a href="{{ url_for('static', filename='uploads/solicitud_intercambio/soporte/' ~ intercambio.datos[3] ~ '/' ~ archivo) }}" target="_blank" class="file-link soporte-link">
                                                                     📝 {{ archivo }}
                                                                 </a>
                                                             </li>
@@ -146,7 +146,7 @@
                                                     <ul class="file-list">
                                                         {% for archivo in intercambio.archivos_aprobar %}
                                                             <li class="file-item">
-                                                                <a href="{{ url_for('upload_file', filename='estado/' ~ intercambio.datos[3] ~ '/' ~ archivo) }}" target="_blank" class="file-link aprobar-link">
+                                                                <a href="{{ url_for('static', filename='uploads/solicitud_intercambio/estado/' ~ intercambio.datos[3] ~ '/' ~ archivo) }}" target="_blank" class="file-link aprobar-link">
                                                                     ✅ {{ archivo }}
                                                                 </a>
                                                             </li>

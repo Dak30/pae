@@ -143,11 +143,10 @@
     <script>
         document.getElementById('login-form').addEventListener('submit', function (event) {
             event.preventDefault();
-
+        
             const notification = document.getElementById('notification');
-
             const formData = new FormData(this);
-
+        
             fetch("{{ url_for('iniciasesion_bp.login') }}", {
                 method: 'POST',
                 body: formData
@@ -155,7 +154,7 @@
             .then(response => response.json())
             .then(data => {
                 showNotification(data.message, data.success ? 'success' : 'error');
-
+        
                 if (data.success) {
                     setTimeout(() => {
                         window.location.href = data.redirect;
@@ -163,20 +162,20 @@
                 }
             })
             .catch(error => {
-                console.error('Error:', error);
-                showNotification('Error en el servidor. Inténtelo más tarde.', 'error');
+                showNotification('Error al conectar con el servidor.', 'error');
             });
-
+        
             function showNotification(message, type) {
                 notification.textContent = message;
-                notification.className = `notification ${type} show`;
-
+                notification.className = `notification show ${type}`;
+        
                 setTimeout(() => {
                     notification.classList.remove('show');
                 }, 3000);
             }
         });
-    </script>
+        </script>
+        
 
 </body>
 </html>

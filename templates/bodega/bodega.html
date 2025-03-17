@@ -82,6 +82,15 @@
                 
                 <label for="fecha_visita">Fecha de Visita:</label>
                 <input type="date" id="fecha_visita" name="fecha_visita" required>
+
+                <script>
+                    // Obtener la fecha actual en formato YYYY-MM-DD
+                    const today = new Date().toISOString().split("T")[0];
+                    
+                    // Asignar la fecha actual como mínimo en el input
+                    document.getElementById("fecha_visita").setAttribute("min", today);
+                </script>
+
             </fieldset>
             
             <fieldset id="requisitos_fields">
@@ -114,7 +123,16 @@
                 <label for="observacion_general">Observaciones Generales:</label>
                 <textarea id="observacion_general" name="observacion_general" rows="4" placeholder="Escriba aquí sus observaciones generales..."></textarea>
             </div>
-            <button type="submit" name="action" value="guardar" >Guardar</button>
+            <form onsubmit="return confirmSubmit()">
+                <button type="submit" name="action" value="guardar">Guardar</button>
+            </form>
+            
+            <script>
+            function confirmSubmit() {
+                return confirm("¿Estás seguro de que deseas guardar?");
+            }
+            </script>
+            
         </form>
     </main>
 </body>

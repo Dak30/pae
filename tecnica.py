@@ -3,8 +3,8 @@ from iniciasesion import login_required, session, role_required
 import pandas as pd
 from io import BytesIO
 import pymysql.cursors
-import functools
 from datetime import timedelta
+from database import get_db_connection
 
 # Crear un Blueprint llamado 'tecnica'
 tecnica_bp = Blueprint('tecnica', __name__, template_folder='templates/tecnica')
@@ -16,17 +16,7 @@ cache_tipo_racion = None
 
 # Función para obtener una conexión a la base de datos
 def obtener_conexion():
-    try:
-        return pymysql.connect(
-            host="127.0.0.1",
-            user="Pae",
-            password="Pae_educacion",
-            db="visitas",
-            cursorclass=pymysql.cursors.DictCursor
-        )
-    except pymysql.MySQLError as e:
-        print(f"Error al conectar a la base de datos: {e}")
-        raise
+    return get_db_connection('visitas', driver="pymysql")
     
 def obtener_sedes_por_institucion(institucion_id):
     with obtener_conexion() as conexion:

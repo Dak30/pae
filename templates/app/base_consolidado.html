@@ -160,7 +160,7 @@
                                             <ul class="file-list">
                                                 {% for archivo in intercambio.archivos_pdf %}
                                                 <li>
-                                                    <a href="{{ url_for('upload_file', filename='pdfs/' ~ intercambio.datos[5] ~ '/' ~ archivo) }}">
+                                                    <a href="{{ url_for('static', filename='uploads/solicitud_intercambio/pdfs/' ~ intercambio.datos[5] ~ '/' ~ archivo) }}">
                                                         📎 {{ archivo }}
                                                     </a>
                                                 </li>
@@ -171,7 +171,7 @@
                                             <ul class="file-list">
                                                 {% for archivo in intercambio.archivos_soporte %}
                                                 <li>
-                                                    <a href="{{ url_for('upload_file', filename='soporte/' ~ intercambio.datos[5] ~ '/' ~ archivo) }}">
+                                                    <a href="{{ url_for('static', filename='uploads/solicitud_intercambio/soporte/' ~ intercambio.datos[5] ~ '/' ~ archivo) }}">
                                                         📝 {{ archivo }}
                                                     </a>
                                                 </li>
@@ -182,7 +182,7 @@
                                             <ul class="file-list">
                                                 {% for archivo in intercambio.archivos_aprobar %}
                                                 <li>
-                                                    <a href="{{ url_for('upload_file', filename='estado/' ~ intercambio.datos[5] ~ '/' ~ archivo) }}">
+                                                    <a href="{{ url_for('static', filename='uploads/solicitud_intercambio/estado/' ~ intercambio.datos[5] ~ '/' ~ archivo) }}">
                                                         ✅ {{ archivo }}
                                                     </a>
                                                 </li>

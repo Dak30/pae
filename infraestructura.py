@@ -3,27 +3,31 @@ from iniciasesion import login_required, session, role_required
 import pymysql
 import pandas as pd
 from io import BytesIO
+from database import get_db_connection
 
 
 # Creamos un Blueprint para la infraestructura
 infraestructura_bp = Blueprint('infraestructura', __name__, template_folder='templates/infraestructura')
 
 def obtener_operador():
-    conexion = pymysql.connect(
-        host="127.0.0.1",
-        user="Pae",
-        password="Pae_educacion",
-        db="visitas"
-    )
-    cursor = conexion.cursor()
-    cursor.execute("SELECT DISTINCT id_operador, nombre FROM operadores")
+    """Obtiene la lista de operadores desde la base de datos."""
+    conexion = get_db_connection('visitas', driver="pymysql")  # ✅ Correcto
+  # Usar pymysql con DictCursor
     
-    # Convertir los resultados en una lista de diccionarios
-    operadores = [{"id": row[0], "nombre": row[1]} for row in cursor.fetchall()]
-    
-    cursor.close()
-    conexion.close()
-    
+    if not conexion:
+        print("❌ Error: No se pudo conectar a la base de datos.")
+        return []  # Devolver lista vacía en caso de error
+
+    try:
+        with conexion.cursor() as cursor:
+            cursor.execute("SELECT DISTINCT id_operador, nombre FROM operadores")
+            operadores = cursor.fetchall()  # Lista de diccionarios gracias a DictCursor
+    except Exception as e:
+        print(f"❌ Error al obtener operadores: {e}")
+        operadores = []  # Lista vacía en caso de error
+    finally:
+        conexion.close()  # Cerrar conexión siempre
+
     return operadores
 
 
@@ -31,64 +35,46 @@ def obtener_institucion(id_operador):
     if not id_operador:
         return []  # Retorna una lista vacía si no hay operador seleccionado
 
-    conexion = pymysql.connect(host="127.0.0.1",
-            user="Pae",
-            password="Pae_educacion",
-            db='visitas')
-    cursor = conexion.cursor()
+    conexion = get_db_connection('visitas', driver="pymysql") 
+    cursor = conexion.cursor(pymysql.cursors.DictCursor)
+
     cursor.execute("SELECT id_institucion, sede_educativa FROM instituciones WHERE id_operador = %s", (id_operador,))
-    instituciones = [{'id': row[0], 'nombre': row[1]} for row in cursor.fetchall()]
+    instituciones = [{'id': row['id_institucion'], 'nombre': row['sede_educativa']} for row in cursor.fetchall()]
     cursor.close()
     conexion.close()
     return instituciones
 
 
 def obtener_sedes_por_institucion(institucion_id):
-    conexion = pymysql.connect(host="127.0.0.1",
-            user="Pae",
-            password="Pae_educacion",
-            db='visitas')
+    conexion = get_db_connection('visitas', driver="pymysql") 
     cursor = conexion.cursor()
     cursor.execute("SELECT id_sede, nombre_sede FROM sedes WHERE id_institucion = %s", (institucion_id,))
-    sedes = [{'id': row[0], 'nombre': row[1]} for row in cursor.fetchall()]
+    sedes = [{'id': row['id_sede'], 'nombre': row['nombre_sede']} for row in cursor.fetchall()]
+
     cursor.close()
     conexion.close()
     return sedes
 
 def obtener_tipo_racion():
-    conexion = pymysql.connect(host="127.0.0.1",
-            user="Pae",
-            password="Pae_educacion",
-            db='visitas')
+    conexion = get_db_connection('visitas', driver="pymysql") 
     cursor = conexion.cursor()
-    
+
     cursor.execute("SELECT id_tipo_racion, descripcion FROM tiporacion WHERE id_tipo_racion IN (1, 2, 3, 4)")
-    
-    tipo_racion = []
-    
-    for row in cursor.fetchall():
-        id_tipo_racion, descripcion = row
-        if id_tipo_racion in (2, 3):
-            tipo_racion.append("Preparado en Sitio")
-        else:
-            tipo_racion.append(descripcion)
-    
-    tipo_racion = list(set(tipo_racion))  # Eliminar duplicados
-    
+
+    tipo_racion = [{'id': row['id_tipo_racion'], 'nombre': row['descripcion']} for row in cursor.fetchall()]
+
     cursor.close()
     conexion.close()
-    
+
     return tipo_racion
+
 
 def obtener_preguntas_por_categoria():
     preguntas_por_categoria = {}
     
     try:
         # Conectar a la base de datos
-        conexion = pymysql.connect(host="127.0.0.1",
-            user="Pae",
-            password="Pae_educacion",
-            db='visitas')
+        conexion = get_db_connection('visitas', driver="pymysql") 
         cursor = conexion.cursor()
         
         # Lista de categorías a consultar
@@ -105,7 +91,10 @@ def obtener_preguntas_por_categoria():
         # Consultar preguntas para cada categoría
         for categoria in categorias:
             cursor.execute("SELECT id_pregunta, numero, descripcion FROM preguntas_infraestructura WHERE categoria = %s", (categoria,))
-            preguntas_por_categoria[categoria] = [{'id': row[0], 'numero': row[1], 'descripcion': row[2]} for row in cursor.fetchall()]
+            preguntas_por_categoria[categoria] = [
+                {'id': row['id_pregunta'], 'numero': row['numero'], 'descripcion': row['descripcion']}
+                for row in cursor.fetchall()
+            ]
     
     except pymysql.MySQLError as e:
         print(f"Error al conectar a la base de datos o ejecutar la consulta: {e}")
@@ -163,10 +152,7 @@ def get_sede(institucion_id):
 def get_sede_details(sede_id):
     try:
         # Conectamos a la base de datos
-        conexion = pymysql.connect(host="127.0.0.1",
-            user="Pae",
-            password="Pae_educacion",
-            db='visitas')
+        conexion = get_db_connection('visitas', driver="pymysql") 
         cursor = conexion.cursor()
         
         # Ejecutamos la consulta para obtener los detalles de la sede
@@ -197,6 +183,7 @@ from flask import request, redirect, url_for, flash, current_app
 import os
 import time
 from werkzeug.utils import secure_filename
+from pymysql.cursors import DictCursor
 
 ALLOWED_EXTENSIONS = {'pdf', 'png', 'jpg', 'jpeg'}
 
@@ -207,12 +194,8 @@ def allowed_file(filename):
 def guardar_infraestructura():
     try:
         # Conexión a la base de datos
-        conexion = pymysql.connect(
-            host="127.0.0.1",
-            user="Pae",
-            password="Pae_educacion",
-            db='visitas')
-        cursor = conexion.cursor()
+        conexion = get_db_connection('visitas', driver="pymysql") 
+        cursor = conexion.cursor(DictCursor)
 
         # Obtener datos del formulario
         fecha = request.form.get('fecha')
@@ -230,11 +213,15 @@ def guardar_infraestructura():
         # Obtener nombres de la institución y la sede
         sql_institucion = "SELECT sede_educativa FROM instituciones WHERE id_institucion = %s"
         cursor.execute(sql_institucion, (institucion_id,))
-        institucion_nombre = cursor.fetchone()
+        institucion = cursor.fetchone()
+        
+        institucion_nombre = institucion['sede_educativa'] if institucion else "No encontrada"
 
         sql_sede = "SELECT nombre_sede FROM sedes WHERE id_sede = %s"
         cursor.execute(sql_sede, (sede_id,))
-        sede_nombre = cursor.fetchone()
+        sede = cursor.fetchone()
+        
+        sede_nombre = sede['nombre_sede'] if sede else "No encontrada"
 
         # Verificar si se encontraron los nombres
         if not institucion_nombre or not sede_nombre:
@@ -317,7 +304,9 @@ def guardar_infraestructura():
                 print(f"Procesando pregunta {pregunta_id} - {len(fotos)} fotos recibidas.")  
 
                 cursor.execute("SELECT descripcion FROM preguntas_infraestructura WHERE id_pregunta = %s", (pregunta_id,))
-                pregunta_descripcion = cursor.fetchone()
+                pregunta = cursor.fetchone()
+
+                pregunta_descripcion = pregunta['descripcion'] if pregunta else "Sin descripción"
 
                 upload_folder = os.path.join(current_app.root_path, f'static/uploads/infraestructura/')
                 if not os.path.exists(upload_folder):
@@ -404,10 +393,7 @@ def eliminar_infraestructura(id_infraestructura):
 @role_required('supervisor', 'administrador')
 def lista_infraestructura():
     # Conexión a la base de datos
-    conexion = pymysql.connect(host="127.0.0.1",
-            user="Pae",
-            password="Pae_educacion",
-            db='visitas')
+    conexion = get_db_connection('visitas', driver="pymysql") 
     cursor = conexion.cursor(pymysql.cursors.DictCursor)
 
     # Consulta para obtener todos los registros de infraestructura
@@ -433,13 +419,7 @@ import pandas as pd
 from flask import send_file, request, flash, redirect, url_for
 
 def obtener_conexion():
-    return pymysql.connect(
-        host="127.0.0.1",
-        user="Pae",
-        password="Pae_educacion",
-        db="visitas",
-        cursorclass=pymysql.cursors.DictCursor
-    )
+    return get_db_connection('visitas', driver="pymysql") 
 
 
 @infraestructura_bp.route('/exportar_infraestructura', methods=['GET'])
@@ -558,23 +538,20 @@ def exportar_infraestructura():
             
             
 
-from flask import request, make_response
+from flask import request
 from reportlab.lib.pagesizes import letter
-from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph, Spacer, KeepInFrame, Frame
+from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph, Spacer, Image
 from reportlab.lib import colors
 from reportlab.lib.styles import getSampleStyleSheet
 import pymysql
 from io import BytesIO
-from flask import make_response
 from reportlab.lib.pagesizes import letter
 from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph, Spacer
 from reportlab.lib import colors
 from reportlab.lib.styles import getSampleStyleSheet
 from io import BytesIO
-from flask import make_response
 from reportlab.graphics.barcode import code128
 from reportlab.lib.units import inch
-from datetime import date
 
 # Estilos para párrafos
 styles = getSampleStyleSheet()
@@ -586,12 +563,7 @@ style_heading = styles['Heading2']
 @role_required('supervisor', 'administrador')
 def detalle_infraestructura(id_infraestructura):
     # Conexión a la base de datos
-    conexion = pymysql.connect(
-        host="127.0.0.1",
-        user="Pae",
-        password="Pae_educacion",
-        db="visitas"
-    )
+    conexion = get_db_connection('visitas', driver="pymysql") 
     cursor = conexion.cursor(pymysql.cursors.DictCursor)
 
     try:
@@ -677,16 +649,21 @@ def detalle_infraestructura(id_infraestructura):
         nombre_profesional = request.form.get('nombre_profesional', 'No especificado')
         accion = request.form.get('accion')
         
+        print("📌 Valores recibidos del formulario:")
+        print("   - Nombre representante IEO:", nombre_representante_ieo)
+        print("   - Nombre profesional:", nombre_profesional)
+
+        
         if accion == 'guardar':
             if nombre_representante_ieo and nombre_profesional:
                 try:
-                    conexion = pymysql.connect(
-                        host="127.0.0.1",
-                        user="Pae",
-                        password="Pae_educacion",
-                        db="visitas"
-                    )
+                    conexion = get_db_connection('visitas', driver="pymysql")
+                    if not conexion:
+                        print("❌ Error: No se pudo conectar a la base de datos")
+                        return jsonify({"error": "Error de conexión a la base de datos"}), 500
                     cursor = conexion.cursor()
+
+                    print(f"🔍 id_infraestructura recibido: {id_infraestructura}")  # Depuración
 
                     # Verificar si ya existe una firma para esta infraestructura
                     sql_check_firma = """
@@ -694,7 +671,10 @@ def detalle_infraestructura(id_infraestructura):
                         WHERE id_infraestructura = %s
                     """
                     cursor.execute(sql_check_firma, (id_infraestructura,))
-                    firma_existe = cursor.fetchone()[0]  # Obtiene el número de registros encontrados
+                    resultado = cursor.fetchone()  # Puede devolver None o una tupla
+
+                    firma_existe = resultado[0] if resultado and isinstance(resultado, (list, tuple)) else 0
+
 
                     if firma_existe == 0:  # Si no hay firma, la insertamos
                         sql_insert_firma = """
@@ -703,44 +683,104 @@ def detalle_infraestructura(id_infraestructura):
                         """
                         cursor.execute(sql_insert_firma, (id_infraestructura, nombre_representante_ieo, nombre_profesional))
                         conexion.commit()
+                        print("✅ Firma guardada exitosamente.")
                     else:
                         print("⚠️ La firma ya existe, no se inserta nuevamente.")
 
                 except Exception as e:
-                    print(f"❌ Error al guardar la firma: {e}")
+                    import traceback
+                    print(f"❌ Error inesperado al guardar la firma: {e}")
+                    print(traceback.format_exc())  # Muestra el error completo
+                    return jsonify({"error": str(e)}), 500
+
+                
                 finally:
                     cursor.close()
                     conexion.close()
-                    
 
-                return redirect(url_for('infraestructura.lista_infraestructura'))  # Redirección
+                return redirect(url_for('infraestructura.lista_infraestructura'))  # Redirección correcta
+
 
                     
         elif accion == 'pdf':
+            if nombre_representante_ieo and nombre_profesional:
+                try:
+                    conexion = get_db_connection('visitas', driver="pymysql")
+                    if not conexion:
+                        print("❌ Error: No se pudo conectar a la base de datos")
+                        return jsonify({"error": "Error de conexión a la base de datos"}), 500
+                    cursor = conexion.cursor()
+
+                    print(f"🔍 id_infraestructura recibido: {id_infraestructura}")  # Depuración
+
+                    # Verificar si ya existe una firma para esta infraestructura
+                    sql_check_firma = """
+                        SELECT COUNT(*) FROM firmas_infraestructura 
+                        WHERE id_infraestructura = %s
+                    """
+                    cursor.execute(sql_check_firma, (id_infraestructura,))
+                    resultado = cursor.fetchone()  # Puede devolver None o una tupla
+
+                    firma_existe = resultado[0] if resultado and isinstance(resultado, (list, tuple)) else 0
+
+
+                    if firma_existe == 0:  # Si no hay firma, la insertamos
+                        sql_insert_firma = """
+                            INSERT INTO firmas_infraestructura (id_infraestructura, nombre_representante_ieo, nombre_profesional)
+                            VALUES (%s, %s, %s)
+                        """
+                        cursor.execute(sql_insert_firma, (id_infraestructura, nombre_representante_ieo, nombre_profesional))
+                        conexion.commit()
+                        print("✅ Firma guardada exitosamente.")
+                    else:
+                        print("⚠️ La firma ya existe, no se inserta nuevamente.")
+
+                except Exception as e:
+                    import traceback
+                    print(f"❌ Error inesperado al guardar la firma: {e}")
+                    print(traceback.format_exc())  # Muestra el error completo
+                    return jsonify({"error": str(e)}), 500
+
+                
+                finally:
+                    cursor.close()
+                    conexion.close()
+
             buffer = BytesIO()
             pdf = SimpleDocTemplate(buffer, pagesize=letter)
             elements = []
             
+            # Generar código de barras
             barcode_data = f"INF{infraestructura['id_infraestructura']}_{infraestructura['fecha'].strftime('%Y%m%d')}"
             barcode = code128.Code128(barcode_data, barWidth=0.015 * inch, barHeight=0.35 * inch)
 
-            # Texto para mostrar debajo del código de barras
-            barcode_text = f"INF{infraestructura['id_infraestructura']}_{infraestructura['fecha'].strftime('%Y-%m-%d')}"
-
-            # Crear un estilo para el texto
+            # Crear texto debajo del código de barras, centrado
             styles = getSampleStyleSheet()
-            barcode_text_style = styles['Normal']
+            barcode_text = Paragraph(f"<para align='center'>{barcode_data}</para>", styles['Normal'])
 
-            # Crear un contenedor para el código de barras y el texto
-            barcode_frame = []
-            barcode_frame.append(barcode)
-            barcode_frame.append(Spacer(1, 6))  # Espaciado pequeño entre el código de barras y el texto
-            barcode_frame.append(Paragraph(barcode_text, barcode_text_style))
+            # Cargar la imagen de la Alcaldía de Cali
+            logo_path = "static/images/cali.png" # Asegúrate de que la imagen está en la ruta correcta
+            logo = Image(logo_path, width=1.2*inch, height=0.9*inch)
 
-            # Ajustar la posición del contenedor hacia la derecha
-            frame = Frame(x1=300, y1=650, width=200, height=100, showBoundary=0)  # Ajustar `x1` y `y1` según tu necesidad
-            elements.append(KeepInFrame(200, 100, barcode_frame, mode='shrink'))
+            # Crear una tabla con dos celdas: imagen (izquierda) y código de barras + texto (derecha)
+            barcode_table = Table([
+                [logo, barcode],  # Fila 1: Imagen a la izquierda, código de barras a la derecha
+                ["", barcode_text]  # Fila 2: Texto del código de barras alineado a la derecha
+            ], colWidths=[2*inch, 4*inch])
+
+            # Aplicar estilos a la tabla para alinear correctamente
+            barcode_table.setStyle(TableStyle([
+                ('ALIGN', (0, 0), (0, 0), 'LEFT'),     # Imagen alineada a la izquierda
+                ('ALIGN', (1, 0), (1, 0), 'RIGHT'),    # Código de barras alineado a la derecha
+                ('ALIGN', (1, 1), (1, 1), 'RIGHT'),    # Texto alineado a la derecha, debajo del código de barras
+                ('VALIGN', (0, 0), (-1, -1), 'BOTTOM'), # Todo alineado al fondo
+                ('BOTTOMPADDING', (1, 1), (1, 1), 0),  # Sin espacio extra entre código y texto
+            ]))
+
+            # Agregar la tabla a los elementos del PDF
             elements.append(Spacer(1, 12))
+            elements.append(barcode_table)
+
 
             # Título
             elements.append(Paragraph("Diagnóstico y Caracterización de Infraestructura y Dotación de Unidades de Servicio - Pae", styles['Title']))
@@ -890,7 +930,7 @@ def uploaded_file(filename):
 
 @infraestructura_bp.route('/editar_infraestructura/<int:id_infraestructura>')
 def editar_infraestructura(id_infraestructura):
-    conexion = obtener_conexion()
+    conexion = get_db_connection('visitas', driver="pymysql") 
     with conexion.cursor() as cursor:
         # Obtener datos de la infraestructura
         cursor.execute("SELECT * FROM infraestructura WHERE id_infraestructura = %s", (id_infraestructura,))
@@ -953,7 +993,7 @@ def actualizar_infraestructura():
         flash("Error: Falta el ID de infraestructura", "danger")
         return redirect(url_for('infraestructura.detalle_infraestructura', id_infraestructura=id_infraestructura))
 
-    conexion = obtener_conexion()
+    conexion = get_db_connection('visitas', driver="pymysql") 
     with conexion.cursor() as cursor:
         # 🏗️ Actualizar infraestructura
         

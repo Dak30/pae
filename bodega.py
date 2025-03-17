@@ -1,31 +1,32 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash, jsonify
 from iniciasesion import  login_required, session, role_required
 import pymysql
+from database import get_db_connection
 
 # Crear un Blueprint llamado 'bodega_bp'
 bodega_bp = Blueprint('bodega', __name__, template_folder='templates/bodega')
 
-# Configuración de la conexión a la base de datos usando pymysql
-def get_db_connection():
-    try:
-        conn = pymysql.connect(
-            host="127.0.0.1",
-            user="Pae",
-            password="Pae_educacion",
-            db='visitas',
-            cursorclass=pymysql.cursors.DictCursor
-        )
-        return conn
-    except pymysql.MySQLError as e:
-        print(f"Error al conectar a la base de datos: {e}")
-        print(f"Código del error: {e.args[0]}")
-        print(f"Mensaje del error: {e.args[1]}")
-        return None
+# # Configuración de la conexión a la base de datos usando pymysql
+# def get_db_connection():
+#     try:
+#         conn = pymysql.connect(
+#             host="127.0.0.1",
+#             user="Pae",
+#             password="Pae_educacion",
+#             db='visitas',
+#             cursorclass=pymysql.cursors.DictCursor
+#         )
+#         return conn
+#     except pymysql.MySQLError as e:
+#         print(f"Error al conectar a la base de datos: {e}")
+#         print(f"Código del error: {e.args[0]}")
+#         print(f"Mensaje del error: {e.args[1]}")
+#         return None
     
 
 # Obtener operadores desde la base de datos
 def get_operators():
-    conn = get_db_connection()
+    conn = get_db_connection('visitas', driver="pymysql")
     if conn is None:
         return []
     try:
@@ -42,7 +43,7 @@ def get_operators():
 # Obtener preguntas agrupadas por categoría desde la base de datos
 def obtener_preguntas_por_categoria():
     preguntas_por_categoria = {}
-    conn = get_db_connection()
+    conn = get_db_connection('visitas', driver="pymysql")
     if conn is None:
         return preguntas_por_categoria
 
@@ -72,7 +73,7 @@ def get_numero_visita():
     if not tipo_visita:
         return jsonify({'error': 'Falta el tipo de visita.'}), 400  
 
-    conn = get_db_connection()
+    conn = get_db_connection('visitas', driver="pymysql")
     try:
         with conn.cursor() as cursor:
             cursor.execute("START TRANSACTION")
@@ -159,7 +160,7 @@ def bodega():
             return redirect(url_for('bodega.bodega'))
 
         # Conectar a la base de datos
-        conn = get_db_connection()
+        conn = get_db_connection('visitas', driver="pymysql")
         if conn is None:
             flash('Error al conectar a la base de datos.', 'danger')
             return redirect(url_for('bodega.bodega'))
@@ -245,7 +246,7 @@ def bodega():
 
 @bodega_bp.route('/eliminar_bodega/<int:id_visita>', methods=['DELETE'])
 def eliminar_bodega(id_visita):
-    conexion = get_db_connection()
+    conexion = get_db_connection('visitas', driver="pymysql")
     if conexion is None:
         return jsonify({'error': 'Error de conexión con la base de datos'}), 500
 
@@ -267,7 +268,7 @@ def eliminar_bodega(id_visita):
 @role_required('supervisor', 'administrador')
 def lista_bodega():
     # Conectar a la base de datos
-    conn = get_db_connection()
+    conn = get_db_connection('visitas', driver="pymysql")
     if conn is None:
         flash('Error al conectar a la base de datos.', 'danger')
         return redirect(url_for('bodega.bodega'))
@@ -290,20 +291,20 @@ def lista_bodega():
 
 from flask import make_response
 from reportlab.lib.pagesizes import letter
-from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph, Spacer, Frame, KeepInFrame
+from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph, Spacer, Image
 from reportlab.lib import colors
 from reportlab.lib.styles import getSampleStyleSheet
 from io import BytesIO
 from flask import make_response
 from reportlab.graphics.barcode import code128
-from reportlab.lib.units import inch
+from reportlab.lib.units import mm
 
 @bodega_bp.route('/detalles_bodega/<int:id_visita>', methods=['GET', 'POST'])
 @login_required
 @role_required('supervisor', 'administrador')
 def detalles_bodega(id_visita):
     # Conectar a la base de datos
-    conn = get_db_connection()
+    conn = get_db_connection('visitas', driver="pymysql")
     if conn is None:
         flash('Error al conectar a la base de datos.', 'danger')
         return redirect(url_for('bodega.lista_bodega'))
@@ -381,13 +382,7 @@ def detalles_bodega(id_visita):
 
             try:
                 # Crear una nueva conexión a la base de datos
-                conn = pymysql.connect(
-                    host="127.0.0.1",
-                    user="Pae",
-                    password="Pae_educacion",
-                    db='visitas',
-                    cursorclass=pymysql.cursors.DictCursor
-                )
+                conn = get_db_connection('visitas', driver="pymysql")
 
                 if conn.open:
                     with conn.cursor() as cursor:
@@ -425,26 +420,54 @@ def detalles_bodega(id_visita):
             pdf = SimpleDocTemplate(buffer, pagesize=letter)
             elements = []
             
+            # Cargar la imagen de la Alcaldía de Cali
+            logo_path = "static/images/cali.png"
+            logo = Image(logo_path, width=40 * mm, height=30 * mm)
+
             # Generar el código de barras
             barcode_data = f"B{visita['id_visita']}_V_{visita['numero_visita']}_{visita['fecha_visita'].strftime('%Y%m%d')}"
-            barcode = code128.Code128(barcode_data, barWidth=0.015 * inch, barHeight=0.35 * inch)
+            barcode = code128.Code128(barcode_data, barWidth=0.5 * mm, barHeight=12 * mm)
 
             # Texto para mostrar debajo del código de barras
             barcode_text = f"B{visita['id_visita']}_V_{visita['numero_visita']}_{visita['fecha_visita'].strftime('%Y-%m-%d')}"
 
-            # Crear un estilo para el texto
+            # Crear un estilo para el texto centrado
             styles = getSampleStyleSheet()
             barcode_text_style = styles['Normal']
+            barcode_text_style.alignment = 1  # 1 = CENTRADO
 
-            # Crear un contenedor para el código de barras y el texto
-            barcode_frame = []
-            barcode_frame.append(barcode)
-            barcode_frame.append(Spacer(1, 6))  # Espaciado pequeño entre el código de barras y el texto
-            barcode_frame.append(Paragraph(barcode_text, barcode_text_style))
+            # Crear la tabla con el código de barras y el texto debajo
+            barcode_table = Table(
+                [[barcode], [Paragraph(barcode_text, barcode_text_style)]],
+                colWidths=[80 * mm]  # Ajusta el ancho para centrar mejor
+            )
 
-            # Ajustar la posición del contenedor hacia la derecha
-            frame = Frame(x1=300, y1=650, width=200, height=100, showBoundary=0)  # Ajustar `x1` y `y1` según tu necesidad
-            elements.append(KeepInFrame(200, 100, barcode_frame, mode='shrink'))
+            # Aplicar estilo a la tabla para centrar los elementos
+            barcode_table.setStyle(
+                TableStyle([
+                    ("ALIGN", (0, 0), (-1, -1), "CENTER"),  # Centrar elementos en la celda
+                    ("BOTTOMPADDING", (0, 0), (-1, -1), 5),  # Espaciado entre código y texto
+                ])
+            )
+
+            # Crear tabla con la imagen a la izquierda y el código de barras a la derecha
+            layout_table = Table(
+                [[logo, barcode_table]],
+                colWidths=[100 * mm, 100 * mm],  # Ancho de columnas para imagen y código de barras
+            )
+
+            # Aplicar estilo a la tabla para alinear a la esquina inferior derecha
+            layout_table.setStyle(
+                TableStyle([
+                    ("ALIGN", (0, 0), (0, 0), "LEFT"),  # Alinear imagen a la izquierda
+                    ("ALIGN", (1, 0), (1, 0), "RIGHT"),  # Alinear código de barras a la derecha
+                    ("VALIGN", (0, 0), (-1, -1), "BOTTOM"),  # Alinear verticalmente abajo
+                ])
+            )
+
+            # Agregar la tabla alineada a los elementos
+            elements.append(Spacer(1, 5))  # Espacio para empujar todo hacia abajo
+            elements.append(layout_table)  # Agregar la tabla con imagen y código de barras
 
 
             styles = getSampleStyleSheet()
@@ -561,7 +584,7 @@ def detalles_bodega(id_visita):
 
 @bodega_bp.route('/editar_bodega/<int:id_visita>', methods=['GET', 'POST'])
 def editar_bodega(id_visita):
-    db = get_db_connection()
+    db = get_db_connection('visitas', driver="pymysql")
     cursor = db.cursor(pymysql.cursors.DictCursor)
     
     if request.method == 'POST':
@@ -652,8 +675,6 @@ import io
 import pandas as pd
 from flask import Response, send_file, request, flash, redirect, url_for
 
-# Importar la función para obtener la conexión
-from bodega import get_db_connection
 
 
 @bodega_bp.route('/bodega/exportar', methods=['GET'])
@@ -663,7 +684,7 @@ def exportar_bodega():
     fecha_inicio = request.args.get('fecha_inicio')
     fecha_fin = request.args.get('fecha_fin')
 
-    conn = get_db_connection()
+    conn = get_db_connection('visitas', driver="pymysql")
     if not conn:
         flash('Error al conectar con la base de datos.', 'danger')
         return redirect(url_for('bodega.lista_bodega'))

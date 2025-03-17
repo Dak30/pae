@@ -163,7 +163,7 @@
         <select id="operador" name="operador" required>
             <option value="">Seleccione una opción</option>
             {% for operador in operadores %}
-                <option value="{{ operador.id }}">{{ operador.nombre }}</option>
+                <option value="{{ operador.id_operador }}">{{ operador.nombre }}</option>
             {% endfor %}
         </select><br>
         
@@ -203,18 +203,20 @@
 
         <label for="zona">Zona:</label>
         <input type="text" id="zona" name="zona" readonly><br>
-
+        
         <div class="form-group">
             <label for="tipo_racion">Tipo de Ración:</label>
             <div class="checkbox-container">
                 {% for tipo in tipos_racion %}
                     <div class="checkbox-item">
-                        <input type="checkbox" id="{{ tipo }}" name="tipo_racion" value="{{ tipo }}">
-                        <label for="{{ tipo }}">{{ tipo }}</label>
+                        <input type="checkbox" id="racion_{{ tipo.id }}" name="tipo_racion" value="{{ tipo.nombre }}">
+                        <label for="racion_{{ tipo.nombre }}">{{ tipo.nombre }}</label>
                     </div>
                 {% endfor %}
             </div>
         </div>
+        
+        
         
         <script>
             document.addEventListener("DOMContentLoaded", function() {
@@ -320,7 +322,16 @@
 
             {% endfor %}
 
-        <button type="submit">Guardar</button>  
+            <form onsubmit="return confirmSubmit()">
+                <button type="submit">Guardar</button>
+            </form>
+            
+            <script>
+            function confirmSubmit() {
+                return confirm("¿Estás seguro de que deseas guardar?");
+            }
+            </script>
+            
     </form>
 </body>
 </html>

@@ -28,6 +28,7 @@ from reportlab.platypus import SimpleDocTemplate, Paragraph, Table, TableStyle, 
 from reportlab.lib.units import cm 
 # from database import get_db_connection
 from flask_cors import CORS
+from database import get_db_connection
 
 
 
@@ -42,32 +43,15 @@ visitas_bp = Blueprint('visitas', __name__, template_folder='templates/app')
 
 visitas = Flask(__name__)
 visitas.secret_key = 'SECRET_KEY'  # Necesario para usar flash
-visitas.config['UPLOAD_FOLDER'] = 'uploads'
+visitas.config['UPLOAD_FOLDER'] = os.path.join('static', 'uploads', 'solicitud_intercambio')
 visitas.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16 MB
 
 CORS(visitas)
 # Configuración de la conexión a MySQL  
-def get_db_connection():
-    try:
-        conn = mysql.connector.connect(
-            host="127.0.0.1",
-            user="Pae",
-            password="Pae_educacion",
-            database="visitas",
-            port=3306
-        )
-        if conn.is_connected():
-            print("✅ Conexión exitosa a la base de datos")
-            return conn
-        else:
-            print("⚠️ No se pudo establecer la conexión")
-            return None
-    except Error as e:
-        print(f"❌ Error al conectar con la base de datos: {e}")
-        return None
+
 
 def fetch_instituciones():
-    conn = get_db_connection()
+    conn = get_db_connection('visitas')
     if conn is None:
         return []
     
@@ -83,7 +67,7 @@ def fetch_instituciones():
         conn.close()
         
 def fetch_tiporacion():
-    conn = get_db_connection()
+    conn = get_db_connection('visitas')
     if conn is None:
         return []
     
@@ -99,7 +83,7 @@ def fetch_tiporacion():
         conn.close()
         
 def fetch_operador():
-    conn = get_db_connection()
+    conn = get_db_connection('visitas')
     if conn is None:
         return []
     
@@ -116,7 +100,7 @@ def fetch_operador():
 
 @visitas.route('/sedes/<int:id_institucion>', methods=['GET'])
 def get_sedes_by_institucion(id_institucion):
-    conn = get_db_connection()
+    conn = get_db_connection('visitas')
     if conn is None:
         return jsonify([]), 500
     
@@ -135,7 +119,7 @@ def get_sedes_by_institucion(id_institucion):
 
 
 def generar_numero_intercambio(tipo_racion, id_operador):
-    conn = get_db_connection()
+    conn = get_db_connection('visitas')
     cursor = conn.cursor()
     try:
         # Definir el prefijo según el tipo de ración
@@ -297,7 +281,7 @@ def crear_pdf_intercambio(datos):
 @visitas.route('/instituciones/<int:id_operador>', methods=['GET'])
 def fetch_instituciones_por_operador(id_operador):
     print(f"ID Operador recibido: {id_operador}")  # Depuración
-    conn = get_db_connection()
+    conn = get_db_connection('visitas')
     cursor = conn.cursor(dictionary=True)
     query = """
     SELECT id_institucion, sede_educativa 
@@ -315,7 +299,7 @@ def fetch_instituciones_por_operador(id_operador):
 
 def get_instituciones_por_operador(id_operador):
     """ Función auxiliar para obtener instituciones sin usar jsonify """
-    conn = get_db_connection()
+    conn = get_db_connection('visitas')
     cursor = conn.cursor(dictionary=True)
     query = """
     SELECT id_institucion, sede_educativa 
@@ -374,7 +358,7 @@ def intercambio_operador():
    
 @visitas_bp.route('/save_intercambio', methods=['POST'])
 def save_intercambio():
-    conn = get_db_connection()
+    conn = get_db_connection('visitas')
     if conn is None:
         print("❌ Error: No se pudo conectar a la base de datos.")
         return jsonify({'error': 'Error en la conexión a la base de datos.'}), 500
@@ -422,7 +406,7 @@ def save_intercambio():
         if not fecha_ejecucion:
             return jsonify({'error': 'No se proporcionó ninguna fecha de ejecución.'}), 400
 
-        conn = get_db_connection()
+        conn = get_db_connection('visitas')
         if conn is None:
             return jsonify({'error': 'Error en la conexión a la base de datos.'}), 500
 
@@ -789,7 +773,7 @@ from datetime import datetime
 def crear_pdf(intercambio_id, id_operador, id_tipo_racion, justificacion_texto, 
               datos_por_fecha, numero_intercambio_unica, correo, instituciones_sedes, firmas_lista, fecha_solicitud):        
 
-    pdf_folder_path = os.path.join('uploads', 'pdfs', str(numero_intercambio_unica))
+    pdf_folder_path = os.path.join('static', 'uploads', 'solicitud_intercambio', 'pdfs', str(numero_intercambio_unica))
     os.makedirs(pdf_folder_path, exist_ok=True)
     
     pdf_path = os.path.join(pdf_folder_path, f"{numero_intercambio_unica}.pdf")
@@ -841,7 +825,7 @@ def crear_pdf(intercambio_id, id_operador, id_tipo_racion, justificacion_texto,
     elements.append(Paragraph("SOLICITUD DE INTERCAMBIOS", title_style))
     elements.append(Spacer(1, 10))  # Espacio después del título
 
-    conn = get_db_connection()
+    conn = get_db_connection('visitas')
     if conn is None:
         print("Error: No se pudo establecer conexión a la base de datos")
     else:
@@ -939,7 +923,7 @@ def crear_pdf(intercambio_id, id_operador, id_tipo_racion, justificacion_texto,
                         ]
                         table_data.append(row)
 
-                    table = Table(table_data, colWidths=[180, 180, 180])  # Ajuste de ancho
+                    table = Table(table_data, colWidths=[146, 146, 146])  # Ajuste de ancho
                     table.setStyle(TableStyle([
                         ('BACKGROUND', (0, 0), (-1, 0), colors.lightgrey),
                         ('TEXTCOLOR', (0, 0), (-1, 0), colors.black),
@@ -1034,7 +1018,7 @@ def estado():
     search_estado = request.args.get('estado', '').strip()
     search_fecha = request.args.get('fecha_solicitud', '').strip()
     
-    conn = get_db_connection()
+    conn = get_db_connection('visitas')
     cursor = conn.cursor(dictionary=True)
 
     # Consulta para obtener conceptos únicos
@@ -1104,7 +1088,7 @@ def estado():
 @login_required
 @role_required('supervisor', 'nutricionista', 'administrador')
 def informe():
-    conn = get_db_connection()
+    conn = get_db_connection('visitas')
     cursor = conn.cursor()
 
     # Obtener los parámetros de búsqueda del cliente
@@ -1173,7 +1157,7 @@ def informe():
 @visitas.route('/download_informe', methods=['GET'])
 @login_required
 def download_informe():
-    conn = get_db_connection()
+    conn = get_db_connection('visitas')
     cursor = conn.cursor()
 
     id_sede = request.args.get('id_sede')
@@ -1297,7 +1281,7 @@ def download_informe():
 @login_required
 @role_required('nutricionista', 'administrador')
 def base_consolidado():
-    conn = get_db_connection()
+    conn = get_db_connection('visitas')
     if conn is None:
         return "Error al conectar a la base de datos.", 500
     
@@ -1450,7 +1434,7 @@ def exportar_intercambios():
     fecha_inicio = request.args.get('fecha_inicio')
     fecha_fin = request.args.get('fecha_fin')
 
-    conexion = get_db_connection()
+    conexion = get_db_connection('visitas')
     if conexion is None:
         flash("Error de conexión con la base de datos", "danger")
         return redirect(url_for('base_consolidado'))
@@ -1535,19 +1519,23 @@ import zipfile
 import io
 
 @visitas.route('/descargar_zip')
+@login_required
+@role_required('nutricionista', 'administrador')
 def descargar_zip():
     zip_buffer = io.BytesIO()
     
     with zipfile.ZipFile(zip_buffer, 'w', zipfile.ZIP_DEFLATED) as zipf:
         base_dirs = ['pdfs', 'soporte', 'estado']
+        base_path = os.path.join(os.getcwd(), 'static', 'uploads', 'solicitud_intercambio')
         
         for base_dir in base_dirs:
-            full_path = os.path.join('uploads', base_dir)
+            full_path = os.path.join(base_path, base_dir)
             if os.path.exists(full_path):
                 for root, _, files in os.walk(full_path):
                     for file in files:
                         file_path = os.path.join(root, file)
-                        zipf.write(file_path, os.path.relpath(file_path, 'uploads'))
+                        # Mantener la estructura dentro de "solicitud_intercambio"
+                        zipf.write(file_path, os.path.relpath(file_path, base_path))
     
     zip_buffer.seek(0)
     return send_file(zip_buffer, mimetype='application/zip', as_attachment=True, download_name='archivos_importantes.zip')
@@ -1555,8 +1543,10 @@ def descargar_zip():
 
 
 @visitas.route('/eliminar_intercambio/<string:numero_intercambio>', methods=['DELETE'])
+@login_required
+@role_required('nutricionista', 'administrador')
 def eliminar_intercambio(numero_intercambio):
-    conexion = get_db_connection()
+    conexion = get_db_connection('visitas')
 
     if conexion is None:
         return jsonify({'success': False, 'message': 'Error de conexión con la base de datos'}), 500
@@ -1605,7 +1595,7 @@ def download_file(filename):
 @login_required
 @role_required('operador', 'administrador')
 def base_operador():
-    conn = get_db_connection()
+    conn = get_db_connection('visitas')
     if conn is None:
         return "Error al conectar a la base de datos.", 500
 
@@ -1636,7 +1626,8 @@ def base_operador():
             intercambios.mensaje,
             GROUP_CONCAT(DISTINCT IF(archivos.tipo_archivo = 'pdf', archivos.nombre_archivo, NULL)) AS archivos_pdf,
             GROUP_CONCAT(DISTINCT IF(archivos.tipo_archivo = 'soporte', archivos.nombre_archivo, NULL)) AS archivos_soporte,
-            GROUP_CONCAT(DISTINCT IF(archivos.tipo_archivo = 'estado', archivos.nombre_archivo, NULL)) AS archivos_aprobar
+            GROUP_CONCAT(DISTINCT IF(archivos.tipo_archivo = 'estado', archivos.nombre_archivo, NULL)) AS archivos_aprobar,
+            intercambios.asunto
         FROM 
             intercambios
         INNER JOIN instituciones_sedes 
@@ -1761,7 +1752,7 @@ def modificar_intercambio(numero_intercambio):
         mensaje = data.get('mensaje')
 
         # Conectar a la base de datos
-        conn = get_db_connection()
+        conn = get_db_connection('visitas')
         cursor = conn.cursor()
 
         # Actualizar el concepto en la base de datos
@@ -1784,7 +1775,7 @@ def modificar_intercambio(numero_intercambio):
 @login_required
 @role_required('operador', 'administrador', 'nutricionista')
 def solicitar_modificar_intercambio():
-    conn = get_db_connection()
+    conn = get_db_connection('visitas')
     if conn is None:
         return "Error al conectar a la base de datos.", 500
 
@@ -1857,13 +1848,15 @@ def solicitar_modificar_intercambio():
     # Renderizar la plantilla para mostrar la lista de intercambios modificados
     return render_template('solicitar_modificar_intercambio.html', intercambios=intercambios, rol=rol_usuario, usuario=session.get('nombre'))
 
+import traceback
 
+#MODIFICAR
 
 @visitas.route('/modificar_intercambio2/<string:numero_intercambio>', methods=['GET', 'POST'])
 @login_required
 @role_required('operador', 'administrador', 'nutricionista')
 def modificar_intercambio2(numero_intercambio):
-    conn = get_db_connection()
+    conn = get_db_connection('visitas')
     cursor = None
     try:
         if conn is None:
@@ -2106,14 +2099,14 @@ def modificar_intercambio2(numero_intercambio):
                             UPDATE archivos
                             SET nombre_archivo = %s, ruta_archivo = %s
                             WHERE id_intercambio = %s AND tipo_archivo = 'pdf'
-                        """, (f"{numero_intercambio}.pdf", pdf_output_path, id_intercambio))
+                        """, (f"{numero_intercambio}.pdf", f'static/uploads/solicitud_intercambio/pdfs/{numero_intercambio}/{numero_intercambio}.pdf', id_intercambio))
                         print("Archivo PDF actualizado exitosamente.")
                     else:
                         # Insertar nuevo registro
                         cursor.execute("""
                             INSERT INTO archivos (id_intercambio, nombre_archivo, tipo_archivo, ruta_archivo)
                             VALUES (%s, %s, %s, %s)
-                        """, (id_intercambio, f"{numero_intercambio}.pdf", 'pdf', pdf_output_path))
+                        """, (id_intercambio, f"{numero_intercambio}.pdf", f'static/uploads/solicitud_intercambio/pdfs/{numero_intercambio}/{numero_intercambio}.pdf', pdf_output_path))
                         print("Archivo PDF insertado exitosamente.")
 
                     # Crear la carpeta principal "soporte" si no existe
@@ -2184,11 +2177,12 @@ def modificar_intercambio2(numero_intercambio):
                     return redirect(url_for('iniciasesion_bp.login'))
 
             except Exception as e:
-                print(f"Error general en el proceso de modificación: {e}")
+                error_trace = traceback.format_exc()
+                print(f"Error general en el proceso de modificación: {e}\n{error_trace}")
                 return "Error al modificar el intercambio.", 500
             
     except Exception as e:
-        print(f"Error general en el proceso de modificación: {e}")
+        print(f"Error general en el proceso de modificación: {e}\n{error_trace}")
         return "Error al modificar el intercambio.", 500
     finally:
         if cursor:
@@ -2212,7 +2206,7 @@ from reportlab.lib.styles import getSampleStyleSheet
 def modificar_pdf(intercambio_id, operador, tipo_racion, justificacion_texto,
                  datos_por_fecha, numero_intercambio_unica, correo, instituciones_sedes, firmas_lista, fecha_solicitud):
     
-    pdf_folder_path = os.path.join('uploads', 'pdfs', str(numero_intercambio_unica))
+    pdf_folder_path = os.path.join('static', 'uploads', 'solicitud_intercambio', 'pdfs', str(numero_intercambio_unica))
     os.makedirs(pdf_folder_path, exist_ok=True)
     pdf_path = os.path.join(pdf_folder_path, f"{numero_intercambio_unica}.pdf")
     
@@ -2222,7 +2216,7 @@ def modificar_pdf(intercambio_id, operador, tipo_racion, justificacion_texto,
     
     # Agregar logo
     logo_path = 'static/images/cali.png'
-    barcode_path = f'uploads/pdfs/{numero_intercambio_unica}/{fecha_solicitud} - {numero_intercambio_unica}.png'
+    barcode_path = f'static/uploads/solicitud_intercambio/pdfs/{numero_intercambio_unica}/{fecha_solicitud} - {numero_intercambio_unica}.png'
 
     # Crear imagen del logo
     logo = Image(logo_path, width=70, height=50)
@@ -2320,7 +2314,7 @@ def modificar_pdf(intercambio_id, operador, tipo_racion, justificacion_texto,
                 table_data.append([componente, menu_oficial, menu_intercambio])
 
             # Ajustamos anchos de columnas
-            table = Table(table_data, colWidths=[120, 170, 170])
+            table = Table(table_data, colWidths=[146, 146, 146])
 
             # Aplicar estilos para evitar que el texto cruce los bordes
             table.setStyle(TableStyle([
@@ -2395,7 +2389,7 @@ def modificar_pdf(intercambio_id, operador, tipo_racion, justificacion_texto,
 @login_required
 @role_required('nutricionista', 'administrador')
 def aprobar(numero_intercambio):
-    conn = get_db_connection()
+    conn = get_db_connection('visitas')
     if conn is None:
         return "Error al conectar a la base de datos.", 500
 
@@ -2590,7 +2584,7 @@ from datetime import datetime
 def estado_pdf(datos_generales, datos_por_fecha, firma_paths, firma_nombres, firma_cargos, justificacion, asunto, mensaje, numero_intercambio):
     # Crear un archivo temporal para el PDF    
     try:
-        pdf_folder_path = os.path.join('uploads', 'estado', str(numero_intercambio))
+        pdf_folder_path = os.path.join('static','uploads', 'solicitud_intercambio', 'estado', str(numero_intercambio))
         os.makedirs(pdf_folder_path, exist_ok=True)  # Asegurar que la carpeta exista
 
         # Definir la ruta completa del archivo PDF
@@ -2609,7 +2603,7 @@ def estado_pdf(datos_generales, datos_por_fecha, firma_paths, firma_nombres, fir
         elements = []
         styles = getSampleStyleSheet()
         
-        conn = get_db_connection()
+        conn = get_db_connection('visitas')
         if conn is None:
             print("Error: No se pudo establecer conexión a la base de datos")
             return
@@ -2822,7 +2816,7 @@ def estado_pdf(datos_generales, datos_por_fecha, firma_paths, firma_nombres, fir
 @login_required
 @role_required('nutricionista', 'administrador')
 def negar(numero_intercambio):
-    conn = get_db_connection()
+    conn = get_db_connection('visitas')
     if conn is None:
         return "Error al conectar a la base de datos.", 500
 
@@ -3029,7 +3023,7 @@ def get_menus():
     """
 
     # Conectar a la base de datos
-    conn = get_db_connection()
+    conn = get_db_connection('visitas')
     if conn is None:
         return jsonify({'error': 'Error de conexión a la base de datos'}), 500
 
@@ -3067,7 +3061,7 @@ def get_menu_details():
     if not numero_menu_oficial and not numero_menu_intercambio:
         return jsonify({'error': 'Debe proporcionar al menos un número de menú oficial o de intercambio'}), 400
 
-    conn = get_db_connection()
+    conn = get_db_connection('visitas')
     if conn is None:
         return jsonify({'error': 'Error de conexión a la base de datos'}), 500
 
@@ -3163,7 +3157,7 @@ def get_menu_details_verificacion():
     # if not numero_menu_oficial and not numero_menu_intercambio:
     #     return jsonify({'error': 'Debe proporcionar al menos un número de menú oficial o de intercambio'}), 400
 
-    conn = get_db_connection()
+    conn = get_db_connection('visitas')
     if conn is None:
         return jsonify({'error': 'Error de conexión a la base de datos'}), 500
 

@@ -738,8 +738,17 @@ function agregarFirma() {
                                         
                     <!-- Botón de Guardar -->
                     <div class="form-group">
-                        <button type="button" onclick="saveChanges()">Enviar</button>
-                    </div> 
+                        <button type="button" onclick="confirmSend()">Enviar</button>
+                    </div>
+                    
+                    <script>
+                    function confirmSend() {
+                        if (confirm("¿Estás seguro de que deseas enviar?")) {
+                            saveChanges();
+                        }
+                    }
+                    </script>
+                    
             </form>
         </div>       
     </body>

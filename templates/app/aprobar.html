@@ -93,7 +93,16 @@
             <button id="add-firma" type="button" class="btn btn-primary mt-3">Añadir Firma</button>
         </section>
         
-        <button type="submit" class="btn btn-success mt-4">Enviar</button>
+        <form onsubmit="return confirmSubmit()">
+            <button type="submit" class="btn btn-success mt-4">Enviar</button>
+        </form>
+
+        <script>
+        function confirmSubmit() {
+            return confirm("¿Estás seguro de que deseas enviar?");
+        }
+        </script>
+
     </div>
 </form>
 

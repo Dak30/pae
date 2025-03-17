@@ -154,7 +154,7 @@
 
             <div id="name_field">
                 <label for="numero_contrato">Numero Contrato:</label>
-                <input type="numero_contrato" id="numero_contrato" name="numero_contrato" placeholder="Ingrese el numero contrato" required>
+                <input type="text" id="numero_contrato" name="numero_contrato" placeholder="Ingrese el numero contrato" required>
             </div>
 
             <button type="submit">Ejecutar</button>
@@ -183,7 +183,7 @@
                                 <form method="POST" action="{{ url_for('actualizar_bp.gestionar_datos') }}" style="display:inline;">
                                     <input type="hidden" name="action" value="update">
                                     <input type="hidden" name="id_entity" value="{{ operador.id_operador }}">
-                                    <button type="submit">Editar</button>
+                                    
                                 </form>
                                 <!-- Botón de Eliminar -->
                                 <form method="POST" action="{{ url_for('actualizar_bp.gestionar_datos') }}" style="display:inline;">

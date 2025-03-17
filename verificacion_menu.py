@@ -10,9 +10,6 @@ from werkzeug.utils import secure_filename
 
 from database import get_db_connection
 
-
-
-
 # logging.basicConfig(level=logging.DEBUG)
 
 verificacion_bp = Blueprint('verificacion_bp', __name__, template_folder='templates/verificacion')
@@ -23,27 +20,9 @@ ALLOWED_EXTENSIONS = {'pdf', 'png', 'jpg', 'jpeg'}
 # Función para validar archivos permitidos
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
-
-
-# Configuración de la conexión a MySQL  
-def get_db_connection():
-    try:
-        conn = mysql.connector.connect(
-            host="127.0.0.1",
-            user="Pae",
-            password="Pae_educacion",
-            database="visitas"
-        )
-        if conn.is_connected():
-            return conn
-    except Error as e:
-        print(f"Error al conectar con la base de datos: {e}")
-        return None
-
-
         
 def fetch_tiporacion():
-    conn = get_db_connection()
+    conn = get_db_connection('visitas')
     if conn is None:
         return []
     
@@ -59,13 +38,13 @@ def fetch_tiporacion():
         conn.close()
         
 def fetch_operador():
-    conn = get_db_connection()
+    conn = get_db_connection('visitas')
     if conn is None:
         return []
     
     cursor = conn.cursor(dictionary=True)
     try:
-        cursor.execute("SELECT id_operador, nombre, numero_contrato FROM operadores")
+        cursor.execute("SELECT id_operador, nombre, numero_contrato FROM operadores ORDER BY id_operador ASC6")
         return cursor.fetchall()
     except Error as err:
         print(f"Error: {err}")
@@ -81,7 +60,7 @@ def get_instituciones(id_operador):
 
 
 def fetch_instituciones(id_operador):
-    conn = get_db_connection()
+    conn = get_db_connection('visitas')
     if conn is None:
         return []
     
@@ -101,7 +80,7 @@ def fetch_instituciones(id_operador):
 
 @verificacion_bp.route('/sedes/<int:id_institucion>', methods=['GET'])
 def get_sedes_by_institucion(id_institucion):
-    conn = get_db_connection()
+    conn = get_db_connection('visitas')
     if conn is None:
         return jsonify([]), 500
     
@@ -180,7 +159,7 @@ def verificacion_menu():
                 "hallazgo": hallazgo
             })
 
-            conn = get_db_connection()
+            conn = get_db_connection('visitas')
             conn.autocommit = True
             if conn:
                 cursor = conn.cursor()
@@ -412,7 +391,7 @@ import pandas as pd
 from io import BytesIO
 
 def exportar_verificacion_menu(id_verificacion=None, institucion_id=None, fecha_inicio=None, fecha_fin=None):
-    conexion = get_db_connection()
+    conexion = get_db_connection('visitas')
     cursor = conexion.cursor()
 
     query = """
@@ -503,7 +482,7 @@ def exportar_excel():
 @role_required('supervisor', 'administrador', 'nutricionista')
 def lista_verificacion():
     try:
-        conn = get_db_connection()
+        conn = get_db_connection('visitas')
         cursor = conn.cursor()
         
         # Consulta para obtener la lista de verificación
@@ -581,7 +560,7 @@ def detalles_verificacion(id):
     cursor = None
     try:
         # Establecer conexión
-        conn = get_db_connection()
+        conn = get_db_connection('visitas')
         cursor = conn.cursor()
 
         # Consulta principal con JOIN para obtener nombres en lugar de IDs
@@ -715,12 +694,7 @@ def detalles_verificacion(id):
             if accion == 'guardar':
                                 
                 try:
-                    conn = mysql.connector.connect(
-                        host="127.0.0.1",
-                        user="Pae",
-                        password="Pae_educacion",
-                        database="visitas"
-                    )
+                    conn = get_db_connection('visitas')
                     
                     if conn.is_connected():
                         cursor = conn.cursor()
@@ -1097,10 +1071,11 @@ def detalles_verificacion(id):
 @verificacion_bp.route('/editar/<int:id>', methods=['GET', 'POST'])
 @login_required
 def editar_verificacion(id):
-    connection = get_db_connection()
+    connection = get_db_connection('visitas')
     if connection is None:
         flash('Error al conectar con la base de datos', 'danger')
-        return redirect(url_for('index'))
+        return "Error al conectar con la base de datos", 500  # Devuelve un mensaje de error con código HTTP 500
+
 
     cursor = connection.cursor(dictionary=True)
 
@@ -1270,7 +1245,7 @@ def editar_verificacion(id):
 
 
 def fetch_sedes(id_institucion):
-    conn = get_db_connection()
+    conn = get_db_connection('visitas')
     if conn is None:
         return []
     
