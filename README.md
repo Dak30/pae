@@ -19,7 +19,7 @@ Antes de comenzar, asegúrate de tener instalados los siguientes programas:
 ### 1️⃣ Clonar o Descargar el Proyecto
 Si tienes Git instalado, puedes clonar el repositorio:
 ```bash
-  git clone https://github.com/tuusuario/pae-app.git
+  git clone https://github.com/Dak30/pae.git
   cd pae-app
 ```
 Si no tienes Git, descarga el código en formato ZIP y extráelo en una carpeta.
@@ -30,7 +30,7 @@ Si no tienes Git, descarga el código en formato ZIP y extráelo en una carpeta.
    - `MySQL`
 2. Accede a **phpMyAdmin** desde el navegador:
    ```
-   http://localhost/phpmyadmin/
+   http://localhost:8081/phpmyadmin/
    ```
 3. Crea una base de datos llamada `pae_db`.
 4. Importa el archivo `pae_db.sql` (ubicado en el proyecto) en **phpMyAdmin**.
@@ -67,11 +67,11 @@ DB_NAME = "visitas"
    ```
 2. Inicia la aplicación Flask:
    ```bash
-   python app.py
+   python visitas.py
    ```
 3. Abre el navegador y accede a la aplicación:
    ```
-   http://localhost:5000/
+   http://ip:5000/
    ```
 
 ---
@@ -84,21 +84,20 @@ Si necesitas actualizar el código o instalar nuevas dependencias:
 ```
 Para realizar un respaldo de la base de datos:
 1. Abre **phpMyAdmin**.
-2. Selecciona `pae_db`.
+2. Selecciona `visitas`.
 3. Ve a la pestaña **Exportar** y selecciona formato `SQL`.
 
 ---
 
 ## 📌 Notas Adicionales
 - Si MySQL no inicia en XAMPP, verifica que **no haya otro servicio usando el puerto 3306**.
-- Puedes cambiar el puerto de Flask en `app.py` si es necesario:
+- Puedes cambiar el puerto de Flask en `visitas.py` si es necesario:
   ```python
-  app.run(port=5001, debug=True)
+  visitas.run(port=5001, debug=True)
   ```
-- Si necesitas modificar estilos, revisa `static/styles.css`.
 
 ---
 
-¡Listo! Con estos pasos, tu aplicación PAE debería estar funcionando correctamente. 🚀
+¡Listo! Con estos pasos, la aplicación PAE debería estar funcionando correctamente. 🚀
 
 
