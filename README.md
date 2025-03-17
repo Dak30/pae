@@ -32,8 +32,8 @@ Si no tienes Git, descarga el código en formato ZIP y extráelo en una carpeta.
    ```
    http://localhost:8081/phpmyadmin/
    ```
-3. Crea una base de datos llamada `pae_db`.
-4. Importa el archivo `pae_db.sql` (ubicado en el proyecto) en **phpMyAdmin**.
+3. Crea una base de datos llamada `visitas`.
+4. Importa el archivo `visitas.sql` (ubicado en el proyecto en la carpeta "documentacion/modelado de datos/visitas.sql") en **phpMyAdmin**.
 
 ### 3️⃣ Configurar el Entorno de Python
 1. Crea un entorno virtual (opcional pero recomendado):
@@ -93,7 +93,7 @@ Para realizar un respaldo de la base de datos:
 - Si MySQL no inicia en XAMPP, verifica que **no haya otro servicio usando el puerto 3306**.
 - Puedes cambiar el puerto de Flask en `visitas.py` si es necesario:
   ```python
-  visitas.run(port=5001, debug=True)
+  visitas.run(host="0.0.0.0", port=5001, debug=True)
   ```
 
 ---
