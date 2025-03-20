@@ -1,6 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, flash
-import mysql.connector
-from iniciasesion import iniciasesion_bp, login_required, supervisor_required, operador_required, nutricionista_required, session, role_required
+from iniciasesion import login_required, session, registrar_auditoria
 from mysql.connector import Error
 from database import get_db_connection
 from collections import defaultdict
@@ -21,8 +20,19 @@ menu_type_titles = {
 @login_required
 def index_update():
     print("Accediendo a Actualizar")
-    return render_template('index_update.html', rol=session.get('rol'), usuario=session.get('nombre'))
+    usuario_sesion = session.get('usuario_id')
+    nombre_sesion = session.get('nombre', 'Desconocido')
+    correo_sesion = session.get('correo', 'Sin correo')
 
+    registrar_auditoria(
+        usuario_id=usuario_sesion if usuario_sesion else 0,
+        nombre_usuario=nombre_sesion,
+        correo=correo_sesion,
+        accion="QUERY",
+        modulo="Gestión de Ciclo de Menú",
+        detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) accesó la ventana de Ciclo de Menú",
+    )
+    return render_template('index_update.html', rol=session.get('rol'), usuario=session.get('nombre'))
 
 @menus_bp.route('/update_menu/<menu_type>', methods=['GET', 'POST'])
 @login_required
@@ -36,11 +46,10 @@ def update_menu(menu_type):
     # Conexión a la base de datos
     conn = get_db_connection("visitas", driver="mysql.connector")
     if not conn:
-        flash("No se pudo conectar a la base de datos")
+        flash("No se pudo conectar a la base de datos", "error")
         return redirect('/')
 
     cursor = conn.cursor(dictionary=True)
-
     title = menu_type_titles.get(menu_type, "Actualizar Menús")
     
     id_column_map = {
@@ -51,10 +60,12 @@ def update_menu(menu_type):
     }
     id_column = id_column_map.get(menu_type)
     if not id_column:
-        flash("Tipo de menú no válido")
+        flash("Tipo de menú no válido", "error")
         return redirect('/')
 
     if request.method == 'POST':
+        cambios_realizados = []  # Para almacenar detalles de los cambios
+
         for key, value in request.form.items():
             if key.startswith("ingrediente_"):
                 id_value = key.split("_")[1]
@@ -94,8 +105,29 @@ def update_menu(menu_type):
                         datetime.now()
                     ))
 
+                    # Agregar cambio a la lista para la auditoría
+                    cambios_realizados.append(
+                        f"Componente '{componente}', Menú {numero_menu}: '{ingrediente_anterior}' → '{ingrediente_nuevo}'"
+                    )
+
         conn.commit()
-        flash("Datos actualizados correctamente.")
+
+        # Registrar auditoría si hubo cambios
+        if cambios_realizados:
+            usuario_sesion = session.get('usuario_id', 0)
+            nombre_sesion = session.get('nombre', 'Desconocido')
+            correo_sesion = session.get('correo', 'Sin correo')
+
+            registrar_auditoria(
+                usuario_id=usuario_sesion,
+                nombre_usuario=nombre_sesion,
+                correo=correo_sesion,
+                accion="UPDATE",
+                modulo="Gestión de Menús",
+                detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) actualizó los siguientes menus en '{menu_type}': {', '.join(cambios_realizados)}",
+            )
+
+        flash("Datos actualizados correctamente.", "success")
         return redirect(f'/update_menu/{menu_type}')
 
     query = f"""
@@ -129,6 +161,7 @@ def update_menu(menu_type):
         rol=rol,
         usuario=session.get('nombre')
     )
+
 
 
 @menus_bp.route('/historial_cambios', methods=['GET'])
@@ -184,6 +217,19 @@ def historial_cambios():
     # Cerrar la conexión
     cursor.close()
     conn.close()
+    
+    usuario_sesion = session.get('usuario_id', 0)
+    nombre_sesion = session.get('nombre', 'Desconocido')
+    correo_sesion = session.get('correo', 'Sin correo')
+
+    registrar_auditoria(
+        usuario_id=usuario_sesion,
+        nombre_usuario=nombre_sesion,
+        correo=correo_sesion,
+        accion="QUERY",
+        modulo="Gestión de Menús",
+        detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) consultó la ventana de historial de menus cambios",
+    )
 
     # Renderizar la plantilla con el historial completo
     return render_template(
@@ -262,7 +308,19 @@ def exportar_historico_excel():
 
     # Obtener fecha actual y formatearla
     fecha_hoy = datetime.now().strftime("%Y-%m-%d")  # Formato: Año-Mes-Día
+    
+    usuario_sesion = session.get('usuario_id', 0)
+    nombre_sesion = session.get('nombre', 'Desconocido')
+    correo_sesion = session.get('correo', 'Sin correo')
 
+    registrar_auditoria(
+        usuario_id=usuario_sesion,
+        nombre_usuario=nombre_sesion,
+        correo=correo_sesion,
+        accion="DONWLOAD",
+        modulo="Gestión de Menús",
+        detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) descargó un archivo Excel de la historia de menus cambios",
+    )
     # Enviar archivo al cliente con la fecha en el nombre
     return send_file(file_path, as_attachment=True, download_name=f"Historial_Cambios_{fecha_hoy}.xlsx")
 

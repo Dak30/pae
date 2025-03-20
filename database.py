@@ -1,3 +1,5 @@
+
+from flask import request
 import pymysql
 import mysql.connector
 from mysql.connector import Error as MySQLConnectorError
@@ -31,3 +33,4 @@ def get_db_connection(database_name, driver="mysql.connector"):
     except (MySQLConnectorError, PyMySQLError) as e:
         print(f"Error al conectar con la base de datos '{database_name}' usando {driver}: {e}")
         return None
+

@@ -8,6 +8,26 @@
     <link rel="icon" href="{{ url_for('static', filename='images/Escudo.png') }}" type="image/png">
     <title>PAE</title>
     <script>
+        let timeout;
+    
+        function resetTimer() {
+            clearTimeout(timeout);
+            timeout = setTimeout(() => {
+                alert('Sesión cerrada por inactividad.');
+                window.location.href = "{{ url_for('iniciasesion_bp.login') }}";
+            }, 5 * 60 * 1000); // 5 minutos en milisegundos
+        }
+    
+        // Eventos que reinician el temporizador
+        document.addEventListener("mousemove", resetTimer);
+        document.addEventListener("keypress", resetTimer);
+        document.addEventListener("click", resetTimer);
+        document.addEventListener("scroll", resetTimer);
+        
+        // Iniciar el temporizador cuando cargue la página
+        resetTimer();
+    </script>
+    <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Manejar cambios en el tipo de ración de los menús existentes
             document.getElementById('tipo_racion').addEventListener('change', cargarMenus);

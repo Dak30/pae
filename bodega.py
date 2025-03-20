@@ -1,29 +1,12 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash, jsonify
-from iniciasesion import  login_required, session, role_required
+from iniciasesion import  login_required, session, role_required, registrar_auditoria
 import pymysql
 from database import get_db_connection
 
 # Crear un Blueprint llamado 'bodega_bp'
 bodega_bp = Blueprint('bodega', __name__, template_folder='templates/bodega')
 
-# # Configuración de la conexión a la base de datos usando pymysql
-# def get_db_connection():
-#     try:
-#         conn = pymysql.connect(
-#             host="127.0.0.1",
-#             user="Pae",
-#             password="Pae_educacion",
-#             db='visitas',
-#             cursorclass=pymysql.cursors.DictCursor
-#         )
-#         return conn
-#     except pymysql.MySQLError as e:
-#         print(f"Error al conectar a la base de datos: {e}")
-#         print(f"Código del error: {e.args[0]}")
-#         print(f"Mensaje del error: {e.args[1]}")
-#         return None
-    
-
+  
 # Obtener operadores desde la base de datos
 def get_operators():
     conn = get_db_connection('visitas', driver="pymysql")
@@ -117,8 +100,6 @@ def get_numero_visita():
 
     finally:
         conn.close()
-
-
 
         
 from flask import request, redirect, url_for, flash, current_app, session, render_template
@@ -227,10 +208,37 @@ def bodega():
                                 
                 # Confirmar los cambios
                 conn.commit()
+                
+                usuario_sesion = session.get('usuario_id')
+                nombre_sesion = session.get('nombre', 'Desconocido')
+                correo_sesion = session.get('correo', 'Sin correo')
+
+                registrar_auditoria(
+                    usuario_id=usuario_sesion if usuario_sesion else 0,
+                    nombre_usuario=nombre_sesion,
+                    correo=correo_sesion,
+                    accion="INSERT",
+                    modulo="Gestión de Visitas a la Bodega",
+                    detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) insertó los datos en el formulario de Bodega.",
+                )
+
+                
                 flash(f'Datos guardados exitosamente. Número de visita asignado: {numero_visita}', 'success')
 
         except pymysql.MySQLError as e:
             conn.rollback()
+            usuario_sesion = session.get('usuario_id')
+            nombre_sesion = session.get('nombre', 'Desconocido')
+            correo_sesion = session.get('correo', 'Sin correo')
+
+            registrar_auditoria(
+                usuario_id=usuario_sesion if usuario_sesion else 0,
+                nombre_usuario=nombre_sesion,
+                correo=correo_sesion,
+                accion="ERROR",
+                modulo="Gestión de Visitas a la Bodega",
+                detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) insertó erroneamente en los datos en el formulario de Bodega.: Dettalles de error: {e}",
+            )
             flash(f'Error al guardar los datos: {e}', 'danger')
         finally:
             conn.close()
@@ -254,8 +262,34 @@ def eliminar_bodega(id_visita):
         with conexion.cursor() as cursor:
             cursor.execute("DELETE FROM visitas_bodega WHERE id_visita = %s", (id_visita,))
         conexion.commit()
+        
+        usuario_sesion = session.get('usuario_id')
+        nombre_sesion = session.get('nombre', 'Desconocido')
+        correo_sesion = session.get('correo', 'Sin correo')
+
+        registrar_auditoria(
+            usuario_id=usuario_sesion if usuario_sesion else 0,
+            nombre_usuario=nombre_sesion,
+            correo=correo_sesion,
+            accion="DELETE",
+            modulo="Gestión de Visitas a la Bodega",
+            detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) eliminó con el id {id_visita} en el formulario de Bodega.",
+        )
+
         return jsonify({'message': 'Visita eliminada correctamente'}), 200
     except pymysql.MySQLError as e:
+        usuario_sesion = session.get('usuario_id')
+        nombre_sesion = session.get('nombre', 'Desconocido')
+        correo_sesion = session.get('correo', 'Sin correo')
+
+        registrar_auditoria(
+            usuario_id=usuario_sesion if usuario_sesion else 0,
+            nombre_usuario=nombre_sesion,
+            correo=correo_sesion,
+            accion="ERROR",
+            modulo="Gestión de Visitas a la Bodega",
+            detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) eliminó enorreamente con el id {id_visita} en el formulario de Bodega.: Detalle de error: {e}",
+        )
         return jsonify({'error': f'Error al eliminar la visita: {e}'}), 500
     finally:
         conexion.close()
@@ -279,7 +313,28 @@ def lista_bodega():
             sql = "SELECT * FROM visitas_bodega ORDER BY id_visita ASC"  
             cursor.execute(sql)
             datos_bodega = cursor.fetchall()
+            
+            usuario_sesion = session.get('usuario_id')
+            nombre_sesion = session.get('nombre', 'Desconocido')
+            correo_sesion = session.get('correo', 'Sin correo')
+
+            registrar_auditoria(
+                usuario_id=usuario_sesion if usuario_sesion else 0,
+                nombre_usuario=nombre_sesion,
+                correo=correo_sesion,
+                accion="READ",
+                modulo="Gestión de Visitas a la Bodega",
+                detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) consultó la lista de Bodega.",
+            )
     except pymysql.MySQLError as e:
+        registrar_auditoria(
+            usuario_id=usuario_sesion if usuario_sesion else 0,
+            nombre_usuario=nombre_sesion,
+            correo=correo_sesion,
+            accion="ERROR",
+            modulo="Gestión de Visitas a la Bodega",
+            detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) consultó erroneamente la lista de Bodega: Detalle de error: {e}",
+        )
         flash(f'Error al obtener los datos: {e}', 'danger')
         return redirect(url_for('bodega.bodega'))
     finally:
@@ -352,10 +407,35 @@ def detalles_bodega(id_visita):
                 WHERE id_visita = %s
             """
             cursor.execute(sql_fotos_bodega, (id_visita,))
-            fotos_bodega = cursor.fetchall()  
+            fotos_bodega = cursor.fetchall() 
+            
+            usuario_sesion = session.get('usuario_id')
+            nombre_sesion = session.get('nombre', 'Desconocido')
+            correo_sesion = session.get('correo', 'Sin correo')
+
+            registrar_auditoria(
+                usuario_id=usuario_sesion if usuario_sesion else 0,
+                nombre_usuario=nombre_sesion,
+                correo=correo_sesion,
+                accion="READ",
+                modulo="Gestión de Visitas a la Bodega",
+                detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) ingresó de detalles de Bodega con el ID {id_visita} ",
+            ) 
             
             
     except pymysql.MySQLError as e:
+        usuario_sesion = session.get('usuario_id')
+        nombre_sesion = session.get('nombre', 'Desconocido')
+        correo_sesion = session.get('correo', 'Sin correo')
+
+        registrar_auditoria(
+            usuario_id=usuario_sesion if usuario_sesion else 0,
+            nombre_usuario=nombre_sesion,
+            correo=correo_sesion,
+            accion="ERROR READ",
+            modulo="Gestión de Visitas a la Bodega",
+            detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) ingresó erroneamente de detalles de Bodega con el ID {id_visita}. Detalles de error: {e}",
+        ) 
         flash(f'Error al obtener los datos: {e}', 'danger')
         return redirect(url_for('bodega.lista_bodega'))
     finally:
@@ -402,6 +482,19 @@ def detalles_bodega(id_visita):
                             """
                             cursor.execute(sql_insert_firmas, (id_visita, nombre_recibe, cargo_recibe, nombre_realiza, cargo_realiza))
                             conn.commit()
+                            
+                            usuario_sesion = session.get('usuario_id')
+                            nombre_sesion = session.get('nombre', 'Desconocido')
+                            correo_sesion = session.get('correo', 'Sin correo')
+
+                            registrar_auditoria(
+                                usuario_id=usuario_sesion if usuario_sesion else 0,
+                                nombre_usuario=nombre_sesion,
+                                correo=correo_sesion,
+                                accion="INSERT",
+                                modulo="Gestión de Visitas a la Bodega",
+                                detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) insertó los nombres en detalles de Bodega con el ID {id_visita} ",
+                            ) 
                             print("Transacción confirmada (commit) exitosamente.")
                             flash('Firmas registradas exitosamente.', 'success')
                 else:
@@ -409,12 +502,100 @@ def detalles_bodega(id_visita):
                     flash('Error en la conexión a la base de datos.', 'danger')
 
             except pymysql.MySQLError as e:
+                usuario_sesion = session.get('usuario_id')
+                nombre_sesion = session.get('nombre', 'Desconocido')
+                correo_sesion = session.get('correo', 'Sin correo')
+
+                registrar_auditoria(
+                    usuario_id=usuario_sesion if usuario_sesion else 0,
+                    nombre_usuario=nombre_sesion,
+                    correo=correo_sesion,
+                    accion="INSERT",
+                    modulo="Gestión de Visitas a la Bodega",
+                    detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) insertó enorreamente los nombres en detalles de Bodega con el ID {id_visita}. Detalle de Error: {str(e)} ",
+                ) 
                 print(f"Error al ejecutar la consulta: {e.args}")
                 flash(f'Error al insertar las firmas: {e}', 'danger')
 
             return redirect(url_for('bodega.detalles_bodega', id_visita=id_visita))
 
         elif action == "pdf":
+            
+            if nombre_recibe == '' or cargo_recibe == '' or nombre_realiza == '' or cargo_realiza == '':
+                flash('Todos los campos son obligatorios.', 'warning')
+                print('Error: Uno o más campos están vacíos')
+                return render_template('detalle_bodega.html', visita=visita, preguntas_respuestas=preguntas_respuestas, firma=firma)
+
+            try:
+                # Crear una nueva conexión a la base de datos
+                conn = get_db_connection('visitas', driver="pymysql")
+
+                if conn.open:
+                    with conn.cursor() as cursor:
+                        # Verificar si ya existen firmas para la id_visita
+                        sql_check_firmas = "SELECT COUNT(*) as total FROM firmas_bodega WHERE id_visita = %s"
+                        cursor.execute(sql_check_firmas, (id_visita,))
+                        resultado = cursor.fetchone()
+
+                        if resultado and resultado['total'] > 0:
+                            usuario_sesion = session.get('usuario_id')
+                            nombre_sesion = session.get('nombre', 'Desconocido')
+                            correo_sesion = session.get('correo', 'Sin correo')
+
+                            registrar_auditoria(
+                                usuario_id=usuario_sesion if usuario_sesion else 0,
+                                nombre_usuario=nombre_sesion,
+                                correo=correo_sesion,
+                                accion="INSERT EXISTENTE",
+                                modulo="Gestión de Visitas a la Bodega",
+                                detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) insertó los nombres existentes en detalles de Bodega con el ID {id_visita}.",
+                            ) 
+                            print(f"Las firmas para la visita {id_visita} ya existen. No se insertará nuevamente.")
+                            flash('Las firmas ya fueron registradas previamente.', 'warning')
+                        else:
+                            # Insertar las firmas si no existen
+                            sql_insert_firmas = """
+                                INSERT INTO firmas_bodega (id_visita, nombre_recibe, cargo_recibe, nombre_realiza, cargo_realiza)
+                                VALUES (%s, %s, %s, %s, %s)
+                            """
+                            cursor.execute(sql_insert_firmas, (id_visita, nombre_recibe, cargo_recibe, nombre_realiza, cargo_realiza))
+                            conn.commit()
+                            
+                            usuario_sesion = session.get('usuario_id')
+                            nombre_sesion = session.get('nombre', 'Desconocido')
+                            correo_sesion = session.get('correo', 'Sin correo')
+
+                            registrar_auditoria(
+                                usuario_id=usuario_sesion if usuario_sesion else 0,
+                                nombre_usuario=nombre_sesion,
+                                correo=correo_sesion,
+                                accion="INSERT AND ARCHIVO PDF",
+                                modulo="Gestión de Visitas a la Bodega",
+                                detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) insertó los nombres y descargó el archivo pdf en detalles de Bodega con el ID {id_visita}.",
+                            ) 
+                            print("Transacción confirmada (commit) exitosamente.")
+                            flash('Firmas registradas exitosamente.', 'success')
+                else:
+                    print("Error: La conexión no está abierta.")
+                    flash('Error en la conexión a la base de datos.', 'danger')
+
+            except pymysql.MySQLError as e:
+                usuario_sesion = session.get('usuario_id')
+                nombre_sesion = session.get('nombre', 'Desconocido')
+                correo_sesion = session.get('correo', 'Sin correo')
+
+                registrar_auditoria(
+                    usuario_id=usuario_sesion if usuario_sesion else 0,
+                    nombre_usuario=nombre_sesion,
+                    correo=correo_sesion,
+                    accion="INSERT AND ARCHIVO PDF",
+                    modulo="Gestión de Visitas a la Bodega",
+                    detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) insertó los nombres y descargó  enorreanemente el archivo pdf en detalles de Bodega con el ID {id_visita}. Detalles de error: {e}",
+                ) 
+                print(f"Error al ejecutar la consulta: {e.args}")
+                flash(f'Error al insertar las firmas: {e}', 'danger')
+                
+                
             # Generar PDF
             buffer = BytesIO()
             pdf = SimpleDocTemplate(buffer, pagesize=letter)
@@ -631,6 +812,19 @@ def editar_bodega(id_visita):
             """
             cursor.execute(sql_update, (nombres_recibe[i], cargos_recibe[i], nombres_realiza[i], cargos_realiza[i], firmas[i], id_visita))
         db.commit()
+        
+        usuario_sesion = session.get('usuario_id')
+        nombre_sesion = session.get('nombre', 'Desconocido')
+        correo_sesion = session.get('correo', 'Sin correo')
+
+        registrar_auditoria(
+            usuario_id=usuario_sesion if usuario_sesion else 0,
+            nombre_usuario=nombre_sesion,
+            correo=correo_sesion,
+            accion="UPDATE",
+            modulo="Gestión de Visitas a la Bodega",
+            detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) actualizó los datos en los detalles de Bodega con el ID {id_visita}.",
+        ) 
 
         flash('Visita actualizada correctamente.', 'success')
         return redirect(url_for('bodega.detalles_bodega', id_visita=id_visita))
@@ -665,6 +859,19 @@ def editar_bodega(id_visita):
     """
     cursor.execute(sql_firmas, (id_visita,))
     firmas = cursor.fetchone()
+    
+    usuario_sesion = session.get('usuario_id')
+    nombre_sesion = session.get('nombre', 'Desconocido')
+    correo_sesion = session.get('correo', 'Sin correo')
+
+    registrar_auditoria(
+        usuario_id=usuario_sesion if usuario_sesion else 0,
+        nombre_usuario=nombre_sesion,
+        correo=correo_sesion,
+        accion="SELECT",
+        modulo="Gestión de Visitas a la Bodega",
+        detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) consultó los datos en los detalles de Bodega con el ID {id_visita}.",
+    ) 
 
     return render_template('editar_bodega.html', visita=visita, preguntas_respuestas=preguntas_respuestas, firmas=firmas)
 
@@ -739,6 +946,19 @@ def exportar_bodega():
                         zipf.write(file_path, os.path.relpath(file_path, 'static/uploads'))
 
         zip_buffer.seek(0)
+        
+        usuario_sesion = session.get('usuario_id')
+        nombre_sesion = session.get('nombre', 'Desconocido')
+        correo_sesion = session.get('correo', 'Sin correo')
+
+        registrar_auditoria(
+            usuario_id=usuario_sesion if usuario_sesion else 0,
+            nombre_usuario=nombre_sesion,
+            correo=correo_sesion,
+            accion="DOWNLOAD",
+            modulo="Gestión de Visitas a la Bodega",
+            detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) descargó el archivo Excel desde fecha inicio {fecha_inicio} a {fecha_fin}.",
+        ) 
 
         # Enviar el archivo ZIP como descarga
         return send_file(

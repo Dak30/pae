@@ -7,6 +7,26 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/intercambio.css') }}">
     <script src="{{ url_for('static', filename='scripts/menu.js') }}" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
+    <script>
+        let timeout;
+    
+        function resetTimer() {
+            clearTimeout(timeout);
+            timeout = setTimeout(() => {
+                alert('Sesión cerrada por inactividad.');
+                window.location.href = "{{ url_for('iniciasesion_bp.login') }}";
+            }, 5 * 60 * 1000); // 5 minutos en milisegundos
+        }
+    
+        // Eventos que reinician el temporizador
+        document.addEventListener("mousemove", resetTimer);
+        document.addEventListener("keypress", resetTimer);
+        document.addEventListener("click", resetTimer);
+        document.addEventListener("scroll", resetTimer);
+        
+        // Iniciar el temporizador cuando cargue la página
+        resetTimer();
+    </script>
 
     <title>Intercambio de Menús</title>
     <script>

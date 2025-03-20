@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for, jsonify, flash, send_file
-from iniciasesion import login_required, session, role_required
+from iniciasesion import login_required, session, role_required, registrar_auditoria
 import pymysql
 import pandas as pd
 from io import BytesIO
@@ -123,6 +123,19 @@ def mostrar_infraestructura():
     instituciones = obtener_institucion(id_operador) if id_operador else []
     
     tipos_racion = obtener_tipo_racion()
+    
+    usuario_sesion = session.get('usuario_id')
+    nombre_sesion = session.get('nombre', 'Desconocido')
+    correo_sesion = session.get('correo', 'Sin correo')
+
+    registrar_auditoria(
+        usuario_id=usuario_sesion if usuario_sesion else 0,
+        nombre_usuario=nombre_sesion,
+        correo=correo_sesion,
+        accion="ACCESS",
+        modulo="Gestión de Visita de Infraestructura",
+        detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) accedió el formulario de Infraestructura .",
+    ) 
 
     return render_template('infraestructura.html', 
                            preguntas_por_categoria=preguntas_por_categoria,
@@ -336,8 +349,18 @@ def guardar_infraestructura():
         # Confirmar cambios en la base de datos
         conexion.commit()
         
-        # Obtener el rol del usuario
-        # rol_usuario = session.get('rol')
+        usuario_sesion = session.get('usuario_id')
+        nombre_sesion = session.get('nombre', 'Desconocido')
+        correo_sesion = session.get('correo', 'Sin correo')
+
+        registrar_auditoria(
+            usuario_id=usuario_sesion if usuario_sesion else 0,
+            nombre_usuario=nombre_sesion,
+            correo=correo_sesion,
+            accion="INSERT",
+            modulo="Gestión de Visita de Infraestructura",
+            detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) insertó los datos del formulario de Infraestructura.",
+        ) 
 
         # Verificar que el ID guardado sigue siendo el correcto
         print(f"ID infraestructura antes de redirigir: {id_infraestructura}")  # ✅ Depuración final
@@ -346,6 +369,19 @@ def guardar_infraestructura():
 
     except pymysql.MySQLError as e:
         print(f"Error en la conexión o transacción: {e}") 
+        
+        usuario_sesion = session.get('usuario_id')
+        nombre_sesion = session.get('nombre', 'Desconocido')
+        correo_sesion = session.get('correo', 'Sin correo')
+
+        registrar_auditoria(
+            usuario_id=usuario_sesion if usuario_sesion else 0,
+            nombre_usuario=nombre_sesion,
+            correo=correo_sesion,
+            accion="ERROR",
+            modulo="Gestión de Visita de Infraestructura",
+            detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) insertó enorreamente los datos del formulario de Infraestructura. Detalles de error : {e}",
+        ) 
         
         print(f"ID infraestructura antes de redirigir: {id_infraestructura}")# Ahora sí se imprimirá el error
 
@@ -364,21 +400,40 @@ def guardar_infraestructura():
 def eliminar_infraestructura(id_infraestructura):
     try:
         # Obtener conexión a la base de datos
-        conexion = pymysql.connect(
-            host="127.0.0.1",
-            user="Pae",
-            password="Pae_educacion",
-            db="visitas",
-            cursorclass=pymysql.cursors.DictCursor
-        )
+        conexion = get_db_connection("visitas", driver="pymysql")
         
         with conexion.cursor() as cursor:
             cursor.execute("DELETE FROM infraestructura WHERE id_infraestructura = %s", (id_infraestructura,))
         conexion.commit()
         
+        usuario_sesion = session.get('usuario_id')
+        nombre_sesion = session.get('nombre', 'Desconocido')
+        correo_sesion = session.get('correo', 'Sin correo')
+
+        registrar_auditoria(
+            usuario_id=usuario_sesion if usuario_sesion else 0,
+            nombre_usuario=nombre_sesion,
+            correo=correo_sesion,
+            accion="DELETE",
+            modulo="Gestión de Visita de Infraestructura",
+            detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) eliminó con el numero ID {id_infraestructura} en la lista de Infraestructura.",
+        ) 
         return jsonify({'success': True, 'message': 'Visita de infraestructura eliminada correctamente'}), 200
 
     except pymysql.MySQLError as e:
+        
+        usuario_sesion = session.get('usuario_id')
+        nombre_sesion = session.get('nombre', 'Desconocido')
+        correo_sesion = session.get('correo', 'Sin correo')
+
+        registrar_auditoria(
+            usuario_id=usuario_sesion if usuario_sesion else 0,
+            nombre_usuario=nombre_sesion,
+            correo=correo_sesion,
+            accion="ERROR",
+            modulo="Gestión de Visita de Infraestructura",
+            detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) eliminó enorreamente con el numero ID {id_infraestructura} en la lista de Infraestructura. Detalles de error: {str(e)}",
+        )
         return jsonify({'success': False, 'message': f'Error al eliminar la visita: {e}'}), 500
 
     finally:
@@ -408,6 +463,20 @@ def lista_infraestructura():
     cursor.execute(sql)
     infraestructuras = cursor.fetchall()
 
+    usuario_sesion = session.get('usuario_id')
+    nombre_sesion = session.get('nombre', 'Desconocido')
+    correo_sesion = session.get('correo', 'Sin correo')
+
+    registrar_auditoria(
+        usuario_id=usuario_sesion if usuario_sesion else 0,
+        nombre_usuario=nombre_sesion,
+        correo=correo_sesion,
+        accion="SELECT",
+        modulo="Gestión de Visita de Infraestructura",
+        detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) consultó la lista de Infraestructura.",
+    ) 
+    
+    
     cursor.close()
     conexion.close()
 
@@ -516,6 +585,19 @@ def exportar_infraestructura():
         output.seek(0)
 
         print("✅ Exportación completada correctamente.")
+        
+        usuario_sesion = session.get('usuario_id')
+        nombre_sesion = session.get('nombre', 'Desconocido')
+        correo_sesion = session.get('correo', 'Sin correo')
+
+        registrar_auditoria(
+            usuario_id=usuario_sesion if usuario_sesion else 0,
+            nombre_usuario=nombre_sesion,
+            correo=correo_sesion,
+            accion="DOWNLOAD",
+            modulo="Gestión de Visita de Infraestructura",
+            detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) descargó el archivo Excel con la fecha de incio {fecha_inicio} hasta {fecha_fin}.",
+        ) 
 
         # 🔹 Enviar archivo Excel como descarga
         return send_file(
@@ -619,9 +701,35 @@ def detalle_infraestructura(id_infraestructura):
         """
         cursor.execute(sql_firmas, (id_infraestructura,))
         firmas = cursor.fetchall()
+        
+        usuario_sesion = session.get('usuario_id')
+        nombre_sesion = session.get('nombre', 'Desconocido')
+        correo_sesion = session.get('correo', 'Sin correo')
+
+        registrar_auditoria(
+            usuario_id=usuario_sesion if usuario_sesion else 0,
+            nombre_usuario=nombre_sesion,
+            correo=correo_sesion,
+            accion="SELECT",
+            modulo="Gestión de Visita de Infraestructura",
+            detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) ingresó  con el ID {id_infraestructura}. en la Infraestructura",
+        )
 
     except Exception as e:
         print(f"Error al obtener detalles de infraestructura: {e}")
+        
+        usuario_sesion = session.get('usuario_id')
+        nombre_sesion = session.get('nombre', 'Desconocido')
+        correo_sesion = session.get('correo', 'Sin correo')
+
+        registrar_auditoria(
+            usuario_id=usuario_sesion if usuario_sesion else 0,
+            nombre_usuario=nombre_sesion,
+            correo=correo_sesion,
+            accion="ERROR",
+            modulo="Gestión de Visita de Infraestructura",
+            detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) ingresó enorreanemente con el ID {id_infraestructura}. en la Infraestructura. Detalles de error: {e}",
+        )
         infraestructura = None
         respuestas = []
         dotacion_menaje = []
@@ -659,6 +767,20 @@ def detalle_infraestructura(id_infraestructura):
                 try:
                     conexion = get_db_connection('visitas', driver="pymysql")
                     if not conexion:
+                        
+                        usuario_sesion = session.get('usuario_id')
+                        nombre_sesion = session.get('nombre', 'Desconocido')
+                        correo_sesion = session.get('correo', 'Sin correo')
+
+                        registrar_auditoria(
+                            usuario_id=usuario_sesion if usuario_sesion else 0,
+                            nombre_usuario=nombre_sesion,
+                            correo=correo_sesion,
+                            accion="ERROR",
+                            modulo="Gestión de Visita de Infraestructura",
+                            detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) ingresó enorreanemente en la conexion.",
+                        )
+                        
                         print("❌ Error: No se pudo conectar a la base de datos")
                         return jsonify({"error": "Error de conexión a la base de datos"}), 500
                     cursor = conexion.cursor()
@@ -683,12 +805,49 @@ def detalle_infraestructura(id_infraestructura):
                         """
                         cursor.execute(sql_insert_firma, (id_infraestructura, nombre_representante_ieo, nombre_profesional))
                         conexion.commit()
+                        
+                        usuario_sesion = session.get('usuario_id')
+                        nombre_sesion = session.get('nombre', 'Desconocido')
+                        correo_sesion = session.get('correo', 'Sin correo')
+
+                        registrar_auditoria(
+                            usuario_id=usuario_sesion if usuario_sesion else 0,
+                            nombre_usuario=nombre_sesion,
+                            correo=correo_sesion,
+                            accion="INSERT",
+                            modulo="Gestión de Visita de Infraestructura",
+                            detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) insertó los nombres con el ID {id_infraestructura}.",
+                        )
                         print("✅ Firma guardada exitosamente.")
                     else:
+                        usuario_sesion = session.get('usuario_id')
+                        nombre_sesion = session.get('nombre', 'Desconocido')
+                        correo_sesion = session.get('correo', 'Sin correo')
+
+                        registrar_auditoria(
+                            usuario_id=usuario_sesion if usuario_sesion else 0,
+                            nombre_usuario=nombre_sesion,
+                            correo=correo_sesion,
+                            accion="INSERT EXISTS",
+                            modulo="Gestión de Visita de Infraestructura",
+                            detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) insertó los nombres ya existe con el numero ID {id_infraestructura}",
+                        )
                         print("⚠️ La firma ya existe, no se inserta nuevamente.")
 
                 except Exception as e:
                     import traceback
+                    usuario_sesion = session.get('usuario_id')
+                    nombre_sesion = session.get('nombre', 'Desconocido')
+                    correo_sesion = session.get('correo', 'Sin correo')
+
+                    registrar_auditoria(
+                        usuario_id=usuario_sesion if usuario_sesion else 0,
+                        nombre_usuario=nombre_sesion,
+                        correo=correo_sesion,
+                        accion="ERROR",
+                        modulo="Gestión de Visita de Infraestructura",
+                        detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) insertó enorreanemente los nombres existentes. Detalles de error: {str(e)}",
+                    )
                     print(f"❌ Error inesperado al guardar la firma: {e}")
                     print(traceback.format_exc())  # Muestra el error completo
                     return jsonify({"error": str(e)}), 500
@@ -731,13 +890,49 @@ def detalle_infraestructura(id_infraestructura):
                         """
                         cursor.execute(sql_insert_firma, (id_infraestructura, nombre_representante_ieo, nombre_profesional))
                         conexion.commit()
+                        usuario_sesion = session.get('usuario_id')
+                        nombre_sesion = session.get('nombre', 'Desconocido')
+                        correo_sesion = session.get('correo', 'Sin correo')
+
+                        registrar_auditoria(
+                            usuario_id=usuario_sesion if usuario_sesion else 0,
+                            nombre_usuario=nombre_sesion,
+                            correo=correo_sesion,
+                            accion="INSERT",
+                            modulo="Gestión de Visita de Infraestructura",
+                            detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) insertó los nombres con el ID {id_infraestructura}.",
+                        )
                         print("✅ Firma guardada exitosamente.")
                     else:
+                        usuario_sesion = session.get('usuario_id')
+                        nombre_sesion = session.get('nombre', 'Desconocido')
+                        correo_sesion = session.get('correo', 'Sin correo')
+
+                        registrar_auditoria(
+                            usuario_id=usuario_sesion if usuario_sesion else 0,
+                            nombre_usuario=nombre_sesion,
+                            correo=correo_sesion,
+                            accion="INSERT EXISTS",
+                            modulo="Gestión de Visita de Infraestructura",
+                            detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) insertó los nombres ya existe con el numero ID {id_infraestructura}",
+                        )
                         print("⚠️ La firma ya existe, no se inserta nuevamente.")
 
                 except Exception as e:
                     import traceback
                     print(f"❌ Error inesperado al guardar la firma: {e}")
+                    usuario_sesion = session.get('usuario_id')
+                    nombre_sesion = session.get('nombre', 'Desconocido')
+                    correo_sesion = session.get('correo', 'Sin correo')
+
+                    registrar_auditoria(
+                        usuario_id=usuario_sesion if usuario_sesion else 0,
+                        nombre_usuario=nombre_sesion,
+                        correo=correo_sesion,
+                        accion="ERROR",
+                        modulo="Gestión de Visita de Infraestructura",
+                        detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) insertó enorreanemente los nombres existentes. Detalles de error: {str(e)}",
+                    )
                     print(traceback.format_exc())  # Muestra el error completo
                     return jsonify({"error": str(e)}), 500
 
@@ -821,17 +1016,41 @@ def detalle_infraestructura(id_infraestructura):
 
             # Respuestas
             elements.append(Paragraph("Aspectos a Evaluar", style_heading))
-            respuestas_data = [["N°", "Aspecto", "Resultado", "Observación"]]
+
+            # Definir encabezados de la tabla
+            respuestas_data = [["N°", "Aspecto", "Resultado", "Observación", "Foto"]]
+
+            imagenes = []  # Lista para adjuntar imágenes al final del PDF
+
             for respuesta in respuestas:
+                foto_archivo = respuesta['foto']  # La foto viene desde MySQL
+                ruta_foto = f"static/uploads/infraestructura/{foto_archivo}" if foto_archivo else None
+
+                # Verificar si la imagen existe antes de agregarla a la tabla
+                foto_texto = respuesta['numero'] if ruta_foto and os.path.exists(ruta_foto) else "No disponible"
+
                 fila = [
                     respuesta['numero'],
                     Paragraph(respuesta['descripcion'], style_normal),
                     respuesta['respuesta'],
                     Paragraph(respuesta['observacion'], style_normal),
+                    Paragraph(foto_texto, style_normal)  # Muestra el número si la imagen existe
                 ]
                 respuestas_data.append(fila)
 
-            respuestas_table = Table(respuestas_data, colWidths=[40, 200, 60, 200])  # Ajusta los anchos de columnas
+                # Agregar la imagen si existe
+                if ruta_foto and os.path.exists(ruta_foto):
+                    try:
+                        img = Image(ruta_foto, width=200, height=150)
+                        imagenes.append(Paragraph(f"Foto {respuesta['numero']}:", style_heading))
+                        imagenes.append(img)
+                        imagenes.append(Spacer(1, 12))
+                    except Exception as e:
+                        print(f"Error al cargar la imagen {ruta_foto}: {e}")
+
+            # Crear tabla
+            col_widths = [40, 200, 60, 180, 50]
+            respuestas_table = Table(respuestas_data, colWidths=col_widths)
             respuestas_table.setStyle(TableStyle([
                 ('GRID', (0, 0), (-1, -1), 1, colors.black),
                 ('FONTNAME', (0, 0), (-1, -1), 'Helvetica'),
@@ -839,9 +1058,15 @@ def detalle_infraestructura(id_infraestructura):
                 ('BACKGROUND', (0, 0), (-1, 0), colors.lightgrey),
                 ('VALIGN', (0, 0), (-1, -1), 'TOP'),
             ]))
+
             elements.append(respuestas_table)
             elements.append(Spacer(1, 12))
-            
+
+            # Agregar imágenes al final del PDF
+            if imagenes:
+                elements.append(Paragraph("Fotografías Adicionales", style_heading))
+                elements.append(Spacer(1, 12))
+                elements.extend(imagenes)
 
             # Inventario de Dotación de Menaje
             if dotacion_menaje:
@@ -907,7 +1132,20 @@ def detalle_infraestructura(id_infraestructura):
             # Generar PDF
             pdf.build(elements)
             buffer.seek(0)  # Mover el puntero al inicio del archivo
+            
+            usuario_sesion = session.get('usuario_id')
+            nombre_sesion = session.get('nombre', 'Desconocido')
+            correo_sesion = session.get('correo', 'Sin correo')
 
+            registrar_auditoria(
+                usuario_id=usuario_sesion if usuario_sesion else 0,
+                nombre_usuario=nombre_sesion,
+                correo=correo_sesion,
+                accion="DOWNLOAD",
+                modulo="Gestión de Visita de Infraestructura",
+                detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) descargó el archivo Excel con ZIP con el ID {id_infraestructura}.",
+            )
+            
             return send_file(
                 buffer,
                 as_attachment=False,  # Mostrar en el navegador en lugar de descargar
@@ -944,9 +1182,9 @@ def editar_infraestructura(id_infraestructura):
         dotacion_menaje = cursor.fetchall()
 
         # Obtener respuestas de infraestructura
-        cursor.execute("""SELECT rf.id_respuesta, rf.descripcion, rf.respuesta, rf.observacion, inf.numero, rf.foto
+        cursor.execute("""SELECT rf.id_respuesta, inf.descripcion, rf.respuesta, rf.observacion, inf.numero, rf.foto
                        FROM respuestas_infraestructura rf 
-                       LEFT JOIN preguntas_infraestructura inf ON rf.descripcion = inf.descripcion
+                       LEFT JOIN preguntas_infraestructura inf ON rf.id_pregunta = inf.id_pregunta
                        WHERE id_infraestructura = %s""", (id_infraestructura,))
         respuestas_infraestructura = cursor.fetchall()
 
@@ -965,6 +1203,20 @@ def editar_infraestructura(id_infraestructura):
         sedes = cursor.fetchall()
         
         tipo_racion = obtener_tipo_racion()
+        print(tipo_racion)
+         
+        usuario_sesion = session.get('usuario_id')
+        nombre_sesion = session.get('nombre', 'Desconocido')
+        correo_sesion = session.get('correo', 'Sin correo')
+
+        registrar_auditoria(
+            usuario_id=usuario_sesion if usuario_sesion else 0,
+            nombre_usuario=nombre_sesion,
+            correo=correo_sesion,
+            accion="SELECT",
+            modulo="Gestión de Visita de Infraestructura",
+            detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) accesó para editar los datos con el numero ID {id_infraestructura}",
+        )
 
     conexion.close()
 
@@ -978,7 +1230,6 @@ def editar_infraestructura(id_infraestructura):
                            tipo_racion = tipo_racion)
 
 
-import pprint  # Importa este módulo para imprimir de forma legible
 
 @infraestructura_bp.route('/actualizar_infraestructura', methods=['POST'])
 @login_required
@@ -1064,6 +1315,20 @@ def actualizar_infraestructura():
 
     conexion.commit()
     conexion.close()
+    
+    
+    usuario_sesion = session.get('usuario_id')
+    nombre_sesion = session.get('nombre', 'Desconocido')
+    correo_sesion = session.get('correo', 'Sin correo')
+
+    registrar_auditoria(
+        usuario_id=usuario_sesion if usuario_sesion else 0,
+        nombre_usuario=nombre_sesion,
+        correo=correo_sesion,
+        accion="UPDATE",
+        modulo="Gestión de Visita de Infraestructura",
+        detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) actualizó los datos con el numero ID {id_infraestructura}",
+    )
 
     flash("Infraestructura y datos actualizados correctamente", "success")
     return redirect(url_for('infraestructura.detalle_infraestructura', id_infraestructura=id_infraestructura))

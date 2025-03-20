@@ -6,7 +6,7 @@ from actualizar import actualizar_bp
 from verificacion_menu import verificacion_bp
 from instituciones import instituciones_bp  
 from sedes import sedes_bp
-from iniciasesion import iniciasesion_bp, login_required, supervisor_required, operador_required, nutricionista_required, session, role_required
+from iniciasesion import iniciasesion_bp, login_required, session, role_required, registrar_auditoria
 from flask import Flask, Blueprint, render_template, request, jsonify, redirect, url_for, send_from_directory, abort, send_file, session, flash
 import mysql.connector
 from mysql.connector import Error
@@ -29,6 +29,7 @@ from reportlab.lib.units import cm
 # from database import get_db_connection
 from flask_cors import CORS
 from database import get_db_connection
+
 
 
 
@@ -337,6 +338,20 @@ def intercambio_operador():
     else:
         flash("No tienes permisos para acceder a esta página.", "error")
         return redirect('/')
+    
+    usuario_sesion = session.get('usuario_id')
+    nombre_sesion = session.get('nombre', 'Desconocido')
+    correo_sesion = session.get('correo', 'Sin correo')
+
+    registrar_auditoria(
+        usuario_id=usuario_sesion if usuario_sesion else 0,
+        nombre_usuario=nombre_sesion,
+        correo = correo_sesion,
+        accion="QUERY",
+        modulo="Gestión de Solicitud de Intercambio",
+        detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) ingreso en la ventana la solicitud de intercambio'."
+    )
+
 
     # Otras funciones
     tiporacion = fetch_tiporacion()
@@ -711,6 +726,19 @@ def save_intercambio():
         print("PDF guardado en la base de datos.")
         
         conn.commit()
+        
+        usuario_sesion = session.get('usuario_id')
+        nombre_sesion = session.get('nombre', 'Desconocido')
+        correo_sesion = session.get('correo', 'Sin correo')
+
+        registrar_auditoria(
+            usuario_id=usuario_sesion if usuario_sesion else 0,
+            nombre_usuario=nombre_sesion,
+            correo = correo_sesion,
+            accion="INSERT",
+            modulo="Gestión de Solicitud de Intercambio",
+            detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) guardó los datos requeridos para el manejo de la solicitud de intercambio."
+        )
 
         return jsonify({"message": "Guardado con éxito", "rol": rol}), 200
 
@@ -1066,6 +1094,19 @@ def estado():
                 intercambio['fecha_solicitud'] = fecha_original.strftime("%d-%m-%Y")
             except ValueError:
                 intercambio['fecha_solicitud'] = intercambio['fecha_solicitud']  # En caso de error, dejar sin cambios
+    
+    usuario_sesion = session.get('usuario_id')
+    nombre_sesion = session.get('nombre', 'Desconocido')
+    correo_sesion = session.get('correo', 'Sin correo')
+
+    registrar_auditoria(
+        usuario_id=usuario_sesion if usuario_sesion else 0,
+        nombre_usuario=nombre_sesion,
+        correo = correo_sesion,
+        accion="QUERY",
+        modulo="Gestión de Solicitud de Intercambio Pendiente",
+        detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) ingreso en la ventana la solicitud de intercambio pendiente como aprobado o rechazado o modificado."
+    )
 
     cursor.close()
     conn.close()
@@ -1150,6 +1191,19 @@ def informe():
     # Obtener todos los tipos de ración
     cursor.execute("SELECT id_tipo_racion, descripcion FROM tiporacion")
     tipos_racion = cursor.fetchall()
+    
+    usuario_sesion = session.get('usuario_id')
+    nombre_sesion = session.get('nombre', 'Desconocido')
+    correo_sesion = session.get('correo', 'Sin correo')
+
+    registrar_auditoria(
+        usuario_id=usuario_sesion if usuario_sesion else 0,
+        nombre_usuario=nombre_sesion,
+        correo = correo_sesion,
+        accion="QUERY",
+        modulo="Gestión de Informe de Consolidado de Intercambios",
+        detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) ingreso en la ventana el informe a consultar."
+    )
 
     # Renderizar la plantilla HTML y pasar los datos obtenidos a la misma
     return render_template('informe.html', intercambios=intercambios, sedes=sedes, operadores=operadores, tipos_racion=tipos_racion, fecha_ejecucion=fecha_ejecucion, rol=session.get('rol'), usuario=session.get('nombre'))
@@ -1272,6 +1326,19 @@ def download_informe():
     
     fecha_ejecucion_formato = fecha_ejecucion if fecha_ejecucion else 'sin_fecha'
     filename = f"{fecha_ejecucion_formato} - Informe Intercambio.pdf"
+    
+    usuario_sesion = session.get('usuario_id')
+    nombre_sesion = session.get('nombre', 'Desconocido')
+    correo_sesion = session.get('correo', 'Sin correo')
+
+    registrar_auditoria(
+        usuario_id=usuario_sesion if usuario_sesion else 0,
+        nombre_usuario=nombre_sesion,
+        correo = correo_sesion,
+        accion="QUERY",
+        modulo="Gestión de Informe de Consolidado de Intercambios",
+        detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) descargó el informe de Consolidado de Intercambios."
+    )
     
     return send_file(buffer, as_attachment=True, download_name=filename, mimetype='visitaslication/pdf')
 
@@ -1417,6 +1484,20 @@ def base_consolidado():
     # Obtener todos los tipos de ración
     cursor.execute("SELECT id_tipo_racion, descripcion FROM tiporacion")
     tipos_racion = cursor.fetchall()
+    
+    usuario_sesion = session.get('usuario_id')
+    nombre_sesion = session.get('nombre', 'Desconocido')
+    correo_sesion = session.get('correo', 'Sin correo')
+
+    registrar_auditoria(
+        usuario_id=usuario_sesion if usuario_sesion else 0,
+        nombre_usuario=nombre_sesion,
+        correo = correo_sesion,
+        accion="QUERY",
+        modulo="Gestión de Base de Consolidado de Intercambios",
+        detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) ingresó la base de Consolidado de Intercambios."
+    )
+    
     cursor.close()
     conn.close()
 
@@ -1494,6 +1575,21 @@ def exportar_intercambios():
 
         cursor.execute(query, tuple(params))
         datos = cursor.fetchall()
+        
+        usuario_sesion = session.get('usuario_id')
+        nombre_sesion = session.get('nombre', 'Desconocido')
+        correo_sesion = session.get('correo', 'Sin correo')
+
+        registrar_auditoria(
+            usuario_id=usuario_sesion if usuario_sesion else 0,
+            nombre_usuario=nombre_sesion,
+            correo = correo_sesion,
+            accion="QUERY",
+            modulo="Gestión de Base de Consolidado de Intercambios",
+            detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) descargo el excel con el zip en la base de Consolidado de Intercambios."
+        )
+            
+        
         cursor.close()
         conexion.close()
 
@@ -1512,6 +1608,18 @@ def exportar_intercambios():
                          as_attachment=True, download_name="intercambios.xlsx")
 
     except Exception as e:
+        usuario_sesion = session.get('usuario_id')
+        nombre_sesion = session.get('nombre', 'Desconocido')
+        correo_sesion = session.get('correo', 'Sin correo')
+
+        registrar_auditoria(
+            usuario_id=usuario_sesion if usuario_sesion else 0,
+            nombre_usuario=nombre_sesion,
+            correo = correo_sesion,
+            accion="QUERY",
+            modulo="Gestión de Base de Consolidado de Intercambios",
+            detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) descargo erroneamente el archivo excel con el ZIP en la base de Consolidado de Intercambios."
+        )
         flash(f"Error al exportar a Excel: {e}", "danger")
         return redirect(url_for('base_consolidado'))
 
@@ -1555,9 +1663,34 @@ def eliminar_intercambio(numero_intercambio):
         cursor = conexion.cursor()
         cursor.execute("DELETE FROM intercambios WHERE numero_intercambio = %s", (numero_intercambio,))
         conexion.commit()
+        
+        usuario_sesion = session.get('usuario_id')
+        nombre_sesion = session.get('nombre', 'Desconocido')
+        correo_sesion = session.get('correo', 'Sin correo')
+
+        registrar_auditoria(
+            usuario_id=usuario_sesion if usuario_sesion else 0,
+            nombre_usuario=nombre_sesion,
+            correo = correo_sesion,
+            accion="DELETE",
+            modulo="Gestión de Base de Consolidado de Intercambios",
+            detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) elimino el numero de intercambio consecutivo {numero_intercambio} en la base de Consolidado de Intercambios."
+        )
         return jsonify({'success': True, 'message': 'Intercambio eliminado correctamente'}), 200
 
     except Error as e:
+        usuario_sesion = session.get('usuario_id')
+        nombre_sesion = session.get('nombre', 'Desconocido')
+        correo_sesion = session.get('correo', 'Sin correo')
+
+        registrar_auditoria(
+            usuario_id=usuario_sesion if usuario_sesion else 0,
+            nombre_usuario=nombre_sesion,
+            correo = correo_sesion,
+            accion="ERROR DELETE",
+            modulo="Gestión de Base de Consolidado de Intercambios",
+            detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) elimino erroneamente al numero de intercambio consecutivo {numero_intercambio} en la base de Consolidado de Intercambios.: Detalle de error: {str(e)}"
+        )
         return jsonify({'success': False, 'message': f'Error al eliminar el intercambio: {e}'}), 500
 
     finally:
@@ -1574,10 +1707,34 @@ def upload_file(filename):
     upload_folder = visitas.config['UPLOAD_FOLDER']
     filepath = os.path.join(upload_folder, filename)
 
+    usuario_sesion = session.get('usuario_id')
+    nombre_sesion = session.get('nombre', 'Desconocido')
+    correo_sesion = session.get('correo', 'Sin correo')
+
     if not os.path.isfile(filepath):
+        # Registrar auditoría en caso de intento fallido
+        registrar_auditoria(
+            usuario_id=usuario_sesion if usuario_sesion else 0,
+            nombre_usuario=nombre_sesion,
+            correo=correo_sesion,
+            accion="ERROR",
+            modulo="Gestión de Archivos",
+            detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) intentó descargar el archivo '{filename}', pero no fue encontrado."
+        )
         return "Archivo no encontrado.", 404  
 
+    # Registrar auditoría en caso de éxito
+    registrar_auditoria(
+        usuario_id=usuario_sesion if usuario_sesion else 0,
+        nombre_usuario=nombre_sesion,
+        correo=correo_sesion,
+        accion="DOWNLOAD",
+        modulo="Gestión de Archivos",
+        detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) descargó el archivo '{filename}'."
+    )
+
     return send_from_directory(upload_folder, filename)
+
 
 
 @visitas.route('/download/<path:filename>', methods=['GET'])
@@ -1721,6 +1878,19 @@ def base_operador():
     tipos_racion = cursor.fetchall()
     cursor.execute("SELECT DISTINCT concepto FROM intercambios WHERE concepto IS NOT NULL")
     conceptos = cursor.fetchall()
+    
+    usuario_sesion = session.get('usuario_id')
+    nombre_sesion = session.get('nombre', 'Desconocido')
+    correo_sesion = session.get('correo', 'Sin correo')
+
+    registrar_auditoria(
+        usuario_id=usuario_sesion if usuario_sesion else 0,
+        nombre_usuario=nombre_sesion,
+        correo = correo_sesion,
+        accion="QUERY",
+        modulo="Gestión de Base de Consolidado de Intercambios para operadores",
+        detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) ingresó en la base de Consolidado de Intercambios."
+    )
 
     cursor.close()
     conn.close()
@@ -1741,8 +1911,8 @@ def base_operador():
 
 
 
-#SOLCITAR MODIFICAR
-@visitas_bp.route('/modificar-intercambio/<string:numero_intercambio>', methods=['POST'])
+# SOLICITAR MODIFICAR
+@visitas_bp.route('/modificar-intercambio/<string:numero_intercambio>', methods=['PUT'])
 @login_required
 def modificar_intercambio(numero_intercambio):
     try:
@@ -1751,22 +1921,60 @@ def modificar_intercambio(numero_intercambio):
         asunto = data.get('asunto')
         mensaje = data.get('mensaje')
 
+        if not asunto or not mensaje:
+            return jsonify({'status': 'error', 'message': 'El asunto y el mensaje son obligatorios'}), 400
+
         # Conectar a la base de datos
         conn = get_db_connection('visitas')
         cursor = conn.cursor()
 
+        # Verificar si el intercambio existe
+        cursor.execute("SELECT numero_intercambio FROM intercambios WHERE numero_intercambio = %s", (numero_intercambio,))
+        if not cursor.fetchone():
+            return jsonify({'status': 'error', 'message': 'Intercambio no encontrado'}), 404
+
         # Actualizar el concepto en la base de datos
-        query = "UPDATE intercambios SET concepto = 'Modificado', asunto = %s, mensaje = %s WHERE numero_intercambio = %s"
+        query = """UPDATE intercambios 
+                   SET concepto = 'Modificado', asunto = %s, mensaje = %s 
+                   WHERE numero_intercambio = %s"""
         cursor.execute(query, (asunto, mensaje, numero_intercambio))
         conn.commit()
 
+        # Registro en la auditoría
+        usuario_sesion = session.get('usuario_id')
+        nombre_sesion = session.get('nombre', 'Desconocido')
+        correo_sesion = session.get('correo', 'Sin correo')
+
+        registrar_auditoria(
+            usuario_id=usuario_sesion if usuario_sesion else 0,
+            nombre_usuario=nombre_sesion,
+            correo=correo_sesion,
+            accion="UPDATE",
+            modulo="Gestión de Solicitud de Intercambio Pendiente",
+            detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) advierte a modificar el solicitud de intercambio para un operador con el número de intercambio '{numero_intercambio}'.",
+        )
+
+        return jsonify({'status': 'success', 'message': 'Intercambio modificado correctamente'}), 200
+
+    except Exception as e:
+        usuario_sesion = session.get('usuario_id')
+        nombre_sesion = session.get('nombre', 'Desconocido')
+        correo_sesion = session.get('correo', 'Sin correo')
+
+        registrar_auditoria(
+            usuario_id=usuario_sesion if usuario_sesion else 0,
+            nombre_usuario=nombre_sesion,
+            correo=correo_sesion,
+            accion="UPDATE ERROR",
+            modulo="Gestión de Solicitud de Intercambio Pendiente",
+            detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) modificó erroneamente para un operador con el intercambio con número {numero_intercambio}."
+        )
+        print(f"Error: {str(e)}")  # Para depuración
+        return jsonify({'status': 'error', 'message': 'Error interno del servidor'}), 500
+
+    finally:
         cursor.close()
         conn.close()
-
-        return jsonify({'status': 'success'}), 200
-    except Exception as e:
-        print(f"Error: {str(e)}")  # Para depuración
-        return jsonify({'status': 'error', 'message': str(e)}), 500
 
 
 
@@ -1837,8 +2045,33 @@ def solicitar_modificar_intercambio():
             cursor.execute(query, (id_operador,))
 
         intercambios = cursor.fetchall()
+        
+        usuario_sesion = session.get('usuario_id')
+        nombre_sesion = session.get('nombre', 'Desconocido')
+        correo_sesion = session.get('correo', 'Sin correo')
+
+        registrar_auditoria(
+            usuario_id=usuario_sesion if usuario_sesion else 0,
+            nombre_usuario=nombre_sesion,
+            correo=correo_sesion,
+            accion="QUERY",
+            modulo="Gestión de Modificar de Intercambio",
+            detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) ingresó la ventana con la lista con los números de intercambios para consultar.",
+        )
 
     except Error as e:
+        usuario_sesion = session.get('usuario_id')
+        nombre_sesion = session.get('nombre', 'Desconocido')
+        correo_sesion = session.get('correo', 'Sin correo')
+
+        registrar_auditoria(
+            usuario_id=usuario_sesion if usuario_sesion else 0,
+            nombre_usuario=nombre_sesion,
+            correo=correo_sesion,
+            accion="QUERY ERROR",
+            modulo="Gestión de Modificar de Intercambio",
+            detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) ingresó la ventana con el número de intercambio para consultar.: Detalles de error: {e}",
+        )
         print(f"Error al ejecutar la consulta: {e}")
         return "Error al ejecutar la consulta.", 500
     finally:
@@ -1933,6 +2166,19 @@ def modificar_intercambio2(numero_intercambio):
                     'numero_menu_oficial': row[7],
                     'numero_menu_intercambio': row[9]
                 })
+            
+            usuario_sesion = session.get('usuario_id')
+            nombre_sesion = session.get('nombre', 'Desconocido')
+            correo_sesion = session.get('correo', 'Sin correo')
+
+            registrar_auditoria(
+                usuario_id=usuario_sesion if usuario_sesion else 0,
+                nombre_usuario=nombre_sesion,
+                correo=correo_sesion,
+                accion="QUERY",
+                modulo="Gestión de Modificar de Intercambio",
+                detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) ingresó la ventana con el número de intercambio para consultar.",
+            )
 
 
             return render_template('modificar_intercambio2.html',
@@ -2159,7 +2405,33 @@ def modificar_intercambio2(numero_intercambio):
 
                     # Confirmar los cambios
                     conn.commit()
+                    
+                    usuario_sesion = session.get('usuario_id')
+                    nombre_sesion = session.get('nombre', 'Desconocido')
+                    correo_sesion = session.get('correo', 'Sin correo')
+
+                    registrar_auditoria(
+                        usuario_id=usuario_sesion if usuario_sesion else 0,
+                        nombre_usuario=nombre_sesion,
+                        correo=correo_sesion,
+                        accion="UPDATE",
+                        modulo="Gestión de Modificar de Intercambio",
+                        detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) actualizó con el número de intercambio {numero_intercambio} para actulizar.",
+                    )
+                    
                 except Exception as e:
+                    usuario_sesion = session.get('usuario_id')
+                    nombre_sesion = session.get('nombre', 'Desconocido')
+                    correo_sesion = session.get('correo', 'Sin correo')
+
+                    registrar_auditoria(
+                        usuario_id=usuario_sesion if usuario_sesion else 0,
+                        nombre_usuario=nombre_sesion,
+                        correo=correo_sesion,
+                        accion="UPDATE ERROR",
+                        modulo="Gestión de Modificar de Intercambio",
+                        detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) actualizó erronemaente con el número de intercambio {numero_intercambio} para actulizar. Detalle de error: {e}",
+                    )
                     print(f"Error al procesar el archivo: {e}")
                     conn.rollback()
 
@@ -2177,11 +2449,35 @@ def modificar_intercambio2(numero_intercambio):
                     return redirect(url_for('iniciasesion_bp.login'))
 
             except Exception as e:
+                usuario_sesion = session.get('usuario_id')
+                nombre_sesion = session.get('nombre', 'Desconocido')
+                correo_sesion = session.get('correo', 'Sin correo')
+
+                registrar_auditoria(
+                    usuario_id=usuario_sesion if usuario_sesion else 0,
+                    nombre_usuario=nombre_sesion,
+                    correo=correo_sesion,
+                    accion="UPDATE ERROR",
+                    modulo="Gestión de Modificar de Intercambio",
+                    detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) ingreso erronemaente con el número de intercambio {numero_intercambio} para actulizar. Detalle de error: {e}",
+                )
                 error_trace = traceback.format_exc()
                 print(f"Error general en el proceso de modificación: {e}\n{error_trace}")
                 return "Error al modificar el intercambio.", 500
             
     except Exception as e:
+        usuario_sesion = session.get('usuario_id')
+        nombre_sesion = session.get('nombre', 'Desconocido')
+        correo_sesion = session.get('correo', 'Sin correo')
+
+        registrar_auditoria(
+            usuario_id=usuario_sesion if usuario_sesion else 0,
+            nombre_usuario=nombre_sesion,
+            correo=correo_sesion,
+            accion="UPDATE ERROR",
+            modulo="Gestión de Modificar de Intercambio",
+            detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) actualizó erronemaente con el número de intercambio {numero_intercambio} para actulizar. Detalle de error: {e}\n{error_trace}",
+        )
         print(f"Error general en el proceso de modificación: {e}\n{error_trace}")
         return "Error al modificar el intercambio.", 500
     finally:
@@ -2488,6 +2784,19 @@ def aprobar(numero_intercambio):
                 'numero_menu_oficial': numero_menu_oficial_str,
                 'numero_menu_intercambio': numero_menu_intercambio_str
             })
+            
+    usuario_sesion = session.get('usuario_id')
+    nombre_sesion = session.get('nombre', 'Desconocido')
+    correo_sesion = session.get('correo', 'Sin correo')
+
+    registrar_auditoria(
+        usuario_id=usuario_sesion if usuario_sesion else 0,
+        nombre_usuario=nombre_sesion,
+        correo=correo_sesion,
+        accion="QUERY",
+        modulo="Gestión de Solicitud de Intercambio Pendiente para aprobar",
+        detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) consultó el número de intercambio {numero_intercambio} para su aprobación.",
+    )
 
     if request.method == 'POST':
         # Obtener datos del formulario
@@ -2564,6 +2873,19 @@ def aprobar(numero_intercambio):
         print("PDF guardado en la base de datos de aprobado.")
         
         conn.commit()
+        
+        usuario_sesion = session.get('usuario_id')
+        nombre_sesion = session.get('nombre', 'Desconocido')
+        correo_sesion = session.get('correo', 'Sin correo')
+
+        registrar_auditoria(
+            usuario_id=usuario_sesion if usuario_sesion else 0,
+            nombre_usuario=nombre_sesion,
+            correo=correo_sesion,
+            accion="UPDATE AND INSERT PDF",
+            modulo="Gestión de Solicitud de Intercambio Pendiente para aprobar",
+            detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) actualizó los datos con el número de intercambio {numero_intercambio} para su aprobación, adjuntado el pdf al operador.",
+        )
         print("Transacción confirmada.")
   
         return redirect(url_for('visitas.estado'))
@@ -2915,6 +3237,20 @@ def negar(numero_intercambio):
                 'numero_menu_oficial': numero_menu_oficial_str,
                 'numero_menu_intercambio': numero_menu_intercambio_str
             })
+    
+    usuario_sesion = session.get('usuario_id')
+    nombre_sesion = session.get('nombre', 'Desconocido')
+    correo_sesion = session.get('correo', 'Sin correo')
+
+    registrar_auditoria(
+        usuario_id=usuario_sesion if usuario_sesion else 0,
+        nombre_usuario=nombre_sesion,
+        correo=correo_sesion,
+        accion="QUERY",
+        modulo="Gestión de Solicitud de Intercambio Pendiente para negar",
+        detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) consultó el número de intercambio {numero_intercambio} para su negación.",
+    )
+
 
     if request.method == 'POST':
         # Obtener datos del formulario
@@ -2991,6 +3327,18 @@ def negar(numero_intercambio):
         print("PDF guardado en la base de datos de aprobado.")
         
         conn.commit()
+        usuario_sesion = session.get('usuario_id')
+        nombre_sesion = session.get('nombre', 'Desconocido')
+        correo_sesion = session.get('correo', 'Sin correo')
+
+        registrar_auditoria(
+            usuario_id=usuario_sesion if usuario_sesion else 0,
+            nombre_usuario=nombre_sesion,
+            correo=correo_sesion,
+            accion="UPDATE AND INSERT PDF",
+            modulo="Gestión de Solicitud de Intercambio Pendiente para negar",
+            detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) actualizó los datos con el número de intercambio {numero_intercambio} para su negación, adjuntado el pdf al operador.",
+        )
         print("Transacción confirmada.")
   
         return redirect(url_for('visitas.estado'))
@@ -3248,16 +3596,45 @@ def indexprincipal():
 # Ruta para cerrar sesión
 @visitas.route('/logout')
 def logout():
+    usuario_sesion = session.get('usuario_id', 0)
+    nombre_sesion = session.get('nombre', 'Desconocido')
+    correo_sesion = session.get('correo', 'Sin correo')
+
+    registrar_auditoria(
+        usuario_id=usuario_sesion,
+        nombre_usuario=nombre_sesion,
+        correo=correo_sesion,
+        accion="LOGOUT",
+        modulo="AUTENTICACIÓN",
+        detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) cerró sesión en el sistema."
+    )
+
     session.pop('usuario', None)
     session.pop('correo', None)
     session.pop('rol', None)
+
     return redirect(url_for('index'))
+
 
 @visitas.route('/informe_general')
 @login_required
 def informe_general():
+    usuario_sesion = session.get('usuario_id', 0)
+    nombre_sesion = session.get('nombre', 'Desconocido')
+    correo_sesion = session.get('correo', 'Sin correo')
+
+    registrar_auditoria(
+        usuario_id=usuario_sesion,
+        nombre_usuario=nombre_sesion,
+        correo=correo_sesion,
+        accion="ACCESS",
+        modulo="Informe General",
+        detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) accedió al informe general."
+    )
+
     print("Accediendo a informe_general")
-    return render_template('informe_general.html', rol=session.get('rol'), usuario=session.get('nombre'))
+    return render_template('informe_general.html', rol=session.get('rol'), usuario=nombre_sesion)
+
 
 @visitas.after_request
 def add_header(response):
@@ -3279,4 +3656,4 @@ visitas.register_blueprint(instituciones_bp)
 visitas.register_blueprint(sedes_bp)
 
 if __name__ == '__main__':
-    visitas.run(host="0.0.0.0", port=5001, debug=True)
+    visitas.run(host="0.0.0.0", port=8080, debug=True)

@@ -1,7 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash, Blueprint, jsonify, make_response
 from functools import wraps
 from flask_bcrypt import Bcrypt
-import mysql.connector
 from mysql.connector import Error
 import os
 from database import get_db_connection
@@ -133,6 +132,10 @@ def registro():
 
         contrasena_hash = bcrypt.generate_password_hash(contrasena).decode('utf-8')
 
+        # Datos del administrador que realiza el registro
+        admin_id = session.get('usuario_id')
+        print(f'Usuario ID:{admin_id}')
+
         # Conexión a la base de datos
         conn = get_db_connection('visitas')
         if conn is None:
@@ -141,12 +144,27 @@ def registro():
 
         cursor = conn.cursor()
         try:
-            # Insertar el nuevo usuario
+            # Insertar el nuevo usuario (sin especificar id_usuario para respetar AUTO_INCREMENT)
             cursor.execute(
                 "INSERT INTO usuarios (nombre, correo, contrasena, rol, id_operador) VALUES (%s, %s, %s, %s, %s)",
                 (nombre, correo, contrasena_hash, rol, id_operador)
             )
-            conn.commit()
+            conn.commit()  # Confirmar inserción antes de obtener el ID
+            
+            # Obtener el ID del usuario recién insertado
+            cursor.execute("SELECT LAST_INSERT_ID()")
+            id_usuario = cursor.fetchone()[0]
+
+            # Registrar en auditoría
+            registrar_auditoria(
+                usuario_id=admin_id,
+                nombre_usuario=session.get('nombre'),
+                correo=session.get('correo'),
+                accion="INSERT",
+                modulo="Gestión de Usuarios",
+                detalle_accion=f"Administrador creó usuario '{nombre}' y correo '{correo}'"
+            )
+
             flash('Registro exitoso. Ahora puedes iniciar sesión.', 'success')
             return redirect(url_for('iniciasesion_bp.dashboard_administrador'))
         except Error as e:
@@ -159,7 +177,6 @@ def registro():
     # Obtener la lista de operadores
     operadores = fetch_operador()
     return render_template('registro.html', operadores=operadores)
-
 
 
 
@@ -223,6 +240,15 @@ def login():
                 'rol': usuario['rol'],
                 'id_operador': usuario['id_operador']
             })
+            
+            registrar_auditoria(
+                usuario_id=session.get('usuario_id'),
+                nombre_usuario=session.get('nombre'),
+                correo=session.get('correo'),
+                accion="SELECT",
+                modulo="Gestión de Usuarios",
+                detalle_accion=f"Requisitos para entrar el usuario '{session.get('nombre')}' y correo '{correo}'"
+            )
 
             cursor.close()
             conn.close()
@@ -253,6 +279,15 @@ def cambiar_acceso():
             cursor.execute("UPDATE usuarios SET habilitar_acceso = %s WHERE id_usuario = %s", (habilitar, usuario_id))
 
         conn.commit()
+        
+        registrar_auditoria(
+            usuario_id=session.get('usuario_id'),
+            nombre_usuario=session.get('nombre'),
+            correo=session.get('correo'),
+            accion="UPDATE",
+            modulo="Gestión de Usuarios",
+            detalle_accion=f"El usuario '{session.get('nombre')}' ({session.get('correo')}) {'habilitó' if habilitar else 'inhabilitó'} el acceso del usuario con ID {usuario_id}"
+        )
         flash(f"Acceso {'habilitado' if habilitar else 'inhabilitado'} correctamente para el usuario.", 'success')
     except Error as e:
         print(f"Error al actualizar acceso: {e}")
@@ -274,6 +309,19 @@ def lista_usuarios():
     usuarios = cursor.fetchall()
     cursor.close()
     conn.close()
+    
+    usuario_sesion = session.get('usuario_id')
+    nombre_sesion = session.get('nombre', 'Desconocido')
+    correo_sesion = session.get('correo', 'Sin correo')
+    
+    registrar_auditoria(
+        usuario_id=usuario_sesion if usuario_sesion else 0,
+        nombre_usuario=nombre_sesion,
+        correo = correo_sesion,
+        accion="QUERY",
+        modulo="Gestión de Usuarios",
+        detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) consultó la lista de usuarios."
+    )
 
     return render_template('usuarios_lista.html', usuarios=usuarios)
 
@@ -316,6 +364,20 @@ def actualizar_usuario(usuario_id):
                 WHERE id_usuario = %s
             """, (nombre, correo, contrasena_hash, rol, id_operador, usuario_id))
             conn.commit()
+            
+            usuario_sesion = session.get('usuario_id')
+            nombre_sesion = session.get('nombre', 'Unknown')
+            correo_sesion = session.get('correo', 'No email')
+
+            registrar_auditoria(
+                usuario_id=usuario_sesion if usuario_sesion else 0,
+                nombre_usuario=nombre_sesion,
+                correo = correo_sesion,
+                accion="UPDATE",
+                modulo="Gestión de Usuarios",
+                detalle_accion=f"El administrador '{nombre_sesion}' ({correo_sesion}) actualizando usuario con el nonmbre '{nombre}' y correo '{correo}'."
+            )
+            
             return jsonify({'success': 'Usuario actualizado exitosamente.'})
         except Exception as e:
             print(f"Error al actualizar usuario: {e}")
@@ -376,8 +438,24 @@ def actualizar_usuario_rol():
                     SET nombre = %s, correo = %s
                     WHERE id_usuario = %s
                 """, (nombre, correo, usuario_id))
+            
+            # Registrar auditoría de la actualización del usuario
 
             conn.commit()
+            
+            usuario_sesion = session.get('usuario_id')
+            nombre_sesion = session.get('nombre', 'Desconocido')
+            correo_sesion = session.get('correo', 'Sin correo')
+
+            registrar_auditoria(
+                usuario_id=usuario_sesion if usuario_sesion else 0,
+                nombre_usuario=nombre_sesion,
+                correo = correo_sesion,
+                accion="UPDATE",
+                modulo="Gestión de Usuarios",
+                detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) actualizó los datos del usuario con el Nombre '{nombre}', Correo '{correo}'."
+            )
+
             flash("Perfil actualizado exitosamente.", "success")
             return redirect(url_for(f"iniciasesion_bp.dashboard_{session['rol']}"))
 
@@ -405,7 +483,7 @@ def eliminar_usuario(usuario_id):
 
     try:
         # Verificar si el usuario existe
-        cursor.execute("SELECT id_usuario FROM usuarios WHERE id_usuario = %s", (usuario_id,))
+        cursor.execute("SELECT id_usuario, nombre, correo FROM usuarios WHERE id_usuario = %s", (usuario_id,))
         usuario = cursor.fetchone()
 
         if not usuario:
@@ -415,6 +493,20 @@ def eliminar_usuario(usuario_id):
         # Eliminar usuario
         cursor.execute("DELETE FROM usuarios WHERE id_usuario = %s", (usuario_id,))
         conn.commit()
+        
+        usuario_sesion = session.get('usuario_id')
+        nombre_sesion = session.get('nombre', 'Desconocido')
+        correo_sesion = session.get('correo', 'Sin correo')
+
+        registrar_auditoria(
+            usuario_id=usuario_sesion if usuario_sesion else 0,
+            nombre_usuario=nombre_sesion,
+            correo = correo_sesion,
+            accion="DELETE",
+            modulo="Gestión de Usuarios",
+            detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) eliminó los datos del usuario con el nombre '{usuario['nombre']} y el correo ({usuario['correo']})'."
+        )
+        
         flash("Usuario eliminado exitosamente.", "success")
         return redirect(url_for('iniciasesion_bp.lista_usuarios'))  # Cambia a tu ruta de lista de usuarios
     except Exception as e:
@@ -500,3 +592,23 @@ def logout():
     response.headers["Expires"] = "0"
     return response
 
+def registrar_auditoria(usuario_id, nombre_usuario, correo, accion, modulo, detalle_accion):
+    conn = get_db_connection('visitas')
+    if conn is None:
+        print("Error al conectar con la base de datos para auditoría")
+        return
+
+    cursor = conn.cursor()
+    try:
+        cursor.execute("""
+            INSERT INTO auditoria (usuario_id, nombre_usuario, correo, accion, modulo, detalle_accion, fecha, ip)
+            VALUES (%s, %s, %s, %s, %s, %s, NOW(), %s)
+        """, (usuario_id, nombre_usuario, correo, accion, modulo, detalle_accion, request.remote_addr))
+        
+        conn.commit()
+        print("Registro de auditoría guardado correctamente.")
+    except Error as e:
+        print(f"Error al registrar en auditoría: {e}")
+    finally:
+        cursor.close()
+        conn.close()

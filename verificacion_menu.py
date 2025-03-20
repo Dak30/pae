@@ -1,5 +1,5 @@
 
-from iniciasesion import login_required, session, role_required
+from iniciasesion import login_required, session, role_required, registrar_auditoria
 from flask import  Blueprint, render_template, request, jsonify, redirect, url_for,session, flash, make_response, send_file, current_app
 import mysql.connector
 from mysql.connector import Error
@@ -44,7 +44,7 @@ def fetch_operador():
     
     cursor = conn.cursor(dictionary=True)
     try:
-        cursor.execute("SELECT id_operador, nombre, numero_contrato FROM operadores ORDER BY id_operador ASC6")
+        cursor.execute("SELECT id_operador, nombre, numero_contrato FROM operadores ORDER BY id_operador ASC")
         return cursor.fetchall()
     except Error as err:
         print(f"Error: {err}")
@@ -75,9 +75,6 @@ def fetch_instituciones(id_operador):
         cursor.close()
         conn.close()
         
-
-
-
 @verificacion_bp.route('/sedes/<int:id_institucion>', methods=['GET'])
 def get_sedes_by_institucion(id_institucion):
     conn = get_db_connection('visitas')
@@ -102,6 +99,10 @@ def get_sedes_by_institucion(id_institucion):
 def verificacion_menu():
     
     id_operador = None
+    
+    usuario_sesion = session.get('usuario_id', 0)
+    nombre_sesion = session.get('nombre', 'Desconocido')
+    correo_sesion = session.get('correo', 'Sin correo')
     
     if request.method == 'POST':
         try:
@@ -334,16 +335,41 @@ def verificacion_menu():
                 
                 # Obtener el ID recién insertado
                 print(f"ID Verificacion de Menu Guardado es: {verificacion_menu_id}")
+                
+                registrar_auditoria(
+                    usuario_id=usuario_sesion,
+                    nombre_usuario=nombre_sesion,
+                    correo=correo_sesion,
+                    accion="INSERT",
+                    modulo="Gestión de Verificación de Menú",
+                    detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) insertó los datos en el formulario de verificación de menú."
+                )
             
                 # Redirigir a la página de detalles de verificación con el ID obtenido
                 return redirect(url_for('verificacion_bp.detalles_verificacion', id=verificacion_menu_id))
                 
             else:
+                registrar_auditoria(
+                    usuario_id=usuario_sesion,
+                    nombre_usuario=nombre_sesion,
+                    correo=correo_sesion,
+                    accion="ERROR",
+                    modulo="Gestión de Verificación de Menú",
+                    detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) insertó erroneamente los datos en el formulario de verificación de menú."
+                )
                  # Redirigir a la página de detalles de verificación con el ID obtenido
                 return redirect(url_for('verificacion_bp.detalles_verificacion', id=verificacion_menu_id))
 
         except Exception as e:
             print(f"Error al procesar el formulario: {repr(e)}")
+            registrar_auditoria(
+                usuario_id=usuario_sesion,
+                nombre_usuario=nombre_sesion,
+                correo=correo_sesion,
+                accion="ERROR",
+                modulo="Gestión de Verificación de Menú",
+                detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) insertó erroneamente los datos en el formulario de verificación de menú. Detalles de error: {repr(e)}"
+            )
             flash(f"Ocurrió un error en el procesamiento del formulario: {e}", "danger")
             return f"Error en el procesamiento del formulario: {e}"
 
@@ -367,7 +393,11 @@ def verificacion_menu():
 @verificacion_bp.route('/eliminar_verificacion/<int:id>', methods=['DELETE'])
 def eliminar_verificacion(id):
     conexion = get_db_connection()  # Usar la función ya existente
-
+    
+    usuario_sesion = session.get('usuario_id', 0)
+    nombre_sesion = session.get('nombre', 'Desconocido')
+    correo_sesion = session.get('correo', 'Sin correo')
+    
     if conexion is None:
         return jsonify({'success': False, 'message': 'Error de conexión con la base de datos'}), 500
 
@@ -375,9 +405,25 @@ def eliminar_verificacion(id):
         cursor = conexion.cursor()
         cursor.execute("DELETE FROM verificacion_menu WHERE id = %s", (id,))
         conexion.commit()
+        registrar_auditoria(
+            usuario_id=usuario_sesion,
+            nombre_usuario=nombre_sesion,
+            correo=correo_sesion,
+            accion="DELETE",
+            modulo="Gestión de Verificación de Menúa",
+            detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) eliminó el numero de ID {id} verificación de menú."
+        )
         return jsonify({'success': True, 'message': 'Verificación eliminada correctamente'}), 200
 
     except mysql.connector.Error as e:
+        registrar_auditoria(
+            usuario_id=usuario_sesion,
+            nombre_usuario=nombre_sesion,
+            correo=correo_sesion,
+            accion="ERROR",
+            modulo="Gestión de Verificación de Menú",
+            detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) eliminó erroneamente el numero de ID {id} verificación de menú. Error: {str(e)}"
+        )
         return jsonify({'success': False, 'message': f'Error al eliminar la verificación: {e}'}), 500
 
     finally:
@@ -468,8 +514,20 @@ def exportar_excel():
     institucion_id = request.args.get('institucion_id')
     fecha_inicio = request.args.get('fecha_inicio')  # Formato: 'YYYY-MM-DD'
     fecha_fin = request.args.get('fecha_fin')
+    
+    usuario_sesion = session.get('usuario_id', 0)
+    nombre_sesion = session.get('nombre', 'Desconocido')
+    correo_sesion = session.get('correo', 'Sin correo')
 
     output, filename = exportar_verificacion_menu(id_verificacion, institucion_id, fecha_inicio, fecha_fin)
+    registrar_auditoria(
+        usuario_id=usuario_sesion,
+        nombre_usuario=nombre_sesion,
+        correo=correo_sesion,
+        accion="DOWNLOAD",
+        modulo="Gestión de Verificación de Menú",
+        detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) descargó el archivo Excel el numero de ID {id} verificación de menú."
+    )
 
     if output is None:
         return jsonify({"error": "No se encontraron datos para exportar"}), 404
@@ -481,6 +539,11 @@ def exportar_excel():
 @login_required
 @role_required('supervisor', 'administrador', 'nutricionista')
 def lista_verificacion():
+    
+    usuario_sesion = session.get('usuario_id', 0)
+    nombre_sesion = session.get('nombre', 'Desconocido')
+    correo_sesion = session.get('correo', 'Sin correo')
+    
     try:
         conn = get_db_connection('visitas')
         cursor = conn.cursor()
@@ -514,6 +577,16 @@ def lista_verificacion():
             }
             for item in verificacion_items
         ]
+        
+        registrar_auditoria(
+            usuario_id=usuario_sesion,
+            nombre_usuario=nombre_sesion,
+            correo=correo_sesion,
+            accion="SELECT",
+            modulo="Gestión de Verificación de Menú",
+            detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) acessó la lista de verificación de menú."
+        )
+
 
         return render_template('lista_verificacion.html', verificacion_items=verificacion_items, rol = session.get("rol"))
 
@@ -536,6 +609,19 @@ from flask import send_from_directory
 @login_required
 def upload_file(filename):
     upload_folder = os.path.join(current_app.root_path, 'static/uploads/verificacion')
+    
+    usuario_sesion = session.get('usuario_id', 0)
+    nombre_sesion = session.get('nombre', 'Desconocido')
+    correo_sesion = session.get('correo', 'Sin correo')
+    
+    registrar_auditoria(
+        usuario_id=usuario_sesion,
+        nombre_usuario=nombre_sesion,
+        correo=correo_sesion,
+        accion="SELECT",
+        modulo="Gestión de Verificación de Menú",
+        detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) descargó los archivos {filename} de verificación de menú."
+    )
 
     if not os.path.isfile(os.path.join(upload_folder, filename)):
         return "Archivo no encontrado.", 404
@@ -558,6 +644,11 @@ from reportlab.graphics.shapes import Drawing
 def detalles_verificacion(id):
     conn = None
     cursor = None
+    
+    usuario_sesion = session.get('usuario_id', 0)
+    nombre_sesion = session.get('nombre', 'Desconocido')
+    correo_sesion = session.get('correo', 'Sin correo')
+    
     try:
         # Establecer conexión
         conn = get_db_connection('visitas')
@@ -679,7 +770,15 @@ def detalles_verificacion(id):
         cursor.execute(detalles_firmas, (id,))
         firmas = cursor.fetchone()
         
-        
+        registrar_auditoria(
+            usuario_id=usuario_sesion,
+            nombre_usuario=nombre_sesion,
+            correo=correo_sesion,
+            accion="SELECT",
+            modulo="Gestión de Verificación de Menú",
+            detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) consultó con el numero ID {id} de verificación de menú."
+        )
+
 
         # Manejo para la generación del PDF en POST
         if request.method == 'POST':
@@ -724,27 +823,148 @@ def detalles_verificacion(id):
                                     cedula_operador
                                 ))
                                 conn.commit()
+                                
+                                registrar_auditoria(
+                                    usuario_id=usuario_sesion,
+                                    nombre_usuario=nombre_sesion,
+                                    correo=correo_sesion,
+                                    accion="INSERT",
+                                    modulo="Gestión de Verificación de Menú",
+                                    detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) insertó los datos con el numero ID {id} de verificación de menú."
+                                )
                                 flash('Firma registrada exitosamente.', 'success')
                             else:
+                                registrar_auditoria(
+                                    usuario_id=usuario_sesion,
+                                    nombre_usuario=nombre_sesion,
+                                    correo=correo_sesion,
+                                    accion="INSERT EXISTS",
+                                    modulo="Gestión de Verificación de Menú",
+                                    detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) insertó los nombres exisstentes con el numero ID {id} de verificación de menú."
+                                )
                                 flash('⚠️ Ya existe una firma para esta verificación. No se puede registrar nuevamente.', 'warning')
 
                         except Error as e:
+                            registrar_auditoria(
+                                usuario_id=usuario_sesion,
+                                nombre_usuario=nombre_sesion,
+                                correo=correo_sesion,
+                                accion="ERROR",
+                                modulo="Gestión de Verificación de Menú",
+                                detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) insertó erroneamente los nombres exisstentes con el numero ID {id} de verificación de menú. Deatlles de Error:  {e}"
+                            )
                             print(f"Error al ejecutar la consulta: {e}")
+                            
                             flash(f'Error al insertar las firmas: {e}', 'danger')
                         finally:
                             cursor.close()  # Cerrar el cursor
                             conn.close()  # Cerrar la conexión
 
                     else:
+                        registrar_auditoria(
+                            usuario_id=usuario_sesion,
+                            nombre_usuario=nombre_sesion,
+                            correo=correo_sesion,
+                            accion="ERROR",
+                            modulo="Gestión de Verificación de Menú",
+                            detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) cayó la conexion"
+                        )
                         flash('No se pudo conectar a la base de datos.', 'danger')
 
                 except Error as e:
+                    registrar_auditoria(
+                        usuario_id=usuario_sesion,
+                        nombre_usuario=nombre_sesion,
+                        correo=correo_sesion,
+                        accion="ERROR",
+                        modulo="Gestión de Verificación de Menú",
+                        detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) tuvo el error general: {e}"
+                    )
                     print(f"Error de conexión a la base de datos: {e}")
                     flash(f'Error de conexión a la base de datos: {e}', 'danger')
                     
                 return redirect(url_for('verificacion_bp.detalles_verificacion', id=id))
 
             elif accion == 'pdf':
+                
+                try:
+                    conn = get_db_connection('visitas')
+                    
+                    if conn.is_connected():
+                        cursor = conn.cursor()
+
+                        try:
+                            # Verificar si ya existe una firma para el mismo id_verificacion
+                            sql_check = """
+                                SELECT COUNT(*) FROM firmas_verificacion 
+                                WHERE id_verificacion = %s
+                            """
+                            cursor.execute(sql_check, (id,))
+                            firma_existe = cursor.fetchone()[0]  # Obtener el número de firmas existentes
+
+                            if firma_existe == 0:  # Si no existe, insertarla
+                                sql_insert_firma = """
+                                    INSERT INTO firmas_verificacion 
+                                    (id_verificacion, nombre_representante, cargo_representante, nombre_funcionario, nombre_operador, cargo_operador, cedula_operador)
+                                    VALUES (%s, %s, %s, %s, %s, %s, %s)
+                                """
+                                cursor.execute(sql_insert_firma, (
+                                    id, 
+                                    nombre_representante, 
+                                    cargo_representante, 
+                                    nombre_funcionario, 
+                                    nombre_operador, 
+                                    cargo_operador,
+                                    cedula_operador
+                                ))
+                                conn.commit()
+                                
+                                registrar_auditoria(
+                                    usuario_id=usuario_sesion,
+                                    nombre_usuario=nombre_sesion,
+                                    correo=correo_sesion,
+                                    accion="INSERT",
+                                    modulo="Gestión de Verificación de Menú",
+                                    detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) insertó los datos con el numero ID {id} de verificación de menú."
+                                )
+                                flash('Firma registrada exitosamente.', 'success')
+                            else:
+                                registrar_auditoria(
+                                    usuario_id=usuario_sesion,
+                                    nombre_usuario=nombre_sesion,
+                                    correo=correo_sesion,
+                                    accion="INSERT EXISTS",
+                                    modulo="Gestión de Verificación de Menú",
+                                    detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) insertó los nombres exisstentes con el numero ID {id} de verificación de menú."
+                                )
+                                flash('⚠️ Ya existe una firma para esta verificación. No se puede registrar nuevamente.', 'warning')
+
+                        except Error as e:
+                            registrar_auditoria(
+                                usuario_id=usuario_sesion,
+                                nombre_usuario=nombre_sesion,
+                                correo=correo_sesion,
+                                accion="ERROR",
+                                modulo="Gestión de Verificación de Menú",
+                                detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) insertó erroneamente los nombres exisstentes con el numero ID {id} de verificación de menú. Deatlles de Error:  {e}"
+                            )
+                            print(f"Error al ejecutar la consulta: {e}")
+                            
+                            flash(f'Error al insertar las firmas: {e}', 'danger')
+                        finally:
+                            cursor.close()  # Cerrar el cursor
+                            conn.close()  # Cerrar la conexión
+                except Error as e:
+                    registrar_auditoria(
+                        usuario_id=usuario_sesion,
+                        nombre_usuario=nombre_sesion,
+                        correo=correo_sesion,
+                        accion="ERROR",
+                        modulo="Gestión de Verificación de Menú",
+                        detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) tuvo el error general: {e}"
+                    )
+                    print(f"Error de conexión a la base de datos: {e}")
+                    flash(f'Error de conexión a la base de datos: {e}', 'danger')
                 # Crear PDF
                 buffer = BytesIO()
                 pdf = SimpleDocTemplate(
@@ -937,27 +1157,6 @@ def detalles_verificacion(id):
                 elements.append(table)
                 elements.append(Spacer(1, 12))
                 
-                # if archivo_verificacion:
-                #     archivo_nombre = archivo_verificacion[0]  # Nombre del archivo
-                #     ruta_archivo = os.path.join("uploads", archivo_nombre)  # Ruta donde se almacena
-
-                #     # Verificar si el archivo es una imagen
-                #     if archivo_nombre.lower().endswith(('.png', '.jpg', '.jpeg')):
-                #         try:
-                #             elements.append(Spacer(1, 12))
-                #             elements.append(Paragraph("Imagen de verificación", styles['Heading2']))
-                #             elements.append(Spacer(1, 5))
-
-                #             # Insertar la imagen en el PDF
-                #             img = Image(ruta_archivo, width=300, height=200)  # Ajusta el tamaño según necesites
-                #             elements.append(img)
-
-                #         except Exception as e:
-                #             print(f"❌ Error al cargar la imagen: {e}")
-                #     else:
-                #         print("📄 El archivo no es una imagen, no se agregará al PDF.")
-
-                # elements.append(Spacer(1, 12))
                 
                 # Puntaje de Cumplimiento
                 elements.append(Spacer(1, 12))
@@ -1023,8 +1222,33 @@ def detalles_verificacion(id):
                 elements.append(Paragraph(f"Cargo del Operador: {cargo_operador}", normal_style))
                 elements.append(Paragraph(f"Cargo del Cedula: {cedula_operador}", normal_style))
                 elements.append(Spacer(1, 12))
+                
+                elements.append(Spacer(1, 12))
+                
+                # **Tabla de Focalización por Niveles Escolares**
+                elements.append(Paragraph("Anexo", styles['Heading2']))
+                
+                if archivos_verificacion:
+                    nombre_archivo = archivos_verificacion[0]  # Tomamos el primer archivo encontrado
+                    foto_path = f"static/uploads/verificacion/{nombre_archivo}"  # Ruta correcta
 
+                    # Comprobar si el archivo existe antes de agregarlo
+                    if os.path.exists(foto_path):
+                        img = Image(foto_path, width=300, height=200)
+                        elements.append(img)
+                    else:
+                        elements.append(Paragraph("No se encontró la imagen en el servidor.", normal_style))
+                else:
+                    elements.append(Paragraph("No se adjuntó una foto.", normal_style))
 
+                registrar_auditoria(
+                    usuario_id=usuario_sesion,
+                    nombre_usuario=nombre_sesion,
+                    correo=correo_sesion,
+                    accion="DOWNLOAD",
+                    modulo="Gestión de Verificación de Menú",
+                    detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) descargó el archivo Excel con el numero ID {id} de verificación de menú."
+                )
                 # Generar PDF
                 pdf.build(elements)
 
@@ -1050,6 +1274,14 @@ def detalles_verificacion(id):
         )
 
     except Exception as e:
+        registrar_auditoria(
+            usuario_id=usuario_sesion,
+            nombre_usuario=nombre_sesion,
+            correo=correo_sesion,
+            accion="ERROR",
+            modulo="Gestión de Verificación de Menú",
+            detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) tuvo el error general con el numero ID {id} de verificación de menú. Detalles de Error: {str(e)}"
+        )
         rol_usuario = session.get('rol')
         print(f"Error al obtener los detalles de verificación: {e}")
         flash("Ocurrió un error al obtener los detalles de verificación.", "danger")
@@ -1072,6 +1304,12 @@ def detalles_verificacion(id):
 @login_required
 def editar_verificacion(id):
     connection = get_db_connection('visitas')
+    
+    usuario_sesion = session.get('usuario_id', 0)
+    nombre_sesion = session.get('nombre', 'Desconocido')
+    correo_sesion = session.get('correo', 'Sin correo')
+    
+    
     if connection is None:
         flash('Error al conectar con la base de datos', 'danger')
         return "Error al conectar con la base de datos", 500  # Devuelve un mensaje de error con código HTTP 500
@@ -1211,9 +1449,17 @@ def editar_verificacion(id):
 
         print(f"Puntaje actualizado: {puntaje}, Clasificación: {clasificacion}")
 
-
-
         connection.commit()
+        
+        registrar_auditoria(
+            usuario_id=usuario_sesion,
+            nombre_usuario=nombre_sesion,
+            correo=correo_sesion,
+            accion="UPDATE",
+            modulo="Gestión de Verificación de Menú",
+            detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) actualizó los datos con el numero ID {id} de verificación de menú."
+        )
+        
         print("Cambios confirmados en la base de datos")
 
         return redirect(url_for('verificacion_bp.detalles_verificacion', id=id))
@@ -1237,9 +1483,17 @@ def editar_verificacion(id):
     instituciones = fetch_instituciones(verificacion['id_operador'])
     sedes = fetch_sedes(verificacion['institucion_id']) if verificacion['institucion_id'] else []
     
-
+    
     cursor.close()
     connection.close()
+    registrar_auditoria(
+        usuario_id=usuario_sesion,
+        nombre_usuario=nombre_sesion,
+        correo=correo_sesion,
+        accion="UPDATE",
+        modulo="Gestión de Verificación de Menú",
+        detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) consultó para los datos con el numero ID {id} de verificación de menú."
+    )
 
     return render_template('editar_verificacion.html', verificacion=verificacion, detalles=detalles, operadores=operadores, tiporaciones=tiporaciones, instituciones=instituciones, sedes=sedes, cumplimiento=cumplimiento, firmas=firmas)
 

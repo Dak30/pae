@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, jsonify, redirect, url_for, send_file, flash
-from iniciasesion import login_required, session, role_required
+from iniciasesion import login_required, session, role_required, registrar_auditoria
 import pandas as pd
 from io import BytesIO
 import pymysql.cursors
@@ -128,6 +128,19 @@ def mostrar_tecnica():
     operadores = obtener_operador()
     instituciones = obtener_institucion()
     tipo_racion_tecnicas = obtener_tipo_racion()
+    
+    usuario_sesion = session.get('usuario_id', 0)
+    nombre_sesion = session.get('nombre', 'Desconocido')
+    correo_sesion = session.get('correo', 'Sin correo')
+
+    registrar_auditoria(
+        usuario_id=usuario_sesion,
+        nombre_usuario=nombre_sesion,
+        correo=correo_sesion,
+        accion="ACCESS",
+        modulo="Sección Técnica",
+        detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) accedió a la sección técnica."
+    )
 
     return render_template('tecnica.html', 
                            operadores=operadores, 
@@ -243,7 +256,18 @@ def guardar_tecnica():
         print("Datos guardados exitosamente.")
         
         
-        # rol_usuario = session.get('rol')
+        usuario_sesion = session.get('usuario_id', 0)
+        nombre_sesion = session.get('nombre', 'Desconocido')
+        correo_sesion = session.get('correo', 'Sin correo')
+
+        registrar_auditoria(
+            usuario_id=usuario_sesion,
+            nombre_usuario=nombre_sesion,
+            correo=correo_sesion,
+            accion="INSERT",
+            modulo="Sección Técnica",
+            detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) insertó los datos en el formulario de técnica."
+        )
         
          # Verificar que el ID guardado sigue siendo el correcto
         print(f"ID tecnica antes de redirigir: {visita_tecnica_id}")  # ✅ Depuración final
@@ -256,6 +280,19 @@ def guardar_tecnica():
         # Redirigir de nuevo al formulario o a otra página
         conn.rollback()  # ✅ Ahora sí se ejecutará en caso de error
         print("Error durante la ejecución:", str(e))  # ✅ Imprime error exacto en consola
+        
+        usuario_sesion = session.get('usuario_id', 0)
+        nombre_sesion = session.get('nombre', 'Desconocido')
+        correo_sesion = session.get('correo', 'Sin correo')
+
+        registrar_auditoria(
+            usuario_id=usuario_sesion,
+            nombre_usuario=nombre_sesion,
+            correo=correo_sesion,
+            accion="ERROR",
+            modulo="Sección Técnica",
+            detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) insertó erroneamente los datos en el formulario de técnica. Detalles de error: {str(e)}"
+        )
         flash(f"Error al guardar: {str(e)}", "danger")
 
         # Redirigir de nuevo al formulario o a otra página
@@ -268,20 +305,61 @@ def guardar_tecnica():
         
         
 @tecnica_bp.route('/eliminar_tecnica/<int:id_visita_tecnica>', methods=['DELETE'])
+@login_required
+@role_required('supervisor', 'administrador')
 def eliminar_tecnica(id_visita_tecnica):
-    conexion = obtener_conexion()  # Llamar a la función para obtener la conexión
+    conexion = obtener_conexion()
     if conexion is None:
         return jsonify({'success': False, 'message': 'Error de conexión con la base de datos'}), 500
 
     try:
-        with conexion.cursor() as cursor:  # Crear cursor dentro de un bloque 'with'
+        with conexion.cursor() as cursor:
+            # Obtener datos antes de eliminar para registrar en auditoría
+            cursor.execute("SELECT * FROM visita_tecnica WHERE id_visita_tecnica = %s", (id_visita_tecnica,))
+            visita = cursor.fetchone()
+            if not visita:
+                return jsonify({'success': False, 'message': 'La visita técnica no existe'}), 404
+
+            # Eliminar la visita técnica
             cursor.execute("DELETE FROM visita_tecnica WHERE id_visita_tecnica = %s", (id_visita_tecnica,))
+        
         conexion.commit()
+
+        # Registrar auditoría
+        usuario_sesion = session.get('usuario_id', 0)
+        nombre_sesion = session.get('nombre', 'Desconocido')
+        correo_sesion = session.get('correo', 'Sin correo')
+        rol_sesion = session.get('rol', 'Sin rol')
+
+        registrar_auditoria(
+            usuario_id=usuario_sesion,
+            nombre_usuario=nombre_sesion,
+            correo=correo_sesion,
+            accion="DELETE",
+            modulo="Visita Técnica",
+            detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) con rol '{rol_sesion}' eliminó la visita técnica ID {id_visita_tecnica}. Datos: {visita}"
+        )
+
         return jsonify({'success': True, 'message': 'Visita técnica eliminada correctamente'}), 200
+
     except pymysql.MySQLError as e:
+        usuario_sesion = session.get('usuario_id', 0)
+        nombre_sesion = session.get('nombre', 'Desconocido')
+        correo_sesion = session.get('correo', 'Sin correo')
+        rol_sesion = session.get('rol', 'Sin rol')
+
+        registrar_auditoria(
+            usuario_id=usuario_sesion,
+            nombre_usuario=nombre_sesion,
+            correo=correo_sesion,
+            accion="ERROR",
+            modulo="Visita Técnica",
+            detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) con rol '{rol_sesion}' eliminó enorreamente la visita técnica ID {id_visita_tecnica}. Detalles de error: {e}"
+        )
         return jsonify({'success': False, 'message': f'Error al eliminar la visita técnica: {e}'}), 500
+
     finally:
-        conexion.close()  # Cerrar la conexión después de la consulta
+        conexion.close()
 
         
         
@@ -291,6 +369,11 @@ def eliminar_tecnica(id_visita_tecnica):
 def toma_peso():
     conn = obtener_conexion()
     cursor = conn.cursor()
+    
+    usuario_sesion = session.get('usuario_id', 0)
+    nombre_sesion = session.get('nombre', 'Desconocido')
+    correo_sesion = session.get('correo', 'Sin correo')
+    rol_sesion = session.get('rol', 'Sin rol')
 
     try:
         if request.method == 'GET':
@@ -311,6 +394,22 @@ def toma_peso():
             
             muestras = list(range(1, 11))  # Muestras del 1 al 10
             componentes = ["Bebida Láctea", "Alimento Proteico", "Cereal Acompañante", "Fruta"]
+            
+            
+            usuario_sesion = session.get('usuario_id', 0)
+            nombre_sesion = session.get('nombre', 'Desconocido')
+            correo_sesion = session.get('correo', 'Sin correo')
+            rol_sesion = session.get('rol', 'Sin rol')
+
+            registrar_auditoria(
+                usuario_id=usuario_sesion,
+                nombre_usuario=nombre_sesion,
+                correo=correo_sesion,
+                accion="SELECT",
+                modulo="Visita Técnica",
+                detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) con rol '{rol_sesion}' seleccionó los datos para el fomrulario de la visita técnica"
+            )
+            
             return render_template('toma_peso.html', muestras=muestras, componentes=componentes, visitas=visitas)
 
         elif request.method == 'POST':
@@ -435,21 +534,28 @@ def toma_peso():
             
              # Verificar que el ID guardado sigue siendo el correcto
             print(f"ID tecnica antes de redirigir: {visita_id}")  # ✅ Depuración final
+            
+            registrar_auditoria(
+                usuario_id=usuario_sesion,
+                nombre_usuario=nombre_sesion,
+                correo=correo_sesion,
+                accion="INSERT",
+                modulo="Visita Técnica",
+                detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) con rol '{rol_sesion}' insertó los datos para el formulario de la visita técnica"
+            )
 
             return redirect(url_for('tecnica.detalle_tecnica', id_visita_tecnica=visita_id))
 
-
-            # rol_usuario = session.get('rol')
-            # if rol_usuario == 'administrador':
-            #     return redirect(url_for('iniciasesion_bp.dashboard_administrador'))
-            # elif rol_usuario == 'supervisor':
-            #     return redirect(url_for('iniciasesion_bp.dashboard_supervisor'))
-            # else:
-            #     flash(f"Rol no reconocido: {rol_usuario}.", "danger")
-            #     return redirect(url_for('iniciasesion_bp.login'))
-
     except Exception as e:
         conn.rollback()
+        registrar_auditoria(
+            usuario_id=usuario_sesion,
+            nombre_usuario=nombre_sesion,
+            correo=correo_sesion,
+            accion="ERROR",
+            modulo="Visita Técnica",
+            detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) con rol '{rol_sesion}' insertó los datos para el formulario de la visita técnica. Detalles de error: {e}"
+        )
         flash(f"Error: {e}", "danger")
         return redirect(url_for('tecnica.toma_peso'))
 
@@ -466,6 +572,10 @@ def toma_peso():
 def lista_tecnica():
     conn = obtener_conexion()
     cursor = conn.cursor()
+    
+    usuario_sesion = session.get('usuario_id', 0)
+    nombre_sesion = session.get('nombre', 'Desconocido')
+    correo_sesion = session.get('correo', 'Sin correo')
 
     try:
         # Consulta para obtener las visitas técnicas
@@ -482,8 +592,27 @@ def lista_tecnica():
         """
         cursor.execute(sql_visitas)
         visitas = cursor.fetchall()
+        
+        
+        registrar_auditoria(
+            usuario_id=usuario_sesion,
+            nombre_usuario=nombre_sesion,
+            correo=correo_sesion,
+            accion="SELECT",
+            modulo="Gestión de Visita Técnica",
+            detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) accesó la lista de la visita técnica"
+        )
+
     except Exception as e:
         print(f"Error al obtener visitas técnicas: {e}")
+        registrar_auditoria(
+            usuario_id=usuario_sesion,
+            nombre_usuario=nombre_sesion,
+            correo=correo_sesion,
+            accion="ERROR",
+            modulo="Gestión de Visita Técnica",
+            detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) accesó la lista de la visita técnica. Detalles de Error: {e}"
+        )
         visitas = []
     finally:
         cursor.close()
@@ -508,6 +637,10 @@ from reportlab.graphics.barcode import code128
 def detalle_tecnica(id_visita_tecnica):
     conn = obtener_conexion()
     cursor = conn.cursor(pymysql.cursors.DictCursor)
+    
+    usuario_sesion = session.get('usuario_id', 0)
+    nombre_sesion = session.get('nombre', 'Desconocido')
+    correo_sesion = session.get('correo', 'Sin correo')
 
     try:
         # Consulta para obtener detalles de la visita
@@ -581,9 +714,26 @@ def detalle_tecnica(id_visita_tecnica):
         """, (id_visita_tecnica,))
         archivos = cursor.fetchall()
         
+        registrar_auditoria(
+            usuario_id=usuario_sesion,
+            nombre_usuario=nombre_sesion,
+            correo=correo_sesion,
+            accion="SELECT",
+            modulo="Gestión de Visita Técnica",
+            detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) seleccionó con el numero de ID {id_visita_tecnica} de la visita técnica"
+        )
+        
 
     except Exception as e:
         print(f"Error al obtener detalles de la visita: {e}")
+        registrar_auditoria(
+            usuario_id=usuario_sesion,
+            nombre_usuario=nombre_sesion,
+            correo=correo_sesion,
+            accion="SELECT",
+            modulo="Gestión de Visita Técnica",
+            detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) seleccionó con el numero de ID {id_visita_tecnica} de la visita técnica. Detalles de Error: {e}"
+        )
         visita = None
         preguntas_respuestas = []
     finally:
@@ -617,6 +767,14 @@ def detalle_tecnica(id_visita_tecnica):
 
                 if existe_firma > 0:
                     flash("Ya existe una firma registrada para esta visita.", "warning")
+                    registrar_auditoria(
+                        usuario_id=usuario_sesion,
+                        nombre_usuario=nombre_sesion,
+                        correo=correo_sesion,
+                        accion="INSERT EXISTS",
+                        modulo="Gestión de Visita Técnica",
+                        detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) insertó los nombres existentes con el numero de ID {id_visita_tecnica} de la visita técnica."
+                    )
                 else:
                     sql = """
                         INSERT INTO firmas_tecnica (id_visita_tecnica, nombre_representante, cedula_representante, nombre_profesional, cedula_profesional)
@@ -624,14 +782,78 @@ def detalle_tecnica(id_visita_tecnica):
                     """
                     cursor.execute(sql, (id_visita_tecnica, nombre_representante, cedula_representante, nombre_profesional, cedula_profesional))
                     conexion.commit()
+                    registrar_auditoria(
+                        usuario_id=usuario_sesion,
+                        nombre_usuario=nombre_sesion,
+                        correo=correo_sesion,
+                        accion="INSERT",
+                        modulo="Gestión de Visita Técnica",
+                        detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) insertó los nombres con el numero de ID {id_visita_tecnica} de la visita técnica."
+                    )
                     flash("Firma registrada exitosamente.", "success")
         except pymysql.MySQLError as e:
             flash(f"Error al insertar la firma: {e}", "danger")
+            registrar_auditoria(
+                usuario_id=usuario_sesion,
+                nombre_usuario=nombre_sesion,
+                correo=correo_sesion,
+                accion="ERROR",
+                modulo="Gestión de Visita Técnica",
+                detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) insertó enorreamente los nombres con el numero de ID {id_visita_tecnica} de la visita técnica."
+            )
         finally:
             if conexion:
                 conexion.close()
 
-        if accion == "guardar_pdf":
+        if accion == "guardar_pdf":           
+            try:
+                conexion = obtener_conexion()
+                with conexion.cursor() as cursor:
+                    # Verificar si ya existe una firma para esta visita
+                    cursor.execute("SELECT COUNT(*) FROM firmas_tecnica WHERE id_visita_tecnica = %s", (id_visita_tecnica,))
+                    resultado = cursor.fetchone()
+                    
+                    print("Resultado de la consulta:", resultado) 
+
+                    # Asegurar que resultado no sea None y acceder correctamente
+                    existe_firma = resultado['COUNT(*)'] if resultado else 0
+
+                    if existe_firma > 0:
+                        flash("Ya existe una firma registrada para esta visita.", "warning")
+                        registrar_auditoria(
+                            usuario_id=usuario_sesion,
+                            nombre_usuario=nombre_sesion,
+                            correo=correo_sesion,
+                            accion="INSERT EXISTS AND PDF",
+                            modulo="Gestión de Visita Técnica",
+                            detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) desscargó PDF y insertó los nombres existentes con el numero de ID {id_visita_tecnica} de la visita técnica."
+                        )
+                    else:
+                        sql = """
+                            INSERT INTO firmas_tecnica (id_visita_tecnica, nombre_representante, cedula_representante, nombre_profesional, cedula_profesional)
+                            VALUES (%s, %s, %s, %s, %s)
+                        """
+                        cursor.execute(sql, (id_visita_tecnica, nombre_representante, cedula_representante, nombre_profesional, cedula_profesional))
+                        conexion.commit()
+                        registrar_auditoria(
+                            usuario_id=usuario_sesion,
+                            nombre_usuario=nombre_sesion,
+                            correo=correo_sesion,
+                            accion="INSERT AND PDF",
+                            modulo="Gestión de Visita Técnica",
+                            detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) descargó PDF y insertó los nombres con el numero de ID {id_visita_tecnica} de la visita técnica."
+                        )
+                        flash("Firma registrada exitosamente.", "success")
+            except pymysql.MySQLError as e:
+                flash(f"Error al insertar la firma: {e}", "danger")
+                registrar_auditoria(
+                    usuario_id=usuario_sesion,
+                    nombre_usuario=nombre_sesion,
+                    correo=correo_sesion,
+                    accion="ERROR",
+                    modulo="Gestión de Visita Técnica",
+                    detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) insertó enorreamente los nombres con el numero de ID {id_visita_tecnica} de la visita técnica."
+                )
             # Generar PDF
             buffer = BytesIO()
             doc = SimpleDocTemplate(buffer, pagesize=letter)
@@ -1084,6 +1306,10 @@ def editar_visita(id_visita_tecnica):
     conexion = obtener_conexion()
     cursor = conexion.cursor()
     
+    usuario_sesion = session.get('usuario_id', 0)
+    nombre_sesion = session.get('nombre', 'Desconocido')
+    correo_sesion = session.get('correo', 'Sin correo')
+    
     if request.method == 'POST':
         datos_visita = {
             'fecha_visita': request.form['fecha_visita'],
@@ -1220,6 +1446,15 @@ def editar_visita(id_visita_tecnica):
                 """, (temperatura, concepto, id_temperatura))
             
         conexion.commit()
+        
+        registrar_auditoria(
+            usuario_id=usuario_sesion,
+            nombre_usuario=nombre_sesion,
+            correo=correo_sesion,
+            accion="UPDATE",
+            modulo="Gestión de Visita Técnica",
+            detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion})  actualizó los datos con el numero de ID {id_visita_tecnica} de la visita técnica."
+        )
         flash('Visita actualizada correctamente', 'success')
         return redirect(url_for('tecnica.detalle_tecnica', id_visita_tecnica=id_visita_tecnica))
     
@@ -1265,7 +1500,16 @@ def editar_visita(id_visita_tecnica):
     
     operadores = obtener_operador()
     instituciones = obtener_institucion()
-    tipos_racion = obtener_tipo_racion()    
+    tipos_racion = obtener_tipo_racion() 
+    
+    registrar_auditoria(
+        usuario_id=usuario_sesion,
+        nombre_usuario=nombre_sesion,
+        correo=correo_sesion,
+        accion="SELECT",
+        modulo="Gestión de Visita Técnica",
+        detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) accesó para editar los datos con el numero de ID {id_visita_tecnica} de la visita técnica."
+    )   
     
     return render_template('editar_tecnica.html', operadores =operadores, instituciones=instituciones, tipos_racion = tipos_racion, visita=visita, preguntas_respuestas=preguntas_respuestas, 
                            toma_peso=toma_peso, temperaturas=temperaturas, componente_alimentario = componente_1,
@@ -1276,6 +1520,10 @@ def editar_visita(id_visita_tecnica):
 def exportar_excel():
     fecha_inicio = request.args.get('fecha_inicio')
     fecha_fin = request.args.get('fecha_fin')
+    
+    usuario_sesion = session.get('usuario_id', 0)
+    nombre_sesion = session.get('nombre', 'Desconocido')
+    correo_sesion = session.get('correo', 'Sin correo')
 
     if not fecha_inicio or not fecha_fin:
         return "Debes proporcionar los parámetros 'fecha_inicio' y 'fecha_fin'", 400
@@ -1367,6 +1615,15 @@ def exportar_excel():
 
     writer.close()
     output.seek(0)
+    
+    registrar_auditoria(
+        usuario_id=usuario_sesion,
+        nombre_usuario=nombre_sesion,
+        correo=correo_sesion,
+        accion="DOWNLOAD",
+        modulo="Gestión de Visita Técnica",
+        detalle_accion=f"El usuario '{nombre_sesion}' ({correo_sesion}) descargó el archivo excel con la fecha de incio {fecha_inicio} a {fecha_fin} de la visita técnica."
+    )
 
     return send_file(
         output, 
