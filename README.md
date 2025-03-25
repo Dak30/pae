@@ -36,13 +36,10 @@ Esto levantará:
 - Un contenedor Flask ejecutando la aplicación.
 
 ### 3️⃣ Importar la Base de Datos
-1. Abre **phpMyAdmin** en el navegador:
-   ```
-   http://localhost:8081/
-   ```
+1. Abre **Mysql Worbench** en el navegador:
 2. Inicia sesión con:
-   - Usuario: `pae`
-   - Contraseña: `pae_educacion`
+   - Usuario: `Pae`
+   - Contraseña: `Pae_educacion`
 3. Carga el archivo `visitas.sql` ubicado en `documentacion/modelado de datos/`.
 
 ### 4️⃣ Conectar MySQL Workbench 8.0 a Docker
@@ -53,8 +50,8 @@ Esto levantará:
    - **Connection Name:** MySQL Docker PAE
    - **Hostname:** 127.0.0.1
    - **Port:** 3306
-   - **Username:** pae
-   - **Password:** pae_educacion (guárdala si lo deseas)
+   - **Username:** Pae
+   - **Password:** Pae_educacion (guárdala si lo deseas)
 4. Haz clic en **Test Connection** y verifica que la conexión sea exitosa.
 5. Guarda la conexión y usa MySQL Workbench para administrar la base de datos.
 
@@ -64,7 +61,7 @@ Esto levantará:
 
 Abre el navegador y accede a:
 ```
-http://localhost:5000/
+http://127.0.0.1:5000/
 ```
 
 ---
