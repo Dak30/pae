@@ -1,3 +1,5 @@
+# Aplicativo PAE - Flask, MySQL y Docker
+
 Este documento describe cómo instalar, configurar y ejecutar el aplicativo del **Programa de Alimentación Escolar (PAE)** utilizando **Docker, MySQL y Flask**.
 
 ---
@@ -8,6 +10,7 @@ Antes de comenzar, asegúrate de tener instalados los siguientes programas:
 
 1. **Docker** - [Descargar aquí](https://www.docker.com/get-started)
 2. **Git** (opcional, para clonar el repositorio) - [Descargar aquí](https://git-scm.com/)
+3. **MySQL Workbench 8.0** - [Descargar aquí](https://dev.mysql.com/downloads/workbench/)
 
 ---
 
@@ -42,6 +45,19 @@ Esto levantará:
    - Contraseña: `pae_educacion`
 3. Carga el archivo `visitas.sql` ubicado en `documentacion/modelado de datos/`.
 
+### 4️⃣ Conectar MySQL Workbench 8.0 a Docker
+
+1. Abre **MySQL Workbench 8.0**.
+2. Haz clic en **Database > Manage Connections**.
+3. Agrega una nueva conexión con estos datos:
+   - **Connection Name:** MySQL Docker PAE
+   - **Hostname:** 127.0.0.1
+   - **Port:** 3306
+   - **Username:** pae
+   - **Password:** pae_educacion (guárdala si lo deseas)
+4. Haz clic en **Test Connection** y verifica que la conexión sea exitosa.
+5. Guarda la conexión y usa MySQL Workbench para administrar la base de datos.
+
 ---
 
 ## ▶️ Acceder a la Aplicación
@@ -65,4 +81,4 @@ docker-compose up --build -d
 
 ---
 
-¡Listo! Con estos pasos, la aplicación PAE debería estar funcionando correctamente en Docker. 🚀
+¡Listo! Con estos pasos, la aplicación PAE debería estar funcionando correctamente en Docker y ser accesible desde MySQL Workbench. 🚀
