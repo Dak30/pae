@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infraestructura - PAE</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="icon" href="{{ url_for('static', filename='images/Escudo.png') }}" type="image/png">
+    <script src="/static/scripts/cargar_sedes.js"></script> <!-- Verifica que esta ruta sea correcta -->
+    <link rel="stylesheet" href="/static/styles/infraestructura.css"> <!-- Incluye el archivo CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+    <script>
+        let timeout;
+    
+        function resetTimer() {
+            clearTimeout(timeout);
+            timeout = setTimeout(() => {
+                alert('Sesión cerrada por inactividad.');
+                window.location.href = "{{ url_for('iniciasesion_bp.login') }}";
+            }, 5 * 60 * 1000); // 5 minutos en milisegundos
+        }
+    
+        // Eventos que reinician el temporizador
+        document.addEventListener("mousemove", resetTimer);
+        document.addEventListener("keypress", resetTimer);
+        document.addEventListener("click", resetTimer);
+        document.addEventListener("scroll", resetTimer);
+        
+        // Iniciar el temporizador cuando cargue la página
+        resetTimer();
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            // Establecer la fecha actual en el campo de fecha
+            var today = new Date().toISOString().split('T')[0];
+            $('#fecha').val(today);
+    
+            // Restaurar datos del localStorage al cargar la página
+            const form = document.querySelector('form');
+            for (let element of form.elements) {
+                if (element.name && localStorage.getItem(element.name)) {
+                    if (element.type === 'checkbox') {
+                        element.checked = localStorage.getItem(element.name) === 'true';
+                    } else {
+                        element.value = localStorage.getItem(element.name);
+                    }
+                }
+            }
+    
+            // Guardar cambios en el localStorage
+            form.addEventListener('input', function () {
+                for (let element of form.elements) {
+                    if (element.name) {
+                        if (element.type === 'checkbox') {
+                            localStorage.setItem(element.name, element.checked);
+                        } else {
+                            localStorage.setItem(element.name, element.value);
+                        }
+                    }
+                }
+            });
+    
+            // Validar formulario antes de enviar
+            form.addEventListener('submit', function (event) {
+                let valid = true;
+                const requiredFields = ['fecha', 'municipio', 'operador', 'institucion'];
+                requiredFields.forEach(field => {
+                    const input = document.getElementById(field);
+                    if (!input || !input.value.trim()) {
+                        alert(`El campo ${field} es obligatorio.`);
+                        valid = false;
+                    }
+                });
+    
+                if (!valid) {
+                    event.preventDefault(); // Evita el envío si no es válido
+                } else {
+                    // Limpiar el localStorage al enviar correctamente
+                    localStorage.clear();
+                    alert('Formulario enviado exitosamente.');
+                }
+            });
+    
+
+    
+            // Mostrar alerta de conexión
+            function showConnectionAlert(message, type) {
+                const alertBox = document.createElement('div');
+                alertBox.innerText = message;
+                alertBox.className = `connection-alert ${type}`;
+                document.body.appendChild(alertBox);
+    
+                // Ocultar la alerta después de 5 segundos
+                setTimeout(() => {
+                    alertBox.remove();
+                }, 5000);
+            }
+    
+            // Escuchar eventos de conexión/desconexión
+            window.addEventListener('online', updateConnectionStatus);
+            window.addEventListener('offline', updateConnectionStatus);
+    
+            // Comprobar el estado inicial de la conexión
+            updateConnectionStatus();
+        });
+    </script>
+    
+    <style>
+        /* Estilo para las alertas de conexión */
+        .connection-alert {
+            position: fixed;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 15px 20px;
+            border-radius: 5px;
+            color: #fff;
+            font-size: 16px;
+            z-index: 1000;
+            text-align: center;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .connection-alert.error {
+            background-color: #ff4d4f;
+        }
+        .connection-alert.success {
+            background-color: #4caf50;
+        }
+    </style>
+    
+</head>
+<body>
+    
+    
+    <form method="POST" action="/guardar_infraestructura" enctype="multipart/form-data">
+        <h1>CONDICIONES BÁSICAS DE HIGIENE EN LAS EDIFICACIONES E INSTALACIONES PARA LA PREPARACIÓN DE ALIMENTOS DEL PROGRAMA DE ALIMENTACIÓN ESCOLAR - PAE</h1>
+
+        <!-- Campos del formulario -->
+
+        <label>
+            Este formulario tiene como objetivo registrar información clave para el 
+            <strong>Diagnóstico y Caracterización de Infraestructura y Dotación de Unidades de Servicio del PAE</strong>. 
+            Diligencie cada campo para evaluar las condiciones actuales de las instalaciones, equipos y recursos disponibles 
+            en las unidades de servicio. Esta información es fundamental para garantizar el cumplimiento de los estándares de calidad 
+            y la prestación adecuada del servicio de alimentación escolar.
+        </label>
+    
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                // Crear un objeto de fecha para la fecha actual en la zona horaria UTC
+                const fechaActualUTC = new Date();
+        
+                // Ajustar la fecha actual para la zona horaria de Colombia (UTC-5)
+                const offset = -5; // Horario de Colombia (UTC-5)
+                fechaActualUTC.setHours(fechaActualUTC.getHours() + offset - fechaActualUTC.getTimezoneOffset() / 60);
+        
+                // Formatear la fecha en el formato yyyy-mm-dd
+                const fechaFormato = fechaActualUTC.toISOString().split('T')[0];
+        
+                // Establecer la fecha mínima en el campo de entrada
+                document.getElementById('fecha').setAttribute('min', fechaFormato);
+            });
+        </script>
+        
+        <label for="fecha">Fecha:</label>
+        <input type="date" id="fecha" name="fecha" required><br>
+
+        <label for="municipio">Municipio:</label>
+        <input type="text" id="municipio" name="municipio" ><br>
+
+        <label for="corregimiento">Corregimiento:</label>
+        <input type="text" id="corregimiento" name="corregimiento" ><br>
+
+        <label for="vereda">Vereda:</label>
+        <input type="text" id="vereda" name="vereda" ><br>
+
+        <label for="operador">Operador:</label>
+        <select id="operador" name="operador" required>
+            <option value="">Seleccione una opción</option>
+            {% for operador in operadores %}
+                <option value="{{ operador.id_operador }}">{{ operador.nombre }}</option>
+            {% endfor %}
+        </select><br>
+        
+
+        <label for="institucion">Institución Educativa:</label>
+        <div class="select-wrapper">
+            <select id="institucion" name="institucion" required>
+                <option value="">Seleccione una opción</option>
+                {% for institucion in instituciones %}
+                    <option value="{{ institucion.id }}">{{ institucion.nombre }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <br>
+
+
+        <label>Sedes:</label>
+        <select id="sede" name="sede" required>
+            <option value="">Seleccione una opción</option>
+            {% for sede in sedes %}
+                <option value="{{ sede.id }}">{{ sede.nombre }}</option>
+            {% endfor %}
+        </select>
+        
+
+        <label for="codigo_sede">Código de Sede:</label>
+        <input type="text" id="codigo_sede" name="codigo_sede" required readonly><br>
+
+        <label for="direccion">Dirección:</label>
+        <input type="text" id="direccion" name="direccion" required readonly><br>
+
+        <label for="barrio">Barrio:</label>
+        <input type="text" id="barrio" name="barrio" required><br>
+
+        <label for="comuna">Comuna:</label>
+        <input type="text" id="comuna" name="comuna" readonly><br>
+
+        <label for="zona">Zona:</label>
+        <input type="text" id="zona" name="zona" readonly><br>
+        
+        <div class="form-group">
+            <label for="tipo_racion">Tipo de Ración:</label>
+            <div class="checkbox-container">
+                {% for tipo in tipos_racion %}
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="racion_{{ tipo.id }}" name="tipo_racion" value="{{ tipo.nombre }}">
+                        <label for="racion_{{ tipo.nombre }}">{{ tipo.nombre }}</label>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        
+        
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const form = document.querySelector("form");
+                
+                form.addEventListener("submit", function(event) {
+                    const checkboxes = document.querySelectorAll("input[name='tipo_racion']");
+                    const checked = Array.from(checkboxes).some(checkbox => checkbox.checked);
+                    
+                    if (!checked) {
+                        alert("Debes seleccionar al menos un tipo de ración.");
+                        event.preventDefault();
+                    }
+                });
+            });
+        </script>
+        
+
+        <label for="focalizacion">Focalización:</label>
+        <input type="number" id="focalizacion" name="focalizacion" required><br>
+
+        <h3>Aspectos a Evaluar</h3>
+
+        <h4>Todos los servicios de alimentación escolar deberán cumplir las exigencias establecidas en la reglamentación técnico-sanitaria Resolución 2674 de 2013 y Resolución 00335 del 2021, que establece las normas de higiene para la elaboración, distribución y consumo de alimentos.</h4>
+
+        
+            {% for categoria, preguntas in preguntas_por_categoria.items() %}
+                <h2>{{ categoria | replace('_', ' ') | title }}</h2>
+                {% if categoria == 'dotacion de menaje' %}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Ítem</th>
+                            <th>Especifique el N° de elementos y material</th>
+                            <th>Estado</th>
+                            <th>Propiedad (Opción)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for pregunta in preguntas %}
+                            <tr>
+                                <td>
+                                    <input type="hidden" name="item_{{ pregunta.id }}" value="{{ pregunta.descripcion }}">
+                                    {{pregunta.numero}} - {{ pregunta.descripcion }}
+                                    <input type="file" id="foto_{{ pregunta.id }}" name="foto_{{ pregunta.id }}" accept=".pdf .jpg, .jpeg, .png" class="input-foto">
+                                </td>
+                                <td>
+                                    <input type="text" id="cantidad_{{ pregunta.id }}" name="cantidad_{{ pregunta.id }}" placeholder="Número" aria-label="Número de elementos">
+                                </td>
+                                <td>
+                                    <label for="estado_{{ pregunta.id }}_bueno">
+                                        <input type="checkbox" id="estado_{{ pregunta.id }}_bueno" name="estado_{{ pregunta.id }}[]" value="Bueno">
+                                        Bueno
+                                    </label>
+                                    <label for="estado_{{ pregunta.id }}_regular">
+                                        <input type="checkbox" id="estado_{{ pregunta.id }}_regular" name="estado_{{ pregunta.id }}[]" value="Regular">
+                                        Regular
+                                    </label>
+                                    <label for="estado_{{ pregunta.id }}_malo">
+                                        <input type="checkbox" id="estado_{{ pregunta.id }}_malo" name="estado_{{ pregunta.id }}[]" value="Malo">
+                                        Malo
+                                    </label>
+                                </td>
+                                                                
+                                <td>
+                                    <label for="propiedad_{{ pregunta.id }}_ieo">
+                                        <input type="checkbox" id="propiedad_{{ pregunta.id }}_ieo" name="propiedad_{{ pregunta.id }}[]" value="IEO">
+                                        IEO
+                                    </label>
+                                    <label for="propiedad_{{ pregunta.id }}_operador">
+                                        <input type="checkbox" id="propiedad_{{ pregunta.id }}_operador" name="propiedad_{{ pregunta.id }}[]" value="Operador">
+                                        Operador
+                                    </label>
+                                </td>                            
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <div>
+                    <label for="resultado">Resultado (Cumple / No Cumple):</label>
+                    <select id="resultado" name="resultado">
+                        <option value="Cumple">Cumple</option>
+                        <option value="No Cumple">No Cumple</option>
+                        <option value="No Aplica">No Aplica</option>
+                    </select>
+
+                    <label for="observacion_general">Observaciones Generales:</label>
+                    <textarea id="observacion_general" name="observacion_general" rows="4" placeholder="Escriba aquí sus observaciones generales..."></textarea>
+                </div>            
+                {% else %}
+                    {% for pregunta in preguntas %}
+                    <div class="verificacion-group">
+                        <label for="pregunta_{{ pregunta.id }}">
+                            {{ pregunta.numero }} - {{ pregunta.descripcion }}
+                        </label>
+                        <div class="verificacion-controls">
+                            <select id="pregunta_{{ pregunta.id }}" name="pregunta_{{ pregunta.id }}">
+                                <option value="1">Cumple</option>
+                                <option value="0">No Cumple</option>
+                                <option value="2">No Aplica</option>
+                            </select>
+                            <input type="text" id="observacion_{{ pregunta.id }}" name="observacion_{{ pregunta.id }}" placeholder="Observaciones">
+                            
+                            <!-- Opción para subir una foto -->
+                            <input type="file" id="foto_{{ pregunta.id }}" name="foto_{{ pregunta.id }}" accept=".pdf, .jpg, .jpeg, .png" class="input-foto">
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% endif %}
+
+            {% endfor %}
+
+            
+            <form onsubmit="return confirmSubmit()">
+                <button type="submit">Guardar</button>
+            </form>
+            
+            <script>
+            function confirmSubmit() {
+                return confirm("¿Estás seguro de que deseas guardar?");
+            }
+            </script>
+            
+    </form>
+</body>
+</html>

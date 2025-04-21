@@ -1,0 +1,1001 @@
+id_auditoria;usuario_id;nombre_usuario;correo;accion;modulo;detalle_accion;fecha;ip
+1;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;SELECT;Gestión de Usuarios;Requisitos para entrar el usuario 'Daniel Quintero J.' y correo 'daniel.quintero@cali.edu.co';22/03/2025 20:23;127.0.0.1
+2;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGOUT;AUTENTICACIÓN;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) cerró sesión en el sistema.;22/03/2025 20:26;127.0.0.1
+3;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;SELECT;Gestión de Usuarios;Requisitos para entrar el usuario 'Daniel Quintero J.' y correo 'daniel.quintero@cali.edu.co';22/03/2025 20:26;127.0.0.1
+4;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGOUT;AUTENTICACIÓN;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) cerró sesión en el sistema.;22/03/2025 20:27;127.0.0.1
+5;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;SELECT;Gestión de Usuarios;Requisitos para entrar el usuario 'Daniel Quintero J.' y correo 'daniel.quintero@cali.edu.co';22/03/2025 20:33;127.0.0.1
+6;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGOUT;AUTENTICACIÓN;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) cerró sesión en el sistema.;22/03/2025 20:33;127.0.0.1
+7;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;SELECT;Gestión de Usuarios;Requisitos para entrar el usuario 'Daniel Quintero J.' y correo 'daniel.quintero@cali.edu.co';22/03/2025 20:34;127.0.0.1
+8;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;SELECT;Gestión de Usuarios;Requisitos para entrar el usuario 'Daniel Quintero J.' y correo 'daniel.quintero@cali.edu.co';22/03/2025 20:44;127.0.0.1
+9;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;SELECT;Gestión de Usuarios;Requisitos para entrar el usuario 'Daniel Quintero J.' y correo 'daniel.quintero@cali.edu.co';24/03/2025 3:56;127.0.0.1
+10;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;SELECT;Visita Técnica;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) con rol 'administrador' seleccionó los datos para el fomrulario de la visita técnica;24/03/2025 3:56;127.0.0.1
+11;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;ACCESS;Gestión de Visita de Infraestructura;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) accedió el formulario de Infraestructura .;24/03/2025 3:56;127.0.0.1
+12;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Base de Consolidado de Intercambios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) ingresó la base de Consolidado de Intercambios.;24/03/2025 3:56;127.0.0.1
+13;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Menús;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) consultó la ventana de historial de menus cambios;24/03/2025 3:57;127.0.0.1
+14;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;ACCESS;Informe General;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) accedió al informe general.;24/03/2025 3:57;127.0.0.1
+15;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY ERROR;Gestión de Modificar de Intercambio;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) ingresó la ventana con el número de intercambio para consultar.: Detalles de error: 1055 (42000): Expression #4 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'visitas.intercambios.asunto' which is not functionally dependent on columns in GROUP BY clause;;
+16;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY ERROR;Gestión de Modificar de Intercambio;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) ingresó la ventana con el número de intercambio para consultar.: Detalles de error: 1055 (42000): Expression #4 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'visitas.intercambios.asunto' which is not functionally dependent on columns in GROUP BY clause;;
+17;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Solicitud de Intercambio;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) ingreso en la ventana la solicitud de intercambio'.;24/03/2025 3:57;127.0.0.1
+18;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Base de Consolidado de Intercambios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) ingresó la base de Consolidado de Intercambios.;24/03/2025 3:57;127.0.0.1
+19;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Base de Consolidado de Intercambios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) ingresó la base de Consolidado de Intercambios.;24/03/2025 3:58;127.0.0.1
+20;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY ERROR;Gestión de Modificar de Intercambio;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) ingresó la ventana con el número de intercambio para consultar.: Detalles de error: 1055 (42000): Expression #4 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'visitas.intercambios.asunto' which is not functionally dependent on columns in GROUP BY clause;;
+21;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Base de Consolidado de Intercambios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) ingresó la base de Consolidado de Intercambios.;24/03/2025 3:59;127.0.0.1
+22;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;DELETE;Gestión de Base de Consolidado de Intercambios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) elimino el numero de intercambio consecutivo PM1 - 976 en la base de Consolidado de Intercambios.;24/03/2025 3:59;127.0.0.1
+23;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Base de Consolidado de Intercambios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) ingresó la base de Consolidado de Intercambios.;24/03/2025 3:59;127.0.0.1
+24;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;ACCESS;Informe General;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) accedió al informe general.;24/03/2025 4:00;127.0.0.1
+25;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;SELECT;Gestión de Visita Técnica;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) accesó la lista de la visita técnica;24/03/2025 4:00;127.0.0.1
+26;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;ACCESS;Informe General;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) accedió al informe general.;24/03/2025 4:00;127.0.0.1
+27;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;SELECT;Gestión de Verificación de Menú;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) acessó la lista de verificación de menú.;24/03/2025 4:00;127.0.0.1
+28;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;ACCESS;Informe General;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) accedió al informe general.;24/03/2025 4:00;127.0.0.1
+29;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;READ;Gestión de Visitas a la Bodega;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) consultó la lista de Bodega.;24/03/2025 4:00;127.0.0.1
+30;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;ACCESS;Informe General;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) accedió al informe general.;24/03/2025 4:00;127.0.0.1
+31;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;SELECT;Gestión de Visita de Infraestructura;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) consultó la lista de Infraestructura.;24/03/2025 4:00;127.0.0.1
+32;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;ACCESS;Informe General;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) accedió al informe general.;24/03/2025 4:00;127.0.0.1
+33;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Menús;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) consultó la ventana de historial de menus cambios;24/03/2025 4:04;127.0.0.1
+34;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Ciclo de Menú;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) accesó la ventana de Ciclo de Menú;24/03/2025 4:04;127.0.0.1
+35;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Solicitud de Intercambio;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) ingreso en la ventana la solicitud de intercambio'.;24/03/2025 4:11;127.0.0.1
+36;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Solicitud de Intercambio;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) ingreso en la ventana la solicitud de intercambio'.;24/03/2025 4:13;127.0.0.1
+37;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;INSERT;Gestión de Solicitud de Intercambio;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) guardó los datos requeridos para el manejo de la solicitud de intercambio.;24/03/2025 4:14;127.0.0.1
+38;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY ERROR;Gestión de Modificar de Intercambio;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) ingresó la ventana con el número de intercambio para consultar.: Detalles de error: 1055 (42000): Expression #4 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'visitas.intercambios.asunto' which is not functionally dependent on columns in GROUP BY clause;;
+39;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Base de Consolidado de Intercambios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) ingresó la base de Consolidado de Intercambios.;24/03/2025 4:15;127.0.0.1
+40;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Base de Consolidado de Intercambios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) ingresó la base de Consolidado de Intercambios.;24/03/2025 4:15;127.0.0.1
+41;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Base de Consolidado de Intercambios para operadores;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) ingresó en la base de Consolidado de Intercambios.;24/03/2025 4:35;127.0.0.1
+42;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Base de Consolidado de Intercambios para operadores;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) ingresó en la base de Consolidado de Intercambios.;24/03/2025 4:37;127.0.0.1
+43;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Base de Consolidado de Intercambios para operadores;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) ingresó en la base de Consolidado de Intercambios.;24/03/2025 4:37;127.0.0.1
+44;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Base de Consolidado de Intercambios para operadores;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) ingresó en la base de Consolidado de Intercambios.;24/03/2025 4:37;127.0.0.1
+45;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Base de Consolidado de Intercambios para operadores;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) ingresó en la base de Consolidado de Intercambios.;24/03/2025 4:38;127.0.0.1
+46;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Base de Consolidado de Intercambios para operadores;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) ingresó en la base de Consolidado de Intercambios.;24/03/2025 4:38;127.0.0.1
+47;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Base de Consolidado de Intercambios para operadores;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) ingresó en la base de Consolidado de Intercambios.;24/03/2025 4:39;127.0.0.1
+48;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Base de Consolidado de Intercambios para operadores;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) ingresó en la base de Consolidado de Intercambios.;24/03/2025 4:40;127.0.0.1
+49;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Base de Consolidado de Intercambios para operadores;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) ingresó en la base de Consolidado de Intercambios.;24/03/2025 4:45;127.0.0.1
+50;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Base de Consolidado de Intercambios para operadores;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) ingresó en la base de Consolidado de Intercambios.;24/03/2025 4:46;127.0.0.1
+51;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Base de Consolidado de Intercambios para operadores;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) ingresó en la base de Consolidado de Intercambios.;24/03/2025 4:46;127.0.0.1
+52;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Base de Consolidado de Intercambios para operadores;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) ingresó en la base de Consolidado de Intercambios.;24/03/2025 4:49;127.0.0.1
+53;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Base de Consolidado de Intercambios para operadores;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) ingresó en la base de Consolidado de Intercambios.;24/03/2025 4:50;127.0.0.1
+54;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Base de Consolidado de Intercambios para operadores;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) ingresó en la base de Consolidado de Intercambios.;24/03/2025 4:52;127.0.0.1
+55;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Base de Consolidado de Intercambios para operadores;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) ingresó en la base de Consolidado de Intercambios.;24/03/2025 4:53;127.0.0.1
+56;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Base de Consolidado de Intercambios para operadores;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) ingresó en la base de Consolidado de Intercambios.;24/03/2025 4:54;127.0.0.1
+57;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Base de Consolidado de Intercambios para operadores;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) ingresó en la base de Consolidado de Intercambios.;24/03/2025 4:55;127.0.0.1
+58;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Base de Consolidado de Intercambios para operadores;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) ingresó en la base de Consolidado de Intercambios.;24/03/2025 4:56;127.0.0.1
+59;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;SELECT;Gestión de Usuarios;Requisitos para entrar el usuario 'Daniel Quintero J.' y correo 'daniel.quintero@cali.edu.co';24/03/2025 5:07;127.0.0.1
+60;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Base de Consolidado de Intercambios para operadores;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) ingresó en la base de Consolidado de Intercambios.;24/03/2025 5:07;127.0.0.1
+61;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Base de Consolidado de Intercambios para operadores;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) ingresó en la base de Consolidado de Intercambios.;24/03/2025 5:09;127.0.0.1
+62;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Base de Consolidado de Intercambios para operadores;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) ingresó en la base de Consolidado de Intercambios.;24/03/2025 5:09;127.0.0.1
+63;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Base de Consolidado de Intercambios para operadores;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) ingresó en la base de Consolidado de Intercambios.;24/03/2025 5:10;127.0.0.1
+64;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Base de Consolidado de Intercambios para operadores;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) ingresó en la base de Consolidado de Intercambios.;24/03/2025 5:11;127.0.0.1
+65;87;Supervisor Daniel;dan30jim19@gmail.com;SELECT;Gestión de Usuarios;Requisitos para entrar el usuario 'Supervisor Daniel' y correo 'dan30jim19@gmail.com';24/03/2025 14:30;127.0.0.1
+66;87;Supervisor Daniel;dan30jim19@gmail.com;LOGOUT;AUTENTICACIÓN;El usuario 'Supervisor Daniel' (dan30jim19@gmail.com) cerró sesión en el sistema.;24/03/2025 9:35;127.0.0.1
+67;55;Componente Técnico Nutricional del PAE;componente.nutricional@cali.edu.co;SELECT;Gestión de Usuarios;Requisitos para entrar el usuario 'Componente Técnico Nutricional del PAE' y correo 'componente.nutricional@cali.edu.co';24/03/2025 9:37;127.0.0.1
+68;55;Componente Técnico Nutricional del PAE;componente.nutricional@cali.edu.co;SELECT;Gestión de Usuarios;Requisitos para entrar el usuario 'Componente Técnico Nutricional del PAE' y correo 'componente.nutricional@cali.edu.co';24/03/2025 9:39;127.0.0.1
+69;55;Componente Técnico Nutricional del PAE;componente.nutricional@cali.edu.co;LOGOUT;AUTENTICACIÓN;El usuario 'Componente Técnico Nutricional del PAE' (componente.nutricional@cali.edu.co) cerró sesión en el sistema.;24/03/2025 9:40;127.0.0.1
+70;87;Supervisor Daniel;dan30jim19@gmail.com;SELECT;Gestión de Usuarios;Requisitos para entrar el usuario 'Supervisor Daniel' y correo 'dan30jim19@gmail.com';24/03/2025 9:45;127.0.0.1
+71;87;Supervisor Daniel;dan30jim19@gmail.com;LOGOUT;AUTENTICACIÓN;El usuario 'Supervisor Daniel' (dan30jim19@gmail.com) cerró sesión en el sistema.;24/03/2025 9:45;127.0.0.1
+72;86;Daniel Quintero;qdanif@gmail.com;SELECT;Gestión de Usuarios;Requisitos para entrar el usuario 'Daniel Quintero' y correo 'qdanif@gmail.com';24/03/2025 9:45;192.168.0.2
+73;86;Daniel Quintero;qdanif@gmail.com;QUERY;Gestión de Solicitud de Intercambio;El usuario 'Daniel Quintero' (qdanif@gmail.com) ingreso en la ventana la solicitud de intercambio'.;24/03/2025 9:45;192.168.0.2
+74;86;Daniel Quintero;qdanif@gmail.com;QUERY;Gestión de Base de Consolidado de Intercambios para operadores;El usuario 'Daniel Quintero' (qdanif@gmail.com) ingresó en la base de Consolidado de Intercambios.;24/03/2025 9:45;192.168.0.2
+75;86;Daniel Quintero;qdanif@gmail.com;QUERY ERROR;Gestión de Modificar de Intercambio;El usuario 'Daniel Quintero' (qdanif@gmail.com) ingresó la ventana con el número de intercambio para consultar.: Detalles de error: 1055 (42000): Expression #4 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'visitas.intercambios.asunto' which is not functionally dependent on columns in GROUP BY clause;;
+76;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;SELECT;Gestión de Usuarios;Requisitos para entrar el usuario 'Daniel Quintero J.' y correo 'daniel.quintero@cali.edu.co';24/03/2025 9:45;127.0.0.1
+77;86;Daniel Quintero;qdanif@gmail.com;QUERY;Gestión de Modificar de Intercambio;El usuario 'Daniel Quintero' (qdanif@gmail.com) ingresó la ventana con la lista con los números de intercambios para consultar.;24/03/2025 9:55;192.168.0.2
+78;86;Daniel Quintero;qdanif@gmail.com;LOGOUT;AUTENTICACIÓN;El usuario 'Daniel Quintero' (qdanif@gmail.com) cerró sesión en el sistema.;24/03/2025 9:55;192.168.0.2
+79;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;SELECT;Gestión de Usuarios;Requisitos para entrar el usuario 'Daniel Quintero J.' y correo 'daniel.quintero@cali.edu.co';24/03/2025 9:55;192.168.0.2
+80;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;SELECT;Gestión de Instituciones;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) acceso la ventana de Instituciones ;24/03/2025 9:55;192.168.0.2
+81;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;ACCESS;Gestión de Operadores;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) accedió a la gestión de operadores.;24/03/2025 9:55;192.168.0.2
+82;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) consultó la lista de usuarios.;24/03/2025 9:55;192.168.0.2
+83;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;ACCESS;Informe General;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) accedió al informe general.;24/03/2025 9:55;192.168.0.2
+84;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;READ;Gestión de Visitas a la Bodega;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) consultó la lista de Bodega.;24/03/2025 9:55;192.168.0.2
+85;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;SELECT;Visita Técnica;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) con rol 'administrador' seleccionó los datos para el fomrulario de la visita técnica;24/03/2025 9:55;192.168.0.2
+86;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;SELECT;Gestión de Usuarios;Requisitos para entrar el usuario 'Daniel Quintero J.' y correo 'daniel.quintero@cali.edu.co';25/03/2025 15:37;172.18.0.1
+87;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;ACCESS;Sección Técnica;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) accedió a la sección técnica.;25/03/2025 15:37;172.18.0.1
+88;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;SELECT;Gestión de Usuarios;Requisitos para entrar el usuario 'Daniel Quintero J.' y correo 'daniel.quintero@cali.edu.co';25/03/2025 15:37;172.18.0.1
+89;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;SELECT;Gestión de Usuarios;Requisitos para entrar el usuario 'Daniel Quintero J.' y correo 'daniel.quintero@cali.edu.co';25/03/2025 15:37;172.18.0.1
+90;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGOUT;AUTENTICACIÓN;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) cerró sesión en el sistema.;25/03/2025 15:37;172.18.0.1
+91;87;Supervisor Daniel;dan30jim19@gmail.com;SELECT;Gestión de Usuarios;Requisitos para entrar el usuario 'Supervisor Daniel' y correo 'dan30jim19@gmail.com';25/03/2025 15:37;172.18.0.1
+92;55;Componente Técnico Nutricional del PAE;componente.nutricional@cali.edu.co;SELECT;Gestión de Usuarios;Requisitos para entrar el usuario 'Componente Técnico Nutricional del PAE' y correo 'componente.nutricional@cali.edu.co';25/03/2025 21:58;172.18.0.1
+93;55;Componente Técnico Nutricional del PAE;componente.nutricional@cali.edu.co;QUERY;Gestión de Solicitud de Intercambio Pendiente;El usuario 'Componente Técnico Nutricional del PAE' (componente.nutricional@cali.edu.co) ingreso en la ventana la solicitud de intercambio pendiente como aprobado o rechazado o modificado.;25/03/2025 21:58;172.18.0.1
+94;55;Componente Técnico Nutricional del PAE;componente.nutricional@cali.edu.co;QUERY;Gestión de Solicitud de Intercambio;El usuario 'Componente Técnico Nutricional del PAE' (componente.nutricional@cali.edu.co) ingreso en la ventana la solicitud de intercambio'.;25/03/2025 21:58;172.18.0.1
+95;55;Componente Técnico Nutricional del PAE;componente.nutricional@cali.edu.co;QUERY;Gestión de Informe de Consolidado de Intercambios;El usuario 'Componente Técnico Nutricional del PAE' (componente.nutricional@cali.edu.co) ingreso en la ventana el informe a consultar.;25/03/2025 21:58;172.18.0.1
+96;55;Componente Técnico Nutricional del PAE;componente.nutricional@cali.edu.co;QUERY;Gestión de Informe de Consolidado de Intercambios;El usuario 'Componente Técnico Nutricional del PAE' (componente.nutricional@cali.edu.co) descargó el informe de Consolidado de Intercambios.;25/03/2025 21:58;172.18.0.1
+97;55;Componente Técnico Nutricional del PAE;componente.nutricional@cali.edu.co;SELECT;Gestión de Usuarios;Requisitos para entrar el usuario 'Componente Técnico Nutricional del PAE' y correo 'componente.nutricional@cali.edu.co';25/03/2025 21:58;172.18.0.1
+98;55;Componente Técnico Nutricional del PAE;componente.nutricional@cali.edu.co;QUERY;Gestión de Solicitud de Intercambio;El usuario 'Componente Técnico Nutricional del PAE' (componente.nutricional@cali.edu.co) ingreso en la ventana la solicitud de intercambio'.;25/03/2025 21:58;172.18.0.1
+99;55;Componente Técnico Nutricional del PAE;componente.nutricional@cali.edu.co;INSERT;Gestión de Solicitud de Intercambio;El usuario 'Componente Técnico Nutricional del PAE' (componente.nutricional@cali.edu.co) guardó los datos requeridos para el manejo de la solicitud de intercambio.;25/03/2025 21:58;172.18.0.1
+100;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;SELECT;Gestión de Usuarios;Requisitos para entrar el usuario 'Daniel Quintero J.' y correo 'daniel.quintero@cali.edu.co';25/03/2025 23:39;172.18.0.4
+101;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGOUT;AUTENTICACIÓN;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) cerró sesión en el sistema.;25/03/2025 23:39;172.18.0.4
+102;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;SELECT;Gestión de Usuarios;Requisitos para entrar el usuario 'Daniel Quintero J.' y correo 'daniel.quintero@cali.edu.co';25/03/2025 23:39;172.18.0.4
+103;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Informe de Consolidado de Intercambios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) ingreso en la ventana el informe a consultar.;25/03/2025 23:39;172.18.0.4
+104;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Informe de Consolidado de Intercambios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) descargó el informe de Consolidado de Intercambios.;25/03/2025 23:39;172.18.0.4
+105;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;SELECT;Gestión de Usuarios;Requisitos para entrar el usuario 'Daniel Quintero J.' y correo 'daniel.quintero@cali.edu.co';25/03/2025 23:39;172.18.0.4
+106;87;Supervisor Daniel;dan30jim19@gmail.com;SELECT;Gestión de Usuarios;Requisitos para entrar el usuario 'Supervisor Daniel' y correo 'dan30jim19@gmail.com';25/03/2025 23:39;172.18.0.4
+107;87;Supervisor Daniel;dan30jim19@gmail.com;ACCESS;Informe General;El usuario 'Supervisor Daniel' (dan30jim19@gmail.com) accedió al informe general.;25/03/2025 23:39;172.18.0.4
+108;87;Supervisor Daniel;dan30jim19@gmail.com;SELECT;Gestión de Visita de Infraestructura;El usuario 'Supervisor Daniel' (dan30jim19@gmail.com) consultó la lista de Infraestructura.;25/03/2025 23:39;172.18.0.4
+109;87;Supervisor Daniel;dan30jim19@gmail.com;QUERY;Gestión de Informe de Consolidado de Intercambios;El usuario 'Supervisor Daniel' (dan30jim19@gmail.com) ingreso en la ventana el informe a consultar.;25/03/2025 23:39;172.18.0.4
+110;87;Supervisor Daniel;dan30jim19@gmail.com;QUERY;Gestión de Informe de Consolidado de Intercambios;El usuario 'Supervisor Daniel' (dan30jim19@gmail.com) ingreso en la ventana el informe a consultar.;25/03/2025 23:39;172.18.0.4
+111;87;Supervisor Daniel;dan30jim19@gmail.com;QUERY;Gestión de Informe de Consolidado de Intercambios;El usuario 'Supervisor Daniel' (dan30jim19@gmail.com) descargó el informe de Consolidado de Intercambios.;25/03/2025 23:39;172.18.0.4
+112;87;Supervisor Daniel;dan30jim19@gmail.com;QUERY;Gestión de Informe de Consolidado de Intercambios;El usuario 'Supervisor Daniel' (dan30jim19@gmail.com) ingreso en la ventana el informe a consultar.;25/03/2025 23:39;172.18.0.4
+113;87;Supervisor Daniel;dan30jim19@gmail.com;QUERY;Gestión de Informe de Consolidado de Intercambios;El usuario 'Supervisor Daniel' (dan30jim19@gmail.com) ingreso en la ventana el informe a consultar.;25/03/2025 23:39;172.18.0.4
+114;87;Supervisor Daniel;dan30jim19@gmail.com;ACCESS;Sección Técnica;El usuario 'Supervisor Daniel' (dan30jim19@gmail.com) accedió a la sección técnica.;25/03/2025 23:39;172.18.0.4
+115;87;Supervisor Daniel;dan30jim19@gmail.com;INSERT;Sección Técnica;El usuario 'Supervisor Daniel' (dan30jim19@gmail.com) insertó los datos en el formulario de técnica.;25/03/2025 23:39;172.18.0.4
+116;87;Supervisor Daniel;dan30jim19@gmail.com;SELECT;Gestión de Visita Técnica;El usuario 'Supervisor Daniel' (dan30jim19@gmail.com) seleccionó con el numero de ID 1 de la visita técnica;25/03/2025 23:39;172.18.0.4
+117;87;Supervisor Daniel;dan30jim19@gmail.com;SELECT;Gestión de Visita Técnica;El usuario 'Supervisor Daniel' (dan30jim19@gmail.com) seleccionó con el numero de ID 1 de la visita técnica;25/03/2025 23:39;172.18.0.4
+118;87;Supervisor Daniel;dan30jim19@gmail.com;INSERT;Gestión de Visita Técnica;El usuario 'Supervisor Daniel' (dan30jim19@gmail.com) insertó los nombres con el numero de ID 1 de la visita técnica.;25/03/2025 23:39;172.18.0.4
+119;87;Supervisor Daniel;dan30jim19@gmail.com;SELECT;Gestión de Visita Técnica;El usuario 'Supervisor Daniel' (dan30jim19@gmail.com) seleccionó con el numero de ID 1 de la visita técnica;25/03/2025 23:39;172.18.0.4
+120;87;Supervisor Daniel;dan30jim19@gmail.com;INSERT EXISTS;Gestión de Visita Técnica;El usuario 'Supervisor Daniel' (dan30jim19@gmail.com) insertó los nombres existentes con el numero de ID 1 de la visita técnica.;25/03/2025 23:39;172.18.0.4
+121;87;Supervisor Daniel;dan30jim19@gmail.com;SELECT;Gestión de Visita Técnica;El usuario 'Supervisor Daniel' (dan30jim19@gmail.com) seleccionó con el numero de ID 1 de la visita técnica;25/03/2025 23:39;172.18.0.4
+122;87;Supervisor Daniel;dan30jim19@gmail.com;INSERT EXISTS;Gestión de Visita Técnica;El usuario 'Supervisor Daniel' (dan30jim19@gmail.com) insertó los nombres existentes con el numero de ID 1 de la visita técnica.;25/03/2025 23:39;172.18.0.4
+123;87;Supervisor Daniel;dan30jim19@gmail.com;INSERT EXISTS AND PDF;Gestión de Visita Técnica;El usuario 'Supervisor Daniel' (dan30jim19@gmail.com) desscargó PDF y insertó los nombres existentes con el numero de ID 1 de la visita técnica.;25/03/2025 23:39;172.18.0.4
+124;87;Supervisor Daniel;dan30jim19@gmail.com;SELECT;Gestión de Visita Técnica;El usuario 'Supervisor Daniel' (dan30jim19@gmail.com) seleccionó con el numero de ID 1 de la visita técnica;25/03/2025 23:39;172.18.0.4
+125;87;Supervisor Daniel;dan30jim19@gmail.com;INSERT EXISTS;Gestión de Visita Técnica;El usuario 'Supervisor Daniel' (dan30jim19@gmail.com) insertó los nombres existentes con el numero de ID 1 de la visita técnica.;25/03/2025 23:39;172.18.0.4
+126;87;Supervisor Daniel;dan30jim19@gmail.com;SELECT;Gestión de Visita Técnica;El usuario 'Supervisor Daniel' (dan30jim19@gmail.com) seleccionó con el numero de ID 1 de la visita técnica;25/03/2025 23:39;172.18.0.4
+127;87;Supervisor Daniel;dan30jim19@gmail.com;INSERT EXISTS;Gestión de Visita Técnica;El usuario 'Supervisor Daniel' (dan30jim19@gmail.com) insertó los nombres existentes con el numero de ID 1 de la visita técnica.;25/03/2025 23:39;172.18.0.4
+128;87;Supervisor Daniel;dan30jim19@gmail.com;INSERT EXISTS AND PDF;Gestión de Visita Técnica;El usuario 'Supervisor Daniel' (dan30jim19@gmail.com) desscargó PDF y insertó los nombres existentes con el numero de ID 1 de la visita técnica.;25/03/2025 23:39;172.18.0.4
+129;87;Supervisor Daniel;dan30jim19@gmail.com;SELECT;Gestión de Visita Técnica;El usuario 'Supervisor Daniel' (dan30jim19@gmail.com) seleccionó con el numero de ID 1 de la visita técnica;26/03/2025 0:38;172.18.0.4
+130;87;Supervisor Daniel;dan30jim19@gmail.com;INSERT EXISTS;Gestión de Visita Técnica;El usuario 'Supervisor Daniel' (dan30jim19@gmail.com) insertó los nombres existentes con el numero de ID 1 de la visita técnica.;26/03/2025 0:38;172.18.0.4
+131;87;Supervisor Daniel;dan30jim19@gmail.com;SELECT;Gestión de Visita Técnica;El usuario 'Supervisor Daniel' (dan30jim19@gmail.com) seleccionó con el numero de ID 1 de la visita técnica;26/03/2025 0:38;172.18.0.4
+132;87;Supervisor Daniel;dan30jim19@gmail.com;INSERT EXISTS;Gestión de Visita Técnica;El usuario 'Supervisor Daniel' (dan30jim19@gmail.com) insertó los nombres existentes con el numero de ID 1 de la visita técnica.;26/03/2025 0:38;172.18.0.4
+133;87;Supervisor Daniel;dan30jim19@gmail.com;INSERT EXISTS AND PDF;Gestión de Visita Técnica;El usuario 'Supervisor Daniel' (dan30jim19@gmail.com) desscargó PDF y insertó los nombres existentes con el numero de ID 1 de la visita técnica.;26/03/2025 0:38;172.18.0.4
+134;87;Supervisor Daniel;dan30jim19@gmail.com;LOGOUT;AUTENTICACIÓN;El usuario 'Supervisor Daniel' (dan30jim19@gmail.com) cerró sesión en el sistema.;26/03/2025 0:39;172.18.0.4
+135;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;SELECT;Gestión de Usuarios;Requisitos para entrar el usuario 'Daniel Quintero J.' y correo 'daniel.quintero@cali.edu.co';26/03/2025 0:39;172.18.0.4
+136;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;ACCESS;Sección Técnica;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) accedió a la sección técnica.;26/03/2025 0:39;172.18.0.4
+137;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;ACCESS;Informe General;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) accedió al informe general.;26/03/2025 0:39;172.18.0.4
+138;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;SELECT;Gestión de Visita Técnica;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) accesó la lista de la visita técnica;26/03/2025 0:39;172.18.0.4
+139;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;SELECT;Gestión de Visita Técnica;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) seleccionó con el numero de ID 1 de la visita técnica;26/03/2025 0:39;172.18.0.4
+140;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;SELECT;Gestión de Visita Técnica;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) seleccionó con el numero de ID 1 de la visita técnica;26/03/2025 0:39;172.18.0.4
+141;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;INSERT EXISTS;Gestión de Visita Técnica;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) insertó los nombres existentes con el numero de ID 1 de la visita técnica.;26/03/2025 0:39;172.18.0.4
+142;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;INSERT EXISTS AND PDF;Gestión de Visita Técnica;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) desscargó PDF y insertó los nombres existentes con el numero de ID 1 de la visita técnica.;26/03/2025 0:39;172.18.0.4
+143;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;SELECT;Gestión de Usuarios;Requisitos para entrar el usuario 'Daniel Quintero J.' y correo 'daniel.quintero@cali.edu.co';26/03/2025 0:51;172.18.0.4
+144;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;ACCESS;Informe General;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) accedió al informe general.;26/03/2025 0:51;172.18.0.4
+145;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;SELECT;Gestión de Visita Técnica;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) accesó la lista de la visita técnica;26/03/2025 0:51;172.18.0.4
+146;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;SELECT;Gestión de Visita Técnica;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) seleccionó con el numero de ID 1 de la visita técnica;26/03/2025 0:51;172.18.0.4
+147;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;SELECT;Gestión de Visita Técnica;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) seleccionó con el numero de ID 1 de la visita técnica;26/03/2025 0:51;172.18.0.4
+148;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;INSERT EXISTS;Gestión de Visita Técnica;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) insertó los nombres existentes con el numero de ID 1 de la visita técnica.;26/03/2025 0:51;172.18.0.4
+149;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;INSERT EXISTS AND PDF;Gestión de Visita Técnica;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) desscargó PDF y insertó los nombres existentes con el numero de ID 1 de la visita técnica.;26/03/2025 0:51;172.18.0.4
+150;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;SELECT;Gestión de Visita Técnica;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) accesó la lista de la visita técnica;26/03/2025 0:51;172.18.0.4
+151;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;DELETE;Visita Técnica;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) con rol 'administrador' eliminó la visita técnica ID 1. Datos: {'id_visita_tecnica': 1, 'fecha_visita': datetime.date(2025, 3, 26), 'hora_visita': datetime.timedelta(seconds=1920), 'operador': 1, 'institucion_id': 10, 'sede_id': 48, 'codigo_sede': '10/04', 'direccion': 'CLLE 30  # 5-88', 'zona': 'URBANO', 'focalizacion': 848, 'tipo_racion_tecnica': 'Jornada Unica\r\n', 'observacion_general': 'asdasd'};26/03/2025 0:51;172.18.0.4
+152;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;SELECT;Gestión de Visita Técnica;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) accesó la lista de la visita técnica;26/03/2025 0:51;172.18.0.4
+153;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;SELECT;Gestión de Usuarios;Requisitos para entrar el usuario 'Daniel Quintero J.' y correo 'daniel.quintero@cali.edu.co';26/03/2025 11:21;172.18.0.3
+154;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;SELECT;Gestión de Usuarios;Requisitos para entrar el usuario 'Daniel Quintero J.' y correo 'daniel.quintero@cali.edu.co';26/03/2025 20:11;172.18.0.3
+155;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGOUT;AUTENTICACIÓN;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) cerró sesión en el sistema.;26/03/2025 20:11;172.18.0.3
+156;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;SELECT;Gestión de Usuarios;Requisitos para entrar el usuario 'Daniel Quintero J.' y correo 'daniel.quintero@cali.edu.co';26/03/2025 20:11;172.18.0.3
+157;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);26/03/2025 23:18;172.18.0.4
+158;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);26/03/2025 23:18;172.18.0.4
+159;55;Componente Técnico Nutricional del PAE;componente.nutricional@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Componente Técnico Nutricional del PAE' (componente.nutricional@cali.edu.co);26/03/2025 23:18;172.18.0.4
+160;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);26/03/2025 23:18;172.18.0.4
+161;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);26/03/2025 23:34;172.18.0.4
+162;87;Supervisor Daniel;dan30jim19@gmail.com;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Supervisor Daniel' (dan30jim19@gmail.com);26/03/2025 23:34;172.18.0.4
+163;87;Supervisor Daniel;dan30jim19@gmail.com;LOGOUT;AUTENTICACIÓN;El usuario 'Supervisor Daniel' (dan30jim19@gmail.com) cerró sesión en el sistema.;26/03/2025 23:34;172.18.0.4
+164;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);26/03/2025 23:37;172.18.0.4
+165;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);26/03/2025 23:37;172.18.0.4
+166;87;Supervisor Daniel;dan30jim19@gmail.com;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Supervisor Daniel' (dan30jim19@gmail.com);26/03/2025 23:42;172.18.0.4
+167;87;Supervisor Daniel;dan30jim19@gmail.com;LOGOUT;AUTENTICACIÓN;El usuario 'Supervisor Daniel' (dan30jim19@gmail.com) cerró sesión en el sistema.;26/03/2025 23:42;172.18.0.4
+168;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);26/03/2025 23:42;172.18.0.4
+169;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);26/03/2025 23:55;172.18.0.4
+170;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);26/03/2025 23:55;172.18.0.4
+171;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);27/03/2025 0:04;172.18.0.4
+172;55;Componente Técnico Nutricional del PAE;componente.nutricional@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Componente Técnico Nutricional del PAE' (componente.nutricional@cali.edu.co);27/03/2025 0:04;172.18.0.4
+173;55;Componente Técnico Nutricional del PAE;componente.nutricional@cali.edu.co;LOGOUT;AUTENTICACIÓN;El usuario 'Componente Técnico Nutricional del PAE' (componente.nutricional@cali.edu.co) cerró sesión en el sistema.;27/03/2025 0:04;172.18.0.4
+174;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);27/03/2025 0:04;172.18.0.4
+175;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);27/03/2025 0:13;172.18.0.4
+176;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);27/03/2025 0:21;172.18.0.4
+177;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);27/03/2025 2:13;172.18.0.4
+178;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);27/03/2025 2:49;172.18.0.4
+179;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;ACCESS;Gestión de Visita de Infraestructura;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) accedió el formulario de Infraestructura .;27/03/2025 2:49;172.18.0.4
+180;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGOUT;AUTENTICACIÓN;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) cerró sesión en el sistema.;27/03/2025 2:49;172.18.0.4
+181;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);27/03/2025 2:49;172.18.0.4
+182;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGOUT;AUTENTICACIÓN;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) cerró sesión en el sistema.;27/03/2025 2:49;172.18.0.4
+183;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);27/03/2025 2:49;172.18.0.4
+184;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGOUT;AUTENTICACIÓN;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) cerró sesión en el sistema.;27/03/2025 2:49;172.18.0.4
+185;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);27/03/2025 2:49;172.18.0.4
+186;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGOUT;AUTENTICACIÓN;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) cerró sesión en el sistema.;27/03/2025 2:49;172.18.0.4
+187;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);27/03/2025 2:49;172.18.0.4
+188;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGOUT;AUTENTICACIÓN;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) cerró sesión en el sistema.;27/03/2025 2:49;172.18.0.4
+189;55;Componente Técnico Nutricional del PAE;componente.nutricional@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Componente Técnico Nutricional del PAE' (componente.nutricional@cali.edu.co);27/03/2025 2:49;172.18.0.4
+190;55;Componente Técnico Nutricional del PAE;componente.nutricional@cali.edu.co;LOGOUT;AUTENTICACIÓN;El usuario 'Componente Técnico Nutricional del PAE' (componente.nutricional@cali.edu.co) cerró sesión en el sistema.;27/03/2025 2:49;172.18.0.4
+191;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);27/03/2025 2:49;172.18.0.4
+192;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGOUT;AUTENTICACIÓN;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) cerró sesión en el sistema.;27/03/2025 2:49;172.18.0.4
+193;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);27/03/2025 2:49;172.18.0.4
+194;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGOUT;AUTENTICACIÓN;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) cerró sesión en el sistema.;27/03/2025 2:49;172.18.0.4
+195;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);27/03/2025 2:49;172.18.0.4
+196;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGOUT;AUTENTICACIÓN;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) cerró sesión en el sistema.;27/03/2025 2:49;172.18.0.4
+197;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);27/03/2025 2:49;172.18.0.4
+198;87;Supervisor Daniel;dan30jim19@gmail.com;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Supervisor Daniel' (dan30jim19@gmail.com);27/03/2025 12:37;172.18.0.4
+199;87;Supervisor Daniel;dan30jim19@gmail.com;LOGOUT;AUTENTICACIÓN;El usuario 'Supervisor Daniel' (dan30jim19@gmail.com) cerró sesión en el sistema.;27/03/2025 12:37;172.18.0.4
+200;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);27/03/2025 12:37;172.18.0.4
+201;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);27/03/2025 12:49;172.18.0.4
+202;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);27/03/2025 13:06;172.18.0.4
+203;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGOUT;AUTENTICACIÓN;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) cerró sesión en el sistema.;27/03/2025 13:06;172.18.0.4
+204;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);27/03/2025 13:20;172.18.0.4
+205;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGOUT;AUTENTICACIÓN;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) cerró sesión en el sistema.;27/03/2025 13:20;172.18.0.4
+206;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);27/03/2025 14:23;172.18.0.4
+207;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);27/03/2025 14:23;172.18.0.4
+208;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGOUT;AUTENTICACIÓN;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) cerró sesión en el sistema.;27/03/2025 14:23;172.18.0.4
+209;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);27/03/2025 14:23;172.18.0.4
+210;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGOUT;AUTENTICACIÓN;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) cerró sesión en el sistema.;27/03/2025 14:23;172.18.0.4
+211;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);27/03/2025 14:23;172.18.0.4
+212;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);27/03/2025 15:23;172.18.0.4
+213;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGOUT;AUTENTICACIÓN;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) cerró sesión en el sistema.;27/03/2025 15:23;172.18.0.4
+214;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);27/03/2025 18:23;172.18.0.4
+215;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);27/03/2025 18:23;172.18.0.4
+216;0;Desconocido;Sin correo;LOGOUT;AUTENTICACIÓN;El usuario 'Desconocido' (Sin correo) cerró sesión en el sistema.;27/03/2025 18:38;172.18.0.4
+217;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);27/03/2025 18:38;172.18.0.4
+218;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;ACCESS;Gestión de Visita de Infraestructura;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) accedió el formulario de Infraestructura .;27/03/2025 18:38;172.18.0.4
+219;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Solicitud de Intercambio;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) ingreso en la ventana la solicitud de intercambio'.;27/03/2025 18:38;172.18.0.4
+220;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;INSERT;Gestión de Solicitud de Intercambio;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) guardó los datos requeridos para el manejo de la solicitud de intercambio.;27/03/2025 18:38;172.18.0.4
+221;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Base de Consolidado de Intercambios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) ingresó la base de Consolidado de Intercambios.;27/03/2025 18:38;172.18.0.4
+222;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGOUT;AUTENTICACIÓN;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) cerró sesión en el sistema.;27/03/2025 18:38;172.18.0.4
+223;55;Componente Técnico Nutricional del PAE;componente.nutricional@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Componente Técnico Nutricional del PAE' (componente.nutricional@cali.edu.co);27/03/2025 18:38;172.18.0.4
+224;55;Componente Técnico Nutricional del PAE;componente.nutricional@cali.edu.co;QUERY;Gestión de Solicitud de Intercambio;El usuario 'Componente Técnico Nutricional del PAE' (componente.nutricional@cali.edu.co) ingreso en la ventana la solicitud de intercambio'.;27/03/2025 18:38;172.18.0.4
+225;55;Componente Técnico Nutricional del PAE;componente.nutricional@cali.edu.co;INSERT;Gestión de Solicitud de Intercambio;El usuario 'Componente Técnico Nutricional del PAE' (componente.nutricional@cali.edu.co) guardó los datos requeridos para el manejo de la solicitud de intercambio.;27/03/2025 18:38;172.18.0.4
+226;55;Componente Técnico Nutricional del PAE;componente.nutricional@cali.edu.co;QUERY;Gestión de Base de Consolidado de Intercambios;El usuario 'Componente Técnico Nutricional del PAE' (componente.nutricional@cali.edu.co) ingresó la base de Consolidado de Intercambios.;27/03/2025 18:38;172.18.0.4
+227;55;Componente Técnico Nutricional del PAE;componente.nutricional@cali.edu.co;QUERY;Gestión de Base de Consolidado de Intercambios;El usuario 'Componente Técnico Nutricional del PAE' (componente.nutricional@cali.edu.co) ingresó la base de Consolidado de Intercambios.;27/03/2025 18:38;172.18.0.4
+228;55;Componente Técnico Nutricional del PAE;componente.nutricional@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Componente Técnico Nutricional del PAE' (componente.nutricional@cali.edu.co);27/03/2025 18:38;172.18.0.4
+229;55;Componente Técnico Nutricional del PAE;componente.nutricional@cali.edu.co;LOGOUT;AUTENTICACIÓN;El usuario 'Componente Técnico Nutricional del PAE' (componente.nutricional@cali.edu.co) cerró sesión en el sistema.;27/03/2025 18:38;172.18.0.4
+230;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);27/03/2025 18:38;172.18.0.4
+231;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);27/03/2025 18:38;172.18.0.4
+232;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;INSERT;Gestión de Usuarios;Administrador creó usuario 'Fred Q.' y correo 'fred.quintero@gmail.com';27/03/2025 18:38;172.18.0.4
+233;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) consultó la lista de usuarios.;27/03/2025 18:38;172.18.0.4
+234;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);27/03/2025 19:37;172.18.0.4
+235;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);27/03/2025 22:06;172.18.0.4
+236;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);27/03/2025 22:31;172.18.0.4
+237;87;Supervisor Daniel;dan30jim19@gmail.com;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Supervisor Daniel' (dan30jim19@gmail.com);27/03/2025 22:31;172.18.0.4
+238;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 8:18;172.18.0.3
+239;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 10:59;172.18.0.5
+240;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGOUT;AUTENTICACIÓN;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) cerró sesión en el sistema.;28/03/2025 10:59;172.18.0.5
+241;87;Supervisor Daniel;dan30jim19@gmail.com;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Supervisor Daniel' (dan30jim19@gmail.com);28/03/2025 10:59;172.18.0.5
+242;87;Supervisor Daniel;dan30jim19@gmail.com;LOGOUT;AUTENTICACIÓN;El usuario 'Supervisor Daniel' (dan30jim19@gmail.com) cerró sesión en el sistema.;28/03/2025 10:59;172.18.0.5
+243;21;Daniel Torres;daniel.torres@cali.edu.co;CUENTA BLOQUEADA;Gestión de Usuarios;Cuenta bloqueada por intentos fallidos;28/03/2025 11:35;172.18.0.5
+244;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 11:35;172.18.0.5
+245;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) consultó la lista de usuarios.;28/03/2025 11:35;172.18.0.5
+246;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;UPDATE;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) inhabilitó el acceso del usuario con ID 21;28/03/2025 11:35;172.18.0.5
+247;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) consultó la lista de usuarios.;28/03/2025 11:35;172.18.0.5
+248;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;UPDATE;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) habilitó el acceso del usuario con ID 21;28/03/2025 11:35;172.18.0.5
+249;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) consultó la lista de usuarios.;28/03/2025 11:35;172.18.0.5
+250;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGOUT;AUTENTICACIÓN;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) cerró sesión en el sistema.;28/03/2025 11:35;172.18.0.5
+251;21;Daniel Torres;daniel.torres@cali.edu.co;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 1/3).;28/03/2025 11:35;172.18.0.5
+252;21;Daniel Torres;daniel.torres@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Torres' (daniel.torres@cali.edu.co);28/03/2025 11:35;172.18.0.5
+253;21;Daniel Torres;daniel.torres@cali.edu.co;LOGOUT;AUTENTICACIÓN;El usuario 'Daniel Torres' (daniel.torres@cali.edu.co) cerró sesión en el sistema.;28/03/2025 11:35;172.18.0.5
+254;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+255;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGOUT;AUTENTICACIÓN;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) cerró sesión en el sistema.;28/03/2025 14:05;172.18.0.4
+256;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+257;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+258;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+259;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+260;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+261;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+262;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+263;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+264;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+265;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+266;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+267;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+268;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+269;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+270;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+271;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+272;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+273;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+274;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+275;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+276;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+277;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+278;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+279;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+280;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+281;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+282;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+283;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+284;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+285;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+286;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+287;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+288;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+289;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+290;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+291;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+292;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+293;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+294;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+295;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+296;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+297;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+298;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+299;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+300;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+301;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+302;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+303;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+304;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+305;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+306;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+307;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+308;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+309;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+310;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+311;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+312;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+313;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+314;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+315;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+316;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+317;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+318;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+319;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+320;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+321;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+322;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+323;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+324;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+325;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+326;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+327;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+328;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+329;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+330;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+331;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+332;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+333;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+334;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+335;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+336;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+337;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+338;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+339;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+340;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+341;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+342;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+343;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+344;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+345;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+346;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+347;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+348;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+349;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+350;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+351;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+352;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+353;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+354;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+355;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+356;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+357;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+358;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+359;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+360;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+361;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+362;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+363;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+364;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+365;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+366;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+367;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+368;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+369;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+370;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+371;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+372;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+373;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+374;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+375;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+376;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+377;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+378;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+379;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+380;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+381;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+382;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+383;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+384;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+385;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+386;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+387;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+388;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+389;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+390;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+391;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+392;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+393;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+394;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+395;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+396;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+397;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+398;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+399;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+400;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+401;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+402;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+403;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+404;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+405;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+406;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+407;1;Ana Carolina Aguado;ana.carolina@cali.edu.co;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 1/3).;28/03/2025 14:05;172.18.0.4
+408;21;Daniel Torres;daniel.torres@cali.edu.co;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 1/3).;28/03/2025 14:05;172.18.0.4
+409;28;Melisa Ruiz;melisa.ruiz@cali.edu.co;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 1/3).;28/03/2025 14:05;172.18.0.4
+410;29;Gabriela Giraldo;Gabriela.giraldo@cali.edu.co;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 1/3).;28/03/2025 14:05;172.18.0.4
+411;30;Sofia Melendez;sofia.melendez@cali.edu.co;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 1/3).;28/03/2025 14:05;172.18.0.4
+412;31;Claudia Lorena Castaño;claudia.castano@cali.edu.co;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 1/3).;28/03/2025 14:05;172.18.0.4
+413;32;Ana Isabel Popo;ana.popo@cali.edu.co;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 1/3).;28/03/2025 14:05;172.18.0.4
+414;33;Maria Fernanda Oliveros ;maria.oliveros@cali.edu.co;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 1/3).;28/03/2025 14:05;172.18.0.4
+415;34;Yudy Garcia;yudy.garcia@cali.edu.co;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 1/3).;28/03/2025 14:05;172.18.0.4
+416;35;Leidy Garcia;leidy.garcia@cali.edu.co;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 1/3).;28/03/2025 14:05;172.18.0.4
+417;36;Felipe Guzman;felipe.guzman@cali.edu.co;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 1/3).;28/03/2025 14:05;172.18.0.4
+418;37;Maria Eugenia Arias ;maria.arias@cali.edu.co;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 1/3).;28/03/2025 14:05;172.18.0.4
+419;38;Sebastian Giraldo;sgiraldo@cali.gov.co;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 1/3).;28/03/2025 14:05;172.18.0.4
+420;46;JOHAN STEVEN ROJAS SOLIS;johan.rojas@cali.edu.co;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 1/3).;28/03/2025 14:05;172.18.0.4
+421;55;Componente Técnico Nutricional del PAE;componente.nutricional@cali.edu.co;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 1/3).;28/03/2025 14:05;172.18.0.4
+422;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 1/3).;28/03/2025 14:05;172.18.0.4
+423;62;Admin Nutricionista;dk30jim19@gmail.com;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 1/3).;28/03/2025 14:05;172.18.0.4
+424;66;Construyendo;coordinadora.programapae@nrc.com.co;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 1/3).;28/03/2025 14:05;172.18.0.4
+425;67;Valle Solidario;nutricion@vallesolidario.com;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 1/3).;28/03/2025 14:05;172.18.0.4
+426;71;Nutriendo;coor.operativocali@fomento.com.co;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 1/3).;28/03/2025 14:05;172.18.0.4
+427;72;Nutriendo 2;coor.operativocali2@fomento.com.co;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 1/3).;28/03/2025 14:05;172.18.0.4
+428;73;Accion por Colombia;proyectocali@accionporcolombia.com;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 1/3).;28/03/2025 14:05;172.18.0.4
+429;84;Fran Anibal Mesias;fran.mesias@cali.gov.co;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 1/3).;28/03/2025 14:05;172.18.0.4
+430;86;Daniel Quintero;qdanif@gmail.com;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 1/3).;28/03/2025 14:05;172.18.0.4
+431;21;Daniel Torres;daniel.torres@cali.edu.co;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 2/3).;28/03/2025 14:05;172.18.0.4
+432;21;Daniel Torres;daniel.torres@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Torres' (daniel.torres@cali.edu.co);28/03/2025 14:05;172.18.0.4
+433;1;Ana Carolina Aguado;ana.carolina@cali.edu.co;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 2/3).;28/03/2025 14:05;172.18.0.4
+434;21;Daniel Torres;daniel.torres@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Torres' (daniel.torres@cali.edu.co);28/03/2025 14:05;172.18.0.4
+435;28;Melisa Ruiz;melisa.ruiz@cali.edu.co;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 2/3).;28/03/2025 14:05;172.18.0.4
+436;29;Gabriela Giraldo;Gabriela.giraldo@cali.edu.co;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 2/3).;28/03/2025 14:05;172.18.0.4
+437;30;Sofia Melendez;sofia.melendez@cali.edu.co;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 2/3).;28/03/2025 14:05;172.18.0.4
+438;31;Claudia Lorena Castaño;claudia.castano@cali.edu.co;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 2/3).;28/03/2025 14:05;172.18.0.4
+439;32;Ana Isabel Popo;ana.popo@cali.edu.co;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 2/3).;28/03/2025 14:05;172.18.0.4
+440;33;Maria Fernanda Oliveros ;maria.oliveros@cali.edu.co;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 2/3).;28/03/2025 14:05;172.18.0.4
+441;34;Yudy Garcia;yudy.garcia@cali.edu.co;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 2/3).;28/03/2025 14:05;172.18.0.4
+442;35;Leidy Garcia;leidy.garcia@cali.edu.co;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 2/3).;28/03/2025 14:05;172.18.0.4
+443;36;Felipe Guzman;felipe.guzman@cali.edu.co;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 2/3).;28/03/2025 14:05;172.18.0.4
+444;37;Maria Eugenia Arias ;maria.arias@cali.edu.co;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 2/3).;28/03/2025 14:05;172.18.0.4
+445;38;Sebastian Giraldo;sgiraldo@cali.gov.co;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 2/3).;28/03/2025 14:05;172.18.0.4
+446;46;JOHAN STEVEN ROJAS SOLIS;johan.rojas@cali.edu.co;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 2/3).;28/03/2025 14:05;172.18.0.4
+447;55;Componente Técnico Nutricional del PAE;componente.nutricional@cali.edu.co;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 2/3).;28/03/2025 14:05;172.18.0.4
+448;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+449;62;Admin Nutricionista;dk30jim19@gmail.com;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Admin Nutricionista' (dk30jim19@gmail.com);28/03/2025 14:05;172.18.0.4
+450;66;Construyendo;coordinadora.programapae@nrc.com.co;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 2/3).;28/03/2025 14:05;172.18.0.4
+451;67;Valle Solidario;nutricion@vallesolidario.com;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 2/3).;28/03/2025 14:05;172.18.0.4
+452;71;Nutriendo;coor.operativocali@fomento.com.co;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 2/3).;28/03/2025 14:05;172.18.0.4
+453;72;Nutriendo 2;coor.operativocali2@fomento.com.co;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 2/3).;28/03/2025 14:05;172.18.0.4
+454;73;Accion por Colombia;proyectocali@accionporcolombia.com;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 2/3).;28/03/2025 14:05;172.18.0.4
+455;84;Fran Anibal Mesias;fran.mesias@cali.gov.co;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 2/3).;28/03/2025 14:05;172.18.0.4
+456;86;Daniel Quintero;qdanif@gmail.com;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 2/3).;28/03/2025 14:05;172.18.0.4
+457;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+458;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;ACCESS;Gestión de Visita de Infraestructura;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) accedió el formulario de Infraestructura .;28/03/2025 14:05;172.18.0.4
+459;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;ACCESS;Sección Técnica;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) accedió a la sección técnica.;28/03/2025 14:05;172.18.0.4
+460;1;Ana Carolina Aguado;ana.carolina@cali.edu.co;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 3/3).;28/03/2025 14:05;172.18.0.4
+461;21;Daniel Torres;daniel.torres@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Torres' (daniel.torres@cali.edu.co);28/03/2025 14:05;172.18.0.4
+462;28;Melisa Ruiz;melisa.ruiz@cali.edu.co;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 3/3).;28/03/2025 14:05;172.18.0.4
+463;29;Gabriela Giraldo;Gabriela.giraldo@cali.edu.co;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 3/3).;28/03/2025 14:05;172.18.0.4
+464;30;Sofia Melendez;sofia.melendez@cali.edu.co;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 3/3).;28/03/2025 14:05;172.18.0.4
+465;31;Claudia Lorena Castaño;claudia.castano@cali.edu.co;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 3/3).;28/03/2025 14:05;172.18.0.4
+466;32;Ana Isabel Popo;ana.popo@cali.edu.co;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 3/3).;28/03/2025 14:05;172.18.0.4
+467;33;Maria Fernanda Oliveros ;maria.oliveros@cali.edu.co;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 3/3).;28/03/2025 14:05;172.18.0.4
+468;34;Yudy Garcia;yudy.garcia@cali.edu.co;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 3/3).;28/03/2025 14:05;172.18.0.4
+469;35;Leidy Garcia;leidy.garcia@cali.edu.co;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 3/3).;28/03/2025 14:05;172.18.0.4
+470;36;Felipe Guzman;felipe.guzman@cali.edu.co;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 3/3).;28/03/2025 14:05;172.18.0.4
+471;37;Maria Eugenia Arias ;maria.arias@cali.edu.co;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 3/3).;28/03/2025 14:05;172.18.0.4
+472;38;Sebastian Giraldo;sgiraldo@cali.gov.co;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 3/3).;28/03/2025 14:05;172.18.0.4
+473;46;JOHAN STEVEN ROJAS SOLIS;johan.rojas@cali.edu.co;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 3/3).;28/03/2025 14:05;172.18.0.4
+474;55;Componente Técnico Nutricional del PAE;componente.nutricional@cali.edu.co;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 3/3).;28/03/2025 14:05;172.18.0.4
+475;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+476;62;Admin Nutricionista;dk30jim19@gmail.com;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Admin Nutricionista' (dk30jim19@gmail.com);28/03/2025 14:05;172.18.0.4
+477;66;Construyendo;coordinadora.programapae@nrc.com.co;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 3/3).;28/03/2025 14:05;172.18.0.4
+478;67;Valle Solidario;nutricion@vallesolidario.com;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 3/3).;28/03/2025 14:05;172.18.0.4
+479;71;Nutriendo;coor.operativocali@fomento.com.co;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 3/3).;28/03/2025 14:05;172.18.0.4
+480;72;Nutriendo 2;coor.operativocali2@fomento.com.co;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 3/3).;28/03/2025 14:05;172.18.0.4
+481;73;Accion por Colombia;proyectocali@accionporcolombia.com;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 3/3).;28/03/2025 14:05;172.18.0.4
+482;84;Fran Anibal Mesias;fran.mesias@cali.gov.co;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 3/3).;28/03/2025 14:05;172.18.0.4
+483;86;Daniel Quintero;qdanif@gmail.com;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 3/3).;28/03/2025 14:05;172.18.0.4
+484;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) consultó la lista de usuarios.;28/03/2025 14:05;172.18.0.4
+485;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;UPDATE;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) inhabilitó el acceso del usuario con ID 73;28/03/2025 14:05;172.18.0.4
+486;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) consultó la lista de usuarios.;28/03/2025 14:05;172.18.0.4
+487;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;UPDATE;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) habilitó el acceso del usuario con ID 73;28/03/2025 14:05;172.18.0.4
+488;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) consultó la lista de usuarios.;28/03/2025 14:05;172.18.0.4
+489;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;UPDATE;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) inhabilitó el acceso del usuario con ID 62;28/03/2025 14:05;172.18.0.4
+490;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) consultó la lista de usuarios.;28/03/2025 14:05;172.18.0.4
+491;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;UPDATE;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) habilitó el acceso del usuario con ID 62;28/03/2025 14:05;172.18.0.4
+492;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) consultó la lista de usuarios.;28/03/2025 14:05;172.18.0.4
+493;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;UPDATE;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) inhabilitó el acceso del usuario con ID 1;28/03/2025 14:05;172.18.0.4
+494;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) consultó la lista de usuarios.;28/03/2025 14:05;172.18.0.4
+495;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;UPDATE;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) habilitó el acceso del usuario con ID 1;28/03/2025 14:05;172.18.0.4
+496;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) consultó la lista de usuarios.;28/03/2025 14:05;172.18.0.4
+497;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;UPDATE;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) inhabilitó el acceso del usuario con ID 32;28/03/2025 14:05;172.18.0.4
+498;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) consultó la lista de usuarios.;28/03/2025 14:05;172.18.0.4
+499;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;UPDATE;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) habilitó el acceso del usuario con ID 32;28/03/2025 14:05;172.18.0.4
+500;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) consultó la lista de usuarios.;28/03/2025 14:05;172.18.0.4
+501;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;UPDATE;Gestión de Usuarios;El administrador 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) actualizando usuario con el nonmbre 'Ana Isabel Popo' y correo 'ana.popo@cali.edu.co'.;28/03/2025 14:05;172.18.0.4
+502;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;UPDATE;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) inhabilitó el acceso del usuario con ID 31;28/03/2025 14:05;172.18.0.4
+503;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) consultó la lista de usuarios.;28/03/2025 14:05;172.18.0.4
+504;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;UPDATE;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) habilitó el acceso del usuario con ID 31;28/03/2025 14:05;172.18.0.4
+505;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) consultó la lista de usuarios.;28/03/2025 14:05;172.18.0.4
+506;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;UPDATE;Gestión de Usuarios;El administrador 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) actualizando usuario con el nonmbre 'Claudia Lorena Castaño' y correo 'claudia.castano@cali.edu.co'.;28/03/2025 14:05;172.18.0.4
+507;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;UPDATE;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) inhabilitó el acceso del usuario con ID 55;28/03/2025 14:05;172.18.0.4
+508;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) consultó la lista de usuarios.;28/03/2025 14:05;172.18.0.4
+509;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;UPDATE;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) habilitó el acceso del usuario con ID 55;28/03/2025 14:05;172.18.0.4
+510;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) consultó la lista de usuarios.;28/03/2025 14:05;172.18.0.4
+511;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;UPDATE;Gestión de Usuarios;El administrador 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) actualizando usuario con el nonmbre 'Componente Técnico Nutricional del PAE' y correo 'componente.nutricional@cali.edu.co'.;28/03/2025 14:05;172.18.0.4
+512;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;UPDATE;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) inhabilitó el acceso del usuario con ID 66;28/03/2025 14:05;172.18.0.4
+513;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) consultó la lista de usuarios.;28/03/2025 14:05;172.18.0.4
+514;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;UPDATE;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) habilitó el acceso del usuario con ID 66;28/03/2025 14:05;172.18.0.4
+515;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) consultó la lista de usuarios.;28/03/2025 14:05;172.18.0.4
+516;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;UPDATE;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) inhabilitó el acceso del usuario con ID 86;28/03/2025 14:05;172.18.0.4
+517;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) consultó la lista de usuarios.;28/03/2025 14:05;172.18.0.4
+518;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;UPDATE;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) habilitó el acceso del usuario con ID 86;28/03/2025 14:05;172.18.0.4
+519;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) consultó la lista de usuarios.;28/03/2025 14:05;172.18.0.4
+520;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;UPDATE;Gestión de Usuarios;El administrador 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) actualizando usuario con el nonmbre 'Daniel Quintero' y correo 'qdanif@gmail.com'.;28/03/2025 14:05;172.18.0.4
+521;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;UPDATE;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) inhabilitó el acceso del usuario con ID 36;28/03/2025 14:05;172.18.0.4
+522;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) consultó la lista de usuarios.;28/03/2025 14:05;172.18.0.4
+523;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;UPDATE;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) habilitó el acceso del usuario con ID 36;28/03/2025 14:05;172.18.0.4
+524;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) consultó la lista de usuarios.;28/03/2025 14:05;172.18.0.4
+525;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;UPDATE;Gestión de Usuarios;El administrador 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) actualizando usuario con el nonmbre 'Felipe Guzman' y correo 'felipe.guzman@cali.edu.co'.;28/03/2025 14:05;172.18.0.4
+526;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;UPDATE;Gestión de Usuarios;El administrador 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) actualizando usuario con el nonmbre 'Fran Anibal Mesias' y correo 'fran.mesias@cali.gov.co'.;28/03/2025 14:05;172.18.0.4
+527;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;UPDATE;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) inhabilitó el acceso del usuario con ID 84;28/03/2025 14:05;172.18.0.4
+528;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) consultó la lista de usuarios.;28/03/2025 14:05;172.18.0.4
+529;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;UPDATE;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) habilitó el acceso del usuario con ID 84;28/03/2025 14:05;172.18.0.4
+530;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) consultó la lista de usuarios.;28/03/2025 14:05;172.18.0.4
+531;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;UPDATE;Gestión de Usuarios;El administrador 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) actualizando usuario con el nonmbre 'Yudy Garcia' y correo 'yudy.garcia@cali.edu.co'.;28/03/2025 14:05;172.18.0.4
+532;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;UPDATE;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) inhabilitó el acceso del usuario con ID 34;28/03/2025 14:05;172.18.0.4
+533;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) consultó la lista de usuarios.;28/03/2025 14:05;172.18.0.4
+534;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;UPDATE;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) habilitó el acceso del usuario con ID 34;28/03/2025 14:05;172.18.0.4
+535;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) consultó la lista de usuarios.;28/03/2025 14:05;172.18.0.4
+536;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;UPDATE;Gestión de Usuarios;El administrador 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) actualizando usuario con el nonmbre 'Gabriela Giraldo' y correo 'Gabriela.giraldo@cali.edu.co'.;28/03/2025 14:05;172.18.0.4
+537;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;UPDATE;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) inhabilitó el acceso del usuario con ID 29;28/03/2025 14:05;172.18.0.4
+538;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) consultó la lista de usuarios.;28/03/2025 14:05;172.18.0.4
+539;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;UPDATE;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) habilitó el acceso del usuario con ID 29;28/03/2025 14:05;172.18.0.4
+540;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) consultó la lista de usuarios.;28/03/2025 14:05;172.18.0.4
+541;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;UPDATE;Gestión de Usuarios;El administrador 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) actualizando usuario con el nonmbre 'Johan Stiven Rojas' y correo 'johan.rojas@cali.edu.co'.;28/03/2025 14:05;172.18.0.4
+542;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) consultó la lista de usuarios.;28/03/2025 14:05;172.18.0.4
+543;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;UPDATE;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) inhabilitó el acceso del usuario con ID 46;28/03/2025 14:05;172.18.0.4
+544;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) consultó la lista de usuarios.;28/03/2025 14:05;172.18.0.4
+545;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;UPDATE;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) habilitó el acceso del usuario con ID 46;28/03/2025 14:05;172.18.0.4
+546;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) consultó la lista de usuarios.;28/03/2025 14:05;172.18.0.4
+547;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;UPDATE;Gestión de Usuarios;El administrador 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) actualizando usuario con el nonmbre 'Leidy Garcia' y correo 'leidy.garcia@cali.edu.co'.;28/03/2025 14:05;172.18.0.4
+548;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;UPDATE;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) inhabilitó el acceso del usuario con ID 35;28/03/2025 14:05;172.18.0.4
+549;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) consultó la lista de usuarios.;28/03/2025 14:05;172.18.0.4
+550;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;UPDATE;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) habilitó el acceso del usuario con ID 35;28/03/2025 14:05;172.18.0.4
+551;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) consultó la lista de usuarios.;28/03/2025 14:05;172.18.0.4
+552;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;UPDATE;Gestión de Usuarios;El administrador 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) actualizando usuario con el nonmbre 'Maria Eugenia Arias ' y correo 'maria.arias@cali.edu.co'.;28/03/2025 14:05;172.18.0.4
+553;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;UPDATE;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) inhabilitó el acceso del usuario con ID 37;28/03/2025 14:05;172.18.0.4
+554;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) consultó la lista de usuarios.;28/03/2025 14:05;172.18.0.4
+555;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;UPDATE;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) habilitó el acceso del usuario con ID 37;28/03/2025 14:05;172.18.0.4
+556;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) consultó la lista de usuarios.;28/03/2025 14:05;172.18.0.4
+557;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;UPDATE;Gestión de Usuarios;El administrador 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) actualizando usuario con el nonmbre 'Maria Fernanda Oliveros ' y correo 'maria.oliveros@cali.edu.co'.;28/03/2025 14:05;172.18.0.4
+558;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;UPDATE;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) inhabilitó el acceso del usuario con ID 33;28/03/2025 14:05;172.18.0.4
+559;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) consultó la lista de usuarios.;28/03/2025 14:05;172.18.0.4
+560;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;UPDATE;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) habilitó el acceso del usuario con ID 33;28/03/2025 14:05;172.18.0.4
+561;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) consultó la lista de usuarios.;28/03/2025 14:05;172.18.0.4
+562;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;UPDATE;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) inhabilitó el acceso del usuario con ID 28;28/03/2025 14:05;172.18.0.4
+563;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) consultó la lista de usuarios.;28/03/2025 14:05;172.18.0.4
+564;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;UPDATE;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) habilitó el acceso del usuario con ID 28;28/03/2025 14:05;172.18.0.4
+565;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) consultó la lista de usuarios.;28/03/2025 14:05;172.18.0.4
+566;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;UPDATE;Gestión de Usuarios;El administrador 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) actualizando usuario con el nonmbre 'Melisa Ruiz' y correo 'melisa.ruiz@cali.edu.co'.;28/03/2025 14:05;172.18.0.4
+567;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;UPDATE;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) inhabilitó el acceso del usuario con ID 71;28/03/2025 14:05;172.18.0.4
+568;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) consultó la lista de usuarios.;28/03/2025 14:05;172.18.0.4
+569;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;UPDATE;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) habilitó el acceso del usuario con ID 71;28/03/2025 14:05;172.18.0.4
+570;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) consultó la lista de usuarios.;28/03/2025 14:05;172.18.0.4
+571;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;UPDATE;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) inhabilitó el acceso del usuario con ID 72;28/03/2025 14:05;172.18.0.4
+572;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) consultó la lista de usuarios.;28/03/2025 14:05;172.18.0.4
+573;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;UPDATE;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) habilitó el acceso del usuario con ID 72;28/03/2025 14:05;172.18.0.4
+574;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) consultó la lista de usuarios.;28/03/2025 14:05;172.18.0.4
+575;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;UPDATE;Gestión de Usuarios;El administrador 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) actualizando usuario con el nonmbre 'Sebastian Giraldo' y correo 'sgiraldo@cali.gov.co'.;28/03/2025 14:05;172.18.0.4
+576;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;UPDATE;Gestión de Usuarios;El administrador 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) actualizando usuario con el nonmbre 'Sofia Melendez' y correo 'sofia.melendez@cali.edu.co'.;28/03/2025 14:05;172.18.0.4
+577;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;UPDATE;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) inhabilitó el acceso del usuario con ID 30;28/03/2025 14:05;172.18.0.4
+578;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) consultó la lista de usuarios.;28/03/2025 14:05;172.18.0.4
+579;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;UPDATE;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) habilitó el acceso del usuario con ID 30;28/03/2025 14:05;172.18.0.4
+580;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) consultó la lista de usuarios.;28/03/2025 14:05;172.18.0.4
+581;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;UPDATE;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) inhabilitó el acceso del usuario con ID 38;28/03/2025 14:05;172.18.0.4
+582;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) consultó la lista de usuarios.;28/03/2025 14:05;172.18.0.4
+583;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;UPDATE;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) habilitó el acceso del usuario con ID 38;28/03/2025 14:05;172.18.0.4
+584;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) consultó la lista de usuarios.;28/03/2025 14:05;172.18.0.4
+585;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;UPDATE;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) inhabilitó el acceso del usuario con ID 67;28/03/2025 14:05;172.18.0.4
+586;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) consultó la lista de usuarios.;28/03/2025 14:05;172.18.0.4
+587;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;UPDATE;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) habilitó el acceso del usuario con ID 67;28/03/2025 14:05;172.18.0.4
+588;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) consultó la lista de usuarios.;28/03/2025 14:05;172.18.0.4
+589;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;UPDATE;Gestión de Usuarios;El administrador 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) actualizando usuario con el nonmbre 'Valle Solidario' y correo 'nutricion@vallesolidario.com'.;28/03/2025 14:05;172.18.0.4
+590;1;Ana Carolina Aguado;ana.carolina@cali.edu.co;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 1/3).;28/03/2025 14:05;172.18.0.4
+591;21;Daniel Torres;daniel.torres@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Torres' (daniel.torres@cali.edu.co);28/03/2025 14:05;172.18.0.4
+592;28;Melisa Ruiz;melisa.ruiz@cali.edu.co;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 1/3).;28/03/2025 14:05;172.18.0.4
+593;29;Gabriela Giraldo;Gabriela.giraldo@cali.edu.co;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 1/3).;28/03/2025 14:05;172.18.0.4
+594;30;Sofia Melendez;sofia.melendez@cali.edu.co;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 1/3).;28/03/2025 14:05;172.18.0.4
+595;31;Claudia Lorena Castaño;claudia.castano@cali.edu.co;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 1/3).;28/03/2025 14:05;172.18.0.4
+596;32;Ana Isabel Popo;ana.popo@cali.edu.co;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 1/3).;28/03/2025 14:05;172.18.0.4
+597;33;Maria Fernanda Oliveros ;maria.oliveros@cali.edu.co;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 1/3).;28/03/2025 14:05;172.18.0.4
+598;34;Yudy Garcia;yudy.garcia@cali.edu.co;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 1/3).;28/03/2025 14:05;172.18.0.4
+599;35;Leidy Garcia;leidy.garcia@cali.edu.co;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 1/3).;28/03/2025 14:05;172.18.0.4
+600;36;Felipe Guzman;felipe.guzman@cali.edu.co;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 1/3).;28/03/2025 14:05;172.18.0.4
+601;37;Maria Eugenia Arias ;maria.arias@cali.edu.co;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 1/3).;28/03/2025 14:05;172.18.0.4
+602;38;Sebastian Giraldo;sgiraldo@cali.gov.co;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 1/3).;28/03/2025 14:05;172.18.0.4
+603;46;Johan Stiven Rojas;johan.rojas@cali.edu.co;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 1/3).;28/03/2025 14:05;172.18.0.4
+604;55;Componente Técnico Nutricional del PAE;componente.nutricional@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Componente Técnico Nutricional del PAE' (componente.nutricional@cali.edu.co);28/03/2025 14:05;172.18.0.4
+605;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+606;62;Admin Nutricionista;dk30jim19@gmail.com;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Admin Nutricionista' (dk30jim19@gmail.com);28/03/2025 14:05;172.18.0.4
+607;66;Construyendo;coordinadora.programapae@nrc.com.co;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 1/3).;28/03/2025 14:05;172.18.0.4
+608;67;Valle Solidario;nutricion@vallesolidario.com;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Valle Solidario' (nutricion@vallesolidario.com);28/03/2025 14:05;172.18.0.4
+609;71;Nutriendo;coor.operativocali@fomento.com.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Nutriendo' (coor.operativocali@fomento.com.co);28/03/2025 14:05;172.18.0.4
+610;72;Nutriendo 2;coor.operativocali2@fomento.com.co;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 1/3).;28/03/2025 14:05;172.18.0.4
+611;73;Accion por Colombia;proyectocali@accionporcolombia.com;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Accion por Colombia' (proyectocali@accionporcolombia.com);28/03/2025 14:05;172.18.0.4
+612;84;Fran Anibal Mesias;fran.mesias@cali.gov.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Fran Anibal Mesias' (fran.mesias@cali.gov.co);28/03/2025 14:05;172.18.0.4
+613;86;Daniel Quintero;qdanif@gmail.com;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero' (qdanif@gmail.com);28/03/2025 14:05;172.18.0.4
+614;87;Supervisor Daniel;dan30jim19@gmail.com;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 1/3).;28/03/2025 14:05;172.18.0.4
+615;1;Ana Carolina Aguado;ana.carolina@cali.edu.co;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 2/3).;28/03/2025 14:05;172.18.0.4
+616;21;Daniel Torres;daniel.torres@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Torres' (daniel.torres@cali.edu.co);28/03/2025 14:05;172.18.0.4
+617;28;Melisa Ruiz;melisa.ruiz@cali.edu.co;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 2/3).;28/03/2025 14:05;172.18.0.4
+618;29;Gabriela Giraldo;Gabriela.giraldo@cali.edu.co;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 2/3).;28/03/2025 14:05;172.18.0.4
+619;30;Sofia Melendez;sofia.melendez@cali.edu.co;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 2/3).;28/03/2025 14:05;172.18.0.4
+620;31;Claudia Lorena Castaño;claudia.castano@cali.edu.co;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 2/3).;28/03/2025 14:05;172.18.0.4
+621;32;Ana Isabel Popo;ana.popo@cali.edu.co;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 2/3).;28/03/2025 14:05;172.18.0.4
+622;33;Maria Fernanda Oliveros ;maria.oliveros@cali.edu.co;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 2/3).;28/03/2025 14:05;172.18.0.4
+623;34;Yudy Garcia;yudy.garcia@cali.edu.co;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 2/3).;28/03/2025 14:05;172.18.0.4
+624;35;Leidy Garcia;leidy.garcia@cali.edu.co;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 2/3).;28/03/2025 14:05;172.18.0.4
+625;36;Felipe Guzman;felipe.guzman@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Felipe Guzman' (felipe.guzman@cali.edu.co);28/03/2025 14:05;172.18.0.4
+626;37;Maria Eugenia Arias ;maria.arias@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Maria Eugenia Arias ' (maria.arias@cali.edu.co);28/03/2025 14:05;172.18.0.4
+627;38;Sebastian Giraldo;sgiraldo@cali.gov.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Sebastian Giraldo' (sgiraldo@cali.gov.co);28/03/2025 14:05;172.18.0.4
+628;46;Johan Stiven Rojas;johan.rojas@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Johan Stiven Rojas' (johan.rojas@cali.edu.co);28/03/2025 14:05;172.18.0.4
+629;55;Componente Técnico Nutricional del PAE;componente.nutricional@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Componente Técnico Nutricional del PAE' (componente.nutricional@cali.edu.co);28/03/2025 14:05;172.18.0.4
+630;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+631;62;Admin Nutricionista;dk30jim19@gmail.com;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Admin Nutricionista' (dk30jim19@gmail.com);28/03/2025 14:05;172.18.0.4
+632;66;Construyendo;coordinadora.programapae@nrc.com.co;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 2/3).;28/03/2025 14:05;172.18.0.4
+633;67;Valle Solidario;nutricion@vallesolidario.com;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Valle Solidario' (nutricion@vallesolidario.com);28/03/2025 14:05;172.18.0.4
+634;71;Nutriendo;coor.operativocali@fomento.com.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Nutriendo' (coor.operativocali@fomento.com.co);28/03/2025 14:05;172.18.0.4
+635;72;Nutriendo 2;coor.operativocali2@fomento.com.co;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 2/3).;28/03/2025 14:05;172.18.0.4
+636;73;Accion por Colombia;proyectocali@accionporcolombia.com;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Accion por Colombia' (proyectocali@accionporcolombia.com);28/03/2025 14:05;172.18.0.4
+637;84;Fran Anibal Mesias;fran.mesias@cali.gov.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Fran Anibal Mesias' (fran.mesias@cali.gov.co);28/03/2025 14:05;172.18.0.4
+638;86;Daniel Quintero;qdanif@gmail.com;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero' (qdanif@gmail.com);28/03/2025 14:05;172.18.0.4
+639;87;Supervisor Daniel;dan30jim19@gmail.com;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 2/3).;28/03/2025 14:05;172.18.0.4
+640;1;Ana Carolina Aguado;ana.carolina@cali.edu.co;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 3/3).;28/03/2025 14:05;172.18.0.4
+641;21;Daniel Torres;daniel.torres@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Torres' (daniel.torres@cali.edu.co);28/03/2025 14:05;172.18.0.4
+642;28;Melisa Ruiz;melisa.ruiz@cali.edu.co;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 3/3).;28/03/2025 14:05;172.18.0.4
+643;29;Gabriela Giraldo;Gabriela.giraldo@cali.edu.co;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 3/3).;28/03/2025 14:05;172.18.0.4
+644;30;Sofia Melendez;sofia.melendez@cali.edu.co;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 3/3).;28/03/2025 14:05;172.18.0.4
+645;31;Claudia Lorena Castaño;claudia.castano@cali.edu.co;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 3/3).;28/03/2025 14:05;172.18.0.4
+646;32;Ana Isabel Popo;ana.popo@cali.edu.co;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 3/3).;28/03/2025 14:05;172.18.0.4
+647;33;Maria Fernanda Oliveros ;maria.oliveros@cali.edu.co;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 3/3).;28/03/2025 14:05;172.18.0.4
+648;34;Yudy Garcia;yudy.garcia@cali.edu.co;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 3/3).;28/03/2025 14:05;172.18.0.4
+649;35;Leidy Garcia;leidy.garcia@cali.edu.co;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 3/3).;28/03/2025 14:05;172.18.0.4
+650;36;Felipe Guzman;felipe.guzman@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Felipe Guzman' (felipe.guzman@cali.edu.co);28/03/2025 14:05;172.18.0.4
+651;37;Maria Eugenia Arias ;maria.arias@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Maria Eugenia Arias ' (maria.arias@cali.edu.co);28/03/2025 14:05;172.18.0.4
+652;38;Sebastian Giraldo;sgiraldo@cali.gov.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Sebastian Giraldo' (sgiraldo@cali.gov.co);28/03/2025 14:05;172.18.0.4
+653;46;Johan Stiven Rojas;johan.rojas@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Johan Stiven Rojas' (johan.rojas@cali.edu.co);28/03/2025 14:05;172.18.0.4
+654;55;Componente Técnico Nutricional del PAE;componente.nutricional@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Componente Técnico Nutricional del PAE' (componente.nutricional@cali.edu.co);28/03/2025 14:05;172.18.0.4
+655;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+656;62;Admin Nutricionista;dk30jim19@gmail.com;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Admin Nutricionista' (dk30jim19@gmail.com);28/03/2025 14:05;172.18.0.4
+657;66;Construyendo;coordinadora.programapae@nrc.com.co;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 3/3).;28/03/2025 14:05;172.18.0.4
+658;67;Valle Solidario;nutricion@vallesolidario.com;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Valle Solidario' (nutricion@vallesolidario.com);28/03/2025 14:05;172.18.0.4
+659;71;Nutriendo;coor.operativocali@fomento.com.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Nutriendo' (coor.operativocali@fomento.com.co);28/03/2025 14:05;172.18.0.4
+660;72;Nutriendo 2;coor.operativocali2@fomento.com.co;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 3/3).;28/03/2025 14:05;172.18.0.4
+661;73;Accion por Colombia;proyectocali@accionporcolombia.com;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Accion por Colombia' (proyectocali@accionporcolombia.com);28/03/2025 14:05;172.18.0.4
+662;84;Fran Anibal Mesias;fran.mesias@cali.gov.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Fran Anibal Mesias' (fran.mesias@cali.gov.co);28/03/2025 14:05;172.18.0.4
+663;86;Daniel Quintero;qdanif@gmail.com;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero' (qdanif@gmail.com);28/03/2025 14:05;172.18.0.4
+664;87;Supervisor Daniel;dan30jim19@gmail.com;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 3/3).;28/03/2025 14:05;172.18.0.4
+665;1;Ana Carolina Aguado;ana.carolina@cali.edu.co;CUENTA BLOQUEADA;Gestión de Usuarios;Cuenta bloqueada por intentos fallidos;28/03/2025 14:05;172.18.0.4
+666;21;Daniel Torres;daniel.torres@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Torres' (daniel.torres@cali.edu.co);28/03/2025 14:05;172.18.0.4
+667;28;Melisa Ruiz;melisa.ruiz@cali.edu.co;CUENTA BLOQUEADA;Gestión de Usuarios;Cuenta bloqueada por intentos fallidos;28/03/2025 14:05;172.18.0.4
+668;29;Gabriela Giraldo;Gabriela.giraldo@cali.edu.co;CUENTA BLOQUEADA;Gestión de Usuarios;Cuenta bloqueada por intentos fallidos;28/03/2025 14:05;172.18.0.4
+669;30;Sofia Melendez;sofia.melendez@cali.edu.co;CUENTA BLOQUEADA;Gestión de Usuarios;Cuenta bloqueada por intentos fallidos;28/03/2025 14:05;172.18.0.4
+670;31;Claudia Lorena Castaño;claudia.castano@cali.edu.co;CUENTA BLOQUEADA;Gestión de Usuarios;Cuenta bloqueada por intentos fallidos;28/03/2025 14:05;172.18.0.4
+671;32;Ana Isabel Popo;ana.popo@cali.edu.co;CUENTA BLOQUEADA;Gestión de Usuarios;Cuenta bloqueada por intentos fallidos;28/03/2025 14:05;172.18.0.4
+672;33;Maria Fernanda Oliveros ;maria.oliveros@cali.edu.co;CUENTA BLOQUEADA;Gestión de Usuarios;Cuenta bloqueada por intentos fallidos;28/03/2025 14:05;172.18.0.4
+673;34;Yudy Garcia;yudy.garcia@cali.edu.co;CUENTA BLOQUEADA;Gestión de Usuarios;Cuenta bloqueada por intentos fallidos;28/03/2025 14:05;172.18.0.4
+674;35;Leidy Garcia;leidy.garcia@cali.edu.co;CUENTA BLOQUEADA;Gestión de Usuarios;Cuenta bloqueada por intentos fallidos;28/03/2025 14:05;172.18.0.4
+675;36;Felipe Guzman;felipe.guzman@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Felipe Guzman' (felipe.guzman@cali.edu.co);28/03/2025 14:05;172.18.0.4
+676;37;Maria Eugenia Arias ;maria.arias@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Maria Eugenia Arias ' (maria.arias@cali.edu.co);28/03/2025 14:05;172.18.0.4
+677;38;Sebastian Giraldo;sgiraldo@cali.gov.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Sebastian Giraldo' (sgiraldo@cali.gov.co);28/03/2025 14:05;172.18.0.4
+678;46;Johan Stiven Rojas;johan.rojas@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Johan Stiven Rojas' (johan.rojas@cali.edu.co);28/03/2025 14:05;172.18.0.4
+679;55;Componente Técnico Nutricional del PAE;componente.nutricional@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Componente Técnico Nutricional del PAE' (componente.nutricional@cali.edu.co);28/03/2025 14:05;172.18.0.4
+680;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 14:05;172.18.0.4
+681;62;Admin Nutricionista;dk30jim19@gmail.com;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Admin Nutricionista' (dk30jim19@gmail.com);28/03/2025 14:05;172.18.0.4
+682;66;Construyendo;coordinadora.programapae@nrc.com.co;CUENTA BLOQUEADA;Gestión de Usuarios;Cuenta bloqueada por intentos fallidos;28/03/2025 14:05;172.18.0.4
+683;67;Valle Solidario;nutricion@vallesolidario.com;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Valle Solidario' (nutricion@vallesolidario.com);28/03/2025 14:05;172.18.0.4
+684;71;Nutriendo;coor.operativocali@fomento.com.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Nutriendo' (coor.operativocali@fomento.com.co);28/03/2025 14:05;172.18.0.4
+685;72;Nutriendo 2;coor.operativocali2@fomento.com.co;CUENTA BLOQUEADA;Gestión de Usuarios;Cuenta bloqueada por intentos fallidos;28/03/2025 14:05;172.18.0.4
+686;73;Accion por Colombia;proyectocali@accionporcolombia.com;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Accion por Colombia' (proyectocali@accionporcolombia.com);28/03/2025 14:05;172.18.0.4
+687;84;Fran Anibal Mesias;fran.mesias@cali.gov.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Fran Anibal Mesias' (fran.mesias@cali.gov.co);28/03/2025 14:05;172.18.0.4
+688;86;Daniel Quintero;qdanif@gmail.com;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero' (qdanif@gmail.com);28/03/2025 14:05;172.18.0.4
+689;87;Supervisor Daniel;dan30jim19@gmail.com;CUENTA BLOQUEADA;Gestión de Usuarios;Cuenta bloqueada por intentos fallidos;28/03/2025 14:05;172.18.0.4
+690;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 20:58;172.18.0.5
+691;21;Daniel Torres;daniel.torres@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Torres' (daniel.torres@cali.edu.co);28/03/2025 20:58;172.18.0.5
+692;36;Felipe Guzman;felipe.guzman@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Felipe Guzman' (felipe.guzman@cali.edu.co);28/03/2025 20:58;172.18.0.5
+693;37;Maria Eugenia Arias ;maria.arias@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Maria Eugenia Arias ' (maria.arias@cali.edu.co);28/03/2025 20:58;172.18.0.5
+694;38;Sebastian Giraldo;sgiraldo@cali.gov.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Sebastian Giraldo' (sgiraldo@cali.gov.co);28/03/2025 20:58;172.18.0.5
+695;46;Johan Stiven Rojas;johan.rojas@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Johan Stiven Rojas' (johan.rojas@cali.edu.co);28/03/2025 20:58;172.18.0.5
+696;55;Componente Técnico Nutricional del PAE;componente.nutricional@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Componente Técnico Nutricional del PAE' (componente.nutricional@cali.edu.co);28/03/2025 20:58;172.18.0.5
+697;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 20:58;172.18.0.5
+698;62;Admin Nutricionista;dk30jim19@gmail.com;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Admin Nutricionista' (dk30jim19@gmail.com);28/03/2025 20:58;172.18.0.5
+699;67;Valle Solidario;nutricion@vallesolidario.com;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Valle Solidario' (nutricion@vallesolidario.com);28/03/2025 20:58;172.18.0.5
+700;71;Nutriendo;coor.operativocali@fomento.com.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Nutriendo' (coor.operativocali@fomento.com.co);28/03/2025 20:58;172.18.0.5
+701;73;Accion por Colombia;proyectocali@accionporcolombia.com;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Accion por Colombia' (proyectocali@accionporcolombia.com);28/03/2025 20:58;172.18.0.5
+702;84;Fran Anibal Mesias;fran.mesias@cali.gov.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Fran Anibal Mesias' (fran.mesias@cali.gov.co);28/03/2025 20:58;172.18.0.5
+703;86;Daniel Quintero;qdanif@gmail.com;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero' (qdanif@gmail.com);28/03/2025 20:58;172.18.0.5
+704;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 20:58;172.18.0.5
+705;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) consultó la lista de usuarios.;28/03/2025 20:58;172.18.0.5
+706;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;UPDATE;Gestión de Usuarios;El administrador 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) actualizando usuario con el nonmbre 'Construyendo' y correo 'coordinadora.programapae@nrc.com.co'.;28/03/2025 20:58;172.18.0.5
+707;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;UPDATE;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) inhabilitó el acceso del usuario con ID 66;28/03/2025 20:58;172.18.0.5
+708;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) consultó la lista de usuarios.;28/03/2025 20:58;172.18.0.5
+709;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;UPDATE;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) habilitó el acceso del usuario con ID 66;28/03/2025 20:58;172.18.0.5
+710;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) consultó la lista de usuarios.;28/03/2025 20:58;172.18.0.5
+711;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;UPDATE;Gestión de Usuarios;El administrador 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) actualizando usuario con el nonmbre 'Nutriendo 2' y correo 'coor.operativocali2@fomento.com.co'.;28/03/2025 20:58;172.18.0.5
+712;21;Daniel Torres;daniel.torres@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Torres' (daniel.torres@cali.edu.co);28/03/2025 20:58;172.18.0.5
+713;36;Felipe Guzman;felipe.guzman@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Felipe Guzman' (felipe.guzman@cali.edu.co);28/03/2025 20:58;172.18.0.5
+714;37;Maria Eugenia Arias ;maria.arias@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Maria Eugenia Arias ' (maria.arias@cali.edu.co);28/03/2025 20:58;172.18.0.5
+715;38;Sebastian Giraldo;sgiraldo@cali.gov.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Sebastian Giraldo' (sgiraldo@cali.gov.co);28/03/2025 20:58;172.18.0.5
+716;46;Johan Stiven Rojas;johan.rojas@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Johan Stiven Rojas' (johan.rojas@cali.edu.co);28/03/2025 20:58;172.18.0.5
+717;55;Componente Técnico Nutricional del PAE;componente.nutricional@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Componente Técnico Nutricional del PAE' (componente.nutricional@cali.edu.co);28/03/2025 20:58;172.18.0.5
+718;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 20:58;172.18.0.5
+719;62;Admin Nutricionista;dk30jim19@gmail.com;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Admin Nutricionista' (dk30jim19@gmail.com);28/03/2025 20:58;172.18.0.5
+720;66;Construyendo;coordinadora.programapae@nrc.com.co;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 1/3) con el usaurio Construyendo, correo coordinadora.programapae@nrc.com.co.;28/03/2025 20:58;172.18.0.5
+721;67;Valle Solidario;nutricion@vallesolidario.com;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Valle Solidario' (nutricion@vallesolidario.com);28/03/2025 20:58;172.18.0.5
+722;71;Nutriendo;coor.operativocali@fomento.com.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Nutriendo' (coor.operativocali@fomento.com.co);28/03/2025 20:58;172.18.0.5
+723;73;Accion por Colombia;proyectocali@accionporcolombia.com;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Accion por Colombia' (proyectocali@accionporcolombia.com);28/03/2025 20:58;172.18.0.5
+724;84;Fran Anibal Mesias;fran.mesias@cali.gov.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Fran Anibal Mesias' (fran.mesias@cali.gov.co);28/03/2025 20:58;172.18.0.5
+725;86;Daniel Quintero;qdanif@gmail.com;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero' (qdanif@gmail.com);28/03/2025 20:58;172.18.0.5
+726;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;UPDATE;Gestión de Usuarios;El administrador 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) actualizando usuario con el nonmbre 'Leidy Garcia' y correo 'leidy.garcia@cali.edu.co'.;28/03/2025 20:58;172.18.0.5
+727;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;UPDATE;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) inhabilitó el acceso del usuario con ID 35;28/03/2025 20:58;172.18.0.5
+728;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) consultó la lista de usuarios.;28/03/2025 20:58;172.18.0.5
+729;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;UPDATE;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) habilitó el acceso del usuario con ID 35;28/03/2025 20:58;172.18.0.5
+730;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) consultó la lista de usuarios.;28/03/2025 20:58;172.18.0.5
+731;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;UPDATE;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) inhabilitó el acceso del usuario con ID 66;28/03/2025 20:58;172.18.0.5
+732;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) consultó la lista de usuarios.;28/03/2025 20:58;172.18.0.5
+733;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;UPDATE;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) habilitó el acceso del usuario con ID 66;28/03/2025 20:58;172.18.0.5
+734;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) consultó la lista de usuarios.;28/03/2025 20:58;172.18.0.5
+735;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;UPDATE;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) inhabilitó el acceso del usuario con ID 1;28/03/2025 20:58;172.18.0.5
+736;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) consultó la lista de usuarios.;28/03/2025 20:58;172.18.0.5
+737;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;UPDATE;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) habilitó el acceso del usuario con ID 1;28/03/2025 20:58;172.18.0.5
+738;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) consultó la lista de usuarios.;28/03/2025 20:58;172.18.0.5
+739;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;UPDATE;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) inhabilitó el acceso del usuario con ID 32;28/03/2025 20:58;172.18.0.5
+740;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) consultó la lista de usuarios.;28/03/2025 20:58;172.18.0.5
+741;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;UPDATE;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) habilitó el acceso del usuario con ID 32;28/03/2025 20:58;172.18.0.5
+742;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) consultó la lista de usuarios.;28/03/2025 20:58;172.18.0.5
+743;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;UPDATE;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) inhabilitó el acceso del usuario con ID 31;28/03/2025 20:58;172.18.0.5
+744;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) consultó la lista de usuarios.;28/03/2025 20:58;172.18.0.5
+745;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;UPDATE;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) habilitó el acceso del usuario con ID 31;28/03/2025 20:58;172.18.0.5
+746;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) consultó la lista de usuarios.;28/03/2025 20:58;172.18.0.5
+747;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;UPDATE;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) inhabilitó el acceso del usuario con ID 30;28/03/2025 20:58;172.18.0.5
+748;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) consultó la lista de usuarios.;28/03/2025 20:58;172.18.0.5
+749;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;UPDATE;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) habilitó el acceso del usuario con ID 30;28/03/2025 20:58;172.18.0.5
+750;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) consultó la lista de usuarios.;28/03/2025 20:58;172.18.0.5
+751;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;UPDATE;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) inhabilitó el acceso del usuario con ID 87;28/03/2025 20:58;172.18.0.5
+752;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) consultó la lista de usuarios.;28/03/2025 20:58;172.18.0.5
+753;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;UPDATE;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) habilitó el acceso del usuario con ID 87;28/03/2025 20:58;172.18.0.5
+754;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) consultó la lista de usuarios.;28/03/2025 20:58;172.18.0.5
+755;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;UPDATE;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) inhabilitó el acceso del usuario con ID 34;28/03/2025 20:58;172.18.0.5
+756;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) consultó la lista de usuarios.;28/03/2025 20:58;172.18.0.5
+757;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;UPDATE;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) habilitó el acceso del usuario con ID 34;28/03/2025 20:58;172.18.0.5
+758;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) consultó la lista de usuarios.;28/03/2025 20:58;172.18.0.5
+759;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;UPDATE;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) inhabilitó el acceso del usuario con ID 29;28/03/2025 20:58;172.18.0.5
+760;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) consultó la lista de usuarios.;28/03/2025 20:58;172.18.0.5
+761;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;UPDATE;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) habilitó el acceso del usuario con ID 29;28/03/2025 20:58;172.18.0.5
+762;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) consultó la lista de usuarios.;28/03/2025 20:58;172.18.0.5
+763;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;UPDATE;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) inhabilitó el acceso del usuario con ID 72;28/03/2025 20:58;172.18.0.5
+764;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) consultó la lista de usuarios.;28/03/2025 20:58;172.18.0.5
+765;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;UPDATE;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) habilitó el acceso del usuario con ID 72;28/03/2025 20:58;172.18.0.5
+766;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) consultó la lista de usuarios.;28/03/2025 20:58;172.18.0.5
+767;1;Ana Carolina Aguado;ana.carolina@cali.edu.co;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 1/3) con el usaurio Ana Carolina Aguado, correo ana.carolina@cali.edu.co.;28/03/2025 20:58;172.18.0.5
+768;21;Daniel Torres;daniel.torres@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Torres' (daniel.torres@cali.edu.co);28/03/2025 20:58;172.18.0.5
+769;29;Gabriela Giraldo;Gabriela.giraldo@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Gabriela Giraldo' (Gabriela.giraldo@cali.edu.co);28/03/2025 20:58;172.18.0.5
+770;30;Sofia Melendez;sofia.melendez@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Sofia Melendez' (sofia.melendez@cali.edu.co);28/03/2025 20:58;172.18.0.5
+771;31;Claudia Lorena Castaño;claudia.castano@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Claudia Lorena Castaño' (claudia.castano@cali.edu.co);28/03/2025 20:58;172.18.0.5
+772;32;Ana Isabel Popo;ana.popo@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Ana Isabel Popo' (ana.popo@cali.edu.co);28/03/2025 20:58;172.18.0.5
+773;34;Yudy Garcia;yudy.garcia@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Yudy Garcia' (yudy.garcia@cali.edu.co);28/03/2025 20:58;172.18.0.5
+774;35;Leidy Garcia;leidy.garcia@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Leidy Garcia' (leidy.garcia@cali.edu.co);28/03/2025 20:58;172.18.0.5
+775;36;Felipe Guzman;felipe.guzman@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Felipe Guzman' (felipe.guzman@cali.edu.co);28/03/2025 20:58;172.18.0.5
+776;37;Maria Eugenia Arias ;maria.arias@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Maria Eugenia Arias ' (maria.arias@cali.edu.co);28/03/2025 20:58;172.18.0.5
+777;38;Sebastian Giraldo;sgiraldo@cali.gov.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Sebastian Giraldo' (sgiraldo@cali.gov.co);28/03/2025 20:58;172.18.0.5
+778;46;Johan Stiven Rojas;johan.rojas@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Johan Stiven Rojas' (johan.rojas@cali.edu.co);28/03/2025 20:58;172.18.0.5
+779;55;Componente Técnico Nutricional del PAE;componente.nutricional@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Componente Técnico Nutricional del PAE' (componente.nutricional@cali.edu.co);28/03/2025 20:58;172.18.0.5
+780;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 20:58;172.18.0.5
+781;62;Admin Nutricionista;dk30jim19@gmail.com;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Admin Nutricionista' (dk30jim19@gmail.com);28/03/2025 20:58;172.18.0.5
+782;66;Construyendo;coordinadora.programapae@nrc.com.co;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 1/3) con el usaurio Construyendo, correo coordinadora.programapae@nrc.com.co.;28/03/2025 20:58;172.18.0.5
+783;67;Valle Solidario;nutricion@vallesolidario.com;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Valle Solidario' (nutricion@vallesolidario.com);28/03/2025 20:58;172.18.0.5
+784;71;Nutriendo;coor.operativocali@fomento.com.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Nutriendo' (coor.operativocali@fomento.com.co);28/03/2025 20:58;172.18.0.5
+785;72;Nutriendo 2;coor.operativocali2@fomento.com.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Nutriendo 2' (coor.operativocali2@fomento.com.co);28/03/2025 20:58;172.18.0.5
+786;73;Accion por Colombia;proyectocali@accionporcolombia.com;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Accion por Colombia' (proyectocali@accionporcolombia.com);28/03/2025 20:58;172.18.0.5
+787;84;Fran Anibal Mesias;fran.mesias@cali.gov.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Fran Anibal Mesias' (fran.mesias@cali.gov.co);28/03/2025 20:58;172.18.0.5
+788;86;Daniel Quintero;qdanif@gmail.com;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero' (qdanif@gmail.com);28/03/2025 20:58;172.18.0.5
+789;87;Supervisor Daniel;dan30jim19@gmail.com;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 1/3) con el usaurio Supervisor Daniel, correo dan30jim19@gmail.com.;28/03/2025 20:58;172.18.0.5
+790;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;UPDATE;Gestión de Usuarios;El administrador 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) actualizando usuario con el nonmbre 'Melisa Ruiz' y correo 'melisa.ruiz@cali.edu.co'.;28/03/2025 20:58;172.18.0.5
+791;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;UPDATE;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) inhabilitó el acceso del usuario con ID 28;28/03/2025 20:58;172.18.0.5
+792;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) consultó la lista de usuarios.;28/03/2025 20:58;172.18.0.5
+793;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;UPDATE;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) habilitó el acceso del usuario con ID 28;28/03/2025 20:58;172.18.0.5
+794;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) consultó la lista de usuarios.;28/03/2025 20:58;172.18.0.5
+795;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;UPDATE;Gestión de Usuarios;El administrador 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) actualizando usuario con el nonmbre 'Maria Fernanda Oliveros ' y correo 'maria.oliveros@cali.edu.co'.;28/03/2025 20:58;172.18.0.5
+796;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;UPDATE;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) inhabilitó el acceso del usuario con ID 33;28/03/2025 20:58;172.18.0.5
+797;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) consultó la lista de usuarios.;28/03/2025 20:58;172.18.0.5
+798;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;UPDATE;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) habilitó el acceso del usuario con ID 33;28/03/2025 20:58;172.18.0.5
+799;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;QUERY;Gestión de Usuarios;El usuario 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) consultó la lista de usuarios.;28/03/2025 20:58;172.18.0.5
+800;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;UPDATE;Gestión de Usuarios;El administrador 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) actualizando usuario con el nonmbre 'Construyendo' y correo 'coordinadora.programapae@nrc.com.co'.;28/03/2025 20:58;172.18.0.5
+801;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;UPDATE;Gestión de Usuarios;El administrador 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) actualizando usuario con el nonmbre 'Ana Carolina Aguado' y correo 'ana.carolina@cali.edu.co'.;28/03/2025 20:58;172.18.0.5
+802;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;UPDATE;Gestión de Usuarios;El administrador 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) actualizando usuario con el nonmbre 'Melisa Ruiz' y correo 'melisa.ruiz@cali.edu.co'.;28/03/2025 20:58;172.18.0.5
+803;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;UPDATE;Gestión de Usuarios;El administrador 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) actualizando usuario con el nonmbre 'Supervisor Daniel' y correo 'dan30jim19@gmail.com'.;28/03/2025 20:58;172.18.0.5
+804;1;Ana Carolina Aguado;ana.carolina@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Ana Carolina Aguado' (ana.carolina@cali.edu.co);28/03/2025 20:58;172.18.0.5
+805;21;Daniel Torres;daniel.torres@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Torres' (daniel.torres@cali.edu.co);28/03/2025 20:58;172.18.0.5
+806;28;Melisa Ruiz;melisa.ruiz@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Melisa Ruiz' (melisa.ruiz@cali.edu.co);28/03/2025 20:58;172.18.0.5
+807;29;Gabriela Giraldo;Gabriela.giraldo@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Gabriela Giraldo' (Gabriela.giraldo@cali.edu.co);28/03/2025 20:58;172.18.0.5
+808;30;Sofia Melendez;sofia.melendez@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Sofia Melendez' (sofia.melendez@cali.edu.co);28/03/2025 20:58;172.18.0.5
+809;31;Claudia Lorena Castaño;claudia.castano@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Claudia Lorena Castaño' (claudia.castano@cali.edu.co);28/03/2025 20:58;172.18.0.5
+810;32;Ana Isabel Popo;ana.popo@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Ana Isabel Popo' (ana.popo@cali.edu.co);28/03/2025 20:58;172.18.0.5
+811;33;Maria Fernanda Oliveros ;maria.oliveros@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Maria Fernanda Oliveros ' (maria.oliveros@cali.edu.co);28/03/2025 20:58;172.18.0.5
+812;34;Yudy Garcia;yudy.garcia@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Yudy Garcia' (yudy.garcia@cali.edu.co);28/03/2025 20:58;172.18.0.5
+813;35;Leidy Garcia;leidy.garcia@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Leidy Garcia' (leidy.garcia@cali.edu.co);28/03/2025 20:58;172.18.0.5
+814;36;Felipe Guzman;felipe.guzman@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Felipe Guzman' (felipe.guzman@cali.edu.co);28/03/2025 20:58;172.18.0.5
+815;37;Maria Eugenia Arias ;maria.arias@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Maria Eugenia Arias ' (maria.arias@cali.edu.co);28/03/2025 20:58;172.18.0.5
+816;38;Sebastian Giraldo;sgiraldo@cali.gov.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Sebastian Giraldo' (sgiraldo@cali.gov.co);28/03/2025 20:58;172.18.0.5
+817;46;Johan Stiven Rojas;johan.rojas@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Johan Stiven Rojas' (johan.rojas@cali.edu.co);28/03/2025 20:58;172.18.0.5
+818;55;Componente Técnico Nutricional del PAE;componente.nutricional@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Componente Técnico Nutricional del PAE' (componente.nutricional@cali.edu.co);28/03/2025 20:58;172.18.0.5
+819;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 20:58;172.18.0.5
+820;62;Admin Nutricionista;dk30jim19@gmail.com;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Admin Nutricionista' (dk30jim19@gmail.com);28/03/2025 20:58;172.18.0.5
+821;66;Construyendo;coordinadora.programapae@nrc.com.co;INTENTO FALLIDO;Gestión de Usuarios;Contraseña incorrecta (Intento 2/3) con el usaurio Construyendo, correo coordinadora.programapae@nrc.com.co.;28/03/2025 20:58;172.18.0.5
+822;67;Valle Solidario;nutricion@vallesolidario.com;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Valle Solidario' (nutricion@vallesolidario.com);28/03/2025 20:58;172.18.0.5
+823;71;Nutriendo;coor.operativocali@fomento.com.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Nutriendo' (coor.operativocali@fomento.com.co);28/03/2025 20:58;172.18.0.5
+824;72;Nutriendo 2;coor.operativocali2@fomento.com.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Nutriendo 2' (coor.operativocali2@fomento.com.co);28/03/2025 20:58;172.18.0.5
+825;73;Accion por Colombia;proyectocali@accionporcolombia.com;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Accion por Colombia' (proyectocali@accionporcolombia.com);28/03/2025 20:58;172.18.0.5
+826;84;Fran Anibal Mesias;fran.mesias@cali.gov.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Fran Anibal Mesias' (fran.mesias@cali.gov.co);28/03/2025 20:58;172.18.0.5
+827;86;Daniel Quintero;qdanif@gmail.com;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero' (qdanif@gmail.com);28/03/2025 20:58;172.18.0.5
+828;87;Supervisor Daniel;dan30jim19@gmail.com;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Supervisor Daniel' (dan30jim19@gmail.com);28/03/2025 20:58;172.18.0.5
+829;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;UPDATE;Gestión de Usuarios;El administrador 'Daniel Quintero J.' (daniel.quintero@cali.edu.co) actualizando usuario con el nonmbre 'Construyendo' y correo 'coordinadora.programapae@nrc.com.co'.;28/03/2025 20:58;172.18.0.5
+830;1;Ana Carolina Aguado;ana.carolina@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Ana Carolina Aguado' (ana.carolina@cali.edu.co);28/03/2025 20:58;172.18.0.5
+831;21;Daniel Torres;daniel.torres@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Torres' (daniel.torres@cali.edu.co);28/03/2025 20:58;172.18.0.5
+832;28;Melisa Ruiz;melisa.ruiz@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Melisa Ruiz' (melisa.ruiz@cali.edu.co);28/03/2025 20:58;172.18.0.5
+833;29;Gabriela Giraldo;Gabriela.giraldo@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Gabriela Giraldo' (Gabriela.giraldo@cali.edu.co);28/03/2025 20:58;172.18.0.5
+834;30;Sofia Melendez;sofia.melendez@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Sofia Melendez' (sofia.melendez@cali.edu.co);28/03/2025 20:58;172.18.0.5
+835;31;Claudia Lorena Castaño;claudia.castano@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Claudia Lorena Castaño' (claudia.castano@cali.edu.co);28/03/2025 20:58;172.18.0.5
+836;32;Ana Isabel Popo;ana.popo@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Ana Isabel Popo' (ana.popo@cali.edu.co);28/03/2025 20:58;172.18.0.5
+837;33;Maria Fernanda Oliveros ;maria.oliveros@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Maria Fernanda Oliveros ' (maria.oliveros@cali.edu.co);28/03/2025 20:58;172.18.0.5
+838;34;Yudy Garcia;yudy.garcia@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Yudy Garcia' (yudy.garcia@cali.edu.co);28/03/2025 20:58;172.18.0.5
+839;35;Leidy Garcia;leidy.garcia@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Leidy Garcia' (leidy.garcia@cali.edu.co);28/03/2025 20:58;172.18.0.5
+840;36;Felipe Guzman;felipe.guzman@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Felipe Guzman' (felipe.guzman@cali.edu.co);28/03/2025 20:58;172.18.0.5
+841;37;Maria Eugenia Arias ;maria.arias@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Maria Eugenia Arias ' (maria.arias@cali.edu.co);28/03/2025 20:58;172.18.0.5
+842;38;Sebastian Giraldo;sgiraldo@cali.gov.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Sebastian Giraldo' (sgiraldo@cali.gov.co);28/03/2025 20:58;172.18.0.5
+843;46;Johan Stiven Rojas;johan.rojas@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Johan Stiven Rojas' (johan.rojas@cali.edu.co);28/03/2025 20:58;172.18.0.5
+844;55;Componente Técnico Nutricional del PAE;componente.nutricional@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Componente Técnico Nutricional del PAE' (componente.nutricional@cali.edu.co);28/03/2025 20:58;172.18.0.5
+845;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 20:58;172.18.0.5
+846;62;Admin Nutricionista;dk30jim19@gmail.com;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Admin Nutricionista' (dk30jim19@gmail.com);28/03/2025 20:58;172.18.0.5
+847;66;Construyendo;coordinadora.programapae@nrc.com.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Construyendo' (coordinadora.programapae@nrc.com.co);28/03/2025 20:58;172.18.0.5
+848;67;Valle Solidario;nutricion@vallesolidario.com;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Valle Solidario' (nutricion@vallesolidario.com);28/03/2025 20:58;172.18.0.5
+849;71;Nutriendo;coor.operativocali@fomento.com.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Nutriendo' (coor.operativocali@fomento.com.co);28/03/2025 20:58;172.18.0.5
+850;72;Nutriendo 2;coor.operativocali2@fomento.com.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Nutriendo 2' (coor.operativocali2@fomento.com.co);28/03/2025 20:58;172.18.0.5
+851;73;Accion por Colombia;proyectocali@accionporcolombia.com;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Accion por Colombia' (proyectocali@accionporcolombia.com);28/03/2025 20:58;172.18.0.5
+852;84;Fran Anibal Mesias;fran.mesias@cali.gov.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Fran Anibal Mesias' (fran.mesias@cali.gov.co);28/03/2025 20:58;172.18.0.5
+853;86;Daniel Quintero;qdanif@gmail.com;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero' (qdanif@gmail.com);28/03/2025 20:58;172.18.0.5
+854;87;Supervisor Daniel;dan30jim19@gmail.com;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Supervisor Daniel' (dan30jim19@gmail.com);28/03/2025 20:58;172.18.0.5
+855;1;Ana Carolina Aguado;ana.carolina@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Ana Carolina Aguado' (ana.carolina@cali.edu.co);28/03/2025 20:58;172.18.0.5
+856;21;Daniel Torres;daniel.torres@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Torres' (daniel.torres@cali.edu.co);28/03/2025 20:58;172.18.0.5
+857;28;Melisa Ruiz;melisa.ruiz@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Melisa Ruiz' (melisa.ruiz@cali.edu.co);28/03/2025 20:58;172.18.0.5
+858;29;Gabriela Giraldo;Gabriela.giraldo@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Gabriela Giraldo' (Gabriela.giraldo@cali.edu.co);28/03/2025 20:58;172.18.0.5
+859;30;Sofia Melendez;sofia.melendez@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Sofia Melendez' (sofia.melendez@cali.edu.co);28/03/2025 20:58;172.18.0.5
+860;31;Claudia Lorena Castaño;claudia.castano@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Claudia Lorena Castaño' (claudia.castano@cali.edu.co);28/03/2025 20:58;172.18.0.5
+861;32;Ana Isabel Popo;ana.popo@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Ana Isabel Popo' (ana.popo@cali.edu.co);28/03/2025 20:58;172.18.0.5
+862;1;Ana Carolina Aguado;ana.carolina@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Ana Carolina Aguado' (ana.carolina@cali.edu.co);28/03/2025 20:58;172.18.0.5
+863;21;Daniel Torres;daniel.torres@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Torres' (daniel.torres@cali.edu.co);28/03/2025 20:58;172.18.0.5
+864;28;Melisa Ruiz;melisa.ruiz@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Melisa Ruiz' (melisa.ruiz@cali.edu.co);28/03/2025 20:58;172.18.0.5
+865;29;Gabriela Giraldo;Gabriela.giraldo@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Gabriela Giraldo' (Gabriela.giraldo@cali.edu.co);28/03/2025 20:58;172.18.0.5
+866;30;Sofia Melendez;sofia.melendez@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Sofia Melendez' (sofia.melendez@cali.edu.co);28/03/2025 20:58;172.18.0.5
+867;31;Claudia Lorena Castaño;claudia.castano@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Claudia Lorena Castaño' (claudia.castano@cali.edu.co);28/03/2025 20:58;172.18.0.5
+868;32;Ana Isabel Popo;ana.popo@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Ana Isabel Popo' (ana.popo@cali.edu.co);28/03/2025 20:58;172.18.0.5
+869;33;Maria Fernanda Oliveros ;maria.oliveros@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Maria Fernanda Oliveros ' (maria.oliveros@cali.edu.co);28/03/2025 20:58;172.18.0.5
+870;34;Yudy Garcia;yudy.garcia@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Yudy Garcia' (yudy.garcia@cali.edu.co);28/03/2025 20:58;172.18.0.5
+871;35;Leidy Garcia;leidy.garcia@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Leidy Garcia' (leidy.garcia@cali.edu.co);28/03/2025 20:58;172.18.0.5
+872;36;Felipe Guzman;felipe.guzman@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Felipe Guzman' (felipe.guzman@cali.edu.co);28/03/2025 20:58;172.18.0.5
+873;37;Maria Eugenia Arias ;maria.arias@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Maria Eugenia Arias ' (maria.arias@cali.edu.co);28/03/2025 20:58;172.18.0.5
+874;38;Sebastian Giraldo;sgiraldo@cali.gov.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Sebastian Giraldo' (sgiraldo@cali.gov.co);28/03/2025 20:58;172.18.0.5
+875;46;Johan Stiven Rojas;johan.rojas@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Johan Stiven Rojas' (johan.rojas@cali.edu.co);28/03/2025 20:58;172.18.0.5
+876;55;Componente Técnico Nutricional del PAE;componente.nutricional@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Componente Técnico Nutricional del PAE' (componente.nutricional@cali.edu.co);28/03/2025 20:58;172.18.0.5
+877;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 20:58;172.18.0.5
+878;62;Admin Nutricionista;dk30jim19@gmail.com;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Admin Nutricionista' (dk30jim19@gmail.com);28/03/2025 20:58;172.18.0.5
+879;66;Construyendo;coordinadora.programapae@nrc.com.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Construyendo' (coordinadora.programapae@nrc.com.co);28/03/2025 20:58;172.18.0.5
+880;67;Valle Solidario;nutricion@vallesolidario.com;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Valle Solidario' (nutricion@vallesolidario.com);28/03/2025 20:58;172.18.0.5
+881;71;Nutriendo;coor.operativocali@fomento.com.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Nutriendo' (coor.operativocali@fomento.com.co);28/03/2025 20:58;172.18.0.5
+882;72;Nutriendo 2;coor.operativocali2@fomento.com.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Nutriendo 2' (coor.operativocali2@fomento.com.co);28/03/2025 20:58;172.18.0.5
+883;73;Accion por Colombia;proyectocali@accionporcolombia.com;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Accion por Colombia' (proyectocali@accionporcolombia.com);28/03/2025 20:58;172.18.0.5
+884;84;Fran Anibal Mesias;fran.mesias@cali.gov.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Fran Anibal Mesias' (fran.mesias@cali.gov.co);28/03/2025 20:58;172.18.0.5
+885;86;Daniel Quintero;qdanif@gmail.com;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero' (qdanif@gmail.com);28/03/2025 20:58;172.18.0.5
+886;87;Supervisor Daniel;dan30jim19@gmail.com;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Supervisor Daniel' (dan30jim19@gmail.com);28/03/2025 20:58;172.18.0.5
+887;1;Ana Carolina Aguado;ana.carolina@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Ana Carolina Aguado' (ana.carolina@cali.edu.co);28/03/2025 20:58;172.18.0.5
+888;21;Daniel Torres;daniel.torres@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Torres' (daniel.torres@cali.edu.co);28/03/2025 20:58;172.18.0.5
+889;28;Melisa Ruiz;melisa.ruiz@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Melisa Ruiz' (melisa.ruiz@cali.edu.co);28/03/2025 20:58;172.18.0.5
+890;29;Gabriela Giraldo;Gabriela.giraldo@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Gabriela Giraldo' (Gabriela.giraldo@cali.edu.co);28/03/2025 20:58;172.18.0.5
+891;30;Sofia Melendez;sofia.melendez@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Sofia Melendez' (sofia.melendez@cali.edu.co);28/03/2025 20:58;172.18.0.5
+892;31;Claudia Lorena Castaño;claudia.castano@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Claudia Lorena Castaño' (claudia.castano@cali.edu.co);28/03/2025 20:58;172.18.0.5
+893;32;Ana Isabel Popo;ana.popo@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Ana Isabel Popo' (ana.popo@cali.edu.co);28/03/2025 20:58;172.18.0.5
+894;33;Maria Fernanda Oliveros ;maria.oliveros@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Maria Fernanda Oliveros ' (maria.oliveros@cali.edu.co);28/03/2025 20:58;172.18.0.5
+895;34;Yudy Garcia;yudy.garcia@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Yudy Garcia' (yudy.garcia@cali.edu.co);28/03/2025 20:58;172.18.0.5
+896;35;Leidy Garcia;leidy.garcia@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Leidy Garcia' (leidy.garcia@cali.edu.co);28/03/2025 20:58;172.18.0.5
+897;36;Felipe Guzman;felipe.guzman@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Felipe Guzman' (felipe.guzman@cali.edu.co);28/03/2025 20:58;172.18.0.5
+898;37;Maria Eugenia Arias ;maria.arias@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Maria Eugenia Arias ' (maria.arias@cali.edu.co);28/03/2025 20:58;172.18.0.5
+899;38;Sebastian Giraldo;sgiraldo@cali.gov.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Sebastian Giraldo' (sgiraldo@cali.gov.co);28/03/2025 20:58;172.18.0.5
+900;46;Johan Stiven Rojas;johan.rojas@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Johan Stiven Rojas' (johan.rojas@cali.edu.co);28/03/2025 20:58;172.18.0.5
+901;55;Componente Técnico Nutricional del PAE;componente.nutricional@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Componente Técnico Nutricional del PAE' (componente.nutricional@cali.edu.co);28/03/2025 20:58;172.18.0.5
+902;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 20:58;172.18.0.5
+903;62;Admin Nutricionista;dk30jim19@gmail.com;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Admin Nutricionista' (dk30jim19@gmail.com);28/03/2025 20:58;172.18.0.5
+904;66;Construyendo;coordinadora.programapae@nrc.com.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Construyendo' (coordinadora.programapae@nrc.com.co);28/03/2025 20:58;172.18.0.5
+905;67;Valle Solidario;nutricion@vallesolidario.com;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Valle Solidario' (nutricion@vallesolidario.com);28/03/2025 20:58;172.18.0.5
+906;71;Nutriendo;coor.operativocali@fomento.com.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Nutriendo' (coor.operativocali@fomento.com.co);28/03/2025 20:58;172.18.0.5
+907;72;Nutriendo 2;coor.operativocali2@fomento.com.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Nutriendo 2' (coor.operativocali2@fomento.com.co);28/03/2025 20:58;172.18.0.5
+908;73;Accion por Colombia;proyectocali@accionporcolombia.com;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Accion por Colombia' (proyectocali@accionporcolombia.com);28/03/2025 20:58;172.18.0.5
+909;84;Fran Anibal Mesias;fran.mesias@cali.gov.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Fran Anibal Mesias' (fran.mesias@cali.gov.co);28/03/2025 20:58;172.18.0.5
+910;86;Daniel Quintero;qdanif@gmail.com;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero' (qdanif@gmail.com);28/03/2025 20:58;172.18.0.5
+911;87;Supervisor Daniel;dan30jim19@gmail.com;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Supervisor Daniel' (dan30jim19@gmail.com);28/03/2025 20:58;172.18.0.5
+912;1;Ana Carolina Aguado;ana.carolina@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Ana Carolina Aguado' (ana.carolina@cali.edu.co);28/03/2025 20:58;172.18.0.5
+913;21;Daniel Torres;daniel.torres@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Torres' (daniel.torres@cali.edu.co);28/03/2025 20:58;172.18.0.5
+914;28;Melisa Ruiz;melisa.ruiz@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Melisa Ruiz' (melisa.ruiz@cali.edu.co);28/03/2025 20:58;172.18.0.5
+915;29;Gabriela Giraldo;Gabriela.giraldo@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Gabriela Giraldo' (Gabriela.giraldo@cali.edu.co);28/03/2025 20:58;172.18.0.5
+916;30;Sofia Melendez;sofia.melendez@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Sofia Melendez' (sofia.melendez@cali.edu.co);28/03/2025 20:58;172.18.0.5
+917;31;Claudia Lorena Castaño;claudia.castano@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Claudia Lorena Castaño' (claudia.castano@cali.edu.co);28/03/2025 20:58;172.18.0.5
+918;32;Ana Isabel Popo;ana.popo@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Ana Isabel Popo' (ana.popo@cali.edu.co);28/03/2025 20:58;172.18.0.5
+919;33;Maria Fernanda Oliveros ;maria.oliveros@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Maria Fernanda Oliveros ' (maria.oliveros@cali.edu.co);28/03/2025 20:58;172.18.0.5
+920;34;Yudy Garcia;yudy.garcia@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Yudy Garcia' (yudy.garcia@cali.edu.co);28/03/2025 20:58;172.18.0.5
+921;35;Leidy Garcia;leidy.garcia@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Leidy Garcia' (leidy.garcia@cali.edu.co);28/03/2025 20:58;172.18.0.5
+922;36;Felipe Guzman;felipe.guzman@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Felipe Guzman' (felipe.guzman@cali.edu.co);28/03/2025 20:58;172.18.0.5
+923;37;Maria Eugenia Arias ;maria.arias@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Maria Eugenia Arias ' (maria.arias@cali.edu.co);28/03/2025 20:58;172.18.0.5
+924;38;Sebastian Giraldo;sgiraldo@cali.gov.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Sebastian Giraldo' (sgiraldo@cali.gov.co);28/03/2025 20:58;172.18.0.5
+925;46;Johan Stiven Rojas;johan.rojas@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Johan Stiven Rojas' (johan.rojas@cali.edu.co);28/03/2025 20:58;172.18.0.5
+926;55;Componente Técnico Nutricional del PAE;componente.nutricional@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Componente Técnico Nutricional del PAE' (componente.nutricional@cali.edu.co);28/03/2025 20:58;172.18.0.5
+927;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 20:58;172.18.0.5
+928;62;Admin Nutricionista;dk30jim19@gmail.com;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Admin Nutricionista' (dk30jim19@gmail.com);28/03/2025 20:58;172.18.0.5
+929;66;Construyendo;coordinadora.programapae@nrc.com.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Construyendo' (coordinadora.programapae@nrc.com.co);28/03/2025 20:58;172.18.0.5
+930;67;Valle Solidario;nutricion@vallesolidario.com;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Valle Solidario' (nutricion@vallesolidario.com);28/03/2025 20:58;172.18.0.5
+931;71;Nutriendo;coor.operativocali@fomento.com.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Nutriendo' (coor.operativocali@fomento.com.co);28/03/2025 20:58;172.18.0.5
+932;72;Nutriendo 2;coor.operativocali2@fomento.com.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Nutriendo 2' (coor.operativocali2@fomento.com.co);28/03/2025 20:58;172.18.0.5
+933;73;Accion por Colombia;proyectocali@accionporcolombia.com;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Accion por Colombia' (proyectocali@accionporcolombia.com);28/03/2025 20:58;172.18.0.5
+934;84;Fran Anibal Mesias;fran.mesias@cali.gov.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Fran Anibal Mesias' (fran.mesias@cali.gov.co);28/03/2025 20:58;172.18.0.5
+935;86;Daniel Quintero;qdanif@gmail.com;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero' (qdanif@gmail.com);28/03/2025 20:58;172.18.0.5
+936;87;Supervisor Daniel;dan30jim19@gmail.com;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Supervisor Daniel' (dan30jim19@gmail.com);28/03/2025 20:58;172.18.0.5
+937;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 20:58;172.18.0.5
+938;1;Ana Carolina Aguado;ana.carolina@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Ana Carolina Aguado' (ana.carolina@cali.edu.co);28/03/2025 20:58;172.18.0.5
+939;21;Daniel Torres;daniel.torres@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Torres' (daniel.torres@cali.edu.co);28/03/2025 20:58;172.18.0.5
+940;28;Melisa Ruiz;melisa.ruiz@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Melisa Ruiz' (melisa.ruiz@cali.edu.co);28/03/2025 20:58;172.18.0.5
+941;29;Gabriela Giraldo;Gabriela.giraldo@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Gabriela Giraldo' (Gabriela.giraldo@cali.edu.co);28/03/2025 20:58;172.18.0.5
+942;30;Sofia Melendez;sofia.melendez@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Sofia Melendez' (sofia.melendez@cali.edu.co);28/03/2025 20:58;172.18.0.5
+943;31;Claudia Lorena Castaño;claudia.castano@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Claudia Lorena Castaño' (claudia.castano@cali.edu.co);28/03/2025 20:58;172.18.0.5
+944;32;Ana Isabel Popo;ana.popo@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Ana Isabel Popo' (ana.popo@cali.edu.co);28/03/2025 20:58;172.18.0.5
+945;33;Maria Fernanda Oliveros ;maria.oliveros@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Maria Fernanda Oliveros ' (maria.oliveros@cali.edu.co);28/03/2025 20:58;172.18.0.5
+946;34;Yudy Garcia;yudy.garcia@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Yudy Garcia' (yudy.garcia@cali.edu.co);28/03/2025 20:58;172.18.0.5
+947;35;Leidy Garcia;leidy.garcia@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Leidy Garcia' (leidy.garcia@cali.edu.co);28/03/2025 20:58;172.18.0.5
+948;36;Felipe Guzman;felipe.guzman@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Felipe Guzman' (felipe.guzman@cali.edu.co);28/03/2025 20:58;172.18.0.5
+949;37;Maria Eugenia Arias ;maria.arias@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Maria Eugenia Arias ' (maria.arias@cali.edu.co);28/03/2025 20:58;172.18.0.5
+950;38;Sebastian Giraldo;sgiraldo@cali.gov.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Sebastian Giraldo' (sgiraldo@cali.gov.co);28/03/2025 20:58;172.18.0.5
+951;46;Johan Stiven Rojas;johan.rojas@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Johan Stiven Rojas' (johan.rojas@cali.edu.co);28/03/2025 20:58;172.18.0.5
+952;55;Componente Técnico Nutricional del PAE;componente.nutricional@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Componente Técnico Nutricional del PAE' (componente.nutricional@cali.edu.co);28/03/2025 20:58;172.18.0.5
+953;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 20:58;172.18.0.5
+954;62;Admin Nutricionista;dk30jim19@gmail.com;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Admin Nutricionista' (dk30jim19@gmail.com);28/03/2025 20:58;172.18.0.5
+955;66;Construyendo;coordinadora.programapae@nrc.com.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Construyendo' (coordinadora.programapae@nrc.com.co);28/03/2025 20:58;172.18.0.5
+956;67;Valle Solidario;nutricion@vallesolidario.com;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Valle Solidario' (nutricion@vallesolidario.com);28/03/2025 20:58;172.18.0.5
+957;71;Nutriendo;coor.operativocali@fomento.com.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Nutriendo' (coor.operativocali@fomento.com.co);28/03/2025 20:58;172.18.0.5
+958;72;Nutriendo 2;coor.operativocali2@fomento.com.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Nutriendo 2' (coor.operativocali2@fomento.com.co);28/03/2025 20:58;172.18.0.5
+959;73;Accion por Colombia;proyectocali@accionporcolombia.com;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Accion por Colombia' (proyectocali@accionporcolombia.com);28/03/2025 20:58;172.18.0.5
+960;84;Fran Anibal Mesias;fran.mesias@cali.gov.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Fran Anibal Mesias' (fran.mesias@cali.gov.co);28/03/2025 20:58;172.18.0.5
+961;86;Daniel Quintero;qdanif@gmail.com;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero' (qdanif@gmail.com);28/03/2025 20:58;172.18.0.5
+962;87;Supervisor Daniel;dan30jim19@gmail.com;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Supervisor Daniel' (dan30jim19@gmail.com);28/03/2025 20:58;172.18.0.5
+963;1;Ana Carolina Aguado;ana.carolina@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Ana Carolina Aguado' (ana.carolina@cali.edu.co);28/03/2025 20:58;172.18.0.5
+964;21;Daniel Torres;daniel.torres@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Torres' (daniel.torres@cali.edu.co);28/03/2025 20:58;172.18.0.5
+965;28;Melisa Ruiz;melisa.ruiz@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Melisa Ruiz' (melisa.ruiz@cali.edu.co);28/03/2025 20:58;172.18.0.5
+966;29;Gabriela Giraldo;Gabriela.giraldo@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Gabriela Giraldo' (Gabriela.giraldo@cali.edu.co);28/03/2025 20:58;172.18.0.5
+967;30;Sofia Melendez;sofia.melendez@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Sofia Melendez' (sofia.melendez@cali.edu.co);28/03/2025 20:58;172.18.0.5
+968;31;Claudia Lorena Castaño;claudia.castano@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Claudia Lorena Castaño' (claudia.castano@cali.edu.co);28/03/2025 20:58;172.18.0.5
+969;32;Ana Isabel Popo;ana.popo@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Ana Isabel Popo' (ana.popo@cali.edu.co);28/03/2025 20:58;172.18.0.5
+970;33;Maria Fernanda Oliveros ;maria.oliveros@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Maria Fernanda Oliveros ' (maria.oliveros@cali.edu.co);28/03/2025 20:58;172.18.0.5
+971;34;Yudy Garcia;yudy.garcia@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Yudy Garcia' (yudy.garcia@cali.edu.co);28/03/2025 20:58;172.18.0.5
+972;35;Leidy Garcia;leidy.garcia@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Leidy Garcia' (leidy.garcia@cali.edu.co);28/03/2025 20:58;172.18.0.5
+973;36;Felipe Guzman;felipe.guzman@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Felipe Guzman' (felipe.guzman@cali.edu.co);28/03/2025 20:58;172.18.0.5
+974;37;Maria Eugenia Arias ;maria.arias@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Maria Eugenia Arias ' (maria.arias@cali.edu.co);28/03/2025 20:58;172.18.0.5
+975;38;Sebastian Giraldo;sgiraldo@cali.gov.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Sebastian Giraldo' (sgiraldo@cali.gov.co);28/03/2025 20:58;172.18.0.5
+976;46;Johan Stiven Rojas;johan.rojas@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Johan Stiven Rojas' (johan.rojas@cali.edu.co);28/03/2025 20:58;172.18.0.5
+977;55;Componente Técnico Nutricional del PAE;componente.nutricional@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Componente Técnico Nutricional del PAE' (componente.nutricional@cali.edu.co);28/03/2025 20:58;172.18.0.5
+978;61;Daniel Quintero J.;daniel.quintero@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero J.' (daniel.quintero@cali.edu.co);28/03/2025 20:58;172.18.0.5
+979;62;Admin Nutricionista;dk30jim19@gmail.com;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Admin Nutricionista' (dk30jim19@gmail.com);28/03/2025 20:58;172.18.0.5
+980;66;Construyendo;coordinadora.programapae@nrc.com.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Construyendo' (coordinadora.programapae@nrc.com.co);28/03/2025 20:58;172.18.0.5
+981;67;Valle Solidario;nutricion@vallesolidario.com;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Valle Solidario' (nutricion@vallesolidario.com);28/03/2025 20:58;172.18.0.5
+982;71;Nutriendo;coor.operativocali@fomento.com.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Nutriendo' (coor.operativocali@fomento.com.co);28/03/2025 20:58;172.18.0.5
+983;72;Nutriendo 2;coor.operativocali2@fomento.com.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Nutriendo 2' (coor.operativocali2@fomento.com.co);28/03/2025 20:58;172.18.0.5
+984;73;Accion por Colombia;proyectocali@accionporcolombia.com;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Accion por Colombia' (proyectocali@accionporcolombia.com);28/03/2025 20:58;172.18.0.5
+985;84;Fran Anibal Mesias;fran.mesias@cali.gov.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Fran Anibal Mesias' (fran.mesias@cali.gov.co);28/03/2025 20:58;172.18.0.5
+986;86;Daniel Quintero;qdanif@gmail.com;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Quintero' (qdanif@gmail.com);28/03/2025 20:58;172.18.0.5
+987;87;Supervisor Daniel;dan30jim19@gmail.com;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Supervisor Daniel' (dan30jim19@gmail.com);28/03/2025 20:58;172.18.0.5
+988;1;Ana Carolina Aguado;ana.carolina@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Ana Carolina Aguado' (ana.carolina@cali.edu.co);28/03/2025 20:58;172.18.0.5
+989;21;Daniel Torres;daniel.torres@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Daniel Torres' (daniel.torres@cali.edu.co);28/03/2025 20:58;172.18.0.5
+990;28;Melisa Ruiz;melisa.ruiz@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Melisa Ruiz' (melisa.ruiz@cali.edu.co);28/03/2025 20:58;172.18.0.5
+991;29;Gabriela Giraldo;Gabriela.giraldo@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Gabriela Giraldo' (Gabriela.giraldo@cali.edu.co);28/03/2025 20:58;172.18.0.5
+992;30;Sofia Melendez;sofia.melendez@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Sofia Melendez' (sofia.melendez@cali.edu.co);28/03/2025 20:58;172.18.0.5
+993;31;Claudia Lorena Castaño;claudia.castano@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Claudia Lorena Castaño' (claudia.castano@cali.edu.co);28/03/2025 20:58;172.18.0.5
+994;32;Ana Isabel Popo;ana.popo@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Ana Isabel Popo' (ana.popo@cali.edu.co);28/03/2025 20:58;172.18.0.5
+995;33;Maria Fernanda Oliveros ;maria.oliveros@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Maria Fernanda Oliveros ' (maria.oliveros@cali.edu.co);28/03/2025 20:58;172.18.0.5
+996;34;Yudy Garcia;yudy.garcia@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Yudy Garcia' (yudy.garcia@cali.edu.co);28/03/2025 20:58;172.18.0.5
+997;35;Leidy Garcia;leidy.garcia@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Leidy Garcia' (leidy.garcia@cali.edu.co);28/03/2025 20:58;172.18.0.5
+998;36;Felipe Guzman;felipe.guzman@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Felipe Guzman' (felipe.guzman@cali.edu.co);28/03/2025 20:58;172.18.0.5
+999;37;Maria Eugenia Arias ;maria.arias@cali.edu.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Maria Eugenia Arias ' (maria.arias@cali.edu.co);28/03/2025 20:58;172.18.0.5
+1000;38;Sebastian Giraldo;sgiraldo@cali.gov.co;LOGIN;Gestión de Usuarios;Inicio de sesión exitoso para 'Sebastian Giraldo' (sgiraldo@cali.gov.co);28/03/2025 20:58;172.18.0.5

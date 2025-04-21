@@ -62,7 +62,7 @@ Esto levantará:
 
 Abre el navegador y accede a:
 ```
-http://127.0.0.1:8081/
+http://{IP ADDRESS}:8081/
 ```
 
 Nginx está configurado para servir la aplicación en el puerto 8081 y Puedes configurar su IP.

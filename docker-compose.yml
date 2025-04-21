@@ -1,0 +1,96 @@
+version: "3.8"
+
+services:
+  mysql:
+    image: mysql:latest
+    container_name: mysql-server-dev
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    # ports:
+    #   - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./backups:/backups
+    networks:
+      - mynetwork
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100m"
+        max-file: "3"
+
+  flask:
+    build:
+      context: ./backend
+    container_name: flask-app
+    restart: always
+    depends_on:
+      - mysql
+    environment:
+      DB_HOST: mysql
+      DB_USER: ${MYSQL_USER}
+      DB_PASSWORD: ${MYSQL_PASSWORD}
+      DB_NAME: ${MYSQL_DATABASE}
+    command: gunicorn --bind 0.0.0.0:5000 visitas:visitas --log-level=debug --access-logfile=- --error-logfile=-
+    volumes:
+      - ./backend:/pae
+    networks:
+      - mynetwork
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100m"
+        max-file: "3"
+
+  nginx:
+    image: nginx:latest
+    container_name: nginx-proxy
+    restart: always
+    ports:
+      - "8081:80"
+    depends_on:
+      - flask
+    volumes:
+      - ./backend:/usr/share/nginx/html:ro
+      - ./nginx:/etc/nginx:ro
+    networks:
+      - mynetwork
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100m"
+        max-file: "3"
+
+  backup:
+    image: mysql:latest
+    container_name: mysql-backup
+    restart: always
+    depends_on:
+      - mysql
+    volumes:
+      - ./backups:/backups
+    entrypoint: /bin/bash
+    command: -c "while true; do \
+      echo '📌 Ejecutando respaldo...'; \
+      TIMESTAMP=\$(date +%Y%m%d_%H%M%S); \
+      mysqldump -h mysql -u${MYSQL_USER} -p${MYSQL_PASSWORD} ${MYSQL_DATABASE} > /backups/backup_\${TIMESTAMP}.sql; \
+      echo '✅ Respaldo guardado en /backups/backup_\${TIMESTAMP}.sql'; \
+      sleep 86400; \
+      done"
+    networks:
+      - mynetwork
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "2"
+
+volumes:
+  mysql_data:
+
+networks:
+  mynetwork:

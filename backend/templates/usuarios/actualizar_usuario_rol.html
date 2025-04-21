@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actualizar Perfil</title>
+    <link rel="icon" href="{{ url_for('static', filename='images/Escudo.png') }}" type="image/png">
+    <style>
+        /* Estilos básicos para el formulario */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        button {
+            margin-top: 20px;
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        .message {
+            margin-top: 15px;
+            text-align: center;
+            color: #555;
+        }
+    </style>
+    <script>
+        let timeout;
+    
+        function resetTimer() {
+            clearTimeout(timeout);
+            timeout = setTimeout(() => {
+                alert('Sesión cerrada por inactividad.');
+                window.location.href = "{{ url_for('iniciasesion_bp.login') }}";
+            }, 5 * 60 * 1000); // 5 minutos en milisegundos
+        }
+    
+        // Eventos que reinician el temporizador
+        document.addEventListener("mousemove", resetTimer);
+        document.addEventListener("keypress", resetTimer);
+        document.addEventListener("click", resetTimer);
+        document.addEventListener("scroll", resetTimer);
+        
+        // Iniciar el temporizador cuando cargue la página
+        resetTimer();
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h2>Actualizar Perfil</h2>
+        <form method="POST" action="{{ url_for('iniciasesion_bp.actualizar_usuario_rol') }}">
+            <label for="nombre">Nombre:</label>
+            <input type="text" name="nombre" id="nombre" value="{{ usuario['nombre'] }}" required readonly>
+
+            <label for="correo">Correo:</label>
+            <input type="email" name="correo" id="correo" value="{{ usuario['correo'] }}" required readonly>
+
+            <label for="contrasena">Nueva Contraseña (opcional):</label>
+            <input type="password" name="contrasena" id="contrasena" placeholder="Dejar en blanco si no se actualiza">
+
+            <button type="submit">Guardar Cambios</button>
+        </form>
+        <div class="message">
+            <p>Nota: Si no deseas cambiar tu contraseña, deja el campo vacío.</p>
+        </div>
+    </div>
+</body>
+</html>
